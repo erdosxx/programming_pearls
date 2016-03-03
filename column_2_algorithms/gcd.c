@@ -1,6 +1,4 @@
-
-int euclid_gcd (int a, int b)
-{
+int euclid_gcd (int a, int b) {
   int t;
 
   if (!a) return (b);

@@ -6,8 +6,7 @@
 
 using namespace std;
 
-void checkSort( const vector<string> & a )
-{
+void checkSort( const vector<string> & a ) {
     for( int i = 0; i < a.size( ); ++i )
         if( a[ i ].length( ) != i )
             cout << "Error at " << i << endl;
@@ -16,8 +15,7 @@ void checkSort( const vector<string> & a )
 
 
 template <typename AnyType>
-void permute( vector<AnyType> & a )
-{
+void permute( vector<AnyType> & a ) {
     static UniformRandom r;
 
     for( int j = 1; j < a.size( ); ++j )
@@ -25,16 +23,14 @@ void permute( vector<AnyType> & a )
 }
 
 
-int main( )
-{
+int main( ) {
     const int NUM_ITEMS = 1000;
 
     vector<string> a( NUM_ITEMS );        // This input adds factor of N to running time
     for( int i = 1; i < a.size( ); ++i )  // but we want to test std::move logic
         a[ i ] = a[ i - 1 ] + 'a';
 
-    for( int theSeed = 0; theSeed < 10; ++theSeed )
-    {
+    for( int theSeed = 0; theSeed < 10; ++theSeed ) {
         permute( a );
         insertionSort( a );
         checkSort( a );

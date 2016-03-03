@@ -40,7 +40,7 @@ public:
 };
 
 TEST_F(sortAlgorithmFixture, test_insertion1Sort) {
-    isort1(target_array, size_ary);
+    insertionSort(target_array, size_ary);
     EXPECT_EQ(1, target_array[0]);
     EXPECT_EQ(2, target_array[1]);
     EXPECT_EQ(501, target_array[500]);

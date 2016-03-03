@@ -9,7 +9,7 @@ void swap(int x[], int i, int j) {
     x[j] = t;
 }
 
-void isort1(int x[], int n) {
+void insertionSort(int *x, int n) {
     int i, j;
     for (i = 1; i < n; i++)
         for (j = i; j > 0 && x[j - 1] > x[j]; j--)

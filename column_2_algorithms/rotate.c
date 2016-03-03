@@ -24,8 +24,7 @@ int rotdist, n;
 
 /* Alg 1: Rotate by reversal */
 
-void reverse(int i, int j)
-{
+void reverse(int i, int j) {
   int t;
   while (i < j) {
     t = x[i]; x[i] = x[j]; x[j] = t;
@@ -34,8 +33,7 @@ void reverse(int i, int j)
   }
 }
 
-void revrot(int rotdist, int n)
-{
+void revrot(int rotdist, int n) {
   reverse(0, rotdist-1);
   reverse(rotdist, n-1);
   reverse(0, n-1);
@@ -43,8 +41,7 @@ void revrot(int rotdist, int n)
 
 /* Alg 2: Juggling (dolphin) rotation */
 
-int gcd(int i, int j)
-{
+int gcd(int i, int j) {
   int t;
   while (i != 0) {
     if (j >= i)
@@ -56,8 +53,7 @@ int gcd(int i, int j)
   return j;
 }
 
-void jugglerot(int rotdist, int n)
-{
+void jugglerot(int rotdist, int n) {
   int cycles, i, j, k, t;
   cycles = gcd(rotdist, n);
   printf("gcd(%d, %d) = %d\n",
@@ -83,8 +79,7 @@ void jugglerot(int rotdist, int n)
   }
 }
 
-void jugglerot2(int rotdist, int n)
-{
+void jugglerot2(int rotdist, int n) {
   int cycles, i, j, k, t;
   cycles = gcd(rotdist, n);
   printf("gcd(%d, %d) = %d\n",
@@ -114,19 +109,16 @@ void jugglerot2(int rotdist, int n)
 
 /* Alg 3: Recursive rotate (using gcd structure) */
 
-void swap(int i, int j, int k) /* swap x[i..i+k-1] with x[j..j+k-1] */
-{
+void swap(int i, int j, int k) /* swap x[i..i+k-1] with x[j..j+k-1] */ {
   int t;
   while (k-- > 0) {
     t = x[i]; x[i] = x[j]; x[j] = t;
     i++;
     j++;
   }
-
 }
 
-void gcdrot(int rotdist, int n)
-{
+void gcdrot(int rotdist, int n) {
   int i, j, p;
   if (rotdist == 0 || rotdist == n)
     return;
@@ -150,8 +142,7 @@ void gcdrot(int rotdist, int n)
   swap(p-i, p, i);
 }
 
-int isogcd(int i, int j)
-{
+int isogcd(int i, int j) {
   if (i == 0) return j;
   if (j == 0) return i;
   while (i != j) {
@@ -163,8 +154,7 @@ int isogcd(int i, int j)
   return i;
 }
 
-void testgcd()
-{
+void testgcd() {
   int i,j;
   while (scanf("%d %d", &i, &j) != EOF)
     printf("%d\n", isogcd(i,j) );
@@ -172,38 +162,33 @@ void testgcd()
 
 /* Test all algs */
 
-void slide(int rotdist, int n) /* Benchmark: slide left rotdist (lose 0..rotdist-1) */
-{
+void slide(int rotdist, int n) /* Benchmark: slide left rotdist (lose 0..rotdist-1) */ {
   int i;
 
   for (i = rotdist; i < n; i++)
     x[i-rotdist] = x[i];
 }
 
-void initx()
-{
+void initx() {
   int i;
   for (i = 0; i < n; i++)
     x[i] = i;
 }
 
-void printx()
-{
+void printx() {
   int i;
   for (i = 0; i < n; i++)
     printf(" %d", x[i]);
   printf("\n");
 }
 
-void roterror()
-{
+void roterror() {
   fprintf(stderr, " rotate bug %d %d\n", n, rotdist);
   printx();
   exit (1);
 }
 
-void checkrot()
-{
+void checkrot() {
   int i;
   for (i = 0; i < n-rotdist; i++)
     if (x[i] != i+rotdist)
@@ -213,8 +198,7 @@ void checkrot()
       roterror();
 }
 
-void testrot()
-{
+void testrot() {
   for (n = 1; n <= 20; n++) {
     printf(" testing n=%d\n", n);
     for (rotdist = 0; rotdist <= n; rotdist++) {
@@ -229,8 +213,7 @@ void testrot()
 
 /* Timing */
 
-void timedriver()
-{
+void timedriver() {
   int i, algnum, numtests, start, clicks;
   while (scanf("%d %d %d %d", &algnum, &numtests, &n, &rotdist) != EOF) {
     initx();
@@ -256,8 +239,7 @@ void timedriver()
 
 /* Main */
 
-int main()
-{
+int main() {
   testrot();
   //timedriver();
   return 0;

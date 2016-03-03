@@ -1,12 +1,10 @@
-
 #include <iostream>     // std::cout
 #include <algorithm>    // std::rotate
 #include <vector>       // std::vector
 
 using namespace std;
 
-int main (int argc, const char *argv[])
-{
+int main (int argc, const char *argv[]) {
   std::vector<char> buf;
 
   if (argc < 2) {

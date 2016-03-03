@@ -14,10 +14,8 @@ using namespace std;
  * Simple insertion sort.
  */
 template <typename Comparable>
-void insertionSort( vector<Comparable> & a )
-{
-    for( int p = 1; p < a.size( ); ++p )
-    {
+void insertionSort( vector<Comparable> & a ) {
+    for( int p = 1; p < a.size( ); ++p ) {
         Comparable tmp = std::move( a[ p ] );
 
         int j;
@@ -36,10 +34,8 @@ void insertionSort( vector<Comparable> & a )
  * right is the right-most index of the subarray.
  */
 template <typename Comparable>
-void insertionSort( vector<Comparable> & a, int left, int right )
-{
-    for( int p = left + 1; p <= right; ++p )
-    {
+void insertionSort( vector<Comparable> & a, int left, int right ) {
+    for( int p = left + 1; p <= right; ++p ) {
         Comparable tmp = std::move( a[ p ] );
         int j;
 
@@ -55,11 +51,9 @@ void insertionSort( vector<Comparable> & a, int left, int right )
  * Shellsort, using Shell's (poor) increments.
  */
 template <typename Comparable>
-void shellsort( vector<Comparable> & a )
-{
+void shellsort( vector<Comparable> & a ) {
     for( int gap = a.size( ) / 2; gap > 0; gap /= 2 )
-        for( int i = gap; i < a.size( ); ++i )
-        {
+        for( int i = gap; i < a.size( ); ++i ) {
             Comparable tmp = std::move( a[ i ] );
             int j = i;
 
@@ -73,12 +67,10 @@ void shellsort( vector<Comparable> & a )
  * Standard heapsort.
  */
 template <typename Comparable>
-void heapsort( vector<Comparable> & a )
-{
+void heapsort( vector<Comparable> & a ) {
     for( int i = a.size( ) / 2 - 1; i >= 0; --i )  /* buildHeap */
         percDown( a, i, a.size( ) );
-    for( int j = a.size( ) - 1; j > 0; --j )
-    {
+    for( int j = a.size( ) - 1; j > 0; --j ) {
         std::swap( a[ 0 ], a[ j ] );               /* deleteMax */
         percDown( a, 0, j );
     }
@@ -89,8 +81,7 @@ void heapsort( vector<Comparable> & a )
  * i is the index of an item in the heap.
  * Returns the index of the left child.
  */
-inline int leftChild( int i )
-{
+inline int leftChild( int i ) {
     return 2 * i + 1;
 }
 
@@ -101,13 +92,11 @@ inline int leftChild( int i )
  * n is the logical size of the binary heap.
  */
 template <typename Comparable>
-void percDown( vector<Comparable> & a, int i, int n )
-{
+void percDown( vector<Comparable> & a, int i, int n ) {
     int child;
     Comparable tmp;
 
-    for( tmp = std::move( a[ i ] ); leftChild( i ) < n; i = child )
-    {
+    for( tmp = std::move( a[ i ] ); leftChild( i ) < n; i = child ) {
         child = leftChild( i );
         if( child != n - 1 && a[ child ] < a[ child + 1 ] )
             ++child;
@@ -187,8 +176,7 @@ void merge( vector<Comparable> & a, vector<Comparable> & tmpArray,
  * Order these and hide the pivot.
  */
 template <typename Comparable>
-const Comparable & median3( vector<Comparable> & a, int left, int right )
-{
+const Comparable & median3( vector<Comparable> & a, int left, int right ) {
     int center = ( left + right ) / 2;
 
     if( a[ center ] < a[ left ] )
@@ -211,16 +199,13 @@ const Comparable & median3( vector<Comparable> & a, int left, int right )
  * right is the right-most index of the subarray.
  */
 template <typename Comparable>
-void quicksort( vector<Comparable> & a, int left, int right )
-{
-    if( left + 10 <= right )
-    {
+void quicksort( vector<Comparable> & a, int left, int right ) {
+    if( left + 10 <= right ) {
         const Comparable & pivot = median3( a, left, right );
 
         // Begin partitioning
         int i = left, j = right - 1;
-        for( ; ; )
-        {
+        for( ; ; ) {
             while( a[ ++i ] < pivot ) { }
             while( pivot < a[ --j ] ) { }
             if( i < j )
@@ -242,8 +227,7 @@ void quicksort( vector<Comparable> & a, int left, int right )
  * Quicksort algorithm (driver).
  */
 template <typename Comparable>
-void quicksort( vector<Comparable> & a )
-{
+void quicksort( vector<Comparable> & a ) {
     quicksort( a, 0, a.size( ) - 1 );
 }
 
@@ -258,16 +242,13 @@ void quicksort( vector<Comparable> & a )
  * k is the desired rank (1 is minimum) in the entire array.
  */
 template <typename Comparable>
-void quickSelect( vector<Comparable> & a, int left, int right, int k )
-{
-    if( left + 10 <= right )
-    {
+void quickSelect( vector<Comparable> & a, int left, int right, int k ) {
+    if( left + 10 <= right ) {
         const Comparable & pivot = median3( a, left, right );
 
         // Begin partitioning
         int i = left, j = right - 1;
-        for( ; ; )
-        {
+        for( ; ; ) {
             while( a[ ++i ] < pivot ) { }
             while( pivot < a[ --j ] ) { }
             if( i < j )
@@ -295,25 +276,21 @@ void quickSelect( vector<Comparable> & a, int left, int right, int k )
  * k is the desired rank (1 is minimum) in the entire array.
  */
 template <typename Comparable>
-void quickSelect( vector<Comparable> & a, int k )
-{
+void quickSelect( vector<Comparable> & a, int k ) {
     quickSelect( a, 0, a.size( ) - 1, k );
 }
 
 
 template <typename Comparable>
-void SORT( vector<Comparable> & items )
-{
-    if( items.size( ) > 1 )
-    {
+void SORT( vector<Comparable> & items ) {
+    if( items.size( ) > 1 ) {
         vector<Comparable> smaller;
         vector<Comparable> same;
         vector<Comparable> larger;
 
         auto chosenItem = items[ items.size( ) / 2 ];
 
-        for( auto & i : items )
-        {
+        for( auto & i : items ) {
             if( i < chosenItem )
                 smaller.push_back( std::move( i ) );
             else if( chosenItem < i )
@@ -346,15 +323,13 @@ void SORT( vector<Comparable> & items )
 template <typename RandomIterator, typename Comparator>
 void insertionSort( const RandomIterator & begin,
                     const RandomIterator & end,
-                    Comparator lessThan )
-{
+                    Comparator lessThan ) {
     if( begin == end )
         return;
 
     RandomIterator j;
 
-    for( RandomIterator p = begin+1; p != end; ++p )
-    {
+    for( RandomIterator p = begin+1; p != end; ++p ) {
         auto tmp = std::move( *p );
         for( j = p; j != begin && lessThan( tmp, *( j-1 ) ); --j )
             *j = std::move( *(j-1) );
@@ -367,8 +342,7 @@ void insertionSort( const RandomIterator & begin,
  */
 template <typename RandomIterator>
 void insertionSort( const RandomIterator & begin,
-                    const RandomIterator & end )
-{
+                    const RandomIterator & end ) {
     insertionSort( begin, end, less<decltype(*begin )>{ } );
 }
 

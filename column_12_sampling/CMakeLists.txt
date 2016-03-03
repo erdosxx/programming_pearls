@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.3)
 
-project(column_2_algorithms)
+project(column_12_sampling)
 
 add_definitions(-std=c++11)
 
@@ -9,7 +9,7 @@ add_definitions(-std=c++11)
 #        )
 
 set(SOURCE_FILES
-        gcd.c myrotate-2.cpp rotate.c sign.c squash.c
+        sortedrand.cpp
         )
 
-add_library(column_2_algorithms STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(column_12_sampling STATIC ${SOURCE_FILES} ${HEADER_FILES})

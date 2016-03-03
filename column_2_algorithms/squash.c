@@ -10,8 +10,7 @@
 #include <string.h>
 #define WORDMAX 100
 
-int main()
-{
+int main() {
   char word[WORDMAX], sig[WORDMAX], oldsig[WORDMAX];
   int linenum = 0;
   strcpy(oldsig, "");

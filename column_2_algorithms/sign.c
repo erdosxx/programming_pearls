@@ -10,13 +10,11 @@
 #include <string.h>
 #define WORDMAX 100
 
-int charcomp(const void *x, const void *y)
-{
+int charcomp(const void *x, const void *y) {
   return *(char *)x - *(char *)y;
 }
 
-int main()
-{
+int main() {
   char word[WORDMAX], sig[WORDMAX];
   while (scanf("%s", word) != EOF) {
     strcpy(sig, word);
