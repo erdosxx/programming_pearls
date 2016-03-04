@@ -4,8 +4,9 @@ project(column_11_sorting)
 
 add_definitions(-std=c++11)
 
-#set(HEADER_FILES
-#        )
+set(HEADER_FILES
+        sort.h
+        )
 
 set(SOURCE_FILES
         sort.cpp

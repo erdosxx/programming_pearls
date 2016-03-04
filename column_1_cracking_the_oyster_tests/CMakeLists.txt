@@ -4,12 +4,10 @@ project(column_1_cracking_the_oyster_tests)
 
 add_definitions(-std=c++11)
 
-#set(HEADER_FILES
-#        sort.h
-#        )
+include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
-set(SOURCE_FILES
-        testsort.cpp
-        )
+add_executable(runBitSortTests
+        bit_sort_test.cpp)
 
-add_library(column_1_cracking_the_oyster_tests STATIC ${SOURCE_FILES} ${HEADER_FILES})
+target_link_libraries(runBitSortTests gtest gtest_main)
+#target_link_libraries(runBitSortTests column_1_cracking_the_oyster)
