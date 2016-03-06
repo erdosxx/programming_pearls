@@ -57,7 +57,7 @@ void jugglerot(int rotdist, int n) {
   int cycles, i, j, k, t;
   cycles = gcd(rotdist, n);
   printf("gcd(%d, %d) = %d\n",
-      rotdist, n, cycles);
+         rotdist, n, cycles);
 
   for (i = 0; i < cycles; i++) {
     /* move i-th values of blocks */
@@ -83,7 +83,7 @@ void jugglerot2(int rotdist, int n) {
   int cycles, i, j, k, t;
   cycles = gcd(rotdist, n);
   printf("gcd(%d, %d) = %d\n",
-      rotdist, n, cycles);
+         rotdist, n, cycles);
   for (i = 0; i < cycles; i++) {
     /* move i-th values of blocks */
     t = x[i];
@@ -148,7 +148,7 @@ int isogcd(int i, int j) {
   while (i != j) {
     if (i > j)
       i -= j;
-    else 
+    else
       j -= i;
   }
   return i;
@@ -232,8 +232,8 @@ void timedriver() {
     }
     clicks = clock() - start;
     printf("%d\t%d\t%d\t%d\t%d\t%g\n",
-        algnum, numtests, n, rotdist, clicks,
-        1e9*clicks/((float) CLOCKS_PER_SEC*n*numtests));
+           algnum, numtests, n, rotdist, clicks,
+           1e9*clicks/((float) CLOCKS_PER_SEC*n*numtests));
   }
 }
 

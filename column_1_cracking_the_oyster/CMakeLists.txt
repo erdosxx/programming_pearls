@@ -5,8 +5,9 @@ project(column_1_cracking_the_oyster)
 add_definitions(-std=c++11)
 
 set(HEADER_FILES
-#        sort_weiss.h
+        sort_weiss.h
         column1.h
+        UniformRandom.h
         )
 
 #set(SOURCE_FILES

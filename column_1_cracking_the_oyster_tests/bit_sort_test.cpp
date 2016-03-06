@@ -106,12 +106,54 @@ TEST_F(bitSortAlgorithmFixture, test_tstFunction) {
 }
 
 TEST_F(bitSortAlgorithmFixture, test_bitCountSort) {
-    EXPECT_EQ(9999999, target_array[0]);
-    EXPECT_EQ(9999998, target_array[1]);
-    EXPECT_EQ(9999997, target_array[2]);
     count_bit_sort(target_array,size_ary,max_val);
     EXPECT_EQ(9000000, target_array[0]);
     EXPECT_EQ(9000001, target_array[1]);
+    EXPECT_EQ(9999998, target_array[999998]);
+    EXPECT_EQ(9999999, target_array[999999]);
+}
+
+TEST_F(bitSortAlgorithmFixture, test_bitCountClass) {
+    bitCount bitc(max_val);
+    bitc.init();
+    //bitc.bit_init();
+    bitc.sort(target_array, size_ary);
+
+    EXPECT_EQ(9000000, target_array[0]);
+    EXPECT_EQ(9000001, target_array[1]);
+    EXPECT_EQ(9100000, target_array[100000]);
+    EXPECT_EQ(9999998, target_array[999998]);
+    EXPECT_EQ(9999999, target_array[999999]);
+}
+
+TEST_F(bitSortAlgorithmFixture, test_bitCountSparseSetClass) {
+    bitCountSparseSet bitcss(max_val);
+    bitcss.init();
+    bitcss.sort(target_array, size_ary);
+
+    EXPECT_EQ(9000000, target_array[0]);
+    EXPECT_EQ(9000001, target_array[1]);
+    EXPECT_EQ(9100000, target_array[100000]);
+    EXPECT_EQ(9999998, target_array[999998]);
+    EXPECT_EQ(9999999, target_array[999999]);
+}
+
+TEST_F(bitSortAlgorithmFixture, test_default_quick_sort) {
+    sort_by_default_quick_sort(target_array, size_ary);
+
+    EXPECT_EQ(9000000, target_array[0]);
+    EXPECT_EQ(9000001, target_array[1]);
+    EXPECT_EQ(9100000, target_array[100000]);
+    EXPECT_EQ(9999998, target_array[999998]);
+    EXPECT_EQ(9999999, target_array[999999]);
+}
+
+TEST_F(bitSortAlgorithmFixture, test_set_adt_for_sort) {
+    sort_by_set_adt(target_array, size_ary);
+
+    EXPECT_EQ(9000000, target_array[0]);
+    EXPECT_EQ(9000001, target_array[1]);
+    EXPECT_EQ(9100000, target_array[100000]);
     EXPECT_EQ(9999998, target_array[999998]);
     EXPECT_EQ(9999999, target_array[999999]);
 }
