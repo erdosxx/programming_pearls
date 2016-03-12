@@ -2,6 +2,12 @@
 #define PROGRAMMING_PEARLS_COLUMN2_H
 
 #include <stdio.h>
+#include <vector>
+#include <stdlib.h>
+
+// see: http://www.drdobbs.com/go-parallel/article/print?articleId=232900395&siteSectionName=
+//      http://homes.soic.indiana.edu/classes/fall2014/csci/c343-jsiek/lectures/lecture2.txt
+//      http://arxiv.org/pdf/1406.5453.pdf
 
 /* Alg 1: Rotate by reversal */
 
@@ -37,13 +43,10 @@ int gcd(int i, int j) {
 void jugglerot(int* x, int rotdist, int n) {
     int cycles, i, j, k, t;
     cycles = gcd(rotdist, n);
-//    printf("gcd(%d, %d) = %d\n",
-//           rotdist, n, cycles);
 
     for (i = 0; i < cycles; i++) {
         /* move i-th values of blocks */
         t = x[i];
-//        printf("t   = [%d]\n", i);
         j = i;
         for (;;) {
             k = j + rotdist;
@@ -51,11 +54,11 @@ void jugglerot(int* x, int rotdist, int n) {
                 k -= n;
             if (k == i)
                 break;
-//            printf("[%d] = [%d]\n", j, k);
+
             x[j] = x[k];
             j = k;
         }
-//        printf("[%d] = t\n", j);
+
         x[j] = t;
     }
 }
@@ -63,27 +66,21 @@ void jugglerot(int* x, int rotdist, int n) {
 void jugglerot2(int* x, int rotdist, int n) {
     int cycles, i, j, k, t;
     cycles = gcd(rotdist, n);
-//    printf("gcd(%d, %d) = %d\n",
-//           rotdist, n, cycles);
+
     for (i = 0; i < cycles; i++) {
         /* move i-th values of blocks */
         t = x[i];
-//        printf("t   = [%d]\n", i);
         j = i;
         for (;;) {
-            /* Replace with mod below
-               k = j + rotdist;
-               if (k >= n)
-               k -= n;
-               */
             k = (j + rotdist) % n;
+
             if (k == i)
                 break;
-//            printf("[%d] = [%d]\n", j, k);
+
             x[j] = x[k];
             j = k;
         }
-//        printf("[%d] = t\n", j);
+
         x[j] = t;
     }
 }
@@ -99,28 +96,33 @@ void swap(int* x, int i, int j, int k) /* swap x[i..i+k-1] with x[j..j+k-1] */ {
     }
 }
 
-void gcdrot(int* x, int rotdist, int n) {
-    int i, j, p;
+void gcdrot(int* x, const int & rotdist, const int & n) {
+    int i, j;
     if (rotdist == 0 || rotdist == n)
         return;
-    i = p = rotdist;
-    j = n - p;
+    i = rotdist;
+    j = n - rotdist;
     while (i != j) {
         /* invariant:
-           x[0  ..p-i  ] is in final position
-           x[p-i..p-1  ] = a (to be swapped with b)
-           x[p  ..p+j-1] = b (to be swapped with a)
-           x[p+j..n-1  ] in final position
+           x[0  ..rotdist-i-1  ] is in final position
+           x[rotdist-i..rotdist-1  ] = a (to be swapped with b)   # = j
+           x[rotdist  ..rotdist+j-1] = b (to be swapped with a)   # = j
+           x[rotdist+j..n-1  ] in final position
            */
         if (i > j) {
-            swap(x, p-i, p, j);
+            swap(x, rotdist-i, rotdist, j);
             i -= j;
         } else {
-            swap(x, p-i, p+j-i, i);
+            swap(x, rotdist-i, rotdist+j-i, i);
             j -= i;
         }
     }
-    swap(x, p-i, p, i);
+    swap(x, rotdist-i, rotdist, i);
+}
+
+template <typename datatype>
+void std_rot(std::vector<datatype> & target_array, const int & rotdist) {
+    std::rotate(target_array.begin(), target_array.begin()+rotdist, target_array.end());
 }
 
 int isogcd(int i, int j) {
@@ -135,4 +137,12 @@ int isogcd(int i, int j) {
     return i;
 }
 
+int charcomp(const void *x, const void *y) {
+  return *(char *)x - *(char *)y;
+}
+
+void getsign(char* word, char* sig) {
+  strcpy(sig, word);
+  qsort(sig, strlen(sig), sizeof(char), charcomp);
+}
 #endif //PROGRAMMING_PEARLS_COLUMN2_H
