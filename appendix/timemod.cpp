@@ -61,6 +61,7 @@ int maxfunc(int a, int b) {
 int main() {
 	int i, j, k;
 	float fi, fj, fk;
+    double dfi, dfj, dfk;
 	int t, ex, timesum, start, globalstart;
 	double nans;
 	globalstart = clock();
@@ -79,12 +80,21 @@ int main() {
 	M(k = i & j);
 	M(k = i | j);
 	M(k = i << j);
+
 	T("Floating Point Arithmetic");
 	M(fj=j;);
 	M(fj=j; fk = fi + fj;);
 	M(fj=j; fk = fi - fj;);
 	M(fj=j; fk = fi * fj;);
 	M(fj=j; fk = fi / fj;);
+
+ 	T("Double Floating Point Arithmetic");
+	M(dfj=j;);
+	M(dfj=j; dfk = dfi + dfj;);
+	M(dfj=j; dfk = dfi - dfj;);
+	M(dfj=j; dfk = dfi * dfj;);
+	M(dfj=j; dfk = dfi / dfj;);
+
 	T("Array Operations");
 	M(k = i + j);
 	M(k = x[i] + j);

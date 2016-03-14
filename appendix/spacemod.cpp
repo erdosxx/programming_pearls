@@ -50,6 +50,7 @@ int main() {
   cout << "\nsizeof(char)="     << sizeof(char);
   cout << "  sizeof(short)="    << sizeof(short);
   cout << "  sizeof(int)="      << sizeof(int);
+  cout << "  sizeof(bool)="      << sizeof(bool);
   cout << "\nsizeof(float)="    << sizeof(float);
   cout << "  sizeof(structc *)=" << sizeof(structc *);
   cout << "  sizeof(long)="     << sizeof(long);
