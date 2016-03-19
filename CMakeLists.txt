@@ -10,6 +10,7 @@ include_directories(
         column_9_code_tuning
         column_11_sorting
         column_12_sampling
+        column_14_heaps
         )
 
 add_subdirectory(lib/googletest)
@@ -25,9 +26,12 @@ add_subdirectory(column_9_code_tuning_tests)
 add_subdirectory(column_11_sorting)
 add_subdirectory(column_11_sorting_tests)
 add_subdirectory(column_12_sampling)
+add_subdirectory(column_14_heaps)
+add_subdirectory(column_14_heaps_tests)
 
 add_subdirectory(appendix)
 
 target_link_libraries(column_1_cracking_the_oyster)
 target_link_libraries(column_2_algorithms)
 target_link_libraries(column_11_sorting)
+target_link_libraries(column_14_heaps)

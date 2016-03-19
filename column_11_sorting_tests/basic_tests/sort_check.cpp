@@ -113,3 +113,78 @@ TEST_F(sortAlgorithmFixture, test_quick4Sort) {
     EXPECT_EQ(10000, target_array[9999]);
     EXPECT_EQ(100000, target_array[99999]);
 }
+
+TEST_F(sortAlgorithmFixture, test_select1) {
+    select1(target_array, 0, size_ary-1, 1);
+    EXPECT_EQ(1, target_array[0]);
+    select1(target_array, 0, size_ary-1, 500);
+    EXPECT_EQ(501, target_array[500]);
+    select1(target_array, 0, size_ary-1, 9999);
+    EXPECT_EQ(10000, target_array[9999]);
+}
+
+TEST_F(sortAlgorithmFixture, test_hsort1) {
+    hsort1(target_array, size_ary);
+    EXPECT_EQ(1, target_array[0]);
+    EXPECT_EQ(2, target_array[1]);
+    EXPECT_EQ(501, target_array[500]);
+    EXPECT_EQ(701, target_array[700]);
+    EXPECT_EQ(999, target_array[998]);
+    EXPECT_EQ(10000, target_array[9999]);
+    EXPECT_EQ(100000, target_array[99999]);
+}
+
+TEST_F(sortAlgorithmFixture, test_hsort2) {
+    hsort2(target_array, size_ary);
+    EXPECT_EQ(1, target_array[0]);
+    EXPECT_EQ(2, target_array[1]);
+    EXPECT_EQ(501, target_array[500]);
+    EXPECT_EQ(701, target_array[700]);
+    EXPECT_EQ(999, target_array[998]);
+    EXPECT_EQ(10000, target_array[9999]);
+    EXPECT_EQ(100000, target_array[99999]);
+}
+
+TEST_F(sortAlgorithmFixture, test_hsort3) {
+    hsort3(target_array, size_ary);
+    EXPECT_EQ(1, target_array[0]);
+    EXPECT_EQ(2, target_array[1]);
+    EXPECT_EQ(501, target_array[500]);
+    EXPECT_EQ(701, target_array[700]);
+    EXPECT_EQ(999, target_array[998]);
+    EXPECT_EQ(10000, target_array[9999]);
+    EXPECT_EQ(100000, target_array[99999]);
+}
+
+TEST_F(sortAlgorithmFixture, test_hsort4) {
+    hsort4(target_array, size_ary);
+    EXPECT_EQ(1, target_array[0]);
+    EXPECT_EQ(2, target_array[1]);
+    EXPECT_EQ(501, target_array[500]);
+    EXPECT_EQ(701, target_array[700]);
+    EXPECT_EQ(999, target_array[998]);
+    EXPECT_EQ(10000, target_array[9999]);
+    EXPECT_EQ(100000, target_array[99999]);
+}
+
+TEST_F(sortAlgorithmFixture, test_selsort) {
+    selsort(target_array, size_ary);
+    EXPECT_EQ(1, target_array[0]);
+    EXPECT_EQ(2, target_array[1]);
+    EXPECT_EQ(501, target_array[500]);
+    EXPECT_EQ(701, target_array[700]);
+    EXPECT_EQ(999, target_array[998]);
+    EXPECT_EQ(10000, target_array[9999]);
+    EXPECT_EQ(100000, target_array[99999]);
+}
+
+TEST_F(sortAlgorithmFixture, test_shellsort) {
+    shellsort(target_array, size_ary);
+    EXPECT_EQ(1, target_array[0]);
+    EXPECT_EQ(2, target_array[1]);
+    EXPECT_EQ(501, target_array[500]);
+    EXPECT_EQ(701, target_array[700]);
+    EXPECT_EQ(999, target_array[998]);
+    EXPECT_EQ(10000, target_array[9999]);
+    EXPECT_EQ(100000, target_array[99999]);
+}
