@@ -8,8 +8,8 @@ set(HEADER_FILES
         sort.h
         )
 
-set(SOURCE_FILES
-        sort.cpp
-        )
+#set(SOURCE_FILES
+#        sort.cpp
+#        )
 
 add_library(column_11_sorting STATIC ${SOURCE_FILES} ${HEADER_FILES})
