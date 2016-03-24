@@ -1,7 +1,9 @@
-/* Copyright (C) 1999 Lucent Technologies */
-/* From 'Programming Pearls' by Jon Bentley */
+//
+// Created by In Soo Oh on 3/21/16.
+//
 
-/* sets.cpp -- exercise set implementations on random numbers */
+#ifndef PROGRAMMING_PEARLS_COLUMN13_H
+#define PROGRAMMING_PEARLS_COLUMN13_H
 
 #include <iostream>
 #include <set>
@@ -181,8 +183,6 @@ public:
 	}
 };
 
-// Change from new per node to one new at init
-// Factor of 2.5 on VC 5.0, 6% on SGI CC
 class IntSetList2 {
 private:
 	int	n;
@@ -224,7 +224,6 @@ public:
 			v[j++] = p->val;
 	}
 };
-
 
 class IntSetBST {
 private:
@@ -484,66 +483,4 @@ public:
 	}
 };
 
-// Drivers for the set data structures
-
-int bigrand() {
-    return RAND_MAX*rand() + rand();
-}
-
-int randint(int l, int u) {
-    return l + bigrand() % (u-l+1);
-}
-
-void gensets(int m, int maxval) {
-    int *v = new int[m];
-	IntSetList S(m, maxval);
-
-	while (S.size() < m)
-		S.insert(bigrand() % maxval);
-	S.report(v);
-//	for (int i = 0; i < m; i++)
-	for (int i = 0; i < 2; i++)
-		cout << v[i] << "\n";
-}
-
-void genfloyd(int m, int maxval) {
-    int *v = new int[m];
-	IntSetSTL S(m, maxval);
-
-	for (int j = maxval-m; j < maxval; j++) {
-		int t = bigrand() % (j+1);
-		int oldsize = S.size();
-		S.insert(t);
-		if (S.size() == oldsize) // t already in S
-			S.insert(j);
-	}
-
-	S.report(v);
-	for (int i = 0; i < m; i++)
-		cout << v[i] << "\n";
-}
-
-void memaccesstest(int m, int n) {
-    IntSetList S(m, n);	// change among Arr, List and List2
-	for (int i = 0; i < m; i++)
-		S.insert(i);
-}
-
-void overheadonly(int m, int n) {
-    int i, *v = new int[m];
-
-	for (i = 0; i < m; i++)
-		v[i] = bigrand() % n;
-
-	for (i = 0; i < m; i++)
-		cout << v[i] << "\n";
-}
-
-int main(int argc, char *argv[]) {
-    int m = atoi(argv[1]);
-	int maxval = atoi(argv[2]);
-	gensets(m, maxval);
-	// overheadonly(m, n);
-	// memaccesstest(m, n);
-	return 0;
-}
+#endif //PROGRAMMING_PEARLS_COLUMN13_H

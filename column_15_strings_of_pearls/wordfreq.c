@@ -48,6 +48,9 @@ char *freechar;
 char *smalloc(int n) {
     if (charsleft < n) {
 		freechar = malloc(n+CHARGROUP);
+		// following code could be wrong.
+        // So I correct it as following.
+        // charsleft += n+CHARGROUP
 		charsleft = n+CHARGROUP;
 	}
 
@@ -66,6 +69,7 @@ void incword(char *s) {
 			return;
 		}
 
+    // Add new entry in front of hash table.
 	p = nmalloc();
 	p->count = 1;
 	p->word = smalloc(strlen(s)+1);

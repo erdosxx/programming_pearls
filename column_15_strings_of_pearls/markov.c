@@ -10,7 +10,7 @@
 char inputchars[4300000];
 char *word[800000];
 int nword = 0;
-int k = 2;
+int k = 2;  //order-k
 
 int wordncmp(char *p, char* q) {
 	int n = k;

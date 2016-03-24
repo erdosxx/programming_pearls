@@ -15,14 +15,14 @@
 int nodesleft = 0;
 char *freenode;
 
-void *pmalloc(int size) {
+void* pmalloc(int size) {
 	void *p;
 
 	if (size != NODESIZE)
 		return malloc(size);
 
 	if (nodesleft == 0) {
-		freenode = malloc(NODEGROUP*NODESIZE);
+		freenode = malloc(NODEGROUP * NODESIZE);
 		nodesleft = NODEGROUP;
 	}
 
@@ -44,8 +44,10 @@ void initbins(int maxelms, int pmaxval) {
     int i;
 	bins = maxelms;
 	maxval = pmaxval;
-	bin = pmalloc(bins*sizeof(struct node *));
+
+	bin = pmalloc(bins * sizeof(struct node *));
 	sentinel = pmalloc(sizeof(struct node));
+
 	sentinel->val = maxval;
 
 	for (i = 0; i < bins; i++)
@@ -69,7 +71,6 @@ struct node *rinsert(struct node *p, int t) {
 
 void insert(int t) {
     int i;
-	i = t / (1 + maxval/bins);
 	i = t / (1 + maxval/bins);
 	bin[i] = rinsert(bin[i], t);
 }
