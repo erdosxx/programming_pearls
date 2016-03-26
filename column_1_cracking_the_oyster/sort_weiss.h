@@ -16,15 +16,14 @@ using namespace std;
 template <typename Comparable>
 void insertionSort( vector<Comparable> & a ) {
     for( int p = 1; p < a.size( ); ++p ) {
-        Comparable tmp = std::move( a[ p ] );
+        Comparable tmp = std::move( a[p] );
 
         int j;
-        for( j = p; j > 0 && tmp < a[ j - 1 ]; --j )
-            a[ j ] = std::move( a[ j - 1 ] );
-        a[ j ] = std::move( tmp );
+        for( j = p; j > 0 && tmp < a[j - 1]; --j )
+            a[j] = std::move( a[j - 1] );
+        a[j] = std::move( tmp );
     }
 }
-
 
 /**
  * Internal insertion sort routine for subarrays
@@ -36,16 +35,14 @@ void insertionSort( vector<Comparable> & a ) {
 template <typename Comparable>
 void insertionSort( vector<Comparable> & a, int left, int right ) {
     for( int p = left + 1; p <= right; ++p ) {
-        Comparable tmp = std::move( a[ p ] );
+        Comparable tmp = std::move( a[p] );
         int j;
 
         for( j = p; j > left && tmp < a[ j - 1 ]; --j )
-            a[ j ] = std::move( a[ j - 1 ] );
-        a[ j ] = std::move( tmp );
+            a[j] = std::move( a[j - 1] );
+        a[j] = std::move( tmp );
     }
 }
-
-
 
 /**
  * Shellsort, using Shell's (poor) increments.
@@ -54,25 +51,31 @@ template <typename Comparable>
 void shellsort( vector<Comparable> & a ) {
     for( int gap = a.size( ) / 2; gap > 0; gap /= 2 )
         for( int i = gap; i < a.size( ); ++i ) {
-            Comparable tmp = std::move( a[ i ] );
+            Comparable tmp = std::move( a[i] );
             int j = i;
 
-            for( ; j >= gap && tmp < a[ j - gap ]; j -= gap )
-                a[ j ] = std::move( a[ j - gap ] );
-            a[ j ] = std::move( tmp );
+            for( ; j >= gap && tmp < a[j - gap]; j -= gap )
+                a[j] = std::move( a[j - gap] );
+
+            a[j] = std::move( tmp );
         }
 }
+
+
+template <typename Comparable>
+void max_heap_percDown(vector<Comparable> &a, int i, int n);
 
 /**
  * Standard heapsort.
  */
 template <typename Comparable>
 void heapsort( vector<Comparable> & a ) {
-    for( int i = a.size( ) / 2 - 1; i >= 0; --i )  /* buildHeap */
-        percDown( a, i, a.size( ) );
-    for( int j = a.size( ) - 1; j > 0; --j ) {
-        std::swap( a[ 0 ], a[ j ] );               /* deleteMax */
-        percDown( a, 0, j );
+    for( int i = a.size()/2 -1; i >= 0; --i )  /* buildHeap */
+        max_heap_percDown(a, i, a.size());
+
+    for( int j = a.size() -1; j > 0; --j ) {
+        std::swap( a[0], a[j] );               /* deleteMax */
+        max_heap_percDown(a, 0, j);
     }
 }
 
@@ -92,20 +95,20 @@ inline int leftChild( int i ) {
  * n is the logical size of the binary heap.
  */
 template <typename Comparable>
-void percDown( vector<Comparable> & a, int i, int n ) {
+void max_heap_percDown(vector<Comparable> &a, int i, int n) {
     int child;
     Comparable tmp;
 
-    for( tmp = std::move( a[ i ] ); leftChild( i ) < n; i = child ) {
+    for( tmp = std::move(a[i]); leftChild( i ) < n; i = child ) {
         child = leftChild( i );
-        if( child != n - 1 && a[ child ] < a[ child + 1 ] )
+        if( child != n - 1 && a[child] < a[child + 1] )
             ++child;
-        if( tmp < a[ child ] )
-            a[ i ] = std::move( a[ child ] );
+        if( tmp < a[child] )
+            a[i] = std::move( a[child] );
         else
             break;
     }
-    a[ i ] = std::move( tmp );
+    a[i] = std::move( tmp );
 }
 
 /**

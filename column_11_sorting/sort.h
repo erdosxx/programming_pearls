@@ -1,6 +1,15 @@
 #ifndef PROGRAMMING_PEARLS_SORT_H
 #define PROGRAMMING_PEARLS_SORT_H
 
+void build_heap_with_siftdown(int *x, const int size_ary);
+void build_heap_with_siftup(int *x, const int size_ary);
+int get_larger_child(int* x, int& current_idx, const int max_idx);
+
+int push_to_bottom(int *x, const int max_idx, int current_idx);
+void back_bottom_to_up(int *x, const int target_idx, int current_idx);
+
+int push_to_bottom2(int *x, int target_idx, int max_idx, int current_idx);
+
 #include <stdlib.h>
 
 void swap(int* x, int i, int j) {
@@ -9,19 +18,21 @@ void swap(int* x, int i, int j) {
     x[j] = t;
 }
 
-void insertionSort(int *x, int n) {
-    int i, j;
-    for (i = 1; i < n; i++)
-        for (j = i; j > 0 && x[j - 1] > x[j]; j--)
+/* invariant: x[0..i-1] is sorted
+ * goal: shift x[i] down to its
+ * proper place in x[0..i]
+ */
+void insertionSort(int *x, const int size_ary) {
+    for (int i = 1; i < size_ary; i++)
+        for (int j = i; j > 0 && x[j - 1] > x[j]; j--)
             swap(x, j - 1, j);
 }
 
 /* Write swap function inline */
-void isort2(int* x, int n) {
-    int i, j;
+void insertionSort2(int *x, int size_ary) {
     int t;
-    for (i = 1; i < n; i++)
-        for (j = i; j > 0 && x[j - 1] > x[j]; j--) {
+    for (int i = 1; i < size_ary; i++)
+        for (int j = i; j > 0 && x[j - 1] > x[j]; j--) {
             t = x[j];
             x[j] = x[j - 1];
             x[j - 1] = t;
@@ -29,10 +40,9 @@ void isort2(int* x, int n) {
 }
 
 /* Move assignments to and from t out of loop */
-void isort3(int* x, int n) {
-    int i, j;
-    int t;
-    for (i = 1; i < n; i++) {
+void insertionSort3(int *x, int size_ary) {
+    int t, j;
+    for (int i = 1; i < size_ary; i++) {
         t = x[i];
         for (j = i; j > 0 && x[j - 1] > t; j--)
             x[j] = x[j - 1];
@@ -42,52 +52,61 @@ void isort3(int* x, int n) {
 
 /* QUICKSORTS */
 /* Simplest version, Lomuto partitioning */
-void qsort1(int* x, int l, int u) {
-    int i, m;
-    if (l >= u)
+void qsort1(int* x, int min_idx, int max_idx) {
+    if (min_idx >= max_idx)
         return;
-    m = l;
-    for (i = l + 1; i <= u; i++)
-        if (x[i] < x[l])
-            swap(x, ++m, i);
-    swap(x, l, m);
-    qsort1(x, l, m - 1);
-    qsort1(x, m + 1, u);
+
+    int boundary_idx = min_idx;
+    int pivot = x[min_idx];
+
+    for (int i = min_idx + 1; i <= max_idx; i++)
+        if (x[i] < pivot)
+            swap(x, ++boundary_idx, i);
+
+    swap(x, min_idx, boundary_idx);
+    qsort1(x, min_idx, boundary_idx - 1);
+    qsort1(x, boundary_idx + 1, max_idx);
 }
 
 /* Sedgewick's version of Lomuto, with sentinel */
-void qsort2(int* x, int l, int u) {
-    int i, m;
-    if (l >= u)
+void qsort2(int* x, int min_idx, int max_idx) {
+    if (min_idx >= max_idx)
         return;
-    m = i = u + 1;
+
+    int pivot = x[min_idx];
+
+    int boundary_idx = max_idx + 1;
+
+    int i = boundary_idx;
     do {
-        do i--; while (x[i] < x[l]);
-        swap(x, --m, i);
-    } while (i > l);
-    qsort2(x, l, m - 1);
-    qsort2(x, m + 1, u);
+        do i--; while (x[i] < pivot);
+        swap(x, --boundary_idx, i);
+    } while (i > min_idx);
+
+    qsort2(x, min_idx, boundary_idx - 1);
+    qsort2(x, boundary_idx + 1, max_idx);
 }
 
 /* Two-way partitioning */
-void qsort3(int* x, int l, int u) {
-    int i, j;
-    int t;
-    if (l >= u)
+void qsort3(int* x, int min_idx, int max_idx) {
+    if (min_idx >= max_idx)
         return;
-    t = x[l];
-    i = l;
-    j = u + 1;
+
+    int pivot = x[min_idx];
+    int low_boundary = min_idx;
+    int high_boundary = max_idx + 1;
+
     for (; ;) {
-        do i++; while (i <= u && x[i] < t);
-        do j--; while (x[j] > t);
-        if (i > j)
+        do low_boundary++; while (low_boundary <= max_idx && x[low_boundary] < pivot);
+        do high_boundary--; while (x[high_boundary] > pivot);
+        if (low_boundary > high_boundary)
             break;
-        swap(x, i, j);
+        swap(x, low_boundary, high_boundary);
     }
-    swap(x, l, j);
-    qsort3(x, l, j - 1);
-    qsort3(x, j + 1, u);
+
+    swap(x, min_idx, high_boundary);
+    qsort3(x, min_idx, high_boundary - 1);
+    qsort3(x, high_boundary + 1, max_idx);
 }
 
 int randint(int l, int u) {
@@ -96,211 +115,285 @@ int randint(int l, int u) {
 }
 
 /* qsort3 + randomization + isort small subarrays + swap inline */
-void qsort4(int* x, int l, int u, int cutoff) {
-    int i, j;
-    int t, temp;
-    if (u - l < cutoff)
+void qsort4(int* x, int min_idx, int max_idx, int cutoff) {
+    if (max_idx - min_idx < cutoff)
         return;
-    swap(x, l, randint(l, u));
-    t = x[l];
-    i = l;
-    j = u + 1;
+
+    swap(x, min_idx, randint(min_idx, max_idx));
+
+    int pivot = x[min_idx];
+
+    int low_boundary = min_idx;
+    int high_boundary = max_idx + 1;
+
+    int temp;
     for (; ;) {
-        do i++; while (i <= u && x[i] < t);
-        do j--; while (x[j] > t);
-        if (i > j)
+        do low_boundary++; while (low_boundary <= max_idx && x[low_boundary] < pivot);
+        do high_boundary--; while (x[high_boundary] > pivot);
+        if (low_boundary > high_boundary)
             break;
-        temp = x[i];
-        x[i] = x[j];
-        x[j] = temp;
+        temp = x[low_boundary];
+        x[low_boundary] = x[high_boundary];
+        x[high_boundary] = temp;
     }
-    swap(x, l, j);
-    qsort4(x, l, j - 1, cutoff);
-    qsort4(x, j + 1, u, cutoff);
+
+    swap(x, min_idx, high_boundary);
+    qsort4(x, min_idx, high_boundary - 1, cutoff);
+    qsort4(x, high_boundary + 1, max_idx, cutoff);
 }
 
-void select1(int* x,  int l, int u, int k) {
-    int i, j;
-    int t, temp;
-    if (l >= u)
+void select1(int* x, int min_idx, int max_idx, int kth) {
+    if (min_idx >= max_idx)
         return;
-    swap(x, l, randint(l, u));
-    t = x[l];
-    i = l;
-    j = u+1;
+    swap(x, min_idx, randint(min_idx, max_idx));
+
+    int pivot = x[min_idx];
+    int low_boundary = min_idx;
+    int high_boundary = max_idx + 1;
+
+    int temp;
     for (;;) {
-        do i++; while (i <= u && x[i] < t);
-        do j--; while (x[j] > t);
-        if (i > j)
+        do low_boundary++; while (low_boundary <= max_idx && x[low_boundary] < pivot);
+        do high_boundary--; while (x[high_boundary] > pivot);
+        if (low_boundary > high_boundary)
             break;
-        temp = x[i]; x[i] = x[j]; x[j] = temp;
+        temp = x[low_boundary]; x[low_boundary] = x[high_boundary]; x[high_boundary] = temp;
     }
-    swap(x, l, j);
-    if (j < k)
-        select1(x, j+1, u, k);
-    else if (j > k)
-        select1(x, l, j-1, k);
+
+    swap(x, min_idx, high_boundary);
+    if (high_boundary < kth)
+        select1(x, high_boundary + 1, max_idx, kth);
+    else if (high_boundary > kth)
+        select1(x, min_idx, high_boundary - 1, kth);
 }
 
 /* HEAP SORTS */
 
-void siftup(int* x, int u) {
-    int i, p;
-    i = u;
+void maxheap_siftup(int *x, const int idx) {
+    enum {TOP_NODE=1};
+    int current_idx, parent;
+    current_idx = idx;
+    /*
+     * invariant: heap(1..n) except perhaps
+     * between i and its parent
+     */
     for (;;) {
-        if (i == 1)
+        if (current_idx == TOP_NODE)
             break;
-        p = i / 2;
-        if (x[p] >= x[i])
+        parent = current_idx / 2;
+        if (x[parent] >= x[current_idx])
             break;
-        swap(x, p, i);
-        i = p;
+        swap(x, parent, current_idx);
+        current_idx = parent;
     }
 }
 
-void siftdown1(int* x, int l, int u) {
-    int i, c;
-    i = l;
+void maxheap_siftdown1(int *x, int target_idx, const int max_idx) {
+    enum {NO_CHILD=-1};
+
+    int child;
+    int current_idx = target_idx;
+
     for (;;) {
-        c = 2*i;
-        if (c > u)
+        child = get_larger_child(x, current_idx, max_idx);
+        if (child == NO_CHILD)
             break;
-        if (c+1 <= u && x[c+1] > x[c])
-            c++;
-        if (x[i] > x[c])
+
+        if (x[current_idx] > x[child])
             break;
-        swap(x, i, c);
-        i = c;
+        swap(x, current_idx, child);
+        current_idx = child;
     }
 }
 
-void siftdown1b(int* x, int l, int u) /* More C-ish version of 1 */ {
-    int i, c;
-    for (i = l; (c = 2*i) <= u; i = c) {
-        if (c+1 <= u && x[c+1] > x[c])
-            c++;
-        if (x[i] > x[c])
+int get_larger_child(int* x, int& current_idx, const int max_idx){
+    enum {NO_CHILD= -1};
+    int child = 2 * current_idx;
+
+    if (child > max_idx)
+        return NO_CHILD;
+    if (child + 1 <= max_idx && x[child + 1] > x[child])
+        child++;
+
+    return child;
+}
+
+/*
+ * for loop changes in mexheap_siftdown1
+ */
+void maxheap_siftdown2(int *x, int target_idx, const int max_idx) {
+    int current_idx, child;
+
+    for (current_idx = target_idx; (child = 2 * current_idx) <= max_idx; current_idx = child) {
+        if (child + 1 <= max_idx && x[child + 1] > x[child])
+            child++;
+        if (x[current_idx] > x[child])
             break;
-        swap(x, i, c);
+        swap(x, current_idx, child);
     }
 }
 
-void hsort1(int* x, int n) {
-    int i;
-    x--;
-    for (i = 2; i <= n; i++)
-        siftup(x, i);
-    for (i = n; i >= 2; i--) {
+void hsort1(int* x, const int size_ary) {
+    x--;  // change x to 1-based array
+
+    build_heap_with_siftup(x, size_ary);
+
+    for (int i = size_ary; i >= 2; i--) {
         swap(x, 1, i);
-        siftdown1(x, 1, i-1);
+        maxheap_siftdown1(x, 1, i - 1);
     }
+
+    x++;  // restore x to 0-based array
+}
+
+void hsort1b(int* x, const int size_ary) {
+    x--;  // change x to 1-based array
+
+    build_heap_with_siftup(x, size_ary);
+
+    for (int i = size_ary; i >= 2; i--) {
+        swap(x, 1, i);
+        maxheap_siftdown2(x, 1, i - 1);
+    }
+
+    x++;  // restore x to 0-based array
+}
+
+void build_heap_with_siftup(int *x, const int size_ary) {
+    for (int i = 2; i <= size_ary; i++)
+        maxheap_siftup(x, i);
+}
+
+void hsort2(int* x, const int size_ary) {
+    x--;
+
+    build_heap_with_siftdown(x, size_ary);
+
+    for (int i = size_ary; i >= 2; i--) {
+        swap(x, 1, i);
+        maxheap_siftdown1(x, 1, i - 1);
+    }
+
     x++;
 }
 
-void hsort2(int* x, int n) {
-    int i;
-    x--;
-    for (i = n/2; i >= 1; i--)
-        siftdown1(x, i, n);
-    for (i = n; i >= 2; i--) {
-        swap(x, 1, i);
-        siftdown1(x, 1, i-1);
+void build_heap_with_siftdown(int *x, const int size_ary) {
+    for (int i = size_ary / 2; i >= 1; i--)
+        maxheap_siftdown1(x, i, size_ary);
+}
+
+/* push to bottom, then back up */
+void max_heap_siftdown3(int *x, const int target_idx, const int max_idx) {
+    int current_idx = target_idx;
+
+    current_idx = push_to_bottom(x, max_idx, current_idx);
+    back_bottom_to_up(x, target_idx, current_idx);
+}
+
+int push_to_bottom(int *x, const int max_idx, int current_idx) {
+    int child;
+
+    for (;;) {
+        child = 2 * current_idx;
+        if (child > max_idx)
+            break;
+        if (child + 1 <= max_idx && x[child + 1] > x[child])
+            child++;
+        swap(x, current_idx, child);
+        current_idx = child;
     }
+    return current_idx;
+}
+
+void back_bottom_to_up(int *x, const int target_idx, int current_idx) {
+    int parent;
+
+    for (;;) {
+        parent = current_idx / 2;
+        if (parent < target_idx)
+            break;
+        if (x[parent] > x[current_idx])
+            break;
+        swap(x, parent, current_idx);
+        current_idx = parent;
+    }
+}
+
+void hsort3(int* x, const int size_ary) {
+    x--;
+
+    for (int i = size_ary / 2; i >= 1; i--)
+        max_heap_siftdown3(x, i, size_ary);
+
+    for (int i = size_ary; i >= 2; i--) {
+        swap(x, 1, i);
+        max_heap_siftdown3(x, 1, i - 1);
+    }
+
     x++;
 }
 
-void siftdown3(int* x, int l, int u) /* push to bottom, then back up */ {
-    int i, c, p;
-    i = l;
-    for (;;) {
-        c = 2*i;
-        if (c > u)
-            break;
-        if (c+1 <= u && x[c+1] > x[c])
-            c++;
-        swap(x, i, c);
-        i = c;
-    }
-    for (;;) {
-        p = i/2;
-        if (p < l)
-            break;
-        if (x[p] > x[i])
-            break;
-        swap(x, p, i);
-        i = p;
-    }
+/* replace swap with assignments */
+void max_heap_siftdown4(int *x, int target_idx, int max_idx) {
+    int current_idx = target_idx;
+
+    current_idx = push_to_bottom2(x, target_idx, max_idx, current_idx);
+
+    back_bottom_to_up(x, target_idx, current_idx);
 }
 
-void hsort3(int* x, int n) {
-    int i;
-    x--;
-    for (i = n/2; i >= 1; i--)
-        siftdown3(x, i, n);
-    for (i = n; i >= 2; i--) {
-        swap(x, 1, i);
-        siftdown3(x, 1, i-1);
+int push_to_bottom2(int *x, int target_idx, int max_idx, int current_idx) {
+    int child;
+
+    int tmp = x[target_idx];
+    for (;;) {
+        child = 2 * current_idx;
+        if (child > max_idx)
+            break;
+        if (child + 1 <= max_idx && x[child + 1] > x[child])
+            child++;
+        x[current_idx] = x[child];
+        current_idx = child;
     }
+    x[current_idx] = tmp;
+
+    return current_idx;
+}
+
+void hsort4(int* x, const int size_ary) {
+    x--;
+
+    for (int i = size_ary / 2; i >= 1; i--)
+        max_heap_siftdown4(x, i, size_ary);
+
+    for (int i = size_ary; i >= 2; i--) {
+        swap(x, 1, i);
+        max_heap_siftdown4(x, 1, i - 1);
+    }
+
     x++;
 }
 
-void siftdown4(int* x, int l, int u) /* replace swap with assignments */ {
-    int i, c, p;
-    int t;
-    t = x[l];
-    i = l;
-    for (;;) {
-        c = 2*i;
-        if (c > u)
-            break;
-        if (c+1 <= u && x[c+1] > x[c])
-            c++;
-        x[i] = x[c];
-        i = c;
-    }
-    x[i] = t;
-    for (;;) {
-        p = i/2;
-        if (p < l)
-            break;
-        if (x[p] > x[i])
-            break;
-        swap(x, p, i);
-        i = p;
-    }
-}
-
-void hsort4(int* x, int n) {
-    int i;
-    x--;
-    for (i = n/2; i >= 1; i--)
-        siftdown4(x, i, n);
-    for (i = n; i >= 2; i--) {
-        swap(x, 1, i);
-        siftdown4(x, 1, i-1);
-    }
-    x++;
-}
-
-void selsort(int* x, int n)  /* Selection sort */ {
-    int i, j;
-    for (i = 0; i < n-1; i++)
-        for (j = i; j < n; j++)
+/* Selection sort */
+void selsort(int* x, const int size_ary) {
+    for (int i = 0; i < size_ary - 1; i++)
+        for (int j = i; j < size_ary; j++)
             if (x[j] < x[i])
                 swap(x, i, j);
 }
 
-void shellsort(int* x, int n) {
-    int i, j, h;
-    for (h = 1; h < n; h = 3*h + 1)
+void shellsort(int* x, int size_ary) {
+    int gap;
+    for (gap = 1; gap < size_ary; gap = 3 * gap + 1)
         ;
+
     for (;;) {
-        h /= 3;
-        if (h < 1) break;
-        for (i = h; i < n; i++) {
-            for (j = i; j >= h; j -= h) {
-                if (x[j-h] < x[j]) break;
-                swap(x, j-h, j);
+        gap /= 3;
+        if (gap < 1) break;
+        for (int i = gap; i < size_ary; i++) {
+            for (int j = i; j >= gap; j -= gap) {
+                if (x[j - gap] < x[j]) break;
+                swap(x, j - gap, j);
             }
         }
     }

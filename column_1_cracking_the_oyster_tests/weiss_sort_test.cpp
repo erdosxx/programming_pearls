@@ -1,17 +1,22 @@
 #include <iostream>
 #include "sort_weiss.h"
-#include <vector>
-#include <string>
 #include "UniformRandom.h"
 #include <gtest/gtest.h>
 
 using namespace std;
 
-string checkSort( const vector<string> & a ) {
+string check_sort_for_a_str(const vector<string> &a) {
     for( int i = 0; i < a.size( ); ++i )
         if( a[i].length( ) != i )
             return "fail: " + to_string(i);
-    return "success"; // success
+    return "Success"; // success
+}
+
+string check_sort_for_int_vec(const vector<int> &a) {
+    for( int i = 0; i < a.size( ); ++i )
+        if( a[i] != i )
+            return "fail: " + to_string(i);
+    return "Success"; // success
 }
 
 template <typename AnyType>
@@ -33,47 +38,31 @@ protected:
     virtual void TearDown() {
     }
 
-    int max_val =10000000;
-    const int BITSPERWORD=32;
-    int size_internal_ary= 1 + max_val/BITSPERWORD;
-
-    int*internal_array = new int[size_internal_ary];
-
-    const int NUM_ITEMS = 1000;
+    enum {NUM_ITEMS=1000};
     // vector<string> a_str(NUM_ITEMS); is wrong.
     // see http://stackoverflow.com/questions/21040977/boost-vector-size-constructor-not-working
-    vector<string> a_str;        // This input adds factor of N to running time
+    vector<string> a_str_vec;        // This input adds factor of N to running time
 
     virtual void SetUp() {
-        set_value_target_array();
-        shuffle_array(100000);
         init_string_array();
-    }
-
-    int size_ary=1000000;
-    int* target_array = new int[size_ary];
-
-    void set_value_target_array () {
-        for(int i=0; i< size_ary; i++) {
-            target_array[i] = max_val - (i + 1);
-        }
-    };
-
-    void shuffle_array (int times) {
-        for (int i = 0; i < times; i++) {
-            int idx1 = rand() % size_ary;
-            int idx2 = rand() % size_ary;
-            swap(target_array, idx1, idx2);
-        }
+        init_int_array();
     }
 
     void init_string_array(){
-        for ( int i = 1; i < a_str.size(); ++i )  // but we want to test std::move logic
-            a_str[i] = a_str[i - 1] + 'a';
+        for (int i = 1; i < a_str_vec.size(); ++i )  // but we want to test std::move logic
+            a_str_vec[i] = a_str_vec[i - 1] + 'a';
+    }
+
+    vector<int> int_vec;
+
+    void init_int_array(){
+        for (int i=0; i < int_vec.size(); i++) {
+            int_vec[i]= i;
+        }
     }
 
 public:
-    WeissSortAlgorithmFixture() : Test(), a_str(NUM_ITEMS) {
+    WeissSortAlgorithmFixture() : Test(), a_str_vec(NUM_ITEMS), int_vec(NUM_ITEMS) {
     }
 
     virtual ~WeissSortAlgorithmFixture() {
@@ -82,16 +71,60 @@ public:
 };
 
 TEST_F(WeissSortAlgorithmFixture, test_init_string_array_Function) {
-    ASSERT_STREQ("", a_str[0].c_str() );
-    ASSERT_STREQ("a", a_str[1].c_str() );
-    ASSERT_STREQ("aa", a_str[2].c_str() );
-    ASSERT_STREQ("aaa", a_str[3].c_str() );
-    ASSERT_STREQ("aaaa", a_str[4].c_str() );
+    ASSERT_STREQ("", a_str_vec[0].c_str() );
+    ASSERT_STREQ("a", a_str_vec[1].c_str() );
+    ASSERT_STREQ("aa", a_str_vec[2].c_str() );
+    ASSERT_STREQ("aaa", a_str_vec[3].c_str() );
+    ASSERT_STREQ("aaaa", a_str_vec[4].c_str() );
+}
+
+TEST_F(WeissSortAlgorithmFixture, test_insertionSort_Function) {
+    permute(int_vec);
+    insertionSort(int_vec);
+    ASSERT_EQ(0, int_vec[0]);
+    ASSERT_EQ(1, int_vec[1]);
+    ASSERT_EQ(500, int_vec[500]);
+    ASSERT_EQ(998, int_vec[998]);
+    ASSERT_EQ(999, int_vec[999]);
+    ASSERT_STREQ("Success", check_sort_for_int_vec(int_vec).c_str());
+}
+
+TEST_F(WeissSortAlgorithmFixture, test_insertionSort_param_version_Function) {
+    permute(int_vec);
+    insertionSort(int_vec, 0, NUM_ITEMS-1);
+    ASSERT_EQ(0, int_vec[0]);
+    ASSERT_EQ(1, int_vec[1]);
+    ASSERT_EQ(500, int_vec[500]);
+    ASSERT_EQ(998, int_vec[998]);
+    ASSERT_EQ(999, int_vec[999]);
+    ASSERT_STREQ("Success", check_sort_for_int_vec(int_vec).c_str());
+}
+
+TEST_F(WeissSortAlgorithmFixture, test_shellSort_Function) {
+    permute(int_vec);
+    shellsort(int_vec);
+    ASSERT_EQ(0, int_vec[0]);
+    ASSERT_EQ(1, int_vec[1]);
+    ASSERT_EQ(500, int_vec[500]);
+    ASSERT_EQ(998, int_vec[998]);
+    ASSERT_EQ(999, int_vec[999]);
+    ASSERT_STREQ("Success", check_sort_for_int_vec(int_vec).c_str());
+}
+
+TEST_F(WeissSortAlgorithmFixture, test_heapSort_Function) {
+    permute(int_vec);
+    heapsort(int_vec);
+    ASSERT_EQ(0, int_vec[0]);
+    ASSERT_EQ(1, int_vec[1]);
+    ASSERT_EQ(500, int_vec[500]);
+    ASSERT_EQ(998, int_vec[998]);
+    ASSERT_EQ(999, int_vec[999]);
+    ASSERT_STREQ("Success", check_sort_for_int_vec(int_vec).c_str());
 }
 
 TEST_F(WeissSortAlgorithmFixture, test_mergeSort_Function) {
-    permute(a_str);
-    mergeSort(a_str);
+    permute(a_str_vec);
+    mergeSort(a_str_vec);
     //ASSERT_EQ(-1, checkSort(a_str));
-    ASSERT_STREQ("success", checkSort(a_str).c_str());
+    ASSERT_STREQ("Success", check_sort_for_a_str(a_str_vec).c_str());
 }
