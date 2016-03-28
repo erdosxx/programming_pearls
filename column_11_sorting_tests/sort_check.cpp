@@ -23,6 +23,12 @@ protected:
         }
     };
 
+    void set_value_target_array_for_fat_pivot () {
+        for(int i=0; i < SIZE_ARY; i++) {
+            target_array[i] = i/(SIZE_ARY/4);
+        }
+    };
+
     void shuffle_array (int times) {
         for (int i = 0; i < times; i++) {
             int idx1 = rand() % SIZE_ARY;
@@ -95,6 +101,24 @@ TEST_F(sortAlgorithmFixture, test_quick4Sort) {
 
     for (int i=0; i < SIZE_ARY; i++) {
         EXPECT_EQ(i, target_array[i]);
+    }
+}
+
+TEST_F(sortAlgorithmFixture, test_quickSort_with_fat_pivot) {
+    set_value_target_array_for_fat_pivot();
+    qsort_fat_pivot(target_array, SIZE_ARY);
+
+    for (int i=0; i < SIZE_ARY/4; i++) {
+        EXPECT_EQ(0, target_array[i]);
+    }
+    for (int i= SIZE_ARY/4+1; i < 2*SIZE_ARY/4; i++) {
+        EXPECT_EQ(1, target_array[i]);
+    }
+    for (int i= 2*SIZE_ARY/4+1; i < 3*SIZE_ARY/4; i++) {
+        EXPECT_EQ(2, target_array[i]);
+    }
+    for (int i= 3*SIZE_ARY/4+1; i < SIZE_ARY; i++) {
+        EXPECT_EQ(3, target_array[i]);
     }
 }
 

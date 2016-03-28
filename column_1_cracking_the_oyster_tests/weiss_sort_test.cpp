@@ -128,3 +128,17 @@ TEST_F(WeissSortAlgorithmFixture, test_mergeSort_Function) {
     //ASSERT_EQ(-1, checkSort(a_str));
     ASSERT_STREQ("Success", check_sort_for_a_str(a_str_vec).c_str());
 }
+
+TEST_F(WeissSortAlgorithmFixture, test_QuickSort_Function) {
+    permute(int_vec);
+    quicksort(int_vec);
+    //ASSERT_EQ(-1, checkSort(a_str));
+    ASSERT_STREQ("Success", check_sort_for_a_str(a_str_vec).c_str());
+}
+
+TEST_F(WeissSortAlgorithmFixture, test_QuickSelect_Function) {
+    permute(int_vec);
+    quickSelect(int_vec, 500);
+    //ASSERT_EQ(-1, checkSort(a_str));
+    ASSERT_EQ(499, int_vec[499]);
+}

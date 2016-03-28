@@ -142,6 +142,50 @@ void qsort4(int* x, int min_idx, int max_idx, int cutoff) {
     qsort4(x, high_boundary + 1, max_idx, cutoff);
 }
 
+int min(int a, int b) {
+    return a > b ? b : a;
+}
+
+/*
+ * Page 123. Exercise 11.
+ */
+void qsort_fat_pivot(int* x, int n) {
+    int a, b, c, d, l, h, s;
+
+    if (n<=1)
+        return;
+
+    int pivot = x[rand() % n];
+    a= b= 0;
+    c= d= n-1;
+    for (;;) {
+        while (b <= c && x[b] <= pivot) {
+            if (x[b] == pivot)
+                swap(x, a++, b);
+            b++;
+        }
+        while (c >= b && x[c] >= pivot) {
+            if (x[c] == pivot)
+                swap(x, d--, c);
+            c--;
+        }
+        if (b > c)
+            break;
+        swap(x, b++, c--);
+    }
+
+    s = min(a, b-a) ;
+    for (l= 0, h = b-s; s; s--)
+        swap(x, l++,h++);
+
+    s = min(d-c, n-1-d) ;
+    for (l = b, h = n-s; s; s--)
+        swap(x, l++, h++);
+
+    qsort_fat_pivot(x, b-a);
+    qsort_fat_pivot(x + n-(d-c), d-c) ;
+}
+
 void select1(int* x, int min_idx, int max_idx, int kth) {
     if (min_idx >= max_idx)
         return;

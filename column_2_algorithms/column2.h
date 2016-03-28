@@ -11,7 +11,7 @@
 
 /* Alg 1: Rotate by reversal */
 
-void reverse(int* x,  int i, int j) {
+void reverse(int* x, int i, int j) {
     int t;
     while (i < j) {
         t = x[i]; x[i] = x[j]; x[j] = t;
@@ -20,7 +20,7 @@ void reverse(int* x,  int i, int j) {
     }
 }
 
-void revrot(int* x, int rotdist, int n) {
+void revrot(int* x, const int rotdist, const int n) {
     reverse(x, 0, rotdist-1);
     reverse(x, rotdist, n-1);
     reverse(x, 0, n-1);
@@ -40,89 +40,107 @@ int gcd(int i, int j) {
     return j;
 }
 
-void jugglerot(int* x, int rotdist, int n) {
-    int cycles, i, j, k, t;
-    cycles = gcd(rotdist, n);
+void jugglerot(int* x, const int rotdist, const int size_ary) {
+    int cycles, dest_idx, source_idx, tmp;
+    cycles = gcd(rotdist, size_ary);
 
-    for (i = 0; i < cycles; i++) {
+    for (int i = 0; i < cycles; i++) {
         /* move i-th values of blocks */
-        t = x[i];
-        j = i;
+        tmp = x[i];
+        dest_idx = i;
         for (;;) {
-            k = j + rotdist;
-            if (k >= n)
-                k -= n;
-            if (k == i)
+            source_idx = dest_idx + rotdist;
+            if (source_idx >= size_ary)
+                source_idx -= size_ary;
+            if (source_idx == i)
                 break;
 
-            x[j] = x[k];
-            j = k;
+            x[dest_idx] = x[source_idx];
+            dest_idx = source_idx;
         }
 
-        x[j] = t;
+        x[dest_idx] = tmp;
     }
 }
 
-void jugglerot2(int* x, int rotdist, int n) {
-    int cycles, i, j, k, t;
-    cycles = gcd(rotdist, n);
+void jugglerot2(int* x, const int rotdist, const int size_ary) {
+    int cycles, dest_idx, source_idx, tmp;
+    cycles = gcd(rotdist, size_ary);
 
-    for (i = 0; i < cycles; i++) {
+    for (int i = 0; i < cycles; i++) {
         /* move i-th values of blocks */
-        t = x[i];
-        j = i;
+        tmp = x[i];
+        dest_idx = i;
         for (;;) {
-            k = (j + rotdist) % n;
+            source_idx = (dest_idx + rotdist) % size_ary;
 
-            if (k == i)
+            if (source_idx == i)
                 break;
 
-            x[j] = x[k];
-            j = k;
+            x[dest_idx] = x[source_idx];
+            dest_idx = source_idx;
         }
 
-        x[j] = t;
+        x[dest_idx] = tmp;
     }
 }
 
 /* Alg 3: Recursive rotate (using gcd structure) */
 
-void swap(int* x, int i, int j, int k) /* swap x[i..i+k-1] with x[j..j+k-1] */ {
-    int t;
+/* swap x[i..i+k-1] with x[j..j+k-1] */
+void swapequals(int *x, int i, int j, int k) {
+    int tmp;
     while (k-- > 0) {
-        t = x[i]; x[i] = x[j]; x[j] = t;
+        tmp = x[i]; x[i] = x[j]; x[j] = tmp;
         i++;
         j++;
     }
 }
 
-void gcdrot(int* x, const int & rotdist, const int & n) {
-    int i, j;
-    if (rotdist == 0 || rotdist == n)
+// see: Gries and Mills Block Swapping in
+// http://www.drdobbs.com/go-parallel/article/print?articleId=232900395&siteSectionName=
+/* Problem 2.3 */
+void gcdrot(int* x, const int rotdist, const int size_ary) {
+    if (rotdist == 0 || rotdist == size_ary)
         return;
-    i = rotdist;
-    j = n - rotdist;
+
+    int i = rotdist;
+    int j = size_ary - rotdist;
+
     while (i != j) {
         /* invariant:
            x[0  ..rotdist-i-1  ] is in final position
-           x[rotdist-i..rotdist-1  ] = a (to be swapped with b)   # = j
+           x[rotdist-i..rotdist-1  ] = a (to be swapped with b)   # = i
            x[rotdist  ..rotdist+j-1] = b (to be swapped with a)   # = j
            x[rotdist+j..n-1  ] in final position
            */
         if (i > j) {
-            swap(x, rotdist-i, rotdist, j);
+            swapequals(x, rotdist - i, rotdist, j);
             i -= j;
         } else {
-            swap(x, rotdist-i, rotdist+j-i, i);
+            swapequals(x, rotdist - i, rotdist + j - i, i);
             j -= i;
         }
     }
-    swap(x, rotdist-i, rotdist, i);
+    swapequals(x, rotdist - i, rotdist, i);
 }
 
-template <typename datatype>
-void std_rot(std::vector<datatype> & target_array, const int & rotdist) {
-    std::rotate(target_array.begin(), target_array.begin()+rotdist, target_array.end());
+void swap_sections(int* x, int m, int n, int p);
+
+void gcdrot_rec(int* x, const int rotdist, const int size_ary) {
+    swap_sections(x, 0, rotdist, size_ary);
+}
+
+void swap_sections(int* x, int m, int n, int p) {
+    if (n - m == p - n) {
+        swapequals(x, m, n, p - n);
+    } else if (n - m > p - n) {
+        swapequals(x, m, n, p - n);
+        swap_sections(x, p-n+m, n, p);
+    } else if (n - m < p - n) {
+        swapequals(x, m, p-n+m, n - m);
+        swap_sections(x, m, n, p-n+m);
+    }
 }
 
 int isogcd(int i, int j) {
@@ -135,6 +153,11 @@ int isogcd(int i, int j) {
             j -= i;
     }
     return i;
+}
+
+template <typename datatype>
+void std_rot(std::vector<datatype> & target_array, const int & rotdist) {
+    std::rotate(target_array.begin(), target_array.begin()+rotdist, target_array.end());
 }
 
 int charcomp(const void *x, const void *y) {
