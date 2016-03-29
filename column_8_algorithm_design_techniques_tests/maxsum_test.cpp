@@ -30,48 +30,48 @@ public:
 TEST_F(maxSumFixture, case1_maxsum_Function) {
     int array1[] = {0,0,0,0,0,0,0,0,0,0};
 
-    ASSERT_EQ(0, alg1(array1,10));
-    ASSERT_EQ(0, alg2(array1,10));
-    ASSERT_EQ(0, alg2b(array1,10));
-    ASSERT_EQ(0, alg3(array1,10));
-    ASSERT_EQ(0, alg4(array1,10));
-    ASSERT_EQ(0, alg4b(array1,10));
-    ASSERT_EQ(0, alg4c(array1,10));
+    ASSERT_EQ(0, maxsum_simple(array1, 10));
+    ASSERT_EQ(0, maxsum_simple2(array1, 10));
+    ASSERT_EQ(0, maxsum_cumarr(array1, 10));
+    ASSERT_EQ(0, maxsum_divide_n_conquer(array1, 10));
+    ASSERT_EQ(0, maxsum_fast(array1, 10));
+    ASSERT_EQ(0, maxsum_fast2(array1, 10));
+    ASSERT_EQ(0, maxsum_fast3(array1, 10));
 }
 
 TEST_F(maxSumFixture, case2_maxsum_Function) {
     int array2[] = {1,1,1,1,1,1,1,1,1,1};
 
-    ASSERT_EQ(10, alg1(array2,10));
-    ASSERT_EQ(10, alg2(array2,10));
-    ASSERT_EQ(10, alg2b(array2,10));
-    ASSERT_EQ(10, alg3(array2,10));
-    ASSERT_EQ(10, alg4(array2,10));
-    ASSERT_EQ(10, alg4b(array2,10));
-    ASSERT_EQ(10, alg4c(array2,10));
+    ASSERT_EQ(10, maxsum_simple(array2, 10));
+    ASSERT_EQ(10, maxsum_simple2(array2, 10));
+    ASSERT_EQ(10, maxsum_cumarr(array2, 10));
+    ASSERT_EQ(10, maxsum_divide_n_conquer(array2, 10));
+    ASSERT_EQ(10, maxsum_fast(array2, 10));
+    ASSERT_EQ(10, maxsum_fast2(array2, 10));
+    ASSERT_EQ(10, maxsum_fast3(array2, 10));
 }
 
 TEST_F(maxSumFixture, case3_maxsum_Function) {
     int array3[] = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 
-    ASSERT_EQ(0, alg1(array3,10));
-    ASSERT_EQ(0, alg2(array3,10));
-    ASSERT_EQ(0, alg2b(array3,10));
-    ASSERT_EQ(0, alg3(array3,10));
-    ASSERT_EQ(0, alg4(array3,10));
-    ASSERT_EQ(0, alg4b(array3,10));
-    ASSERT_EQ(0, alg4c(array3,10));
+    ASSERT_EQ(0, maxsum_simple(array3, 10));
+    ASSERT_EQ(0, maxsum_simple2(array3, 10));
+    ASSERT_EQ(0, maxsum_cumarr(array3, 10));
+    ASSERT_EQ(0, maxsum_divide_n_conquer(array3, 10));
+    ASSERT_EQ(0, maxsum_fast(array3, 10));
+    ASSERT_EQ(0, maxsum_fast2(array3, 10));
+    ASSERT_EQ(0, maxsum_fast3(array3, 10));
 }
 
 TEST_F(maxSumFixture, case4_maxsum_Function) {
     int array4[] = {31,-41,59,26,-53,58,97,-93,-23,84};
 
-    ASSERT_EQ(187, alg1(array4,10));
-    ASSERT_EQ(187, alg2(array4,10));
-    ASSERT_EQ(187, alg2b(array4,10));
-    ASSERT_EQ(187, alg3(array4,10));
-    ASSERT_EQ(187, alg4(array4,10));
-    ASSERT_EQ(187, alg4b(array4,10));
-    ASSERT_EQ(187, alg4c(array4,10));
+    ASSERT_EQ(187, maxsum_simple(array4, 10));
+    ASSERT_EQ(187, maxsum_simple2(array4, 10));
+    ASSERT_EQ(187, maxsum_cumarr(array4, 10));
+    ASSERT_EQ(187, maxsum_divide_n_conquer(array4, 10));
+    ASSERT_EQ(187, maxsum_fast(array4, 10));
+    ASSERT_EQ(187, maxsum_fast2(array4, 10));
+    ASSERT_EQ(187, maxsum_fast3(array4, 10));
 }
 
