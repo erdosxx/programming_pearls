@@ -135,11 +135,11 @@ public:
         return n;
     }
 
-	void insert(int t) {
+	void insert_recursive(int t) {
         head = rinsert(head, t);
     }
 
-	void insert2(int t) {
+	void insert_non_recursive(int t) {
         node *p;
 
 		if (head->val == t)
@@ -161,7 +161,7 @@ public:
 		n++;
 	}
 
-	void insert3(int t) {
+	void insert_non_recursive_with_pointer(int t) {
         node **p;
 
 		for (p = &head; (*p)->val < t; p = &((*p)->next))

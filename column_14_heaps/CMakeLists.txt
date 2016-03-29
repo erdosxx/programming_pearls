@@ -5,7 +5,7 @@ project(column_14_heaps)
 add_definitions(-std=c++11)
 
 set(HEADER_FILES
-        priqueue.h
+        min_priqueue.h
         )
 
 #set(SOURCE_FILES

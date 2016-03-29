@@ -81,15 +81,15 @@ TEST_F(SearchingFixture, IntSetArr_Function) {
 
 TEST_F(SearchingFixture, IntSetList_Function) {
     IntSetList atest = IntSetList(size_ary, 100000);
-    atest.insert(10);
+    atest.insert_recursive(10);
     ASSERT_EQ(1, atest.size());
-    atest.insert2(20);
+    atest.insert_non_recursive(20);
     ASSERT_EQ(2, atest.size());
-    atest.insert3(20);
+    atest.insert_non_recursive_with_pointer(20);
     ASSERT_EQ(2, atest.size());
-    atest.insert2(30);
+    atest.insert_non_recursive(30);
     ASSERT_EQ(3, atest.size());
-    atest.insert(15);
+    atest.insert_recursive(15);
     ASSERT_EQ(4, atest.size());
     atest.report(target_array);
     ASSERT_EQ(10, target_array[0]);
@@ -99,7 +99,7 @@ TEST_F(SearchingFixture, IntSetList_Function) {
 }
 
 TEST_F(SearchingFixture, IntSetList2_Function) {
-    IntSetList2 atest = IntSetList2(size_ary, 100000);
+    IntSetList_with_allocator atest = IntSetList_with_allocator(size_ary, 100000);
     atest.insert(10);
     ASSERT_EQ(1, atest.size());
     atest.insert(20);
@@ -137,7 +137,7 @@ TEST_F(SearchingFixture, IntSetBST_Function) {
 }
 
 TEST_F(SearchingFixture, IntSetBST2_Function) {
-    IntSetBST2 atest = IntSetBST2(size_ary, 100000);
+    IntSetBST_with_allocator atest = IntSetBST_with_allocator(size_ary, 100000);
     atest.insert1(10);
     ASSERT_EQ(1, atest.size());
     atest.insert(20);
@@ -175,16 +175,16 @@ TEST_F(SearchingFixture, IntSetBins_Function) {
 }
 
 TEST_F(SearchingFixture, IntSetBins2_Function) {
-    IntSetBins2 atest = IntSetBins2(size_ary, 100000);
-    atest.insert1(10);
+    IntSetBins_with_allocator atest = IntSetBins_with_allocator(size_ary, 100000);
+    atest.insert_recursive(10);
     ASSERT_EQ(1, atest.size());
     atest.insert(20);
     ASSERT_EQ(2, atest.size());
-    atest.insert1(20);
+    atest.insert_recursive(20);
     ASSERT_EQ(2, atest.size());
     atest.insert(30);
     ASSERT_EQ(3, atest.size());
-    atest.insert1(15);
+    atest.insert_recursive(15);
     ASSERT_EQ(4, atest.size());
     atest.report(target_array);
     ASSERT_EQ(10, target_array[0]);

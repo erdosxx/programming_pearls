@@ -11,65 +11,67 @@ int randint(int l, int u) {
     return l + rand() % (u-l+1);
 }
 
-void genknuth(int* output, int m, int n) {
+void genknuth(int* output, int num_gen, const int supremum) {
     int j = 0;
-    for (int i = 0; i < n; i++)
+
+    for (int i = 0; i < supremum; i++)
         /* select m of remaining n-i */
-        if ((rand() % (n-i)) < m) {
+        if ((rand() % (supremum - i)) < num_gen) {
             output[j++] = i;
             //cout << i << "\n";
-            m--;
+            num_gen--;
         }
 }
 
-void gensets(int* output, int m, int n) {
+void gensets(int* output, int num_gen, const int supremum) {
     set<int> S;
-    set<int>::iterator i;
 
-    while (S.size() < m) {
-        int t = rand() % n;
+    while (S.size() < num_gen) {
+        int t = rand() % supremum;
         S.insert(t);
     }
 
     int j=0;
+    set<int>::iterator i;
     for (i = S.begin(); i != S.end(); ++i)
         output[j++] = *i;
         // cout << *i << "\n";
 
 }
 
-void genshuf(int* output, int m, int n) {
-    int i, j;
-    int *x = new int[n];
+void genshuf(int* output, int num_gen, const int supremum) {
+    int *x = new int[supremum];
 
-    for (i = 0; i < n; i++)
+    for (int i = 0; i < supremum; i++)
         x[i] = i;
 
-    for (i = 0; i < m; i++) {
-        j = randint(i, n-1);
+    int j;
+    for (int i = 0; i < num_gen; i++) {
+        j = randint(i, supremum - 1);
         int t = x[i]; x[i] = x[j]; x[j] = t;
     }
 
-    sort(x, x+m);
+    sort(x, x + num_gen);
 
-    for (i = 0; i < m; i++)
+    for (int i = 0; i < num_gen; i++)
         output[i] = x[i];
         //cout << x[i] << "\n";
 }
 
-void genfloyd(int* output, int m, int n) {
+void genfloyd(int* output, int num_gen, const int supremum) {
     set<int> S;
-    set<int>::iterator i;
 
-    for (int j = n-m; j < n; j++) {
-        int t = rand() % (j+1);
-        if (S.find(t) == S.end())
-            S.insert(t); // t not in S
-        else
-            S.insert(j); // t in S
+    for (int j = supremum - num_gen; j < supremum; j++) {
+        int t = rand() % (j+1);   // 0,1,2, ... ,j
+        if (S.find(t) == S.end()) // t not in S
+            S.insert(t);
+        else                      // t in S
+            S.insert(j);
     }
 
     int k=0;
+    set<int>::iterator i;
+
     for (i = S.begin(); i != S.end(); ++i)
         output[k++] = *i;
         //cout << *i << "\n";

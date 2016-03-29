@@ -1,16 +1,15 @@
 #ifndef PROGRAMMING_PEARLS_SORT_H
 #define PROGRAMMING_PEARLS_SORT_H
 
+#include <stdlib.h>
+
 void build_heap_with_siftdown(int *x, const int size_ary);
 void build_heap_with_siftup(int *x, const int size_ary);
 int get_larger_child(int* x, int& current_idx, const int max_idx);
 
 int push_to_bottom(int *x, const int max_idx, int current_idx);
 void back_bottom_to_up(int *x, const int target_idx, int current_idx);
-
 int push_to_bottom2(int *x, int target_idx, int max_idx, int current_idx);
-
-#include <stdlib.h>
 
 void swap(int* x, int i, int j) {
     int t = x[i];
@@ -149,15 +148,15 @@ int min(int a, int b) {
 /*
  * Page 123. Exercise 11.
  */
-void qsort_fat_pivot(int* x, int n) {
+void qsort_fat_pivot(int* x, const int size_ary) {
     int a, b, c, d, l, h, s;
 
-    if (n<=1)
+    if (size_ary <= 1)
         return;
 
-    int pivot = x[rand() % n];
+    int pivot = x[rand() % size_ary];
     a= b= 0;
-    c= d= n-1;
+    c= d= size_ary - 1;
     for (;;) {
         while (b <= c && x[b] <= pivot) {
             if (x[b] == pivot)
@@ -178,12 +177,12 @@ void qsort_fat_pivot(int* x, int n) {
     for (l= 0, h = b-s; s; s--)
         swap(x, l++,h++);
 
-    s = min(d-c, n-1-d) ;
-    for (l = b, h = n-s; s; s--)
+    s = min(d-c, size_ary - 1 - d) ;
+    for (l = b, h = size_ary - s; s; s--)
         swap(x, l++, h++);
 
     qsort_fat_pivot(x, b-a);
-    qsort_fat_pivot(x + n-(d-c), d-c) ;
+    qsort_fat_pivot(x + size_ary - (d - c), d - c) ;
 }
 
 void select1(int* x, int min_idx, int max_idx, int kth) {

@@ -1,7 +1,3 @@
-//
-// Created by In Soo Oh on 3/21/16.
-//
-
 #ifndef PROGRAMMING_PEARLS_COLUMN13_H
 #define PROGRAMMING_PEARLS_COLUMN13_H
 
@@ -35,35 +31,33 @@ public:
 
 class IntSetBitVec {
 private:
-	enum { BITSPERWORD = 32, SHIFT = 5, MASK = 0x1F };
-	int	n, hi, *x;
+	enum { BIT_PER_INT_TYPE = 32, SHIFT = 5, MASK = 0b111111 };
+	int _size, _maxval, *x;
 	void set(int i)  {        x[i>>SHIFT] |=  (1<<(i & MASK)); }
 	void clr(int i)  {        x[i>>SHIFT] &= ~(1<<(i & MASK)); }
 	int  test(int i) { return x[i>>SHIFT] &   (1<<(i & MASK)); }
 
 public:
-	IntSetBitVec(int maxelements, int maxval) {
-        hi = maxval;
-		x = new int[1 + hi/BITSPERWORD];
-		for (int i = 0; i < hi; i++)
+	IntSetBitVec(int maxelements, int maxval): _maxval(maxval), _size(0) {
+		x = new int[1 + _maxval / BIT_PER_INT_TYPE];
+		for (int i = 0; i < _maxval; i++)
 			clr(i);
-		n = 0;
 	}
 
 	int size() {
-        return n;
+        return _size;
     }
 
 	void insert(int t) {
         if (test(t))
 			return;
 		set(t);
-		n++;
+		_size++;
 	}
 
 	void report(int *v) {
         int j=0;
-		for (int i = 0; i < hi; i++)
+		for (int i = 0; i < _maxval; i++)
 			if (test(i))
 				v[j++] = i;
 	}
@@ -71,39 +65,43 @@ public:
 
 class IntSetArr {
 private:
-	int	n, *x;
+	int _size, *x;
 public:
 	IntSetArr(int maxelements, int maxval) {
         x = new int[1 + maxelements];
-		n=0;
+		_size =0;
 		x[0] = maxval; /* sentinel at x[n] */
 	}
 
 	int size() {
-        return n;
+        return _size;
     }
 
 	void insert(int t) {
-        int i, j;
+        int i;
+
 		for (i = 0; x[i] < t; i++)
 			;
+
 		if (x[i] == t)
 			return;
-		for (j = n; j >= i; j--)
+
+		for (int j = _size; j >= i; j--)
 			x[j+1] = x[j];
+
 		x[i] = t;
-		n++;
+		_size++;
 	}
 
 	void report(int *v) {
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < _size; i++)
 			v[i] = x[i];
 	}
 };
 
 class IntSetList {
 private:
-	int	n;
+	int _size;
 
 	struct node {
 		int val;
@@ -117,12 +115,12 @@ private:
 
 	node *head, *sentinel;
 
-	node *rinsert(node *p, int t) {
-        if (p->val < t) {
-			p->next = rinsert(p->next, t);
-		} else if (p->val > t) {
-			p = new node(t, p);
-			n++;
+	node *rinsert(node *p, int value) {
+        if (p->val < value) {
+			p->next = rinsert(p->next, value);
+		} else if (p->val > value) {
+			p = new node(value, p);
+			_size++;
 		}
 		return p;
 	}
@@ -130,50 +128,50 @@ private:
 public:
 	IntSetList(int maxelements, int maxval) {
         sentinel = head = new node(maxval, 0);
-		n = 0;
+		_size = 0;
 	}
 
 	int size() {
-        return n;
+        return _size;
     }
 
-	void insert(int t) {
-        head = rinsert(head, t);
+	void insert_recursive(int value) {
+        head = rinsert(head, value);
     }
 
-	void insert2(int t) {
+	void insert_non_recursive(int value) {
         node *p;
 
-		if (head->val == t)
+		if (head->val == value)
 			return;
 
-		if (head->val > t) {
-			head = new node(t, head);
-			n++;
+		if (head->val > value) {
+			head = new node(value, head);
+			_size++;
 			return;
 		}
 
-		for (p = head; p->next->val < t; p = p->next)
+		for (p = head; p->next->val < value; p = p->next)
 			;
 
-		if (p->next->val == t)
+		if (p->next->val == value)
 			return;
 
-		p->next = new node(t, p->next);
-		n++;
+		p->next = new node(value, p->next);
+		_size++;
 	}
 
-	void insert3(int t) {
+	void insert_non_recursive_with_pointer(int value) {
         node **p;
 
-		for (p = &head; (*p)->val < t; p = &((*p)->next))
+		for (p = &head; (*p)->val < value; p = &((*p)->next))
 			;
 
-		if ((*p)->val == t)
+		if ((*p)->val == value)
 			return;
 
-		*p = new node(t, *p);
-		n++;
+		*p = new node(value, *p);
+		_size++;
 	}
 
 	void report(int *v) {
@@ -183,9 +181,9 @@ public:
 	}
 };
 
-class IntSetList2 {
+class IntSetList_with_allocator {
 private:
-	int	n;
+	int _size;
 
 	struct node {
 		int val;
@@ -195,27 +193,27 @@ private:
 	node *head, *sentinel, *freenode;
 
 public:
-	IntSetList2(int maxelements, int maxval) {
+	IntSetList_with_allocator(int maxelements, int maxval) {
         sentinel = head = new node;
 		sentinel->val = maxval;
 		freenode = new node[maxelements];
-		n = 0;
+		_size = 0;
 	}
 
 	int size() {
-        return n;
+        return _size;
     }
 
-	void insert(int t) {
+	void insert(int value) {
         node **p;
-		for (p = &head; (*p)->val < t; p = &((*p)->next))
+		for (p = &head; (*p)->val < value; p = &((*p)->next))
 			;
-		if ((*p)->val == t)
+		if ((*p)->val == value)
 			return;
-		freenode->val = t;
+		freenode->val = value;
 		freenode->next = *p;
 		*p = freenode++;
-		n++;
+		_size++;
 	}
 
 	void report(int *v) {
@@ -227,7 +225,7 @@ public:
 
 class IntSetBST {
 private:
-	int	n, *v, vn;
+	int _size, *v, size_v;
 
 	struct node {
 		int val;
@@ -241,14 +239,14 @@ private:
 
 	node *root;
 
-	node *rinsert(node *p, int t) {
+	node *rinsert(node *p, int value) {
         if (p == 0) {
-			p = new node(t);
-			n++;
-		} else if (t < p->val) {
-			p->left = rinsert(p->left, t);
-		} else if (t > p->val) {
-			p->right = rinsert(p->right, t);
+			p = new node(value);
+			_size++;
+		} else if (value < p->val) {
+			p->left = rinsert(p->left, value);
+		} else if (value > p->val) {
+			p->right = rinsert(p->right, value);
 		} // do nothing if p->val == t
 		return p;
 	}
@@ -257,34 +255,31 @@ private:
         if (p == 0)
 			return;
 		traverse(p->left);
-		v[vn++] = p->val;
+		v[size_v++] = p->val;
 		traverse(p->right);
 	}
 
 public:
-	IntSetBST(int maxelements, int maxval) {
-        root = 0;
-        n = 0;
-    }
+	IntSetBST(int maxelements, int maxval): root(0), _size(0) {}
 
 	int size() {
-        return n;
+        return _size;
     }
 
-	void insert(int t) {
-        root = rinsert(root, t);
+	void insert(int value) {
+        root = rinsert(root, value);
     }
 
 	void report(int *x) {
         v = x;
-        vn = 0;
+        size_v = 0;
         traverse(root);
     }
 };
 
-class IntSetBST2 {
+class IntSetBST_with_allocator {
 private:
-	int	n, *v, vn;
+	int _size, *v, size_v;
 
 	struct node {
 		int val;
@@ -293,16 +288,16 @@ private:
 
 	node *root, *freenode, *sentinel;
 
-	node *rinsert(node *p, int t) {
+	node *rinsert(node *p, int value) {
         if (p == sentinel) {
 			p = freenode++;
-			p->val = t;
+			p->val = value;
 			p->left = p->right = sentinel;
-			n++;
-		} else if (t < p->val) {
-			p->left = rinsert(p->left, t);
-		} else if (t > p->val) {
-			p->right = rinsert(p->right, t);
+			_size++;
+		} else if (value < p->val) {
+			p->left = rinsert(p->left, value);
+		} else if (value > p->val) {
+			p->right = rinsert(p->right, value);
 		} // do nothing if p->val == t
 		return p;
 	}
@@ -311,53 +306,54 @@ private:
         if (p == sentinel)
 			return;
 		traverse(p->left);
-		v[vn++] = p->val;
+		v[size_v++] = p->val;
 		traverse(p->right);
 	}
 
 public:
-	IntSetBST2(int maxelements, int maxval) {
+	IntSetBST_with_allocator(int maxelements, int maxval) {
         root = sentinel = new node;  // 0 if using insert1
-		n = 0;
+		_size = 0;
 		freenode = new node[maxelements];
 	}
 
 	int size() {
-        return n;
+        return _size;
     }
 
-	void insert1(int t) {
-        root = rinsert(root, t);
+	void insert1(int value) {
+        root = rinsert(root, value);
     }
 
-	void insert(int t) {
-        sentinel->val = t;
+	void insert(int value) {
+        sentinel->val = value;
 		node **p = &root;
 
-		while ((*p)->val != t)
-			if (t < (*p)->val)
+		while ((*p)->val != value)
+			if (value < (*p)->val)
 				p = &((*p)->left);
 			else
 				p = &((*p)->right);
 
 		if (*p == sentinel) {
 			*p = freenode++;
-			(*p)->val = t;
+			(*p)->val = value;
 			(*p)->left = (*p)->right = sentinel;
-			n++;
+			_size++;
 		}
 	}
 
 	void report(int *x) {
         v = x;
-        vn = 0;
+        size_v = 0;
         traverse(root);
     }
 };
 
 class IntSetBins {
 private:
-	int	n, bins, maxval;
+	int _size, _maxval;
+    const int _maxelements;
 
 	struct node {
 		int val;
@@ -370,50 +366,50 @@ private:
 
 	node **bin, *sentinel;
 
-	node *rinsert(node *p, int t) {
-        if (p->val < t) {
-			p->next = rinsert(p->next, t);
-		} else if (p->val > t) {
-			p = new node(t, p);
-			n++;
+	node *rinsert(node *p, int value) {
+        if (p->val < value) {
+			p->next = rinsert(p->next, value);
+		} else if (p->val > value) {
+			p = new node(value, p);
+			_size++;
 		}
 		return p;
 	}
 
 public:
-	IntSetBins(int maxelements, int pmaxval) {
-        bins = maxelements;
-		maxval = pmaxval;
+	IntSetBins(int maxelements, int maxval): _maxelements(maxelements) {
+		_maxval = maxval;
 
-		bin = new node*[bins];
-		sentinel = new node(maxval, 0);
+		bin = new node*[_maxelements];
+		sentinel = new node(_maxval, 0);
 
-		for (int i = 0; i < bins; i++)
+		for (int i = 0; i < _maxelements; i++)
 			bin[i] = sentinel;
-		n = 0;
+		_size = 0;
 	}
 
 	int size() {
-        return n;
+        return _size;
     }
 
-	void insert(int t) {
-        int i = t / (1 + maxval/bins);  // CHECK !
-		bin[i] = rinsert(bin[i], t);
+	void insert(int value) {
+        int i = value / (1 + _maxval / _maxelements);  // CHECK !
+		bin[i] = rinsert(bin[i], value);
 	}
 
 	void report(int *v) {
         int j = 0;
 
-		for (int i = 0; i < bins; i++)
+		for (int i = 0; i < _maxelements; i++)
 			for (node *p = bin[i]; p != sentinel; p = p->next)
 				v[j++] = p->val;
 	}
 };
 
-class IntSetBins2 {
+class IntSetBins_with_allocator {
 private:
-	int	n, bins, maxval;
+	int _size, _maxval;
+    const int _maxelements;
 
 	struct node {
 		int val;
@@ -422,62 +418,61 @@ private:
 
 	node **bin, *sentinel, *freenode;
 
-	node *rinsert(node *p, int t) {
-        if (p->val < t) {
-			p->next = rinsert(p->next, t);
-		} else if (p->val > t) {
-			freenode->val = t;
+	node *rinsert(node *p, int value) {
+        if (p->val < value) {
+			p->next = rinsert(p->next, value);
+		} else if (p->val > value) {
+			freenode->val = value;
 			freenode->next = p;
 			p = freenode++;
-			n++;
+			_size++;
 		}
 		return p;
 	}
 
 public:
-	IntSetBins2(int maxelements, int pmaxval) {
-        bins = maxelements;
-		maxval = pmaxval;
+	IntSetBins_with_allocator(int maxelements, int maxval): _maxelements(maxelements) {
+		_maxval = maxval;
 
 		freenode = new node[maxelements];
-		bin = new node*[bins];
+		bin = new node*[_maxelements];
 
 		sentinel = new node;
-		sentinel->val = maxval;
+		sentinel->val = _maxval;
 
-		for (int i = 0; i < bins; i++)
+		for (int i = 0; i < _maxelements; i++)
 			bin[i] = sentinel;
-		n = 0;
+		_size = 0;
 	}
 
 	int size() {
-        return n;
+        return _size;
     }
 
-	void insert1(int t) {
-        int i = t / (1 + maxval/bins);
-		bin[i] = rinsert(bin[i], t);
+	void insert_recursive(int value) {
+        int i = value / (1 + _maxval / _maxelements);
+		bin[i] = rinsert(bin[i], value);
 	}
 
-	void insert(int t) {
+	void insert(int value) {
         node **p;
-		int i = t / (1 + maxval/bins);
+		int i = value / (1 + _maxval / _maxelements);
 
-		for (p = &bin[i]; (*p)->val < t; p = &((*p)->next))
+		for (p = &bin[i]; (*p)->val < value; p = &((*p)->next))
 			;
 
-		if ((*p)->val == t)
+		if ((*p)->val == value)
 			return;
 
-		freenode->val = t;
+		freenode->val = value;
 		freenode->next = *p;
 		*p = freenode++;
-		n++;
+		_size++;
 	}
 
 	void report(int *v) {
         int j = 0;
-		for (int i = 0; i < bins; i++)
+		for (int i = 0; i < _maxelements; i++)
 			for (node *p = bin[i]; p != sentinel; p = p->next)
 				v[j++] = p->val;
 	}

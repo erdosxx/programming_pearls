@@ -21,20 +21,20 @@ public:
     }
 };
 
-TEST_F(BitOperationFixture, test_bitcount_Function) {
-    ASSERT_EQ(0, bitcount(0));
-    ASSERT_EQ(1, bitcount(1));
-    ASSERT_EQ(2, bitcount(0b100010));
-    ASSERT_EQ(12, bitcount(0b11111101111110));
-    ASSERT_EQ(13, bitcount(0b11111111111110));
+TEST_F(BitOperationFixture, test_bitcount_simple_Function) {
+    ASSERT_EQ(0, bitcount_simple(0));
+    ASSERT_EQ(1, bitcount_simple(1));
+    ASSERT_EQ(2, bitcount_simple(0b100010));
+    ASSERT_EQ(12, bitcount_simple(0b11111101111110));
+    ASSERT_EQ(13, bitcount_simple(0b11111111111110));
 }
 
-TEST_F(BitOperationFixture, test_bitcount2_Function) {
-    ASSERT_EQ(0, bitcount2(0));
-    ASSERT_EQ(1, bitcount2(1));
-    ASSERT_EQ(2, bitcount2(0b100010));
-    ASSERT_EQ(12, bitcount2(0b11111101111110));
-    ASSERT_EQ(13, bitcount2(0b11111111111110));
+TEST_F(BitOperationFixture, test_bitcount_rightmostbit_Function) {
+    ASSERT_EQ(0, bitcount_rightmostbit(0));
+    ASSERT_EQ(1, bitcount_rightmostbit(1));
+    ASSERT_EQ(2, bitcount_rightmostbit(0b100010));
+    ASSERT_EQ(12, bitcount_rightmostbit(0b11111101111110));
+    ASSERT_EQ(13, bitcount_rightmostbit(0b11111111111110));
 }
 
 TEST_F(BitOperationFixture, test_getbits_Function) {

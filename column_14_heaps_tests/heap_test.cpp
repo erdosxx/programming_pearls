@@ -1,4 +1,4 @@
-#include "priqueue.h"
+#include "min_priqueue.h"
 #include <gtest/gtest.h>
 
 void swap(int* x, int i, int j) {
@@ -21,7 +21,7 @@ protected:
     int size_ary=100000;
     int* target_array = new int[size_ary];
 
-    priqueue<int> pq;
+    min_priqueue<int> pq;
 
     void set_value_target_array () {
         for(int i=0; i< size_ary; i++) {
