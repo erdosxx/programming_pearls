@@ -5,91 +5,113 @@
 
 /* Alg 1: From Programming Pearls, Column 4: raw transliteration */
 
-int binarysearch1(int* x, const size_t & n, int t) {
-    int l, u, m;
-    l = 0;
-    u = n-1;
+int binarysearch1(int* x, const size_t size_ary, int value) {
+    int middle;
+    int low = 0;
+    int high = size_ary - 1;
 
     for (;;) {
-        if (l > u)
+        if (low > high)
             return -1;
 
-        m = (l + u) / 2;
+        middle = (low + high) / 2;
 
-        if (x[m] < t)
-            l = m+1;
-        else if (x[m] == t)
-            return m;
-        else /* x[m] > t */
-            u = m-1;
+        if (x[middle] < value)
+            low = middle + 1;
+        else if (x[middle] == value)
+            return middle;
+        else
+            high = middle - 1;
     }
 }
 
 /* Alg 2: Make binarysearch1 more c-ish */
 
-int binarysearch2(int* x, const size_t & n, int t) {
-    int l, u, m;
-    l = 0;
-    u = n-1;
+int binarysearch2(int* x, const size_t size_ary, int value) {
+    int middle;
+    int low = 0;
+    int high = size_ary - 1;
 
-    while (l <= u) {
-        m = (l + u) / 2;
+    while (low <= high) {
+        middle = (low + high) / 2;
 
-        if (x[m] < t)
-            l = m+1;
-        else if (x[m] == t)
-            return m;
-        else /* x[m] > t */
-            u = m-1;
+        if (x[middle] < value)
+            low = middle + 1;
+        else if (x[middle] == value)
+            return middle;
+        else
+            high = middle - 1;
     }
     return -1;
 }
 
 /* Alg 3: From PP, Col 9, Page 93 */
+// Find the FIRST occurrence of the integer t
+int binary_search_first(int *x, const size_t size_ary, int value) {
+    int middle;
+    int low = -1;
+    int high = size_ary;
 
-int binarysearch3(int* x, const size_t & n, int t) {
-    int l, u, m;
-    l = -1;
-    u = n;
+    // invariant: x[low] < value && x[high] >= value && low < high
+    while (low + 1 != high) {
+        middle = (low + high) / 2;
 
-    while (l+1 != u) {
-        m = (l + u) / 2;
-
-        if (x[m] < t)
-            l = m;
+        if (x[middle] < value)
+            low = middle;
         else
-            u = m;
+            high = middle;
     }
 
-    if (u >= n || x[u] != t)
+    if (high >= size_ary || x[high] != value)
         return -1;
-    return u;
+    return high;
+}
+
+/* Alg 3: From PP, Col 9, Page 93 */
+// Find the LAST occurrence of the integer t
+int binary_search_last(int *x, const size_t size_ary, int value) {
+    int middle;
+    int low = -1;
+    int high = size_ary;
+
+    // invariant: x[low] <= value && x[high] > value && low < high
+    while (low + 1 != high) {
+        middle = (low + high) / 2;
+
+        if(x[middle] > value)
+            high = middle;
+        else
+            low = middle;
+    }
+
+    if (low <= -1 || x[low] != value)
+        return -1;
+    return low;
 }
 
 /* Alg 4: From PP, Col 9 */
+int binarysearch4(int* x, const size_t size_ary, int value) {
+    if (size_ary != 1000)
+        return binary_search_first(x, size_ary, value);
 
-int binarysearch4(int* x, const size_t & n, int t) {
-    int l, p;
-    if (n != 1000)
-        return binarysearch3(x, n, t);
+    // invariant: x[low] < value
+    int low = -1;
+    if (x[511] < value) low = 1000 - 512;
+    if (x[low + 256] < value) low += 256;
+    if (x[low + 128] < value) low += 128;
+    if (x[low + 64 ] < value) low += 64;
+    if (x[low + 32 ] < value) low += 32;
+    if (x[low + 16 ] < value) low += 16;
+    if (x[low + 8  ] < value) low += 8;
+    if (x[low + 4  ] < value) low += 4;
+    if (x[low + 2  ] < value) low += 2;
+    if (x[low + 1  ] < value) low += 1;
 
-    l = -1;
-    if (x[511]   < t) l = 1000 - 512;
-    if (x[l+256] < t) l += 256;
-    if (x[l+128] < t) l += 128;
-    if (x[l+64 ] < t) l += 64;
-    if (x[l+32 ] < t) l += 32;
-    if (x[l+16 ] < t) l += 16;
-    if (x[l+8  ] < t) l += 8;
-    if (x[l+4  ] < t) l += 4;
-    if (x[l+2  ] < t) l += 2;
-    if (x[l+1  ] < t) l += 1;
+    int answer = low + 1;
 
-    p = l+1;
-
-    if (p >= n || x[p] != t)
+    if (answer >= size_ary || x[answer] != value)
         return -1;
-    return p;
+    return answer;
 }
 
 int sorted(int* x, const size_t & n) {
@@ -113,9 +135,9 @@ int binarysearch9(int* x, const size_t & n, int t) {
         m = (l + u) / 2;
         /* printf("  %d %d %d\n", l, m, u); */
         if (x[m] < t)
-            l = m;
+            l = m;  // <-- l = m+1
         else if (x[m] > t)
-            u = m;
+            u = m;  // <-- u = m-1
         else {
             /* assert(x[m] == t); */
             return m;
@@ -127,25 +149,27 @@ int binarysearch9(int* x, const size_t & n, int t) {
 
 /* Alg 21: Simple sequential search */
 
-int seqsearch1(int* x, const size_t & n, int t) {
-    int i;
-    for (i = 0; i < n; i++)
-        if (x[i] == t)
+int seqsearch_simple(int *x, const size_t size_ary, int value) {
+    for (int i = 0; i < size_ary; i++)
+        if (x[i] == value)
             return i;
     return -1;
 }
 
 /* Alg 22: Faster sequential search: Sentinel */
 
-int seqsearch2(int* x, const size_t & n, int t) {
+int seqsearch_sentinel(int *x, const size_t size_ary, int value) {
     int i;
-    int hold = x[n];
-    x[n] = t;
+    int backup = x[size_ary];
+    x[size_ary] = value;
+
     for (i = 0; ; i++)
-        if (x[i] == t)
+        if (x[i] == value)
             break;
-    x[n] = hold;
-    if (i == n)
+
+    x[size_ary] = backup;
+
+    if (i == size_ary)
         return -1;
     else
         return i;
@@ -153,22 +177,25 @@ int seqsearch2(int* x, const size_t & n, int t) {
 
 /* Alg 23: Faster sequential search: loop unrolling */
 
-int seqsearch3(int* x, const size_t & n, int t) {
+int seqsearch_loop_unrolling(int *x, const size_t size_ary, int value) {
     int i;
-    int hold = x[n];
-    x[n] = t;
+    int backup = x[size_ary];
+    x[size_ary] = value;
+
     for (i = 0; ; i+=8) {
-        if (x[i] == t)   {          break; }
-        if (x[i+1] == t) { i += 1; break; }
-        if (x[i+2] == t) { i += 2; break; }
-        if (x[i+3] == t) { i += 3; break; }
-        if (x[i+4] == t) { i += 4; break; }
-        if (x[i+5] == t) { i += 5; break; }
-        if (x[i+6] == t) { i += 6; break; }
-        if (x[i+7] == t) { i += 7; break; }
+        if (x[i] == value)   {         break; }
+        if (x[i+1] == value) { i += 1; break; }
+        if (x[i+2] == value) { i += 2; break; }
+        if (x[i+3] == value) { i += 3; break; }
+        if (x[i+4] == value) { i += 4; break; }
+        if (x[i+5] == value) { i += 5; break; }
+        if (x[i+6] == value) { i += 6; break; }
+        if (x[i+7] == value) { i += 7; break; }
     }
-    x[n] = hold;
-    if (i == n)
+
+    x[size_ary] = backup;
+
+    if (i == size_ary)
         return -1;
     else
         return i;
