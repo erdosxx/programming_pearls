@@ -251,12 +251,12 @@ private:
 		return p;
 	}
 
-	void traverse(node *p) {
+	void inorder_traverse(node *p) {
         if (p == 0)
 			return;
-		traverse(p->left);
+        inorder_traverse(p->left);
 		v[size_v++] = p->val;
-		traverse(p->right);
+        inorder_traverse(p->right);
 	}
 
 public:
@@ -273,7 +273,7 @@ public:
 	void report(int *x) {
         v = x;
         size_v = 0;
-        traverse(root);
+        inorder_traverse(root);
     }
 };
 
@@ -302,12 +302,12 @@ private:
 		return p;
 	}
 
-	void traverse(node *p) {
+	void inorder_traverse(node *p) {
         if (p == sentinel)
 			return;
-		traverse(p->left);
+        inorder_traverse(p->left);
 		v[size_v++] = p->val;
-		traverse(p->right);
+        inorder_traverse(p->right);
 	}
 
 public:
@@ -346,7 +346,7 @@ public:
 	void report(int *x) {
         v = x;
         size_v = 0;
-        traverse(root);
+        inorder_traverse(root);
     }
 };
 

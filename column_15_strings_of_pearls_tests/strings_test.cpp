@@ -171,6 +171,27 @@ TEST_F(StringsFixture, markov_case1_class) {
     atest.report_gen_text();
 }
 
+TEST_F(StringsFixture, wordncmp_test) {
+    char inputstring[]="";
+
+    markov atest(inputstring, 1);
+
+    char a[] ="happy";
+    char b[] ="happy";
+    ASSERT_EQ(0, atest.get_wordncmp(a, b, 1));
+
+    char c[]="happy\0 A";
+    char d[] ="happy\0 B";
+    ASSERT_EQ(0, atest.get_wordncmp(c, d, 1));
+    ASSERT_NE(0, atest.get_wordncmp(c, d, 2));
+
+    char e[]="happy\0 Day\0 A";
+    char f[] ="happy\0 Day\0 B";
+    ASSERT_EQ(0, atest.get_wordncmp(e, f, 1));
+    ASSERT_EQ(0, atest.get_wordncmp(e, f, 2));
+    ASSERT_NE(0, atest.get_wordncmp(e, f, 3));
+}
+
 TEST_F(StringsFixture, markov_case_binary_search) {
     char inputstring[]="Every reader, as he reads, is actually the reader of himself. "
             "The writer's work is only a kind of optical instrument he provides the "

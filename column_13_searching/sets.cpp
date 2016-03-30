@@ -254,7 +254,7 @@ private:
 		return p;
 	}
 
-	void traverse(node *p) {
+	void inorder_traverse(node *p) {
         if (p == 0)
 			return;
 		traverse(p->left);
