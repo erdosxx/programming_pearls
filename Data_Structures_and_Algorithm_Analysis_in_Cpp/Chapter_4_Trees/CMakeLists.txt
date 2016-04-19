@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.3)
+
+project(Ch4_Trees)
+
+add_definitions(-std=c++11)
+
+set(HEADER_FILES
+        AvlTree.h
+        dsexceptions.h
+        )
+
+#set(SOURCE_FILES
+#        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
+#        )
+
+add_library(Ch4_Trees STATIC ${SOURCE_FILES} ${HEADER_FILES})
