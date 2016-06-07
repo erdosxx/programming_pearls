@@ -58,6 +58,7 @@ void genshuf(int* output, int num_gen, const int supremum) {
         //cout << x[i] << "\n";
 }
 
+// See TAOCP II p.148 #17
 void genfloyd(int* output, int num_gen, const int supremum) {
     set<int> S;
 

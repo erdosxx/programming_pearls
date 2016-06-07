@@ -148,6 +148,7 @@ int min(int a, int b) {
 /*
  * Page 123. Exercise 11.
  */
+// See TAOCP III p. 635
 void qsort_fat_pivot(int* x, const int size_ary) {
     int a, b, c, d, l, h, s;
 
@@ -170,6 +171,7 @@ void qsort_fat_pivot(int* x, const int size_ary) {
         }
         if (b > c)
             break;
+        // x[b] > pivot and x[c] < pipot
         swap(x, b++, c--);
     }
 
