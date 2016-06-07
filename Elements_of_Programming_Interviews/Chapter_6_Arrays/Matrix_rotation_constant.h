@@ -9,13 +9,15 @@ namespace matrix_rotation_constant {
 
     void RotateMatrix(vector<vector<int>> *A_ptr) {
         auto &A = *A_ptr;
+        const int matrix_size = A.size() - 1;
+
         for (int i = 0; i < (A.size() / 2); ++i) {
-            for (int j = i; j < A.size() - i - 1; ++j) {
+            for (int j = i; j < matrix_size - i ; ++j) {
                 int temp = A[i][j];
-                A[i][j] = A[A.size() - 1 - j][i];
-                A[A.size() - 1 - j][i] = A[A.size() - 1 - i][A.size() - 1 - j];
-                A[A.size() - 1 - i][A.size() - 1 - j] = A[j][A.size() - 1 - i];
-                A[j][A.size() - 1 - i] = temp;
+                A[i][j] = A[matrix_size - j][i];
+                A[matrix_size - j][i] = A[matrix_size - i][matrix_size - j];
+                A[matrix_size - i][matrix_size - j] = A[j][matrix_size - i];
+                A[j][matrix_size - i] = temp;
             }
         }
     }
@@ -27,15 +29,15 @@ namespace matrix_rotation_constant {
                 : square_matrix_(*square_matrix) { }
 
         int ReadEntry(int i, int j) const {
-            return square_matrix_[square_matrix_.size() - 1 - j][i];
+            return square_matrix_[matrix_size - j][i];
         }
 
         void WriteEntry(int i, int j, int v) {
-            square_matrix_[square_matrix_.size() - 1 - j][i] = v;
+            square_matrix_[matrix_size - j][i] = v;
         }
-
     private:
         vector<vector<int>> &square_matrix_;
+        const int matrix_size = square_matrix_.size() -1;
     };
 // @exclude
 

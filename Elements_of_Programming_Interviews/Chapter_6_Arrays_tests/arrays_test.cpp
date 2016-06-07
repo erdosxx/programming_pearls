@@ -23,6 +23,7 @@
 #include "Spiral_matrix.h"
 #include "Matrix_rotation_constant.h"
 #include "Matrix_rotation_naive.h"
+#include "pascal-triangle-1.h"
 
 using std::default_random_engine;
 using std::numeric_limits;
@@ -535,4 +536,11 @@ TEST_F(Arrays_Fixture, matrix_rotation_naive_Function) {
         matrix_rotation_naive::RotateMatrix(&A);
         ASSERT_TRUE(matrix_rotation_naive::CheckAnswer(A));
     }
+}
+
+TEST_F(Arrays_Fixture, pascal_triangle_Function) {
+    auto result = GeneratePascalTriangle(3);
+    vector<vector<int>> golden_result = {{1}, {1, 1}, {1, 2, 1}};
+    ASSERT_TRUE(equal(result.begin(), result.end(), golden_result.begin(),
+                 golden_result.end()));
 }

@@ -32,6 +32,7 @@ set(HEADER_FILES
         Spiral_matrix.h
         Matrix_rotation_constant.h
         Matrix_rotation_naive.h
+        pascal-triangle-1.h
         )
 
 #set(SOURCE_FILES
