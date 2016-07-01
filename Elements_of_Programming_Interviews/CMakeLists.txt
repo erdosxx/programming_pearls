@@ -10,6 +10,9 @@ include_directories(
         Chapter_8_Linked_Lists
         Chapter_9_Stacks_and_Queues
         Chapter_10_Binary_Trees
+        Chapter_11_Heaps
+        Chapter_12_Searching
+        Chapter_13_Hash_Tables
         )
 
 add_subdirectory(Chapter_5_Primitive_Types)
@@ -24,3 +27,9 @@ add_subdirectory(Chapter_9_Stacks_and_Queues)
 add_subdirectory(Chapter_9_Stacks_and_Queues_tests)
 add_subdirectory(Chapter_10_Binary_Trees)
 add_subdirectory(Chapter_10_Binary_Trees_tests)
+add_subdirectory(Chapter_11_Heaps)
+add_subdirectory(Chapter_11_Heaps_tests)
+add_subdirectory(Chapter_12_Searching)
+add_subdirectory(Chapter_12_Searching_tests)
+add_subdirectory(Chapter_13_Hash_Tables)
+add_subdirectory(Chapter_13_Hash_Tables_tests)
