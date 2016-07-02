@@ -16,6 +16,8 @@
 #include "longest-subarray-with-distinct-entries.h"
 #include "longest-contained-range.h"
 #include "average-top-3-scores.h"
+#include "substring-with-concatenation-of-all-words.h"
+#include "Collatz_conjecture.h"
 
 using std::istringstream;
 using std::stringstream;
@@ -511,4 +513,26 @@ TEST_F(Ch13Hash_Tables_Fixture, average_top_3_Function) {
     cout << "top student is " << name << endl;
     // Remove file after the execution.
     // remove("score.txt");
+}
+
+TEST_F(Ch13Hash_Tables_Fixture, concat_substring_Function) {
+    string s = "barfoothefoobarman";
+    auto result = FindAllSubstrings(s, {"foo", "bar"});
+    ASSERT_TRUE(result.size() == 2 && result[0] == 0 && result[1] == 9);
+    s = "dcacdabcd";
+    result = FindAllSubstrings(s, {"cd", "ab"});
+    ASSERT_TRUE(result.size() == 2 && result[0] == 3 && result[1] == 5);
+}
+
+TEST_F(Ch13Hash_Tables_Fixture, Collatz_conjecture_Function) {
+    default_random_engine gen((random_device())());
+    for (int times = 0; times < 100; ++times) {
+        uniform_int_distribution<int> dis(1, 10000);
+        int n = dis(gen);
+        //cout << "n = " << n << endl;
+        bool res;
+        // cout << boolalpha << (res = TestCollatzConjecture(n)) << endl;
+        res = p_13_13::TestCollatzConjecture(n);
+        ASSERT_EQ(res, p_13_13::Check(n));
+    }
 }

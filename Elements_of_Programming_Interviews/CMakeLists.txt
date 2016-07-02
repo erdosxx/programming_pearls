@@ -13,6 +13,7 @@ include_directories(
         Chapter_11_Heaps
         Chapter_12_Searching
         Chapter_13_Hash_Tables
+        Chapter_14_Sorting
         )
 
 add_subdirectory(Chapter_5_Primitive_Types)
@@ -33,3 +34,5 @@ add_subdirectory(Chapter_12_Searching)
 add_subdirectory(Chapter_12_Searching_tests)
 add_subdirectory(Chapter_13_Hash_Tables)
 add_subdirectory(Chapter_13_Hash_Tables_tests)
+add_subdirectory(Chapter_14_Sorting)
+add_subdirectory(Chapter_14_Sorting_tests)

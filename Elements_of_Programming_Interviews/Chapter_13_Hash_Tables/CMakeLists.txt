@@ -18,6 +18,8 @@ set(HEADER_FILES
         longest-subarray-with-distinct-entries.h
         longest-contained-range.h
         average-top-3-scores.h
+        substring-with-concatenation-of-all-words.h
+        Collatz_conjecture.h
         )
 
 #set(SOURCE_FILES
