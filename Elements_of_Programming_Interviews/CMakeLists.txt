@@ -14,6 +14,7 @@ include_directories(
         Chapter_12_Searching
         Chapter_13_Hash_Tables
         Chapter_14_Sorting
+        Chapter_15_Binary_Search_Trees
         )
 
 add_subdirectory(Chapter_5_Primitive_Types)
@@ -36,3 +37,5 @@ add_subdirectory(Chapter_13_Hash_Tables)
 add_subdirectory(Chapter_13_Hash_Tables_tests)
 add_subdirectory(Chapter_14_Sorting)
 add_subdirectory(Chapter_14_Sorting_tests)
+add_subdirectory(Chapter_15_Binary_Search_Trees)
+add_subdirectory(Chapter_15_Binary_Search_Trees_tests)

@@ -11,6 +11,12 @@
 #include "Eliminate_duplicate.h"
 #include "Rendering_calendar.h"
 #include "insert-interval.h"
+#include "Union_intervals.h"
+#include "partition-array.h"
+#include "Team_photo_1.h"
+#include "insertion-sort-list.h"
+#include "sort-list.h"
+#include "Completion_search.h"
 
 using std::istringstream;
 using std::stringstream;
@@ -42,6 +48,8 @@ protected:
     void p_14_2_CheckAns(const vector<int>&);
     void p_14_3_CheckAns(const vector<Name>&);
     void p_14_5_CheckIntervals(const vector<Interval>&);
+    void p_14_6_CheckIntervals(const vector<p_14_6::Interval>&);
+    string p_14_7_RandString(int len);
 
 public:
     Ch14_Sorting_Fixture() : Test() {
@@ -75,6 +83,25 @@ void Ch14_Sorting_Fixture::p_14_5_CheckIntervals(const vector<Interval>& result)
     for (size_t i = 1; i < result.size(); ++i) {
         ASSERT_LT(result[i - 1].right, result[i].left);
     }
+}
+
+void Ch14_Sorting_Fixture::p_14_6_CheckIntervals(const vector<p_14_6::Interval>& A) {
+    // Only check the intervals do not overlap with each other.
+    for (size_t i = 1; i < A.size(); ++i) {
+        ASSERT_TRUE(A[i - 1].right.val < A[i].left.val ||
+               (A[i - 1].right.val == A[i].left.val && !A[i - 1].right.isClosed &&
+                !A[i].left.isClosed));
+    }
+}
+
+string Ch14_Sorting_Fixture::p_14_7_RandString(int len) {
+    string ret;
+    default_random_engine gen((random_device())());
+    uniform_int_distribution<int> char_dis(0, 25);
+    while (len--) {
+        ret += 'a' + char_dis(gen);
+    }
+    return ret;
 }
 
 TEST_F(Ch14_Sorting_Fixture, intersect_sorted_array_Function) {
@@ -205,5 +232,184 @@ TEST_F(Ch14_Sorting_Fixture, insert_interval_Function) {
         target.right = target.left + tar_dis(gen);
         auto result = AddInterval(A, target);
         p_14_5_CheckIntervals(result);
+    }
+}
+
+TEST_F(Ch14_Sorting_Fixture, union_intervals_Function) {
+    default_random_engine gen((random_device())());
+    for (int times = 0; times < 1000; ++times) {
+        uniform_int_distribution<int> dis(1, 1000);
+        int n = dis(gen);
+        vector<p_14_6::Interval> A;
+
+        for (int i = 0; i < n; ++i) {
+            p_14_6::Interval temp;
+            uniform_int_distribution<int> zero_or_one(0, 1);
+            uniform_int_distribution<int> dis1(0, 9999);
+            temp.left.isClosed = zero_or_one(gen);
+            temp.left.val = dis1(gen);
+
+            uniform_int_distribution<int> dis2(temp.left.val + 1,
+                                               temp.left.val + 100);
+            temp.right.isClosed = zero_or_one(gen);
+            temp.right.val = dis2(gen);
+            A.emplace_back(temp);
+        }
+        vector<p_14_6::Interval> ret = p_14_6::UnionOfIntervals(A);
+        if (!ret.empty()) {
+            p_14_6_CheckIntervals(ret);
+        }
+    }
+}
+
+TEST_F(Ch14_Sorting_Fixture, partition_array_Function) {
+    vector<Person> people = {Person({20, "foo"}), Person({10, "bar"}),
+                             Person({20, "widget"}), Person({20, "something"})};
+
+    GroupByAge(&people);
+    if (people[0].age == 10) {
+        ASSERT_TRUE(people[1].age == 20 && people[2].age == 20 && people[3].age == 20);
+    } else {
+        ASSERT_TRUE(people[1].age == 20 && people[2].age == 20 && people[3].age == 10);
+    }
+
+    default_random_engine gen((random_device())());
+    for (int times = 0; times < 10; ++times) {
+        uniform_int_distribution<int> dis(1, 10000);
+        int size = dis(gen);
+
+        uniform_int_distribution<int> dis1(1, size);
+        int k = dis1(gen);
+
+        vector<Person> person_array;
+        uniform_int_distribution<int> k_dis(0, k - 1);
+        uniform_int_distribution<int> len_dis(1, 10);
+
+        for (int i = 0; i < size; ++i) {
+            person_array.emplace_back(Person{k_dis(gen), p_14_7_RandString(len_dis(gen))});
+        }
+
+        unordered_set<int> age_set;
+        for (const Person& p : person_array) {
+            age_set.emplace(p.age);
+        }
+
+        GroupByAge(&person_array);
+
+        // Check the correctness of sorting.
+        int diff_count = 1;
+        for (int i = 1; i < person_array.size(); ++i) {
+            if (person_array[i].age != person_array[i - 1].age) {
+                ++diff_count;
+            }
+        }
+        ASSERT_EQ(diff_count, age_set.size());
+    }
+}
+
+TEST_F(Ch14_Sorting_Fixture, team_photo_Function) {
+    vector<int> height = {1, 5, 4};
+    Team t1(height);
+    height = {2, 3, 4};
+    Team t2(height);
+    ASSERT_TRUE(!Team::valid_placement_exists(t1, t2) &&
+           !Team::valid_placement_exists(t2, t1));
+    height = {0, 3, 2};
+    Team t3(height);
+    ASSERT_TRUE(Team::valid_placement_exists(t3, t1) &&
+           !Team::valid_placement_exists(t1, t3) &&
+           Team::valid_placement_exists(t3, t2) &&
+           !Team::valid_placement_exists(t1, t2));
+}
+
+TEST_F(Ch14_Sorting_Fixture, osrt_list_Function) {
+    shared_ptr<ListNode<int>> L;
+    L = make_shared<ListNode<int>>(ListNode<int>{
+            1, make_shared<ListNode<int>>(ListNode<int>{
+                    4, make_shared<ListNode<int>>(ListNode<int>{
+                            3, make_shared<ListNode<int>>(ListNode<int>{
+                                    2, make_shared<ListNode<int>>(
+                                            ListNode<int>{5, nullptr})})})})});
+    auto result = InsertionSort(L);
+    shared_ptr<ListNode<int>> pre = nullptr;
+    while (result) {
+        ASSERT_TRUE(!pre || pre->data <= result->data);
+        pre = result;
+        //cout << result->data << endl;
+        result = result->next;
+    }
+
+    default_random_engine gen((random_device())());
+    for (int times = 0; times < 10000; ++times) {
+        shared_ptr<ListNode<int>> L = nullptr;
+        uniform_int_distribution<int> dis(0, 99);
+        int n = dis(gen);
+
+        for (int i = n; i > 0; --i) {
+            shared_ptr<ListNode<int>> temp =
+                    make_shared<ListNode<int>>(ListNode<int>{dis(gen), nullptr});
+            temp->next = L;
+            L = temp;
+        }
+
+        auto sorted_head = StableSortList(L);
+        int count = 0;
+        int pre = numeric_limits<int>::min();
+        while (sorted_head) {
+            ASSERT_LE(pre, sorted_head->data);
+            pre = sorted_head->data;
+            sorted_head = sorted_head->next;
+            ++count;
+        }
+        ASSERT_EQ(count, n);
+    }
+}
+
+TEST_F(Ch14_Sorting_Fixture, salary_threshold_Function) {
+    vector<double> A = {20, 30, 40, 90, 100};
+    double T = 210;
+    ASSERT_EQ(FindSalaryCap(T, A), 60);
+    T = 280;
+    ASSERT_EQ(FindSalaryCap(T, A), 100);
+    T = 50;
+    ASSERT_EQ(FindSalaryCap(T, A), 10);
+    T = 281;
+    ASSERT_EQ(FindSalaryCap(T, A), -1.0);
+
+    default_random_engine gen((random_device())());
+    for (int times = 0; times < 10; ++times) {
+        A.clear();
+        double tar;
+
+        uniform_int_distribution<int> n_dis(1, 1000);
+        int n = n_dis(gen);
+        uniform_int_distribution<int> tar_dis(0, 99999);
+        tar = tar_dis(gen);
+
+        for (int i = 0; i < n; ++i) {
+            uniform_int_distribution<int> dis(0, 9999);
+            A.emplace_back(dis(gen));
+        }
+        // cout << "A = ";
+        // copy(A.begin(), A.end(), ostream_iterator<double>(cout, " "));
+        // cout << endl;
+        // cout << "tar = " << tar << endl;
+        double ret = FindSalaryCap(tar, A);
+        sort(A.begin(), A.end());
+
+        if (ret != -1.0) {
+        //    cout << "ret = " << ret << endl;
+            double sum = 0.0;
+            for (int i = 0; i < n; ++i) {
+                if (A[i] > ret) {
+                    sum += ret;
+                } else {
+                    sum += A[i];
+                }
+            }
+            tar -= sum;
+        //    cout << "sum = " << sum << endl;
+            ASSERT_LT(tar, 1.0e-8);
+        }
     }
 }

@@ -12,6 +12,12 @@ set(HEADER_FILES
         Eliminate_duplicate.h
         Rendering_calendar.h
         insert-interval.h
+        Union_intervals.h
+        partition-array.h
+        Team_photo_1.h
+        insertion-sort-list.h
+        sort-list.h
+        Completion_search.h
         )
 
 #set(SOURCE_FILES
