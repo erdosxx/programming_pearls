@@ -241,16 +241,14 @@ private:
 		int val;
 		node *left, *right;
 
-		node(int value) {
-            val = value;
-            left = right = NULL;
-        }
+		node(int value):
+				val{value}, left{nullptr}, right{nullptr}{}
 	};
 
 	node *root;
 
 	node *rinsert(node *p, int value) {
-        if (p == NULL) {
+        if (p == nullptr) {
 			p = new node(value);
 			size_BST++;
 		} else if (value < p->val) {
@@ -262,7 +260,7 @@ private:
 	}
 
 	void inorder_traverse(node *p) {
-        if (p == 0)
+        if (p == nullptr)
 			return;
         inorder_traverse(p->left);
 		report_ary[size_report_ary++] = p->val;

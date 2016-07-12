@@ -7,6 +7,21 @@ add_definitions(-std=c++14)
 set(HEADER_FILES
         BST_prototype.h
         Binary_tree_prototype.h
+        is_binary_tree_a_BST.h
+        is_binary_tree_a_BST_BFS.h
+        Search_BST_first_larger_k.h
+        Find_k_largest_BST.h
+        BST_lowest_common_ancestor.h
+        Rebuild_BST_preorder.h
+        Rebuild_BST_preorder_better.h
+        Minimum_distance_3_sorted_arrays.h
+        generating-a-b-sqrt2-improved.h
+        Generating_a_b_sqrt2.h
+        Build_BST_from_sorted_array.h
+        insertion-deletion-BST.h
+        Descendant_and_ancestor.h
+        range-lookup-BST.h
+        AddingCredits.h
         )
 
 #set(SOURCE_FILES
