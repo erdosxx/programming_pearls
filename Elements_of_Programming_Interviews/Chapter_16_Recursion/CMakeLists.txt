@@ -7,6 +7,11 @@ add_definitions(-std=c++14)
 set(HEADER_FILES
         tower_hanoi.h
         n-queens.h
+        permutations.h
+        permutations-alternative.h
+        Power_set.h
+        Power_set_alternative.h
+        combinations.h
         )
 
 #set(SOURCE_FILES

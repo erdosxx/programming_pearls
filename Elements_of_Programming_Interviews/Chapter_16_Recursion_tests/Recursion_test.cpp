@@ -6,6 +6,11 @@
 #include <string>
 #include "tower_hanoi.h"
 #include "n-queens.h"
+#include "permutations.h"
+#include "permutations-alternative.h"
+#include "Power_set.h"
+#include "Power_set_alternative.h"
+#include "combinations.h"
 
 using std::istringstream;
 using std::stringstream;
@@ -93,4 +98,140 @@ TEST_F(Ch16_Recursion_Fixture, n_queens_Function) {
         cout << endl;
     }
     */
+}
+
+TEST_F(Ch16_Recursion_Fixture, permutations_Function) {
+    vector<int> A = {1, 2, 3};
+    auto result = Permutations(A);
+    ASSERT_EQ(result.size(), 6);
+    vector<vector<int>> golden_result = {{1, 2, 3}, {1, 3, 2}, {2, 1, 3},
+                                         {2, 3, 1}, {3, 1, 2}, {3, 2, 1}};
+    for (size_t i = 0; i < 6; ++i) {
+        ASSERT_TRUE(equal(result[i].begin(), result[i].end(), golden_result[i].begin(),
+                     golden_result[i].end()));
+    }
+
+    /*
+    default_random_engine gen((random_device())());
+    uniform_int_distribution<size_t> dis(1, 10);
+    size_t n = dis(gen);
+
+    vector<int> A(n);
+    iota(A.begin(), A.end(), 0);
+    auto result = Permutations(A);
+    cout << "n = " << n << endl;
+    for (const vector<int>& vec : result) {
+        for (int a : vec) {
+            cout << a << " ";
+        }
+        cout << endl;
+    }
+     */
+}
+
+TEST_F(Ch16_Recursion_Fixture, permutations_alt_Function) {
+    vector<int> A = {0, 1, 2};
+    auto result = alt::Permutations(A);
+    ASSERT_EQ(result.size(), 6);
+    vector<vector<int>> golden_result = {{0, 1, 2}, {0, 2, 1}, {1, 0, 2},
+                                         {1, 2, 0}, {2, 1, 0}, {2, 0, 1}};
+    for (int i = 0; i < 6; ++i) {
+        ASSERT_TRUE(equal(result[i].begin(), result[i].end(), golden_result[i].begin(),
+                     golden_result[i].end()));
+    }
+
+    /*
+    default_random_engine gen((random_device())());
+    uniform_int_distribution<int> dis(1, 10);
+    size_t n = dis(gen);
+
+    vector<int> A(n);
+    iota(A.begin(), A.end(), 0);
+    auto result = Permutations(A);
+    cout << "n = " << n << endl;
+    for (const auto &vec : result) {
+        for (int a : vec) {
+            cout << a << " ";
+        }
+        cout << endl;
+    }
+     */
+}
+
+TEST_F(Ch16_Recursion_Fixture, Power_set_Function) {
+    vector<vector<int>> golden_result = {{},  {0},    {1},    {0, 1},
+                                         {2}, {0, 2}, {1, 2}, {0, 1, 2}};
+    auto result = GeneratePowerSet({0, 1, 2});
+    ASSERT_TRUE(equal(result.begin(), result.end(), golden_result.begin(),
+                 golden_result.end()));
+
+    /*
+    vector<int> S;
+    default_random_engine gen((random_device())());
+    uniform_int_distribution<int> dis(1, 10);
+    S.resize(dis(gen));
+    iota(S.begin(), S.end(), 0);
+
+    auto power_set = GeneratePowerSet(S);
+    for (const vector<int>& one_set : power_set) {
+        copy(one_set.begin(), one_set.end(), ostream_iterator<int>(cout, " "));
+        cout << endl;
+    }
+     */
+}
+
+TEST_F(Ch16_Recursion_Fixture, Power_set_alt_Function) {
+    vector<vector<int>> golden_result = {{0, 1, 2}, {0, 1}, {0, 2}, {0},
+                                         {1, 2},    {1},    {2},    {}};
+    auto result = alt::GeneratePowerSet({0, 1, 2});
+    ASSERT_TRUE(equal(result.begin(), result.end(), golden_result.begin(),
+                 golden_result.end()));
+
+    /*
+    vector<int> S;
+    if (argc >= 2) {
+        for (int i = 1; i < argc; ++i) {
+            S.emplace_back(atoi(argv[i]));
+        }
+    } else {
+        default_random_engine gen((random_device())());
+        uniform_int_distribution<int> dis(1, 10);
+        S.resize(dis(gen));
+        iota(S.begin(), S.end(), 0);
+    }
+    auto power_set = GeneratePowerSet(S);
+    for (const vector<int>& one_set : power_set) {
+        copy(one_set.begin(), one_set.end(), ostream_iterator<int>(cout, " "));
+        cout << endl;
+    }
+     */
+}
+
+TEST_F(Ch16_Recursion_Fixture, combinations_Function) {
+    auto result = Combinations(4, 2);
+    vector<vector<int>> golden_result = {{1, 2}, {1, 3}, {1, 4},
+                                         {2, 3}, {2, 4}, {3, 4}};
+    ASSERT_TRUE(equal(result.begin(), result.end(), golden_result.begin(),
+                 golden_result.end()));
+
+    /*
+    default_random_engine gen((random_device())());
+    int n, k;
+    if (argc == 3) {
+        n = stoi(argv[1]), k = stoi(argv[2]);
+    } else {
+        uniform_int_distribution<int> n_dis(1, 10);
+        n = n_dis(gen);
+        uniform_int_distribution<int> k_dis(0, n);
+        k = k_dis(gen);
+    }
+    auto result = Combinations(n, k);
+    cout << "n = " << n << ", k = " << k << endl;
+    for (const vector<int>& vec : result) {
+        for (int a : vec) {
+            cout << a << " ";
+        }
+        cout << endl;
+    }
+     */
 }
