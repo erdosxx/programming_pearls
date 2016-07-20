@@ -16,6 +16,7 @@ include_directories(
         Chapter_14_Sorting
         Chapter_15_Binary_Search_Trees
         Chapter_16_Recursion
+        Chapter_17_Dynamic_Programming
         )
 
 add_subdirectory(Chapter_5_Primitive_Types)
@@ -42,3 +43,5 @@ add_subdirectory(Chapter_15_Binary_Search_Trees)
 add_subdirectory(Chapter_15_Binary_Search_Trees_tests)
 add_subdirectory(Chapter_16_Recursion)
 add_subdirectory(Chapter_16_Recursion_tests)
+add_subdirectory(Chapter_17_Dynamic_Programming)
+add_subdirectory(Chapter_17_Dynamic_Programming_tests)

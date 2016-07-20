@@ -152,6 +152,7 @@ float maxsum_fast3(const int *x, const int size_ary) {
     return maxsofar;
 }
 
+//see EPI p.274
 
 // Problem 8.8.
 // Ref: http://codinghighway.com/2013/09/28/on-programming-perls-exercise-8-column-8-and-the-power-of-conceptual-blocks/

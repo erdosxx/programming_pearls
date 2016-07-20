@@ -12,6 +12,13 @@ set(HEADER_FILES
         Power_set.h
         Power_set_alternative.h
         combinations.h
+        generate-parentheses.h
+        palindrome-partitioning.h
+        unique-binary-trees-all.h
+        Sudoku_solve.h
+        gray-code.h
+        gray-code-backtrack.h
+        Tree_diameter.h
         )
 
 #set(SOURCE_FILES
