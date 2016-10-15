@@ -17,6 +17,10 @@ include_directories(
         Chapter_15_Binary_Search_Trees
         Chapter_16_Recursion
         Chapter_17_Dynamic_Programming
+        Chapter_18_Greedy_Algorithms_Invariants
+        Chapter_19_Graphs
+        Chapter_20_Parallel_Computing
+        Chapter_25_Honors_Class
         )
 
 add_subdirectory(Chapter_5_Primitive_Types)
@@ -45,3 +49,11 @@ add_subdirectory(Chapter_16_Recursion)
 add_subdirectory(Chapter_16_Recursion_tests)
 add_subdirectory(Chapter_17_Dynamic_Programming)
 add_subdirectory(Chapter_17_Dynamic_Programming_tests)
+add_subdirectory(Chapter_18_Greedy_Algorithms_Invariants)
+add_subdirectory(Chapter_18_Greedy_Algorithms_Invariants_tests)
+add_subdirectory(Chapter_19_Graphs)
+add_subdirectory(Chapter_19_Graphs_tests)
+add_subdirectory(Chapter_20_Parallel_Computing)
+add_subdirectory(Chapter_20_Parallel_Computing_tests)
+add_subdirectory(Chapter_25_Honors_Class)
+add_subdirectory(Chapter_25_Honors_Class_tests)

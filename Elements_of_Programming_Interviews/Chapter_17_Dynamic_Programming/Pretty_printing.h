@@ -1,0 +1,49 @@
+#ifndef ALGORITHM_ANALYSIS_PRETTY_PRINTING_H
+#define ALGORITHM_ANALYSIS_PRETTY_PRINTING_H
+
+#include <algorithm>
+#include <limits>
+#include <string>
+#include <vector>
+
+using std::min;
+using std::numeric_limits;
+using std::string;
+using std::vector;
+
+// @include
+int MinimumMessiness(const vector<string>& words, int line_length) {
+    // minimum_messiness[i] is the minimum messiness when placing words[0 : i].
+    vector<int> minimum_messiness(words.size(), numeric_limits<int>::max());
+    int num_remaining_blanks = line_length - words[0].size();
+    minimum_messiness[0] = num_remaining_blanks * num_remaining_blanks;
+
+    for (int i = 1; i < words.size(); ++i) {
+        num_remaining_blanks = line_length - words[i].size();
+        minimum_messiness[i] = minimum_messiness[i - 1] +
+                               num_remaining_blanks * num_remaining_blanks;
+
+        // Try adding words[i - 1], words[i - 2], ...
+        for (int j = i - 1; j >= 0; --j) {
+            num_remaining_blanks -= (words[j].size() + 1);
+
+            if (num_remaining_blanks < 0) {
+                // Not enough space to add more words.
+                break;
+            }
+
+            int first_j_messiness = j - 1 < 0 ? 0 : minimum_messiness[j - 1];
+
+            int current_line_messiness =
+                    num_remaining_blanks * num_remaining_blanks;
+
+            minimum_messiness[i] = min(minimum_messiness[i],
+                                       first_j_messiness + current_line_messiness);
+        }
+    }
+    return minimum_messiness.back();
+}
+// @exclude
+
+
+#endif //ALGORITHM_ANALYSIS_PRETTY_PRINTING_H

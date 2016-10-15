@@ -14,6 +14,7 @@ int NumCombinationsForFinalScore(int final_score,
     for (int i = 0; i < individual_play_scores.size(); ++i) {
         num_combinations_for_score[i][0] = 1;  // One way to reach 0.
 
+        // see the table in EPI p.276
         for (int j = 1; j <= final_score; ++j) {
             int without_this_play =
                     i >= 1 ? num_combinations_for_score[i - 1][j] : 0;
