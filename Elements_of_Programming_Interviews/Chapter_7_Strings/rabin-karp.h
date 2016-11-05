@@ -1,83 +1,86 @@
 #ifndef ALGORITHM_ANALYSIS_RABIN_KARP_H
 #define ALGORITHM_ANALYSIS_RABIN_KARP_H
 
-#include <cassert>
-#include <cmath>
-#include <iostream>
-#include <random>
 #include <string>
 #include <vector>
 
-using std::random_device;
 using std::string;
-using std::uniform_int_distribution;
 using std::vector;
 
-namespace rabin_karp {
-// @include
-// Returns the index of the first character of the substring if found, -1
-// otherwise.
-    int RabinKarp(const string &t, const string &s) {
-        if (s.size() > t.size()) {
-            return -1;  // s is not a substring of t.
-        }
+int get_next_hash(int* prev_hash_ptr, const int& pattern_size, const int& kBase, const int& power_n, const string* text_ptr, const int& n);
 
-        const int kBase = 26;
-        int t_hash = 0;
-        int s_hash = 0;  // Hash codes for the substring of t and s.
-        int power_s = 1;  // kBase^|s|.
+//  power_n = (kBase)^(pattern.size() -1)
+//  ex) pattern = abc, power_n = kBase^2
+int get_power_n(int kBase, int pattern_size) {
+    int power_n = 1;
 
-        for (int i = 0; i < s.size(); ++i) {
-            power_s = i ? power_s * kBase : 1;
-            t_hash = t_hash * kBase + t[i];
-            s_hash = s_hash * kBase + s[i];
-        }
+    for (int i = 0; i < pattern_size-1; ++i) {
+        power_n *= kBase;
+    }
+    return power_n;
+}
 
-        for (int i = s.size(); i < t.size(); ++i) {
-            // Checks the two substrings are actually equal or not, to protect
-            // against hash collision.
-            if (t_hash == s_hash && !t.compare(i - s.size(), s.size(), s)) {
-                return i - s.size();  // Found a match.
-            }
+int get_hash(const string* str_ptr, int start_pos, int size, int kBase) {
+    const string& str = *str_ptr;
+    int hash_val = 0;
 
-            // Uses rolling hash to compute the new hash code.
-            t_hash -= t[i - s.size()] * power_s;
-            t_hash = t_hash * kBase + t[i];
-        }
+    for (int i = start_pos; i < start_pos + size; ++i) {
+        hash_val = hash_val * kBase + str[i];
+    }
+    return  hash_val;
+}
 
-        // Tries to match s and t[t.size() - s.size() : t.size() - 1].
-        if (t_hash == s_hash && t.compare(t.size() - s.size(), s.size(), s) == 0) {
-            return t.size() - s.size();
-        }
+//  p = KBase
+//  h1  |--------|
+//      C0 C1 C2 C3 C4
+//  h2     |---------|
+//  h1 = C0*p^3 + C1*p^2 + C2*p + C3
+//  h2 = C1*p^3 + C2*p^2 + C3*p + C4
+//  h2 = p * (h1 - C0* p^3) + C4
+//                      |-- power_n
+
+int RabinKarp(const string& text, const string& pattern) {
+    if (pattern.size() > text.size()) {
         return -1;  // s is not a substring of t.
     }
-// @exclude
 
-    int CheckAnswer(const string &t, const string &s) {
-        for (int i = 0; i + s.size() - 1 < t.size(); ++i) {
-            bool find = true;
-            for (int j = 0; j < s.size(); ++j) {
-                if (t[i + j] != s[j]) {
-                    find = false;
-                    break;
-                }
-            }
-            if (find == true) {
-                return i;
-            }
+    const int kBase = 26;
+    int power_n = get_power_n(kBase, pattern.size());
+    int pattern_hash = get_hash(&pattern, 0, pattern.size(), kBase);
+
+    int text_hash;
+    // Example
+    // pattern = 123
+    // text = 0123456789
+    // i= 0 ~ 7
+    for (int i = 0; i <= text.size() - pattern.size(); ++i) {
+        text_hash = get_next_hash(&text_hash, pattern.size(), kBase, power_n, &text, i);
+
+        string text_substr = text.substr(i, pattern.size());
+
+        if(text_hash == pattern_hash && text_substr == pattern) {
+            return i;
         }
-        return -1;  // No matching.
     }
 
-    string RandString(int len) {
-        default_random_engine gen((random_device()) ());
-        string ret;
-        while (len--) {
-            uniform_int_distribution<char> dis('a', 'z');
-            ret += dis(gen);
-        }
-        return ret;
+    return -1;  // s is not a substring of t.
+}
+
+// power_n = (kBase)^(pattern.size() -1)
+// h_n = kBase * (h_n-1 - C_n-1 * powern_n) + C_n+pattern_size-1
+int get_next_hash(int* prev_hash_ptr, const int& pattern_size, const int& kBase,
+                  const int& power_n, const string* text_ptr, const int& n) {
+    int& pre_hash = *prev_hash_ptr;
+    const string& text = *text_ptr;
+
+    if (n == 0) {
+        pre_hash = get_hash(&text, 0, pattern_size, kBase);
+        return pre_hash;
     }
+
+    pre_hash = kBase * (pre_hash - text[n-1] * power_n) + text[n + pattern_size -1];
+
+    return pre_hash;
 }
 
 #endif //ALGORITHM_ANALYSIS_RABIN_KARP_H

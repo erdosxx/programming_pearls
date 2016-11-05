@@ -15,6 +15,12 @@ shared_ptr<ListNode<int>> ReverseSublist(shared_ptr<ListNode<int>> L,
         return L;
     }
 
+    // This function give same results for [start, finish] = [0, 2] and [start, finish] = [1,3].
+    // According to the problem statement, index which starts from 1 is correct.
+
+    // To make simple consistent code for case start=0, we use dummy_head.
+    //  1             -> [2              -> 3 -> 4] -> 5 -> 6
+    //  sublist_head      sublist_iter
     auto dummy_head = make_shared<ListNode<int>>(ListNode<int>{0, L});
     auto sublist_head = dummy_head;
     int k = 1;
@@ -23,13 +29,13 @@ shared_ptr<ListNode<int>> ReverseSublist(shared_ptr<ListNode<int>> L,
     }
 
     // Reverses sublist.
-    // h -> A -> B -> C -> D
-    // h -> B -> A -> C -> D
-    // h -> C -> B -> A -> D
-    // h -> D -> C -> B -> A
+    //  1 -> [2 -> 3 -> 4] -> 5 -> 6
+    //  1 -> [3 -> 2 -> 4] -> 5 -> 6
+    //  1 -> [4 -> 3 -> 2] -> 5 -> 6
     auto sublist_iter = sublist_head->next;
     while (start++ < finish) {
         auto temp = sublist_iter->next;
+
         sublist_iter->next = temp->next;
         temp->next = sublist_head->next;
         sublist_head->next = temp;

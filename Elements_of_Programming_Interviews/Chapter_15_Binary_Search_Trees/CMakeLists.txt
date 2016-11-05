@@ -5,6 +5,7 @@ project(Ch15_BST C CXX)
 add_definitions(-std=c++14)
 
 set(HEADER_FILES
+        binary_search_trees_boot_camp.h
         BST_prototype.h
         Binary_tree_prototype.h
         is_binary_tree_a_BST.h

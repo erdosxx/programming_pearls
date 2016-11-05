@@ -1,9 +1,12 @@
 #include <gtest/gtest.h>
 #include <random>
+#include <memory>
+#include <algorithm>
 #include <limits>
 #include <unordered_set>
 #include <cmath>
 #include <string>
+#include "binary_search_trees_boot_camp.h"
 #include "is_binary_tree_a_BST.h"
 #include "is_binary_tree_a_BST_BFS.h"
 #include "Search_BST_first_larger_k.h"
@@ -25,6 +28,8 @@ using std::stringstream;
 using std::default_random_engine;
 using std::random_device;
 using std::unique_ptr;
+using std::shared_ptr;
+using std::make_shared;
 using std::numeric_limits;
 using std::uniform_int_distribution;
 using std::uniform_real_distribution;
@@ -35,6 +40,8 @@ using std::cout;
 using std::endl;
 using std::ostream_iterator;
 using std::to_string;
+using std::upper_bound;
+using std::lower_bound;
 
 class Ch15_BST_Fixture : public ::testing::Test {
 private:
@@ -73,6 +80,181 @@ void Ch15_BST_Fixture::TraversalCheck(const unique_ptr<BSTNode<int>>& tree, int*
         ++*target;
         TraversalCheck(tree->right, target);
     }
+}
+
+TEST_F(Ch15_BST_Fixture, binary_search_tree_boot_camp) {
+    //      3
+    //    2   5
+    //  1    4 6
+    auto tree = make_unique<BSTNode<int>>(BSTNode<int>{3});
+    tree->left = make_unique<BSTNode<int>>(BSTNode<int>{2});
+    tree->left->left = make_unique<BSTNode<int>>(BSTNode<int>{1});
+    tree->right = make_unique<BSTNode<int>>(BSTNode<int>{5});
+    tree->right->left =
+            make_unique<BSTNode<int>>(BSTNode<int>{4});
+    tree->right->right =
+            make_unique<BSTNode<int>>(BSTNode<int>{6});
+
+    BSTNode<int>* result = SearchBST(tree, 4);
+    ASSERT_EQ(4, result->data);
+
+    result = SearchBST(tree, 1);
+    ASSERT_EQ(1, result->data);
+
+    result = SearchBST(tree, 7);
+    ASSERT_EQ(nullptr, result);
+
+    vector<student> students = {{"a", 10}, {"b", 20}, {"c", 15}, {"d", 5}};
+    set<student*, Comp_by_score> school_score;
+
+    school_score.emplace(&students[0]);
+    school_score.emplace(&students[1]);
+    school_score.emplace(&students[2]);
+    school_score.emplace(&students[3]);
+
+    ASSERT_EQ((*school_score.cbegin())->name, "d");
+    ASSERT_EQ((*school_score.cbegin())->score, 5);
+
+    set<student*, Comp_by_name> school_name;
+    school_name.emplace(&students[0]);
+    school_name.emplace(&students[1]);
+    school_name.emplace(&students[2]);
+    school_name.emplace(&students[3]);
+
+    ASSERT_EQ((*school_name.cbegin())->name, "a");
+    ASSERT_EQ((*school_name.cbegin())->score, 10);
+
+    bool (*compare_function_ptr)(const student* a_ptr, const student* b_ptr) = compare_by_score;
+
+    set<student*, bool(*)(const student*, const student*)> school_score2(compare_function_ptr);
+    school_score2.emplace(&students[0]);
+    school_score2.emplace(&students[1]);
+    school_score2.emplace(&students[2]);
+    school_score2.emplace(&students[3]);
+
+    ASSERT_EQ((*school_score2.cbegin())->name, "d");
+    ASSERT_EQ((*school_score2.cbegin())->score, 5);
+
+    set<student*, function<bool(const student*, const student*)>> school_score3(comp_score);
+    school_score3.emplace(&students[0]);
+    school_score3.emplace(&students[1]);
+    school_score3.emplace(&students[2]);
+    school_score3.emplace(&students[3]);
+
+    ASSERT_EQ((*school_score3.cbegin())->name, "d");
+    ASSERT_EQ((*school_score3.cbegin())->score, 5);
+}
+
+TEST_F(Ch15_BST_Fixture, stl_library) {
+    ///// set
+    set<int> bst = {5,2,3,1,4};
+    ASSERT_EQ(1, *bst.begin());
+    ASSERT_EQ(1, *bst.cbegin());
+    ASSERT_EQ(5, *bst.rbegin());
+    ASSERT_EQ(5, *bst.crbegin());
+
+    // Because elements in a set are unique, the insertion operation
+    // checks whether each inserted element is equivalent to an element
+    // already in the container, and if so, the element is not inserted,
+    // returning an iterator to this existing element (if the function
+    // returns a value).
+    bst.emplace(3);  // for set, insert existing element.
+    ASSERT_EQ(5, bst.size()); // same as before.
+    bst.insert(6);
+    ASSERT_EQ(6, bst.size());
+    ASSERT_EQ(1, bst.erase(6)); // erase return the number of erase elements.
+    ASSERT_EQ(5, bst.size());
+    ASSERT_EQ(0, bst.erase(7));
+
+    bst = {10,10,10,20,20,20,30,30};
+    //              ^        ^
+    // method or function lower_bound/upper_bound are equivalent
+    set<int>::iterator low = lower_bound(bst.cbegin(), bst.cend(), 20);
+    set<int>::iterator low1 = bst.lower_bound(20);
+
+    set<int>::iterator up = upper_bound(bst.cbegin(), bst.cend(), 20);
+    set<int>::iterator up1 = bst.upper_bound(20);
+
+    ASSERT_EQ(20, *low);
+    ASSERT_EQ(30, *up);
+
+    // See: http://stackoverflow.com/questions/13505562/getting-index-of-set-element-via-iterator
+    // does not work:   ASSERT_EQ(3, low - bst.cbegin());
+    auto distance = std::distance(bst.cbegin(), low);
+    auto it = bst.cbegin();
+    std::advance(it, distance);
+    ASSERT_EQ(it, low);
+
+    distance = std::distance(bst.cbegin(), up);
+    it = bst.cbegin();
+    std::advance(it, distance);
+    ASSERT_EQ(it, up);
+
+    std::pair<std::set<int>::const_iterator,std::set<int>::const_iterator> ret;
+    std::pair<std::set<int>::const_iterator,std::set<int>::const_iterator> ret1;
+    ret = bst.equal_range(20);
+    ret1 = std::equal_range(bst.cbegin(), bst.cend(), 20);
+    ASSERT_EQ(*ret.first, 20);
+    ASSERT_EQ(*ret1.first, 20);
+    ASSERT_EQ(*ret.second, 30);  // 30 which is next to last 20.
+    ASSERT_EQ(*ret1.second, 30);
+
+    distance = std::distance(bst.cbegin(), ret.first);
+    it = bst.cbegin();
+    std::advance(it, distance);
+    ASSERT_EQ(it, ret.first);  // index: 3 of first 20
+
+    distance = std::distance(bst.cbegin(), ret.second);
+    it = bst.cbegin();
+    std::advance(it, distance);
+    ASSERT_EQ(it, ret.second);  // index: 6 of first 30.
+
+    ///// map
+    map<char, int> mymap = {{'a', 1}, {'b', 2}, {'c', 3}};
+    ASSERT_EQ(1, mymap['a']);
+    ASSERT_EQ(3, mymap['c']);
+
+    mymap.insert(pair<char,int>{'d',4});
+    mymap.insert({'e',5});
+    mymap.emplace('f',6);
+    ASSERT_EQ(4, mymap['d']);
+    ASSERT_EQ(5, mymap['e']);
+
+    mymap.erase('f');
+    ASSERT_EQ(mymap.size(), 5); // a:1 b:2 c:3 d:4 e:5
+
+    mymap = {{'a', 1}, {'b', 2}, {'c', 3}};
+    ASSERT_EQ(mymap.cbegin()->first, 'a');
+    ASSERT_EQ(mymap.cbegin()->second, 1);
+
+    ASSERT_EQ(mymap.crbegin()->first, 'c');
+    ASSERT_EQ(mymap.crbegin()->second, 3);
+
+    mymap = {{'a', 1}, {'b', 2}, {'c', 3}};
+    mymap.insert({'b', 12});  // not insert for already exist key.
+    ASSERT_EQ(mymap.size(), 3);
+    ASSERT_EQ(2, mymap['b']);
+
+    map<char,int>::iterator iter = mymap.find('b');
+    ASSERT_EQ(iter->first, 'b');
+    ASSERT_EQ(iter->second, 2);
+
+    mymap = {{'a', 1}, {'b', 2}, {'c', 3}, {'d', 4}, {'e', 5}};
+    // does not work: iter = lower_bound(mymap.cbegin(), mymap.cend(), 'b');
+    iter = mymap.lower_bound('b');
+    ASSERT_EQ(iter->first, 'b');
+    ASSERT_EQ(iter->second, 2);
+
+    iter = mymap.upper_bound('b');
+    ASSERT_EQ(iter->first, 'c');
+    ASSERT_EQ(iter->second, 3);
+
+    std::pair<std::map<char,int>::iterator,std::map<char,int>::iterator> ret3;
+    ret3 = mymap.equal_range('b');
+    ASSERT_EQ(ret3.first->first, 'b');
+    ASSERT_EQ(ret3.second->first, 'c');
+    ASSERT_EQ(ret3.first->second, 2);
+    ASSERT_EQ(ret3.second->second, 3);
 }
 
 TEST_F(Ch15_BST_Fixture, is_BST_Function) {

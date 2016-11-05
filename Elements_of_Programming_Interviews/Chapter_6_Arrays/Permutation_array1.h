@@ -17,6 +17,8 @@ namespace ApplyPermutation1 {
         for (int i = 0; i < A.size(); ++i) {
             // Check if the element at index i has not been moved by checking if
             // perm[i] is nonnegative.
+
+            // do permutation which starts at position i.
             int next = i;
             while (perm[next] >= 0) {
                 swap(A[i], A[perm[next]]);

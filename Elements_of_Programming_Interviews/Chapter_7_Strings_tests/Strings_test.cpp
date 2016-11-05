@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 #include <random>
+#include "strings_boot_camp.h"
+#include "Square_root.h" // for using Compare
 #include "Interconverting_string_integer.h"
 #include "Convert_base.h"
 #include "Spreadsheet_encoding.h"
@@ -21,7 +23,7 @@ using std::random_device;
 using std::string;
 using std::uniform_int_distribution;
 using std::max;
-using rabin_karp::RabinKarp;
+//using rabin_karp::RabinKarp;
 
 class Strings_Fixture : public ::testing::Test {
 protected:
@@ -36,9 +38,166 @@ public:
 
     }
 
+    int p_7_13_CheckAnswer(const string &t, const string &s);
+    string p_7_13_RandString(int len);
+
     virtual ~Strings_Fixture() {
     }
 };
+
+int Strings_Fixture::p_7_13_CheckAnswer(const string &t, const string &s) {
+    for (int i = 0; i + s.size() - 1 < t.size(); ++i) {
+        bool find = true;
+        for (int j = 0; j < s.size(); ++j) {
+            if (t[i + j] != s[j]) {
+                find = false;
+                break;
+            }
+        }
+        if (find == true) {
+            return i;
+        }
+    }
+    return -1;  // No matching.
+}
+
+string Strings_Fixture::p_7_13_RandString(int len) {
+    default_random_engine gen((random_device())());
+    string ret;
+    while (len--) {
+        uniform_int_distribution<char> dis('a', 'z');
+        ret += dis(gen);
+    }
+    return ret;
+}
+
+TEST_F(Strings_Fixture, strings_boot_camp) {
+    string s1 = "a";
+    ASSERT_TRUE(IsPalindromic(s1));
+
+    s1 = "ab";
+    ASSERT_FALSE(IsPalindromic(s1));
+
+    s1 = "aa";
+    ASSERT_TRUE(IsPalindromic(s1));
+
+    s1 = "abc";
+    ASSERT_FALSE(IsPalindromic(s1));
+
+    s1 = "aba";
+    ASSERT_TRUE(IsPalindromic(s1));
+}
+
+TEST_F(Strings_Fixture, stl_library) {
+    string s1 = "Paul";
+    string s2 = "";
+
+    s1.append(" Erdos");
+    ASSERT_EQ("Paul Erdos", s1); // Paul Erdos
+
+    s1= "a";
+    s1.push_back('b'); // ab
+    ASSERT_EQ("ab", s1);
+    s1.pop_back(); //a
+    ASSERT_EQ("a", s1);
+
+    // insert
+    // s.insert(pos, x): Insert x before s[pos]; x can be a character, a string.
+                        // a C-style string, or an initializer_list<char_type>
+    s1="a b";
+    s2="middle";
+    //size_t p = s1.find(' ');
+    auto p = s1.find(' ');
+    ASSERT_EQ(1, p);
+    s1.insert(p, ' '+ s2);  // insert before p.
+    ASSERT_EQ("a middle b", s1);
+
+    s1= "a b";
+    s1.insert(p, {' ', '|', 'm', '|'});
+    ASSERT_EQ("a |m| b", s1);
+
+    s1= "abcd";
+    s1.insert(s1.begin() + 3, '|'); //insert | before d
+    ASSERT_EQ("abc|d", s1);
+
+    ASSERT_TRUE("abc" < "abcd");
+    ASSERT_TRUE("abc" < "bcd");
+
+    // s.erase(pos):  Remove trailing characters from s, starting with s[pos];
+                     // s.size() becomes pos
+    s1="abcd";
+    s1.erase(s1.begin()+2); // remove c
+    ASSERT_EQ("abd",s1);
+
+    s1="abcde";
+    s1.erase(s1.begin()+2, s1.begin()+4); // abcde  remove [b,e)
+                                          //   ^^
+    ASSERT_EQ("abe", s1);
+
+    // not work.
+    // See example: http://www.cplusplus.com/reference/string/string/erase/
+    /*
+    s1="abcde";
+    s1.erase(s1.begin()+2,2);   // abcde  remove n characters from s, starting with s[pos];
+                                //   ^^
+    ASSERT_EQ("abe", s1);
+     */
+
+    s1="abcde";
+    s1.erase(2,2);   // abcde  remove n characters from s, starting with s[pos];
+                     //   ^^
+    ASSERT_EQ("abe", s1);
+
+    // Numeric conversions
+    // Initial whitespace is skpped
+    s1 = "   123.45";
+    int x1 = stoi(s1);  // convert to decimal x=123
+    ASSERT_EQ(123, x1);
+
+    double x2 = stod(s1);  // convert to double
+    ASSERT_EQ(Compare(x2, 123.45), EQUAL);
+
+    float x3 = stof(s1); // convert to float
+    ASSERT_EQ(Compare(x3, 123.45), SMALLER);
+
+    // sort
+    s1="dfceab";
+    sort(s1.begin(), s1.end());
+    ASSERT_EQ("abcdef", s1);
+
+    // substring constructor
+    // basic_string s {s2, pos, n}; s <= s2[pos:pos+n)
+    s1="abcdefg";           //  abcdefg
+    string sbstr {s1, 1, 3}; //   ^ ^
+    ASSERT_EQ("bcd", sbstr);
+
+    // substring copy
+    // s2 = s.substr(pos, n)  s2=basic_string(&s[pos],m) where m=min(s.size()-pos, n);
+    s1= "abcdefg";       // abcdefg
+    s2= s1.substr(2,3);  //   ^ ^
+    ASSERT_EQ("cde", s2);
+
+    // n = s.compare(s2)
+    // A lexicographical comparision of s and s2;
+    // using char_traits<C>::compare() for comparison;
+    // n=0 if s==s2; n<0 if s<s2; n>0 if s>s2; noexcept;
+
+    s1="abcd";
+    s2="abcde";
+    ASSERT_TRUE(s1.compare(s2) < 0);  // s1 < s2
+
+    // n2=s.compare(pos, n, s2)
+    // n2= basic_string{s,pos,n}.compare(s2)
+    s1="abcsubd";               //  abcsubd
+    s2="sub2";                  //     ^ ^
+    ASSERT_TRUE(s1.compare(3,3,s2) < 0 );  // sub < sub2
+
+    // n2=s.compare(pos, n, s2, pos2, n2)
+    // n2 = basic_string{s,pos,n}.compare(basic_string{s2,pos2,n2})
+    s1="abcsubd";
+    s2="sub2";
+    ASSERT_TRUE(s1.compare(3,3,s2,0,3) == 0); // sub == sub
+}
 
 TEST_F(Strings_Fixture, interconverting_stirng_integer_Function) {
     default_random_engine gen((random_device()) ());
@@ -189,6 +348,17 @@ TEST_F(Strings_Fixture, run_length_Function) {
 }
 
 TEST_F(Strings_Fixture, rabin_karp_Function) {
+    ASSERT_EQ(1, get_power_n(26, 1));
+    ASSERT_EQ(26, get_power_n(26, 2));
+    ASSERT_EQ(26*26, get_power_n(26, 3));
+
+    string pattern = "CGC";
+    string text = "GACGCCA";
+    int prev_hash = 0;
+    ASSERT_EQ('G'*26*26 + 'A'*26 + 'C', get_next_hash(&prev_hash, 3, 26, 26*26, &text, 0));
+    prev_hash = 'G'*26*26 + 'A'*26 + 'C';
+    ASSERT_EQ('A'*26*26 + 'C'*26 + 'G', get_next_hash(&prev_hash, 3, 26, 26*26, &text, 1));
+
     ASSERT_EQ(RabinKarp("GACGCCA", "CGC"), 2);
     ASSERT_EQ(RabinKarp("GATACCCATCGAGTCGGATCGAGT", "GAG"), 10);
     ASSERT_EQ(RabinKarp("FOOBARWIDGET", "WIDGETS"), -1);
@@ -205,16 +375,20 @@ TEST_F(Strings_Fixture, rabin_karp_Function) {
     ASSERT_EQ(RabinKarp("BAAABAAAA", "AAA"), 1);
     ASSERT_EQ(RabinKarp("BAABBAABAAABS", "AAA"), 8);
     ASSERT_EQ(RabinKarp("BAABBAABAAABS", "AAAA"), -1);
-    ASSERT_GT(RabinKarp("FOOBAR", "BAR"), 0);
+    ASSERT_EQ(RabinKarp("FOOBAR", "BAR"), 3);
+    ASSERT_EQ(RabinKarp("absycvh", "y"), 3);
 
     default_random_engine gen((random_device())());
-    for (int times = 0; times < 10000; ++times) {
-      uniform_int_distribution<int> t_dis(1, 1000);
-      uniform_int_distribution<int> s_dis(1, 20);
+    for (int times = 0; times < 100; ++times) {
+        uniform_int_distribution<int> t_dis(1, 1000);
+        uniform_int_distribution<int> s_dis(1, 20);
 
-      string t = rabin_karp::RandString(t_dis(gen));
-      string s = rabin_karp::RandString(s_dis(gen));
+        string t = p_7_13_RandString(t_dis(gen));
+        string s = p_7_13_RandString(s_dis(gen));
 
-      ASSERT_EQ(RabinKarp(t, s), rabin_karp::CheckAnswer(t, s));
+        //cout << "text: " << t << endl;
+        //cout << "pattern: " << s << endl;
+
+        ASSERT_EQ(RabinKarp(t, s), p_7_13_CheckAnswer(t, s));
     }
 }

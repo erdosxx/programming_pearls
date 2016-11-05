@@ -5,6 +5,7 @@ project(Ch7_Strings C CXX)
 add_definitions(-std=c++14)
 
 set(HEADER_FILES
+        strings_boot_camp.h
         interconverting_string_integer.h
         Convert_base.h
         Spreadsheet_encoding.h

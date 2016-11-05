@@ -40,6 +40,7 @@ vector<Star> FindClosestKStars(int k, istringstream* stars) {
     string line;
     while (getline(*stars, line)) {
         stringstream line_stream(line);
+        // array is a fixed size container
         array<double, 3> data;  // stores x, y, and z.
 
         for (int i = 0; i < 3; ++i) {

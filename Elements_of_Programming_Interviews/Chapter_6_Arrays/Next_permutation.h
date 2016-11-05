@@ -11,9 +11,11 @@ using std::vector;
 // @include
 vector<int> NextPermutation(vector<int> perm) {
     int k = perm.size() - 2;
+
     while (k >= 0 && perm[k] >= perm[k + 1]) {
         --k;
     }
+
     if (k == -1) {
         return {};  // perm is the last permutation.
     }

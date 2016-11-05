@@ -4,6 +4,8 @@
 #include <unordered_set>
 #include <cmath>
 #include <string>
+#include "sorting_boot_camp.h"
+#include "Square_root.h"
 #include "Intersect_sorted_arrays1.h"
 #include "Intersect_sorted_arrays2.h"
 #include "Intersect_sorted_arrays3.h"
@@ -102,6 +104,26 @@ string Ch14_Sorting_Fixture::p_14_7_RandString(int len) {
         ret += 'a' + char_dis(gen);
     }
     return ret;
+}
+
+TEST_F(Ch14_Sorting_Fixture, sorting_boot_camp) {
+    vector<Student> students = { {"a", 3}, {"b", 5}, {"c", 2}, {"d", 4}};
+
+    SortByName(&students);
+    ASSERT_TRUE(
+            students[0].name == "a" &&
+            students[1].name == "b" &&
+            students[2].name == "c" &&
+            students[3].name == "d"
+    );
+    SortByGPA(&students);
+    ASSERT_TRUE(
+            Compare(students[0].grade_point_average, 5) == EQUAL &&
+            Compare(students[1].grade_point_average, 4) == EQUAL &&
+            Compare(students[2].grade_point_average, 3) == EQUAL &&
+            Compare(students[3].grade_point_average, 2) == EQUAL
+    );
+
 }
 
 TEST_F(Ch14_Sorting_Fixture, intersect_sorted_array_Function) {

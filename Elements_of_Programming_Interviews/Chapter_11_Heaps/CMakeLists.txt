@@ -5,6 +5,7 @@ project(Ch11_Heaps C CXX)
 add_definitions(-std=c++14)
 
 set(HEADER_FILES
+        heaps_boot_camp.h
         Merge_sorted_arrays.h
         sort_k-increasing-decreasing_array.h
         Approximate_sort.h

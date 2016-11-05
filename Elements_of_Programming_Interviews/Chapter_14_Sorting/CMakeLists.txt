@@ -5,6 +5,7 @@ project(Ch14_Sorting C CXX)
 add_definitions(-std=c++14)
 
 set(HEADER_FILES
+        sorting_boot_camp.h
         Intersect_sorted_array1.h
         Intersect_sorted_array2.h
         Intersect_sorted_array3.h

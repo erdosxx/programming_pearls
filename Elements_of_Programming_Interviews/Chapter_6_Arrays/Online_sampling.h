@@ -2,15 +2,11 @@
 #define ALGORITHM_ANALYSIS_ONLINE_SAMPLING_H
 
 #include <algorithm>
-#include <iostream>
 #include <random>
 #include <unordered_map>
 #include <vector>
 
-using std::cout;
 using std::default_random_engine;
-using std::endl;
-using std::ostream_iterator;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::unordered_map;
@@ -18,35 +14,31 @@ using std::vector;
 
 // @include
 // Returns a random k-sized subset of {0, 1, ..., n - 1}.
-// Reverse order varient for Floyd Algorithm: See TAOCP II p.148 problem 17.
-// Original Floyd Algorithm is more simple and elegant than this.
+// See: TAOCP II page 148 #15
+
+using umap_type = unordered_map<int,int>;
+using umap_iter_type = umap_type ::iterator;
+
+enum {not_exist=-1};
+
+void exchange_position(unordered_map<int, int> &changed_elements, const int &select_position, const int &random_position);
+
+int search_position(umap_type &umap, int position) {
+    umap_iter_type position_iter = umap.find(position);
+    return position_iter != umap.end() ? position_iter->second : not_exist;
+}
+
 vector<int> RandomSubset(int n, int k) {
+    // map position with datq.
     unordered_map<int, int> changed_elements;
+
     default_random_engine seed((random_device())());  // Random num generator.
 
-    for (int i = 0; i < k; ++i) {
+    for (int select_position = 0; select_position < k; ++select_position) {
         // Generate a random index in [i, n - 1].
-        int rand_idx = uniform_int_distribution<int>{i, n - 1}(seed);
+        int random_position = uniform_int_distribution<int>{select_position, n - 1}(seed);
 
-        auto ptr1 = changed_elements.find(rand_idx);
-        auto ptr2 = changed_elements.find(i);
-
-        if (ptr1 == changed_elements.end() && ptr2 == changed_elements.end()) {
-            changed_elements[rand_idx] = i;
-            changed_elements[i] = rand_idx;
-        } else if (ptr1 == changed_elements.end() &&
-                   ptr2 != changed_elements.end()) {
-            changed_elements[rand_idx] = ptr2->second;
-            ptr2->second = rand_idx;
-        } else if (ptr1 != changed_elements.end() &&
-                   ptr2 == changed_elements.end()) {
-            changed_elements[i] = ptr1->second;
-            ptr1->second = i;
-        } else {
-            int temp = ptr2->second;
-            changed_elements[i] = ptr1->second;
-            changed_elements[rand_idx] = temp;
-        }
+        exchange_position(changed_elements, select_position, random_position);
     }
 
     vector<int> result;
@@ -54,6 +46,31 @@ vector<int> RandomSubset(int n, int k) {
         result.emplace_back(changed_elements[i]);
     }
     return result;
+}
+
+// exchange data between select_position and random_position.
+void exchange_position(umap_type& changed_elements, const int& select_position, const int& random_position) {
+    int rand_idx = search_position(changed_elements, random_position);
+    int select_idx = search_position(changed_elements, select_position);
+
+    if (rand_idx == not_exist &&
+        select_idx == not_exist) {
+        changed_elements[random_position] = select_position;
+        changed_elements[select_position] = random_position;
+
+    } else if (rand_idx == not_exist &&
+               select_idx != not_exist) {
+        changed_elements[random_position] = changed_elements[select_idx];
+        changed_elements[select_idx] = random_position;
+
+    } else if (rand_idx != not_exist &&
+               select_idx == not_exist) {
+        changed_elements[select_position] = changed_elements[rand_idx];
+        changed_elements[rand_idx] = select_position;
+
+    } else {
+        swap(changed_elements[select_idx], changed_elements[rand_idx]);
+    }
 }
 // @exclude
 

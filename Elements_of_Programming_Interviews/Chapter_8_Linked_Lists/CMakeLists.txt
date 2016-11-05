@@ -5,9 +5,14 @@ project(Ch8_LinkedLists C CXX)
 add_definitions(-std=c++14)
 
 set(HEADER_FILES
+        linked_list_boot_camp.h
         Linked_list_prototype.h
         Merge_sorted_lists.h
         reverse_linked_list_from_s_to_f.h
+        Reverse_linked_list_iterative.h
+        Reverse_linked_list_recursive.h
+        reverse-list-in-k-group.h
+        reverse-list-in-k-group-erdos.h
         Checking_cycle.h
         Checking_cycle_alternative.h
         Overlapping_lists_no_cycle.h
@@ -18,7 +23,6 @@ set(HEADER_FILES
         cyclic-right-shift.h
         Even_odd_merge_linked_list.h
         Palindrome_linked_list.h
-        Reverse_linked_list_iterative.h
         list-pivoting.h
         add-two-number-list.h
         )

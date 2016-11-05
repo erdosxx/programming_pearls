@@ -1,6 +1,9 @@
 #include <gtest/gtest.h>
 #include <random>
 #include <limits>
+#include <memory>
+#include "stacks_boot_camp.h"
+#include "queues_boot_camp.h"
 #include "Stack_with_max.h"
 #include "Stack_with_max_improved.h"
 #include "RPN.h"
@@ -21,6 +24,8 @@ using std::default_random_engine;
 using std::random_device;
 using std::unique_ptr;
 using std::numeric_limits;
+using std::make_shared;
+using std::shared_ptr;
 
 class StacksQueues_Fixture : public ::testing::Test {
 protected:
@@ -38,6 +43,100 @@ public:
     virtual ~StacksQueues_Fixture() {
     }
 };
+
+TEST_F(StacksQueues_Fixture, stacks_boot_camp) {
+    shared_ptr<ListNode<int>> L4 = make_shared<ListNode<int>>(ListNode<int> {4, nullptr});
+    auto L3 = make_shared<ListNode<int>>(ListNode<int> {3, L4});
+    auto L2 = make_shared<ListNode<int>>(ListNode<int> {2, L3});
+    auto L1 = make_shared<ListNode<int>>(ListNode<int> {1, L2});
+
+    string result;
+    result = PrintLinkedListInReverse(&L1);
+
+    ASSERT_EQ(result, "4<-3<-2<-1<-");
+}
+
+TEST_F(StacksQueues_Fixture, queues_boot_camp) {
+    Queue q_data;
+    q_data.Enqueue(0);
+    q_data.Enqueue(1);
+    q_data.Enqueue(3);
+    q_data.Enqueue(2);
+
+    ASSERT_EQ(0, q_data.Front());  //0-1-3-2
+    ASSERT_EQ(3, q_data.Max());
+    q_data.Dequeue();
+    q_data.Dequeue();
+    q_data.Dequeue();
+    q_data.Dequeue();
+    //throw exception.
+    ASSERT_THROW(q_data.Dequeue(), length_error);
+    ASSERT_THROW(q_data.Front(), length_error);
+    ASSERT_THROW(q_data.Max(), length_error);
+}
+
+TEST_F(StacksQueues_Fixture, stl_library) {
+    ///// stack
+    stack<char> s1;  // uses a deque<char> to store elements
+    s1.push('a');
+    ASSERT_EQ('a', s1.top()); // a
+    s1.emplace('b');
+    ASSERT_EQ('b', s1.top()); // b-a
+    s1.pop();  // a
+    ASSERT_EQ('a', s1.top());
+    s1.pop(); // empty
+    ASSERT_TRUE(s1.empty());
+
+    stack<char,vector<char>> s2; // uses a vector<char> to store elements.
+                                // Often, vector is faster than deque and uses less memory.
+    s2.push('a');
+    ASSERT_EQ('a', s2.top()); // a
+    s2.emplace('b');
+    ASSERT_EQ('b', s2.top()); // b-a
+    s2.pop();  // a
+    ASSERT_EQ('a', s2.top());
+    s2.pop(); // empty
+    ASSERT_TRUE(s2.empty());
+
+    ///// queue
+    queue<char> q1;
+    q1.push('a');
+    ASSERT_EQ(q1.front(), 'a'); // a
+    q1.emplace('b');
+    ASSERT_EQ(q1.front(), 'a');   // a-b
+    ASSERT_EQ(q1.back(), 'b');
+    q1.pop();
+    ASSERT_EQ(q1.front(), 'b');   // b
+    ASSERT_EQ(q1.back(), 'b');
+
+    // unlike stack following does not work
+    // queue<char, vector<char>> q2;
+    // error: no member named 'pop_front' in 'std::__1::vector<char, std::__1::allocator<char> >'
+
+    ////// deque
+    deque<char> dq1;
+    dq1.push_back('a');
+    ASSERT_EQ(dq1.front(), 'a'); // a
+    dq1.emplace_back('b');
+    ASSERT_EQ(dq1.front(), 'a'); // a-b
+    ASSERT_EQ(dq1.back(), 'b');
+    dq1.push_front('z');
+    ASSERT_EQ(dq1.front(), 'z'); // z-a-b
+    ASSERT_EQ(dq1.back(), 'b');
+    dq1.emplace_front('y');
+    ASSERT_EQ(dq1.front(), 'y'); // y-z-a-b
+    ASSERT_EQ(dq1.back(), 'b');
+    dq1.pop_back();
+    ASSERT_EQ(dq1.front(), 'y'); // y-z-a
+    ASSERT_EQ(dq1.back(), 'a');
+    dq1.pop_front();
+    ASSERT_EQ(dq1.front(), 'z'); // z-a
+    ASSERT_EQ(dq1.back(), 'a');
+    ASSERT_EQ(2, dq1.size());
+    dq1.pop_front(); // a
+    dq1.pop_front(); // empty
+    ASSERT_TRUE(dq1.empty());
+}
 
 TEST_F(StacksQueues_Fixture, stack_with_max_Function) {
     stack_max_imp::Stack s;

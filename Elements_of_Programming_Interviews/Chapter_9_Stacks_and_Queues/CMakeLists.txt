@@ -5,6 +5,8 @@ project(Ch9_StacksQueues C CXX)
 add_definitions(-std=c++14)
 
 set(HEADER_FILES
+        stacks_boot_camp.h
+        queues_boot_camp.h
         Stack_with_max.h
         Stack_with_max_improved.h
         RPN.h

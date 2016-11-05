@@ -5,6 +5,7 @@ project(Ch13_Hash_Tables C CXX)
 add_definitions(-std=c++14)
 
 set(HEADER_FILES
+        hash_tables_boot_camp.h
         Hash_dictionary.h
         Can_string_be_palindrome_hash.h
         Can_string_be_palindrome_sorting.h

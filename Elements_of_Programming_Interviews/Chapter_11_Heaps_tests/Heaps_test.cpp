@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <random>
 #include <limits>
+#include "heaps_boot_camp.h"
 #include "Merge_sorted_arrays.h"
 #include "sort_k-increasing-decreasing_array.h"
 #include "Approximate_sort.h"
@@ -35,6 +36,26 @@ public:
     virtual ~Ch11Heaps_Fixture() {
     }
 };
+
+TEST_F(Ch11Heaps_Fixture, heaps_boot_camp) {
+    /*
+    vector<string> input_data = {"1", "3bc", "2c", "7aaaaaa", "4ccc", "5addc", "6aeadf"};
+
+    stringstream ss;
+    for (string str : input_data) {
+        ss << str << ' ';
+    }
+    istringstream str_sequence(ss.str());
+    */
+    string input_str = "1 3bc 2c 7aaaaaa 4ccc 5addc 6aeadf";
+    istringstream str_sequence(input_str);
+
+    vector<string> result;
+    result = TopK(3, &str_sequence);
+    sort(result.begin(), result.end());
+    vector<string> golden_sol = {"5addc", "6aeadf", "7aaaaaa"};
+    ASSERT_TRUE(equal(result.cbegin(), result.cend(), golden_sol.cbegin(), golden_sol.cend()));
+}
 
 TEST_F(Ch11Heaps_Fixture, merge_sorted_arrays_Function) {
     vector<vector<int>> S = {

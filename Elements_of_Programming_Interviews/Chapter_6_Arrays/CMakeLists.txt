@@ -6,6 +6,7 @@ project(Ch6_Arrays C CXX)
 add_definitions(-std=c++14)
 
 set(HEADER_FILES
+        array_boot_camp.h
         Dutch_national_flag.h
         dutch_national_flag_slow_inplace.h
         dutch_national_flag_two_passes.h
@@ -33,6 +34,8 @@ set(HEADER_FILES
         Matrix_rotation_constant.h
         Matrix_rotation_naive.h
         pascal-triangle-1.h
+        k-th_permutation.h
+        inverse_permutation.h
         )
 
 #set(SOURCE_FILES

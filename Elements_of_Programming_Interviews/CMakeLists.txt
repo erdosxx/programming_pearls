@@ -4,6 +4,7 @@ project(Elements_of_Programming_Interviews C CXX)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 include_directories(
+        Chapter_1_Getting_Ready
         Chapter_5_Primitive_Types
         Chapter_6_Arrays
         Chapter_7_Strings
@@ -23,6 +24,8 @@ include_directories(
         Chapter_25_Honors_Class
         )
 
+add_subdirectory(Chapter_1_Getting_Ready)
+add_subdirectory(Chapter_1_Getting_Ready_tests)
 add_subdirectory(Chapter_5_Primitive_Types)
 add_subdirectory(Chapter_5_Primitive_Types_tests)
 add_subdirectory(Chapter_6_Arrays)

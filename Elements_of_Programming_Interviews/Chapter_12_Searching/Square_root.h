@@ -35,6 +35,8 @@ double SquareRoot(double x) {
     return left;
 }
 
+// for comparison of double data.
+// EQUAL:  -Epsilon <= diff <= Epsilon
 Ordering Compare(double a, double b) {
     // Uses normalization for precision problem.
     double diff = (a - b) / b;
@@ -43,6 +45,5 @@ Ordering Compare(double a, double b) {
            : diff > numeric_limits<double>::epsilon() ? LARGER : EQUAL;
 }
 // @exclude
-
 
 #endif //ALGORITHM_ANALYSIS_SQUARE_ROOT_H

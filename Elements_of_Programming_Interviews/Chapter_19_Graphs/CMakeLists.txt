@@ -5,8 +5,11 @@ project(Ch19_Graphs C CXX)
 add_definitions(-std=c++14)
 
 set(HEADER_FILES
+        graphs_boot_camp.h
         team_reachability.h
         Search_maze.h
+        shortest_path_maze.h
+        shortest_path_maze_jaythe1st.h
         Painting_iterative.h
         surrounded-regions.h
         2-exists.h

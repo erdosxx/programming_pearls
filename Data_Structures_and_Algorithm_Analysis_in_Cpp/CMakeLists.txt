@@ -8,6 +8,7 @@ include_directories(
         Chapter_3_Lists_Stacks_and_Queues
         Chapter_4_Trees
         Chapter_6_Priority_Queues
+        Chapter_7_Sorting
         Chapter_8_Disjoint_Sets
         Chapter_9_Graph_Algorithms
         Chapter_10_Algorithm_Design_Techniques
@@ -20,6 +21,8 @@ add_subdirectory(Chapter_4_Trees)
 add_subdirectory(Chapter_4_Trees_tests)
 add_subdirectory(Chapter_6_Priority_Queues)
 add_subdirectory(Chapter_6_Priority_Queues_tests)
+add_subdirectory(Chapter_7_Sorting)
+add_subdirectory(Chapter_7_Sorting_tests)
 add_subdirectory(Chapter_8_Disjoint_Sets)
 add_subdirectory(Chapter_8_Disjoint_Sets_tests)
 add_subdirectory(Chapter_9_Graph_Algorithms)

@@ -8,13 +8,14 @@ using std::array;
 using std::vector;
 
 // @include
-typedef enum { WHITE, BLACK } Color;
+//typedef enum { WHITE, BLACK } Color;
+using Status = enum { ROAD, OBSTACLE, VISITED };
 // @exclude
 
 struct Coordinate;
 bool SearchMazeHelper(const Coordinate&, const Coordinate&,
-                      vector<vector<Color>>*, vector<Coordinate>*);
-bool IsFeasible(const Coordinate&, const vector<vector<Color>>&);
+                      vector<vector<Status>>*, vector<Coordinate>*);
+bool IsFeasible(const Coordinate&, const vector<vector<Status>>&);
 
 // @include
 struct Coordinate {
@@ -25,10 +26,10 @@ struct Coordinate {
     int x, y;
 };
 
-vector<Coordinate> SearchMaze(vector<vector<Color>> maze, const Coordinate& start,
+vector<Coordinate> SearchMaze(vector<vector<Status>> maze, const Coordinate& start,
                               const Coordinate& goal) {
     vector<Coordinate> path;
-    maze[start.x][start.y] = BLACK;
+    maze[start.x][start.y] = VISITED;
     path.emplace_back(start);
 
     if (!SearchMazeHelper(start, goal, &maze, &path)) {
@@ -39,7 +40,7 @@ vector<Coordinate> SearchMaze(vector<vector<Color>> maze, const Coordinate& star
 
 // Perform DFS to find a feasible path.
 bool SearchMazeHelper(const Coordinate& cur, const Coordinate& goal,
-                      vector<vector<Color>>* maze, vector<Coordinate>* path) {
+                      vector<vector<Status>>* maze, vector<Coordinate>* path) {
     if (cur == goal) {
         return true;
     }
@@ -50,7 +51,7 @@ bool SearchMazeHelper(const Coordinate& cur, const Coordinate& goal,
         Coordinate next{cur.x + s[0], cur.y + s[1]};
 
         if (IsFeasible(next, *maze)) {
-            (*maze)[next.x][next.y] = BLACK;
+            (*maze)[next.x][next.y] = VISITED;
 
             path->emplace_back(next);
             if (SearchMazeHelper(next, goal, maze, path)) {
@@ -63,9 +64,9 @@ bool SearchMazeHelper(const Coordinate& cur, const Coordinate& goal,
 }
 
 // Checks cur is within maze and is a white pixel.
-bool IsFeasible(const Coordinate& cur, const vector<vector<Color>>& maze) {
+bool IsFeasible(const Coordinate& cur, const vector<vector<Status>>& maze) {
     return cur.x >= 0 && cur.x < maze.size() && cur.y >= 0 &&
-           cur.y < maze[cur.x].size() && maze[cur.x][cur.y] == WHITE;
+           cur.y < maze[cur.x].size() && maze[cur.x][cur.y] == ROAD;
 }
 // @exclude
 

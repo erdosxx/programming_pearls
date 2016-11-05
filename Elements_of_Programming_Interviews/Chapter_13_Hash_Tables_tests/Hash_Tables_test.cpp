@@ -3,6 +3,7 @@
 #include <limits>
 #include <unordered_set>
 #include <cmath>
+#include "hash_tables_boot_camp.h"
 #include "Hash_dictionary.h"
 #include "Can_string_be_palindrome_hash.h"
 #include "Can_string_be_palindrome_sorting.h"
@@ -112,6 +113,10 @@ void Ch13Hash_Tables_Fixture::SimpleTestCase(const vector<string>& A, const vect
     Subarray res2(FindSmallestSubarrayCoveringSubset(&sin, dict));
     // cout << "res2 = " << res2.start << " " << res2.end << endl;
     ASSERT_TRUE(res2.start == start && res2.end == finish);
+}
+
+TEST_F(Ch13Hash_Tables_Fixture, hash_tables_boot_camp) {
+
 }
 
 TEST_F(Ch13Hash_Tables_Fixture, stringHash_Function) {
