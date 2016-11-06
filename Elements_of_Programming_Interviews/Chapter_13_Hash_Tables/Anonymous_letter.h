@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_ANONYMOUS_LETTER_H
 #define ALGORITHM_ANALYSIS_ANONYMOUS_LETTER_H
+// 13.2 Is an anonymous letter constructible?
 
 #include <algorithm>
 #include <string>

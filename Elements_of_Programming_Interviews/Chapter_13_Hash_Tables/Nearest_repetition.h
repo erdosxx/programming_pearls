@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_NEAREST_REPETITION_H
 #define ALGORITHM_ANALYSIS_NEAREST_REPETITION_H
+// 13.6 Find the nearest repeated entries in an array
 
 #include <algorithm>
 #include <limits>

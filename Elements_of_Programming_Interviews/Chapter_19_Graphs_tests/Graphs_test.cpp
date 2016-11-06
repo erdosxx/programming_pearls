@@ -53,7 +53,6 @@ protected:
     virtual void SetUp() {
     }
 
-    void p_19_0_Check(const vector<MatchResult>& matches, const string& team_a, const string& team_b);
     bool p_19_4_CheckAnswer(vector<GraphVertex>* G);
     void TestDirectedCycle();
     void TestDirectedStarTree();
@@ -130,13 +129,6 @@ bool Ch19_Graphs_Fixture::p_19_4_CheckAnswer(vector<GraphVertex>* G) {
     return false;
 }
 
-void Ch19_Graphs_Fixture::p_19_0_Check(const vector<MatchResult>& matches, const string& team_a,
-           const string& team_b) {
-    ASSERT_EQ(CanTeamABeatTeamB(matches, team_a, team_b),
-           IsReachableBFS(BuildGraph(matches), team_a, team_b,
-                          make_unique<unordered_set<string>>().get()));
-}
-
 TEST_F(Ch19_Graphs_Fixture, graphs_boot_camp) {
     // See C++PL: page 187
     const_with_null_test test_obj{2};
@@ -163,14 +155,43 @@ TEST_F(Ch19_Graphs_Fixture, graphs_boot_camp) {
     ASSERT_EQ(10, a2);
     ASSERT_EQ(10, a3);
 
+    ///// unique_ptr, make_unique
+    int* a_ptr = make_unique<int>().get();
+    *a_ptr = 2;
+    int* b_ptr = a_ptr;
+    // even though a_ptr is made by unique_ptr
+    // a_ptr can be copied.
+    ASSERT_EQ(2, *b_ptr);
+
+    unique_ptr<int> uni_a_ptr(new int(12));
+    ASSERT_EQ(12, *uni_a_ptr);
+
+    // equivalent unique_ptr<int> uni_b_ptr(new int{22});
+    unique_ptr<int> uni_b_ptr = make_unique<int>(int{22});
+    ASSERT_EQ(22, *uni_b_ptr);
+
+    // not work because uni_b_ptr is unique:
+    // unique_ptr<int> uni_c_ptr = uni_b_ptr;
 }
 
 TEST_F(Ch19_Graphs_Fixture, team_reachability_Function) {
     vector<MatchResult> matches = {{"Texas", "Cal"},      {"Cal", "Stanford"},
                                    {"Stanford", "Texas"}, {"Stanford", "MIT"},
                                    {"Stanford", "CIT"},   {"UCLA", "USC"}};
-    p_19_0_Check(matches, "Texas", "MIT");
-    p_19_0_Check(matches, "Cal", "UCLA");
+
+    //         Ci
+    //         ^
+    //         |
+    // T->Ca-> S->T    Uc->USC
+    //         |
+    //         v
+    //         M
+
+    ASSERT_EQ(CanTeamABeatTeamB_DFS(matches, "Texas", "MIT"),
+              CanTeamABeatTeamB_BFS(matches, "Texas", "MIT"));
+
+    ASSERT_EQ(CanTeamABeatTeamB_DFS(matches, "Cal", "UCLA"),
+              CanTeamABeatTeamB_BFS(matches, "Cal", "UCLA"));
 }
 
 TEST_F(Ch19_Graphs_Fixture, search_maze_Function) {

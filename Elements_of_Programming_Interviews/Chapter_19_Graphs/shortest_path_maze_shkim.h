@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SHORTEST_PATH_MAZE_SHKIM_H
 #define ALGORITHM_ANALYSIS_SHORTEST_PATH_MAZE_SHKIM_H
+// Variant problem for 19.1 from shkim.
 
 #include <iostream>
 #include <queue>

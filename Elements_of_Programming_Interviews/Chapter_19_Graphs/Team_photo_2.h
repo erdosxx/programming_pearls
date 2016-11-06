@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_TEAM_PHOTO_2_H
 #define ALGORITHM_ANALYSIS_TEAM_PHOTO_2_H
+// 19.8: Team Photo Day--2
 
 #include <algorithm>
 #include <stack>

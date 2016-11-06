@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_HASH_DICTIONARY_H
 #define ALGORITHM_ANALYSIS_HASH_DICTIONARY_H
+// 13 Hash Tables boot camp
 
 #include <numeric>
 #include <random>
@@ -24,7 +25,7 @@ namespace str_hash {
 
 // @include
     int StringHash(const string &str, int modulus) {
-        const int kMult = 997;
+        const int kMult = 997;  // prime number
         // @exclude
         /*
         return accumulate(str.cbegin(), str.cend(), 0,

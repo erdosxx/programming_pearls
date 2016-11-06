@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SURROUNDED_REGIONS_H
 #define ALGORITHM_ANALYSIS_SURROUNDED_REGIONS_H
+// 19.3: Compute Enclosed Regions
 
 #include <algorithm>
 #include <array>

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SHORTEST_PATH_MAZE_H
 #define ALGORITHM_ANALYSIS_SHORTEST_PATH_MAZE_H
+// Variant problem for 19.1
 
 #include <vector>
 #include <queue>

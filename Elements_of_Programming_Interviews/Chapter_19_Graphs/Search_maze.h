@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SEARCH_MAZE_H
 #define ALGORITHM_ANALYSIS_SEARCH_MAZE_H
+// 19.1 Search a Maze
 
 #include <array>
 #include <vector>

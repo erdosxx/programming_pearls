@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_PAINTING_ITERATIVE_H
 #define ALGORITHM_ANALYSIS_PAINTING_ITERATIVE_H
+// 19.2: Paint a Boolean Matrix
 
 #include <array>
 #include <deque>

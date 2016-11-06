@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_CAN_STRING_BE_PALINDROME_HASH_H
 #define ALGORITHM_ANALYSIS_CAN_STRING_BE_PALINDROME_HASH_H
+// 13.1 Test for palindromic permutations
 
 #include <string>
 #include <unordered_map>

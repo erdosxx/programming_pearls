@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_LONGEST_SUBARRAY_WITH_DISTINCT_ENTRIES_H
 #define ALGORITHM_ANALYSIS_LONGEST_SUBARRAY_WITH_DISTINCT_ENTRIES_H
+// 13.9 Find the longest subarray with distinct entries
 
 #include <algorithm>
 #include <string>

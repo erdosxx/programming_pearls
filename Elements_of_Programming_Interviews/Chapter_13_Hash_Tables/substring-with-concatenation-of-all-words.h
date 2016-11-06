@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SUBSTRING_WITH_CONCATENATION_OF_ALL_WORDS_H
 #define ALGORITHM_ANALYSIS_SUBSTRING_WITH_CONCATENATION_OF_ALL_WORDS_H
+// 13.12 Compute all string decompositions
 
 #include <algorithm>
 #include <string>

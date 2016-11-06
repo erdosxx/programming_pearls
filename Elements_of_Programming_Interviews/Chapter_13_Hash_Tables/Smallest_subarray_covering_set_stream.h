@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SMALLEST_SUBARRAY_COVERING_SET_STREAM_H
 #define ALGORITHM_ANALYSIS_SMALLEST_SUBARRAY_COVERING_SET_STREAM_H
+// 13.7 Find the smallest subarray covering all values
 
 #include <list>
 #include <string>

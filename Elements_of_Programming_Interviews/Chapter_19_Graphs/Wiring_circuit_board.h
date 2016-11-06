@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_WIRING_CIRCUIT_BOARD_H
 #define ALGORITHM_ANALYSIS_WIRING_CIRCUIT_BOARD_H
+// 19.6 Making wired connections
 
 #include <queue>
 #include <vector>

@@ -1,5 +1,7 @@
 #ifndef ALGORITHM_ANALYSIS_SHORTEST_PATH_MAZE_JAYTHE1ST_H
 #define ALGORITHM_ANALYSIS_SHORTEST_PATH_MAZE_JAYTHE1ST_H
+// Variant problem for 19.1 from jaythe1st
+// This solution is wrong, because of its low speed.
 
 #include <iostream>
 using namespace std;

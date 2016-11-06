@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_LOWEST_COMMON_ANCESTOR_HASH_H
 #define ALGORITHM_ANALYSIS_LOWEST_COMMON_ANCESTOR_HASH_H
+// 13.4 Compute the LCA, optimizing for close ancestors
 
 #include <memory>
 #include <stdexcept>

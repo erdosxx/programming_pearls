@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <random>
+#include <cctype>
 #include "strings_boot_camp.h"
 #include "Square_root.h" // for using Compare
 #include "Interconverting_string_integer.h"
@@ -23,6 +24,12 @@ using std::random_device;
 using std::string;
 using std::uniform_int_distribution;
 using std::max;
+using std::toupper;
+using std::tolower;
+using std::islower;
+using std::isupper;
+using std::isalnum;
+using std::isdigit;
 //using rabin_karp::RabinKarp;
 
 class Strings_Fixture : public ::testing::Test {
@@ -197,6 +204,29 @@ TEST_F(Strings_Fixture, stl_library) {
     s1="abcsubd";
     s2="sub2";
     ASSERT_TRUE(s1.compare(3,3,s2,0,3) == 0); // sub == sub
+
+    // toupper, tolower
+    s1 = "abc";
+    s2 = "";
+    for (const char& c : s1) {
+        s2 += toupper(c);
+        ASSERT_TRUE(islower(c));
+        ASSERT_TRUE(isalpha(c));
+        ASSERT_TRUE(isalnum(c));
+        ASSERT_FALSE(isdigit(c));
+    }
+    ASSERT_EQ("ABC", s2);
+
+    s1 = "ABC";
+    s2 = "";
+    for (const char& c : s1) {
+        s2 += tolower(c);
+        ASSERT_TRUE(isupper(c));
+        ASSERT_TRUE(isalpha(c));
+        ASSERT_TRUE(isalnum(c));
+        ASSERT_FALSE(isdigit(c));
+    }
+    ASSERT_EQ("abc", s2);
 }
 
 TEST_F(Strings_Fixture, interconverting_stirng_integer_Function) {

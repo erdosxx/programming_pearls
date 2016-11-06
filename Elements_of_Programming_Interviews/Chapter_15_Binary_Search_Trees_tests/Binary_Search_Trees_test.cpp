@@ -135,6 +135,28 @@ TEST_F(Ch15_BST_Fixture, binary_search_tree_boot_camp) {
     ASSERT_EQ((*school_score2.cbegin())->name, "d");
     ASSERT_EQ((*school_score2.cbegin())->score, 5);
 
+    // decltype(compare_function_ptr) : retunr type of function pointer.
+    set<student*, decltype(compare_function_ptr)> school_score2_2(compare_function_ptr);
+    school_score2_2.emplace(&students[0]);
+    school_score2_2.emplace(&students[1]);
+    school_score2_2.emplace(&students[2]);
+    school_score2_2.emplace(&students[3]);
+
+    ASSERT_EQ((*school_score2_2.cbegin())->name, "d");
+    ASSERT_EQ((*school_score2_2.cbegin())->score, 5);
+
+    students = {{"a", 10}, {"b", 20}, {"c", 15}, {"d", 5}};
+    // &compare_by_name : address of the function
+    // In this case, the parameter of decltype should be function pointer.
+    set<student*, decltype(&compare_by_name)> school_name_2(&compare_by_name);
+    school_name_2.emplace(&students[0]);
+    school_name_2.emplace(&students[1]);
+    school_name_2.emplace(&students[2]);
+    school_name_2.emplace(&students[3]);
+
+    ASSERT_EQ((*school_name_2.cbegin())->name, "a");
+    ASSERT_EQ((*school_name_2.cbegin())->score, 10);
+
     set<student*, function<bool(const student*, const student*)>> school_score3(comp_score);
     school_score3.emplace(&students[0]);
     school_score3.emplace(&students[1]);

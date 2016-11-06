@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_2_EXISTS_H
 #define ALGORITHM_ANALYSIS_2_EXISTS_H
+// problem: 19.4 Deadlock Detection.
 
 #include <deque>
 #include <vector>

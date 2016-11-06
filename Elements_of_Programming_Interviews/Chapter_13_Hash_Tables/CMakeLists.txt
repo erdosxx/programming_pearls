@@ -7,6 +7,9 @@ add_definitions(-std=c++14)
 set(HEADER_FILES
         hash_tables_boot_camp.h
         Hash_dictionary.h
+        Anagrams.h
+        anagrams_needle_haystack.h
+        merge_contacts.h
         Can_string_be_palindrome_hash.h
         Can_string_be_palindrome_sorting.h
         Anonymous_letter.h

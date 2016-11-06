@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SUBSEQ_COVER_H
 #define ALGORITHM_ANALYSIS_SUBSEQ_COVER_H
+// 13.8 Find smallest subarray sequentially covering all values
 
 #include <algorithm>
 #include <iterator>

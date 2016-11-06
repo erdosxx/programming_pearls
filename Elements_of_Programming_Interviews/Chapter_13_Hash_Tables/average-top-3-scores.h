@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_AVERAGE_TOP_3_SCORES_H
 #define ALGORITHM_ANALYSIS_AVERAGE_TOP_3_SCORES_H
+//13.11 Compute the average of the top three scores.
 
 #include <bitset>
 #include <cassert>
