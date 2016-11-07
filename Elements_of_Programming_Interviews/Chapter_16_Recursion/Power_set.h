@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_POWER_SET_H
 #define ALGORITHM_ANALYSIS_POWER_SET_H
+// 16.4 Generate the power set
 
 #include <cmath>
 #include <vector>

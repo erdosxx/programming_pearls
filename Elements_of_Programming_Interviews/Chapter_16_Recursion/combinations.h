@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_COMBINATIONS_H
 #define ALGORITHM_ANALYSIS_COMBINATIONS_H
+// 16.5 Generate all subsets of size k
 
 #include <algorithm>
 #include <vector>

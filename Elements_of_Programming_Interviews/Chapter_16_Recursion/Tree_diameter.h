@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_TREE_DIAMETER_H
 #define ALGORITHM_ANALYSIS_TREE_DIAMETER_H
+// 16.11 Compute the diameter of a tree
 
 #include <algorithm>
 #include <array>

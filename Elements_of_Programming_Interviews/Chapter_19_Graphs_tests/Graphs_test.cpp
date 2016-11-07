@@ -4,7 +4,6 @@
 #include <unordered_set>
 #include <cmath>
 #include <string>
-#include <bitset>
 #include <deque>
 #include "graphs_boot_camp.h"
 #include "team_reachability.h"
@@ -38,7 +37,6 @@ using std::cout;
 using std::endl;
 using std::ostream_iterator;
 using std::to_string;
-using std::bitset;
 using std::boolalpha;
 using std::deque;
 using std::string;

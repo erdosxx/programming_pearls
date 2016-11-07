@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_FIND_MISSING_AND_DUPLICATE_XOR_H
 #define ALGORITHM_ANALYSIS_FIND_MISSING_AND_DUPLICATE_XOR_H
+// 12.10 Find the duplicate and missing elements
 
 #include <vector>
 

@@ -1,5 +1,8 @@
 #include <gtest/gtest.h>
 #include <random>
+#include <bitset>
+#include <cmath>
+#include "count_bits.h"
 #include "Parity1.h"
 #include "Parity2.h"
 #include "Parity3.h"
@@ -20,6 +23,7 @@ using std::numeric_limits;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::invalid_argument;
+using std::bitset;
 
 class Primitive_Types_Fixture : public ::testing::Test {
 protected:
@@ -38,6 +42,113 @@ public:
     virtual ~Primitive_Types_Fixture() {
     }
 };
+
+TEST_F(Primitive_Types_Fixture, primitive_types_boot_camp) {
+    //// bitset
+    bitset<10> b1; // all 0
+    ASSERT_EQ(bitset<10>{0}, b1);
+    bitset<16> b2 = 0xaaaa;  // 1010101010101010
+    bitset<32> b3 = 0xaaaa;  // 00000000000000001010101010101010
+
+    bitset<10> b4 {"1010101010"};  // 1010101010
+    bitset<10> b5 {"10110111011110", 4}; // 0111011110
+    //                  ^
+    ASSERT_EQ(b5, bitset<10>{"1011"});
+    bitset<10> b6 {string{"1010101010"}};   // 1010101010
+    bitset<10> b7 {string{"10110111011110"}, 4}; //0111011110
+    ASSERT_EQ(b7, bitset<10>{"0111011110"});
+    bitset<10> b8 {string{"10110111011110"}, 2, 8}; //11011101
+    ASSERT_EQ(b8, bitset<10>{"11011101"});
+    // bitset -> string
+    ASSERT_EQ("0011011101", b8.to_string());
+
+    // index is start from right to left.
+    ASSERT_EQ(1, b8[0]);
+    ASSERT_EQ(0, b8[1]);
+    ASSERT_EQ(1, b8[2]);
+    // the ith bit
+    ASSERT_FALSE(b8.test(1));
+
+    bitset<10> b11 {"1111011101"};
+    ASSERT_EQ(b11, bitset<10>(989));
+    // bitset -> long int
+    ASSERT_EQ(989, b11.to_ulong());
+
+    bitset<10> b9 {"1010101010"};  // 1010101010
+    bitset<10> b10 {"1111111111"};  // 1010101010
+
+    // bitwise and
+    ASSERT_EQ(b9, b9 & b10);
+    // bitwise or
+    ASSERT_EQ(b10, b9 | b10);
+    // bitwise xor
+    ASSERT_EQ(bitset<10>{"0101010101"}, b9 ^ b10);
+    // lofical left shift (fill with zeros)
+    ASSERT_EQ(bitset<10>{"0101010000"}, b9 << 3);
+    // lofical right shift (fill with zeros)
+    ASSERT_EQ(bitset<10>{"0001010101"}, b9 >> 3);
+    // make compliment
+    ASSERT_EQ(bitset<10>{"0101010101"}, ~b9);
+
+    // the number of bits with value 1
+    ASSERT_EQ(5, b9.count());
+    // the number of bits
+    ASSERT_EQ(10, b9.size());
+
+    ///// bitwise operators
+    // 6: 110
+    // 4: 100
+    ASSERT_EQ(4, 6 & 4);
+
+    ASSERT_EQ(3, 1 | 2);
+
+    ASSERT_EQ(4, 8>>1);
+
+    // 0b10000000000 = 1024
+    ASSERT_EQ(0b10000000000, 1<<10);
+
+    // int is 32 bit
+    ASSERT_EQ(0b11111111111111111111111111111111,~0);
+
+    ASSERT_EQ(2, 6 ^ 4);
+
+    ///// cmath functions
+    ASSERT_EQ(34, abs(-34));
+
+    ASSERT_EQ(0, Compare(fabs(-3.14), 3.14));
+    ASSERT_EQ(0, Compare(ceil(2.17), 3.0));
+    ASSERT_EQ(0, Compare(floor(3.14), 3.0));
+    ASSERT_EQ(0, min(0, 4));
+    ASSERT_EQ(4, max(3, 4));
+    ASSERT_EQ(0, Compare(pow(2, 3), 8.0));
+    // log: natural log
+    ASSERT_EQ(0, Compare(log(10), 2.3025850929940));
+    ASSERT_EQ(0, Compare(sqrt(225), 15.0));
+
+    // convert char to int
+    char a = '3';
+    ASSERT_EQ(3, a - '0');
+    // convert int to char
+    int b = 3;
+    ASSERT_EQ('3', 3 + '0');
+
+}
+
+TEST_F(Primitive_Types_Fixture, count_bits) {
+    ASSERT_EQ(0, CountBits_imp(0b0));
+    ASSERT_EQ(3, CountBits_imp(0b1011));
+
+    default_random_engine gen((random_device())());
+
+    for (int times = 0; times < 1000; ++times) {
+        uniform_int_distribution<int> dis(0, numeric_limits<int>::max());
+        int x = dis(gen);
+        //cout << "x = " << x << ",  = " << CountBits(x) << endl;
+        bitset<32> checker(x);
+        ASSERT_EQ(CountBits(x), checker.count());
+        ASSERT_EQ(CountBits(x), CountBits_imp(x));
+    }
+}
 
 TEST_F(Primitive_Types_Fixture, parity_Function) {
     ASSERT_EQ(1, Parity1::Parity(0b0001));

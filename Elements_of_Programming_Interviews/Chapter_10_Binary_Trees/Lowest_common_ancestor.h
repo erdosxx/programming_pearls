@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_LOWEST_COMMON_ANCESTOR_H
 #define ALGORITHM_ANALYSIS_LOWEST_COMMON_ANCESTOR_H
+// 10.4 Compute the LCA when nodes have parent pointers
 
 #include <algorithm>
 #include <memory>

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_POINTS_COVERING_INTERVALS_ALTERNATIVE_H
 #define ALGORITHM_ANALYSIS_POINTS_COVERING_INTERVALS_ALTERNATIVE_H
+// 18.3 The interval covering problem
 
 #include <algorithm>
 #include <unordered_set>

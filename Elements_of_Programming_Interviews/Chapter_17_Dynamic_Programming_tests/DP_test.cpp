@@ -4,7 +4,6 @@
 #include <unordered_set>
 #include <cmath>
 #include <string>
-#include <bitset>
 #include "fibonacci.h"
 #include "Max-sum_subarray.h"
 #include "Score_combination.h"
@@ -36,7 +35,6 @@ using std::cout;
 using std::endl;
 using std::ostream_iterator;
 using std::to_string;
-using std::bitset;
 using std::boolalpha;
 
 class Ch17_DP_Fixture : public ::testing::Test {
@@ -239,25 +237,38 @@ TEST_F(Ch17_DP_Fixture, Fibonacci_Function) {
 TEST_F(Ch17_DP_Fixture, max_sum_subarray_Function) {
     vector<int> B = {1};
     int max_sum = FindMaximumSubarray(B);
+    int max_sum2 = FindMaximumSubarray2(B);
     CheckMaxSum(B, max_sum);
+    CheckMaxSum(B, max_sum2);
     B = {-5};
     max_sum = FindMaximumSubarray(B);
+    max_sum2 = FindMaximumSubarray2(B);
     CheckMaxSum(B, max_sum);
+    CheckMaxSum(B, max_sum2);
     B = {0};
     max_sum = FindMaximumSubarray(B);
-    CheckMaxSum(B, max_sum);
+    max_sum2 = FindMaximumSubarray2(B);
+    CheckMaxSum(B, max_sum2);
     B = {0, 0};
     max_sum = FindMaximumSubarray(B);
+    max_sum2 = FindMaximumSubarray2(B);
     CheckMaxSum(B, max_sum);
+    CheckMaxSum(B, max_sum2);
     B = {0, 0, 0};
     max_sum = FindMaximumSubarray(B);
+    max_sum2 = FindMaximumSubarray2(B);
     CheckMaxSum(B, max_sum);
+    CheckMaxSum(B, max_sum2);
     B = {0, -5, 0};
     max_sum = FindMaximumSubarray(B);
+    max_sum2 = FindMaximumSubarray2(B);
     CheckMaxSum(B, max_sum);
+    CheckMaxSum(B, max_sum2);
     B = {-2, -1};
     max_sum = FindMaximumSubarray(B);
+    max_sum2 = FindMaximumSubarray2(B);
     CheckMaxSum(B, max_sum);
+    CheckMaxSum(B, max_sum2);
 
     default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
@@ -266,7 +277,9 @@ TEST_F(Ch17_DP_Fixture, max_sum_subarray_Function) {
         A = RandVector<int>(dis(gen));
 
         int max_sum = FindMaximumSubarray(A);
+        int max_sum2 = FindMaximumSubarray2(A);
         CheckMaxSum(A, max_sum);
+        CheckMaxSum(A, max_sum2);
     }
 }
 
@@ -526,7 +539,7 @@ TEST_F(Ch17_DP_Fixture, pretty_printing_Function) {
 TEST_F(Ch17_DP_Fixture, LNS_Function) {
     default_random_engine gen((random_device())());
 
-    for (int times = 0; times < 1000; ++times) {
+    for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> dis(1, 10000);
         int n = dis(gen);
 

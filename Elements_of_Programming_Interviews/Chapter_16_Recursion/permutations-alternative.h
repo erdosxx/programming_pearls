@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_PERMUTATIONS_ALTERNATIVE_H
 #define ALGORITHM_ANALYSIS_PERMUTATIONS_ALTERNATIVE_H
+// 16.3 Generate permutations
 
 #include <algorithm>
 #include <string>

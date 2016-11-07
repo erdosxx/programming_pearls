@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_WORD_BREAKING_H
 #define ALGORITHM_ANALYSIS_WORD_BREAKING_H
+// 17.7 The bedbathandbeyond.com problem
 
 #include <algorithm>
 #include <string>

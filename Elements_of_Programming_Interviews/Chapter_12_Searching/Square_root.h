@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SQUARE_ROOT_H
 #define ALGORITHM_ANALYSIS_SQUARE_ROOT_H
+// 12.5 Compute the real square root
 
 #include <limits>
 

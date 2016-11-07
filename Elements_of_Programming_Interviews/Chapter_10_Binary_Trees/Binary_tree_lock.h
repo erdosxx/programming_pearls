@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_BINARY_TREE_LOCK_H
 #define ALGORITHM_ANALYSIS_BINARY_TREE_LOCK_H
+//10.17 Implement locking in a binary tree
 
 #include <memory>
 

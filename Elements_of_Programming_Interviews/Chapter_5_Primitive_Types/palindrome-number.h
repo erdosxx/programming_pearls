@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_PALINDROME_NUMBER_H
 #define ALGORITHM_ANALYSIS_PALINDROME_NUMBER_H
+// 5.9 Check if a decimal integer is a palindrome
 
 #include <cmath>
 #include <string>

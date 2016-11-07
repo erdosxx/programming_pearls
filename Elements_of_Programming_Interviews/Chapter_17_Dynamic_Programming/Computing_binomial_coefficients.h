@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_COMPUTING_BINOMIAL_COEFFICIENTS_H
 #define ALGORITHM_ANALYSIS_COMPUTING_BINOMIAL_COEFFICIENTS_H
+// 17.4 Compute the binomial coefficients
 
 #include <vector>
 

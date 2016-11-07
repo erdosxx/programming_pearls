@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_REVERSE_INTEGER_H
 #define ALGORITHM_ANALYSIS_REVERSE_INTEGER_H
+// 5.8 Reverse digits
 
 #include <algorithm>
 #include <cassert>

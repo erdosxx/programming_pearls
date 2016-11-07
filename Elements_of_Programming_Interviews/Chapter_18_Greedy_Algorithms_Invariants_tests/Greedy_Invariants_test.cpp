@@ -4,8 +4,8 @@
 #include <unordered_set>
 #include <cmath>
 #include <string>
-#include <bitset>
 #include <deque>
+#include "coin_change.h"
 #include "Task_assignment.h"
 #include "Minimum_waiting_time.h"
 #include "Points_covering_intervals_sorting.h"
@@ -34,7 +34,6 @@ using std::cout;
 using std::endl;
 using std::ostream_iterator;
 using std::to_string;
-using std::bitset;
 using std::boolalpha;
 using std::deque;
 using std::string;
@@ -209,6 +208,13 @@ void Ch18_Greedy_Invariants_Fixture::p_18_3_sorting_CheckAns(const vector<sortin
     for (bool b : is_visited) {
         ASSERT_EQ(b, true);
     }
+}
+
+TEST_F(Ch18_Greedy_Invariants_Fixture, coin_change) {
+    ASSERT_EQ(1, ChangeMaking(100));
+    ASSERT_EQ(2, ChangeMaking(101));
+    ASSERT_EQ(6, ChangeMaking(68));
+    ASSERT_EQ(136, ChangeMaking(13142));
 }
 
 TEST_F(Ch18_Greedy_Invariants_Fixture, task_assignment_Function) {

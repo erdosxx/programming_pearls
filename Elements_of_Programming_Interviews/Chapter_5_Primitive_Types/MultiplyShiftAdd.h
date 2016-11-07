@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_MULTIPLYSHIFTADD_H
 #define ALGORITHM_ANALYSIS_MULTIPLYSHIFTADD_H
+// 5.5 Compute x * y without arithmetical operators
 
 unsigned Add(unsigned a, unsigned b);
 

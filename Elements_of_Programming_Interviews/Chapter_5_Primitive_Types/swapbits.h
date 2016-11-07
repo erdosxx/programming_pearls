@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SWAPBITS_H
 #define ALGORITHM_ANALYSIS_SWAPBITS_H
+// 5.2 Swap bits
 
 // @include
 long SwapBits(long x, int i, int j) {

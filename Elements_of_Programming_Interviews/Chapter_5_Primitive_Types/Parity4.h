@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_PARITY4_H
 #define ALGORITHM_ANALYSIS_PARITY4_H
+// 5.1 Computing the parity of a word
 
 namespace Parity4 {
 

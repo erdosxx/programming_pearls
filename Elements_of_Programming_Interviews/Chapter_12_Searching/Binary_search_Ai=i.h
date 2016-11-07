@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_BINARY_SEARCH_AI_I_H
 #define ALGORITHM_ANALYSIS_BINARY_SEARCH_AI_I_H
+// 12.2 Search a sorted array for entry equal to its index
 
 #include <vector>
 

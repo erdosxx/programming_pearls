@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_MATRIX_SEARCH_H
 #define ALGORITHM_ANALYSIS_MATRIX_SEARCH_H
+// 12.6 Search in a 2D sorted array
 
 #include <vector>
 

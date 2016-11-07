@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_DIVISION_H
 #define ALGORITHM_ANALYSIS_DIVISION_H
+// 5.6 Compute x/y
 
 // Alternative solution.
 unsigned DivideBsearch(unsigned x, unsigned y) {

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_N_QUEENS_H
 #define ALGORITHM_ANALYSIS_N_QUEENS_H
+// 16.2 Generate all nonattacking placements of n-Queens
 
 #include <algorithm>
 #include <memory>

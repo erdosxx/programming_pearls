@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_PICKING_UP_COINS_H
 #define ALGORITHM_ANALYSIS_PICKING_UP_COINS_H
+// 17.9 Pick up coins for maximum gain
 
 #include <algorithm>
 #include <vector>

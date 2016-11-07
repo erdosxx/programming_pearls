@@ -1,9 +1,11 @@
 #include <gtest/gtest.h>
+#include <algorithm>
 #include <random>
 #include <limits>
 #include <unordered_set>
 #include <cmath>
 #include "Bentleybsearch.h"
+#include "student_search.h"
 #include "Binary_search_first_k.h"
 #include "Binary_search_Ai=i.h"
 #include "Binary_search_circular_array.h"
@@ -27,6 +29,9 @@ using std::uniform_real_distribution;
 using std::is_sorted;
 using std::unordered_set;
 using std::max;
+using std::binary_search;
+using std::lower_bound;
+using std::upper_bound;
 
 class Ch12Searching_Fixture : public ::testing::Test {
 private:
@@ -126,15 +131,15 @@ void Ch12Searching_Fixture::RandomTestFixedN(int N) {
     TestAllOrders(order, &A);
 }
 
-TEST_F(Ch12Searching_Fixture, Bentley_bsearch__Function) {
+TEST_F(Ch12Searching_Fixture, Bentley_bsearch_Function) {
     vector<int> A = {1, 2, 3};
-    ASSERT_EQ(0, bsearch(1, A));
-    ASSERT_EQ(1, bsearch(2, A));
-    ASSERT_EQ(2, bsearch(3, A));
+    ASSERT_EQ(0, bentley::bsearch(1, A));
+    ASSERT_EQ(1, bentley::bsearch(2, A));
+    ASSERT_EQ(2, bentley::bsearch(3, A));
     A = {2, 2, 2};
-    ASSERT_TRUE(0 <= bsearch(2, A) && bsearch(2, A) <= 2);
-    ASSERT_EQ(-1, bsearch(3, A));
-    ASSERT_EQ(-1, bsearch(0, A));
+    ASSERT_TRUE(0 <= bentley::bsearch(2, A) && bentley::bsearch(2, A) <= 2);
+    ASSERT_EQ(-1, bentley::bsearch(3, A));
+    ASSERT_EQ(-1, bentley::bsearch(0, A));
 
     A.clear();
     A.emplace_back(1);
@@ -149,10 +154,47 @@ TEST_F(Ch12Searching_Fixture, Bentley_bsearch__Function) {
     A.emplace_back(6);
     A.emplace_back(10);
     A.emplace_back(100);
-    ASSERT_EQ(0, bsearch(1, A));
-    ASSERT_TRUE(1 <= bsearch(2, A) && bsearch(2, A) <= 4);
-    ASSERT_LE(5, bsearch(3, A));
-    ASSERT_EQ(-1, bsearch(4, A));
+    ASSERT_EQ(0, bentley::bsearch(1, A));
+    ASSERT_TRUE(1 <= bentley::bsearch(2, A) && bentley::bsearch(2, A) <= 4);
+    ASSERT_LE(5, bentley::bsearch(3, A));
+    ASSERT_EQ(-1, bentley::bsearch(4, A));
+}
+
+TEST_F(Ch12Searching_Fixture, student_search) {
+    vector<Student> students = {{"A", 4.0}, {"C", 3.0}, {"B", 2.0}, {"D", 3.2}};
+    sort(students.begin(), students.end(), CompGPA);
+    ASSERT_TRUE(SearchStudent(students, {"A", 4.0}, CompGPA));
+    ASSERT_FALSE(SearchStudent(students, {"A", 3.0}, CompGPA));
+    ASSERT_FALSE(SearchStudent(students, {"B", 3.0}, CompGPA));
+    ASSERT_TRUE(SearchStudent(students, {"D", 3.2}, CompGPA));
+    ASSERT_TRUE(binary_search(students.cbegin(), students.cend(), Student{"A", 4.0}, CompGPA));
+
+    ASSERT_TRUE(SearchStudent2(students, {"A", 4.0}, compGPA_lamda));
+    ASSERT_FALSE(SearchStudent2(students, {"A", 3.0}, compGPA_lamda));
+    ASSERT_FALSE(SearchStudent2(students, {"B", 3.0}, compGPA_lamda));
+    ASSERT_TRUE(SearchStudent2(students, {"D", 3.2}, compGPA_lamda));
+
+    // Not work: ASSERT_TRUE(binary_search(students.cbegin(), students.cend(), {"A", 4.0}, compGPA_lamda));
+    ASSERT_TRUE(binary_search(students.cbegin(), students.cend(), Student{"A", 4.0}, compGPA_lamda));
+
+    ASSERT_TRUE(binary_search(students.cbegin(), students.cend(), Student{"A", 4.0}, comp_student_f_ptr));
+
+    vector<Student_with_compare> students_comp = {{"A", 40}, {"B", 30}, {"C", 30}, {"D", 20}, {"E", 32}};
+    sort(students_comp.begin(), students_comp.end());
+    ASSERT_EQ("A", students_comp[0].name);
+    ASSERT_EQ("E", students_comp[1].name);
+    ASSERT_EQ("B", students_comp[2].name);
+    ASSERT_EQ("C", students_comp[3].name);
+    ASSERT_EQ("D", students_comp[4].name);
+    // Not work: ASSERT_TRUE(binary_search(students_comp.begin(), students_comp.end(), {"A", 40}));
+    ASSERT_TRUE(binary_search(students_comp.cbegin(), students_comp.cend(), Student_with_compare{"A", 40}));
+    // Not work: ASSERT_TRUE(binary_search(students_comp.begin(), students_comp.end(), {"A", 40}, compare_dec_gpa_inc_name()));
+
+    ASSERT_TRUE(binary_search(students_comp.cbegin(), students_comp.cend(), Student_with_compare{"A", 40}, compare_dec_gpa_inc_name()));
+    ASSERT_EQ("A", find(students_comp.cbegin(), students_comp.cend(), Student_with_compare{"A", 40})->name);
+    ASSERT_EQ("B", lower_bound(students_comp.cbegin(), students_comp.cend(), Student_with_compare{"B", 30})->name);
+    ASSERT_EQ("C", upper_bound(students_comp.cbegin(), students_comp.cend(), Student_with_compare{"B", 30})->name);
+
 }
 
 TEST_F(Ch12Searching_Fixture, first_k_bsearch_Function) {

@@ -49,7 +49,7 @@ bool CanTeamABeatTeamB_DFS(const vector<MatchResult>& matches,
     // unordered_set<const string*>* visited_ptr = &visited;
     // return IsReachableDFS(BuildGraph(matches), team_a, team_b,
     //                     visited_ptr);
-    /
+    //
     // As I tested in graphs_boot_camp
     // pointer that created by make_unique<unordered_set<const string*>>().get())
     // cannot prevent to copy. That is, this is not a unique pointer.

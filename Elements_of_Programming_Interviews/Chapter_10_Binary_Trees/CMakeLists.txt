@@ -6,6 +6,7 @@ add_definitions(-std=c++14)
 
 set(HEADER_FILES
         Binary_tree_prototype.h
+        tree_traversal.h
         Balanced_binary_tree.h
         Symmetric_binary_tree.h
         Lowest_common_ancestor_no_parent.h

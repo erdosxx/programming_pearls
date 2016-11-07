@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SYMMETRIC_BINARY_TREE_H
 #define ALGORITHM_ANALYSIS_SYMMETRIC_BINARY_TREE_H
+// 10.2 Test if a binary tree is symmetric
 
 #include <cassert>
 #include <iostream>

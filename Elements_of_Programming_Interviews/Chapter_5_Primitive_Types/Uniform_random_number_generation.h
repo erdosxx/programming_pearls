@@ -1,7 +1,7 @@
 #ifndef ALGORITHM_ANALYSIS_UNIFORM_RANDOM_NUMBER_GENERATION_H
 #define ALGORITHM_ANALYSIS_UNIFORM_RANDOM_NUMBER_GENERATION_H
+// 5.10 Generate uniform random numbers
 
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 
 #include <random>
 

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_MINIMUM_WAITING_TIME_H
 #define ALGORITHM_ANALYSIS_MINIMUM_WAITING_TIME_H
+// 18.2 Schedule to minimize waiting time
 
 #include <algorithm>
 #include <vector>

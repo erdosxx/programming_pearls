@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_INTERSECT_RECTANGLE_H
 #define ALGORITHM_ANALYSIS_INTERSECT_RECTANGLE_H
+// 5.11 Rectangle intersection
 
 #include <algorithm>
 #include <iostream>

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SEARCH_MAJORITY_H
 #define ALGORITHM_ANALYSIS_SEARCH_MAJORITY_H
+// 18.5 Find the majority element
 
 #include <algorithm>
 #include <sstream>

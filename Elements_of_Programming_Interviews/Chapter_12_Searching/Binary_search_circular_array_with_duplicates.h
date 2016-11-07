@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_BINARY_SEARCH_CIRCULAR_ARRAY_WITH_DUPLICATES_H
 #define ALGORITHM_ANALYSIS_BINARY_SEARCH_CIRCULAR_ARRAY_WITH_DUPLICATES_H
+// 12.3 Search a cyclically sorted array
 
 #include <algorithm>
 #include <cassert>

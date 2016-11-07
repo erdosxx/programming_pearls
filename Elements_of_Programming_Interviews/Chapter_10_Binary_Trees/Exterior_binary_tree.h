@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_EXTERIOR_BINARY_TREE_H
 #define ALGORITHM_ANALYSIS_EXTERIOR_BINARY_TREE_H
+// 10.15 Compute the exterior of a binary tree
 
 #include <list>
 #include <memory>

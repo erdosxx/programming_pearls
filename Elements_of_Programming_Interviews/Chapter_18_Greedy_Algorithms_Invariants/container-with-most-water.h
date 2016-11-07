@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_CONTAINER_WITH_MOST_WATER_H
 #define ALGORITHM_ANALYSIS_CONTAINER_WITH_MOST_WATER_H
+// 18.7 Compute the maximum water trapped by a pair of vertical lines
 
 #include <algorithm>
 #include <string>

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_BINARY_TREE_PREORDER_TRAVERSAL_ITERATIVE_H
 #define ALGORITHM_ANALYSIS_BINARY_TREE_PREORDER_TRAVERSAL_ITERATIVE_H
+// 10.8 Implement a preorder traversal without recursion
 
 #include <algorithm>
 #include <memory>

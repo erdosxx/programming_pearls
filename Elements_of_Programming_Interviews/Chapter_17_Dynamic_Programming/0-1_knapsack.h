@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_0_1_KNAPSACK_H
 #define ALGORITHM_ANALYSIS_0_1_KNAPSACK_H
+//17.6 The knapsack problem
 
 #include <algorithm>
 #include <vector>

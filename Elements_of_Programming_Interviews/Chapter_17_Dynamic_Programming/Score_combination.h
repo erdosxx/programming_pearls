@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SCORE_COMBINATION_H
 #define ALGORITHM_ANALYSIS_SCORE_COMBINATION_H
+// 17.1 Count the number of score combinations
 
 #include <vector>
 

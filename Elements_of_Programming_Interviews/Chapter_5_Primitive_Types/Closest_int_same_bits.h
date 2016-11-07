@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_CLOSEST_INT_SAME_BITS_H
 #define ALGORITHM_ANALYSIS_CLOSEST_INT_SAME_BITS_H
+// 5.4 Find a closest integer with the same weight
 
 #include <stdexcept>
 

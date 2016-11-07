@@ -5,6 +5,7 @@ project(Ch18_Greedy_Invariants C CXX)
 add_definitions(-std=c++14)
 
 set(HEADER_FILES
+        coin_change.h
         Task_assignment.h
         Minimum_waiting_time.h
         Points_covering_intervals.h

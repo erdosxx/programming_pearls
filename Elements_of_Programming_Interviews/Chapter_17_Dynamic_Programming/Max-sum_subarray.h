@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_MAX_SUM_SUBARRAY_H
 #define ALGORITHM_ANALYSIS_MAX_SUM_SUBARRAY_H
+// 17. Dynamic Programming boot camp
 
 #include <utility>
 #include <vector>
@@ -29,14 +30,35 @@ int FindMaximumSubarray(const vector<int>& A) {
 }
 // @exclude
 
+int FindMaximumSubarray2(const vector<int>& A) {
+    int maxsum_ending_at_i = 0;
+    int maxsum = 0;
+
+    for (int i=0; i < A.size(); ++i) {
+        if (maxsum_ending_at_i >= 0) {
+            maxsum_ending_at_i += A[i];
+        } else { // maxsum_ending < 0
+            maxsum_ending_at_i = A[i];
+        }
+
+        if (maxsum_ending_at_i > maxsum) {
+            maxsum = maxsum_ending_at_i;
+        }
+    }
+
+    return maxsum;
+}
+
 template <typename T>
 vector<T> RandVector(int len) {
     vector<T> ret;
     default_random_engine gen((random_device())());
+
     while (len--) {
         uniform_int_distribution<int> dis(-1000, 1000);
         ret.push_back(dis(gen));
     }
+
     return ret;
 }
 

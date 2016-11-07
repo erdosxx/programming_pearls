@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_PALINDROME_PARTITIONING_H
 #define ALGORITHM_ANALYSIS_PALINDROME_PARTITIONING_H
+// 16.7 Generate palindromic decompositions
 
 #include <algorithm>
 #include <cassert>

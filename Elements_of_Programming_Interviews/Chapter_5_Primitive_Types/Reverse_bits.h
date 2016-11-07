@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_REVERSE_BITS_H
 #define ALGORITHM_ANALYSIS_REVERSE_BITS_H
+// 5.3 Reverse bits
 
 #include <vector>
 

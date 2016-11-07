@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_TOWER_HANOI_H
 #define ALGORITHM_ANALYSIS_TOWER_HANOI_H
+// 16.1 The Towers of Hanoi problem
 
 #include <array>
 #include <stack>

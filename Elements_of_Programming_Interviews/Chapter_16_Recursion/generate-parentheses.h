@@ -1,7 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_GENERATE_PARENTHESES_H
 #define ALGORITHM_ANALYSIS_GENERATE_PARENTHESES_H
-
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// 16.6 Generate strings of matched parens
 
 #include <algorithm>
 #include <string>

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_NUMBER_STEPS_H
 #define ALGORITHM_ANALYSIS_NUMBER_STEPS_H
+// 17.10 Count the number of moves to climb stairs
 
 #include <algorithm>
 #include <vector>

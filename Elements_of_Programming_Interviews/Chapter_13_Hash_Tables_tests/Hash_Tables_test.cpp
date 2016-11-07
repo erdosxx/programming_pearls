@@ -227,6 +227,9 @@ TEST_F(Ch13Hash_Tables_Fixture, hash_tables_boot_camp) {
     ASSERT_EQ("f", *un_set.find("f"));
 
     unordered_map<string, int> un_map = {{"a", 1}, {"b", 2}, {"c", 3}, {"d", 4}};
+    // count : 1 if an element with a key equivalent to k is found, or zero otherwise.
+    ASSERT_EQ(1, un_map.count("c"));
+    ASSERT_EQ(0, un_map.count("e"));
     ASSERT_EQ(4, un_map.size());
     un_map.insert({"e", 5});
     ASSERT_EQ(5, un_map.size());

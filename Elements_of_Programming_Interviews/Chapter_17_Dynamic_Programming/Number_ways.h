@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_NUMBER_WAYS_H
 #define ALGORITHM_ANALYSIS_NUMBER_WAYS_H
+// 17.3 Count the number of ways to traverse a 2D array
 
 #include <vector>
 

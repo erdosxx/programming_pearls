@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_POWER_X_Y_H
 #define ALGORITHM_ANALYSIS_POWER_X_Y_H
+// 5.7 Compute x^y
 
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 

@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <random>
 #include <limits>
+#include "tree_traversal.h"
 #include "Balanced_binary_tree.h"
 #include "Symmetric_binary_tree.h"
 #include "Lowest_common_ancestor_no_parent.h"
@@ -45,6 +46,37 @@ public:
     virtual ~BinaryTrees_Fixture() {
     }
 };
+
+TEST_F(BinaryTrees_Fixture, tree_traversal) {
+    //      3
+    //    2   5
+    //  1    4 6
+    unique_ptr<BinaryTreeNode<int>> tree =
+            make_unique<BinaryTreeNode<int>>( BinaryTreeNode<int>{3, nullptr, nullptr});
+    tree->left =
+            make_unique<BinaryTreeNode<int>>( BinaryTreeNode<int>{2, nullptr, nullptr});
+    tree->left->left =
+            make_unique<BinaryTreeNode<int>>( BinaryTreeNode<int>{1, nullptr, nullptr});
+    tree->right =
+            make_unique<BinaryTreeNode<int>>( BinaryTreeNode<int>{5, nullptr, nullptr});
+    tree->right->left =
+            make_unique<BinaryTreeNode<int>>( BinaryTreeNode<int>{4, nullptr, nullptr});
+    tree->right->right =
+            make_unique<BinaryTreeNode<int>>( BinaryTreeNode<int>{6, nullptr, nullptr});
+    //TreeTraversal(tree);
+
+    vector<int> traversal;
+    vector<int> ans;
+    traversal = generate_traversal(tree, "inorder");
+    ans = {1,2,3,4,5,6};
+    ASSERT_TRUE(equal(traversal.cbegin(), traversal.cend(), ans.cbegin(), ans.cend()));
+    traversal = generate_traversal(tree, "preorder");
+    ans = {3,2,1,5,4,6};
+    ASSERT_TRUE(equal(traversal.cbegin(), traversal.cend(), ans.cbegin(), ans.cend()));
+    traversal = generate_traversal(tree, "postorder");
+    ans = {1,2,4,6,5,3};
+    ASSERT_TRUE(equal(traversal.cbegin(), traversal.cend(), ans.cbegin(), ans.cend()));
+}
 
 TEST_F(BinaryTrees_Fixture, balanced_binary_tree_Function) {
     //  balanced binary tree test

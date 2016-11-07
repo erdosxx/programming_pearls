@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_POWER_SET_ALTERNATIVE_H
 #define ALGORITHM_ANALYSIS_POWER_SET_ALTERNATIVE_H
+// 16.4 Generate the power set
 
 #include <algorithm>
 #include <vector>

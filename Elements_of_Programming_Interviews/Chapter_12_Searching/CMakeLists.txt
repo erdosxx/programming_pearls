@@ -6,6 +6,7 @@ add_definitions(-std=c++14)
 
 set(HEADER_FILES
         Bentleybsearch.h
+        student_search.h
         Binary_search_first_k.h
         Binary_search_Ai=i.h
         Binary_search_circular_array.h

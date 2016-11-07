@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_GRAY_CODE_H
 #define ALGORITHM_ANALYSIS_GRAY_CODE_H
+// 16.10 Compute a Gray code
 
 #include <algorithm>
 #include <string>

@@ -5,6 +5,7 @@ project(Ch5_Primitive_Types C CXX)
 add_definitions(-std=c++11)
 
 set(HEADER_FILES
+        count_bits.h
         Parity1.h
         Parity2.h
         Parity3.h

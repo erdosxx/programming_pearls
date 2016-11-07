@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_PARITY3_H
 #define ALGORITHM_ANALYSIS_PARITY3_H
+// 5.1 Computing the parity of a word
 
 #include <array>
 

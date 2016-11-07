@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_STRING_IN_MATRIX_H
 #define ALGORITHM_ANALYSIS_STRING_IN_MATRIX_H
+// 17.5 Search for a sequence in a 2D array
 
 #include <algorithm>
 #include <tuple>

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SQUARE_ROOT_INT_H
 #define ALGORITHM_ANALYSIS_SQUARE_ROOT_INT_H
+// 12.4 Compute the integer square root
 
 // @include
 int SquareRoot(int k) {

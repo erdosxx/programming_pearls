@@ -2,8 +2,6 @@
 #define ALGORITHM_ANALYSIS_AVERAGE_TOP_3_SCORES_H
 //13.11 Compute the average of the top three scores.
 
-#include <bitset>
-#include <cassert>
 #include <fstream>
 #include <iostream>
 #include <iterator>
@@ -16,21 +14,14 @@
 #include <unordered_map>
 #include <vector>
 
-using std::advance;
-using std::bitset;
-using std::cout;
 using std::default_random_engine;
-using std::endl;
 using std::greater;
 using std::ifstream;
 using std::invalid_argument;
-using std::ios;
 using std::map;
-using std::multiset;
 using std::ofstream;
 using std::priority_queue;
 using std::random_device;
-using std::stoi;
 using std::string;
 using std::uniform_int_distribution;
 using std::unordered_map;

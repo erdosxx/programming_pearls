@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_BINARY_SEARCH_FIRST_K_H
 #define ALGORITHM_ANALYSIS_BINARY_SEARCH_FIRST_K_H
+// 12.1 Search a sorted array for first occurrence of k
 
 #include <algorithm>
 #include <iterator>

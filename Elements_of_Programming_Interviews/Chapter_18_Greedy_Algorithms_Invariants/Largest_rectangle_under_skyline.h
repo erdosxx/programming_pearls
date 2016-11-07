@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_LARGEST_RECTANGLE_UNDER_SKYLINE_H
 #define ALGORITHM_ANALYSIS_LARGEST_RECTANGLE_UNDER_SKYLINE_H
+// 18.8 Compute the largest rectangle under the skyline
 
 #include <algorithm>
 #include <stack>

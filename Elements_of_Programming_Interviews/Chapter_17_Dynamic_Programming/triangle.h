@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_TRIANGLE_H
 #define ALGORITHM_ANALYSIS_TRIANGLE_H
+// 17.8 Find the minimum weight path in a triangle
 
 #include <algorithm>
 #include <vector>
