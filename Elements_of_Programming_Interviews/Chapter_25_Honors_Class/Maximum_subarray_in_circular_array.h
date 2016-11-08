@@ -53,6 +53,7 @@ int FindCircularMaxSubarray(const vector<int>& A) {
     for (int i = 0; i < A.size(); ++i) {
         circular_max = max(circular_max, maximum_begin[i] + maximum_end[i]);
     }
+
     return circular_max;
 }
 // @exclude

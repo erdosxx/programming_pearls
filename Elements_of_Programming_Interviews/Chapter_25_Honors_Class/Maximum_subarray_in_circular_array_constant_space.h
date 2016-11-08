@@ -8,10 +8,11 @@ using std::max;
 using std::min;
 using std::vector;
 
+// See 17. Max-sum_subarray.h
 namespace const_sp {
 
     int FindOptimumSubarrayUsingComp(const vector<int> &A,
-                                     const int &(*comp)(const int &, const int &)) {
+                                     const int& (*comp)(const int &, const int &)) {
         int till = 0;
         int overall = 0;
 

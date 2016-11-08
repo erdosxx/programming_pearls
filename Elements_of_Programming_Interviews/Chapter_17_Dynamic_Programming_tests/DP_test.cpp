@@ -236,50 +236,84 @@ TEST_F(Ch17_DP_Fixture, Fibonacci_Function) {
 
 TEST_F(Ch17_DP_Fixture, max_sum_subarray_Function) {
     vector<int> B = {1};
-    int max_sum = FindMaximumSubarray(B);
-    int max_sum2 = FindMaximumSubarray2(B);
-    CheckMaxSum(B, max_sum);
-    CheckMaxSum(B, max_sum2);
+    ASSERT_EQ(1, FindMaximumSubarray(B));
+    ASSERT_EQ(1, FindMaximumSubarray2(B));
+    ASSERT_EQ(1, FindMaximumSubarray2_1(B));
+    ASSERT_EQ(1, FindMaximumSubarray3(B));
+    ASSERT_EQ(1, FindMaximumSubarray4(B));
     B = {-5};
-    max_sum = FindMaximumSubarray(B);
-    max_sum2 = FindMaximumSubarray2(B);
-    CheckMaxSum(B, max_sum);
-    CheckMaxSum(B, max_sum2);
+    ASSERT_EQ(0, FindMaximumSubarray(B));
+    ASSERT_EQ(0, FindMaximumSubarray2(B));
+    ASSERT_EQ(0, FindMaximumSubarray2_1(B));
+    ASSERT_EQ(0, FindMaximumSubarray3(B));
+    ASSERT_EQ(0, FindMaximumSubarray4(B));
     B = {0};
-    max_sum = FindMaximumSubarray(B);
-    max_sum2 = FindMaximumSubarray2(B);
-    CheckMaxSum(B, max_sum2);
+    ASSERT_EQ(0, FindMaximumSubarray(B));
+    ASSERT_EQ(0, FindMaximumSubarray2(B));
+    ASSERT_EQ(0, FindMaximumSubarray2_1(B));
+    ASSERT_EQ(0, FindMaximumSubarray3(B));
+    ASSERT_EQ(0, FindMaximumSubarray4(B));
     B = {0, 0};
-    max_sum = FindMaximumSubarray(B);
-    max_sum2 = FindMaximumSubarray2(B);
-    CheckMaxSum(B, max_sum);
-    CheckMaxSum(B, max_sum2);
+    ASSERT_EQ(0, FindMaximumSubarray(B));
+    ASSERT_EQ(0, FindMaximumSubarray2(B));
+    ASSERT_EQ(0, FindMaximumSubarray2_1(B));
+    ASSERT_EQ(0, FindMaximumSubarray3(B));
+    ASSERT_EQ(0, FindMaximumSubarray4(B));
     B = {0, 0, 0};
-    max_sum = FindMaximumSubarray(B);
-    max_sum2 = FindMaximumSubarray2(B);
-    CheckMaxSum(B, max_sum);
-    CheckMaxSum(B, max_sum2);
+    ASSERT_EQ(0, FindMaximumSubarray(B));
+    ASSERT_EQ(0, FindMaximumSubarray2(B));
+    ASSERT_EQ(0, FindMaximumSubarray2_1(B));
+    ASSERT_EQ(0, FindMaximumSubarray3(B));
+    ASSERT_EQ(0, FindMaximumSubarray4(B));
     B = {0, -5, 0};
-    max_sum = FindMaximumSubarray(B);
-    max_sum2 = FindMaximumSubarray2(B);
-    CheckMaxSum(B, max_sum);
-    CheckMaxSum(B, max_sum2);
+    ASSERT_EQ(0, FindMaximumSubarray(B));
+    ASSERT_EQ(0, FindMaximumSubarray2(B));
+    ASSERT_EQ(0, FindMaximumSubarray2_1(B));
+    ASSERT_EQ(0, FindMaximumSubarray3(B));
+    ASSERT_EQ(0, FindMaximumSubarray4(B));
     B = {-2, -1};
-    max_sum = FindMaximumSubarray(B);
-    max_sum2 = FindMaximumSubarray2(B);
-    CheckMaxSum(B, max_sum);
-    CheckMaxSum(B, max_sum2);
+    ASSERT_EQ(0, FindMaximumSubarray(B));
+    ASSERT_EQ(0, FindMaximumSubarray2(B));
+    ASSERT_EQ(0, FindMaximumSubarray2_1(B));
+    ASSERT_EQ(0, FindMaximumSubarray3(B));
+    ASSERT_EQ(0, FindMaximumSubarray4(B));
+    B = {31, -41, 59};
+    ASSERT_EQ(59, FindMaximumSubarray(B));
+    ASSERT_EQ(59, FindMaximumSubarray2(B));
+    ASSERT_EQ(59, FindMaximumSubarray2_1(B));
+    ASSERT_EQ(59, FindMaximumSubarray3(B));
+    ASSERT_EQ(59, FindMaximumSubarray4(B));
+    B = {31, -41, 59, 26, -53, 58, 97, -93, -23, 84};
+    ASSERT_EQ(187, FindMaximumSubarray(B));
+    ASSERT_EQ(187, FindMaximumSubarray2(B));
+    ASSERT_EQ(187, FindMaximumSubarray2_1(B));
+    ASSERT_EQ(187, FindMaximumSubarray3(B));
+    ASSERT_EQ(187, FindMaximumSubarray4(B));
+    B = {904, 40, 523, 12, -335, -385, -124, 481, -31};
+    ASSERT_EQ(1479, FindMaximumSubarray(B));
+    ASSERT_EQ(1479, FindMaximumSubarray2(B));
+    ASSERT_EQ(1479, FindMaximumSubarray2_1(B));
+    ASSERT_EQ(1479, FindMaximumSubarray3(B));
+    ASSERT_EQ(1479, FindMaximumSubarray4(B));
 
     default_random_engine gen((random_device())());
-    for (int times = 0; times < 10; ++times) {
+    for (int times = 0; times < 100; ++times) {
         vector<int> A;
         uniform_int_distribution<int> dis(1, 1000);
         A = RandVector<int>(dis(gen));
 
-        int max_sum = FindMaximumSubarray(A);
-        int max_sum2 = FindMaximumSubarray2(A);
+        ASSERT_EQ(FindMaximumSubarray(A), FindMaximumSubarray2(A));
+        ASSERT_EQ(FindMaximumSubarray2(A), FindMaximumSubarray3(A));
+        ASSERT_EQ(FindMaximumSubarray2(A), FindMaximumSubarray2_1(A));
+        ASSERT_EQ(FindMaximumSubarray3(A), FindMaximumSubarray4(A));
+
+        /*
         CheckMaxSum(A, max_sum);
         CheckMaxSum(A, max_sum2);
+        CheckMaxSum(A, max_sum3);
+        CheckMaxSum(A, max_sum4);
+        CheckMaxSum(A, max_sum5);
+         */
     }
 }
 
