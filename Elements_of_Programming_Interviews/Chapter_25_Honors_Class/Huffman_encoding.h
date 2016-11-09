@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_HUFFMAN_ENCODING_H
 #define ALGORITHM_ANALYSIS_HUFFMAN_ENCODING_H
+// 25.34 Implement Huffman coding
 
 #include <functional>
 #include <queue>

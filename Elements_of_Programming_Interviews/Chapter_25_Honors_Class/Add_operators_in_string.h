@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_ADD_OPERATORS_IN_STRING_H
 #define ALGORITHM_ANALYSIS_ADD_OPERATORS_IN_STRING_H
+// 25.27 Synthesize an expression
 
 #include <stack>
 #include <string>

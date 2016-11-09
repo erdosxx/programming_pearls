@@ -175,6 +175,7 @@ TEST_F(StacksQueues_Fixture, valid_parentheses_Function) {
     ASSERT_TRUE(IsWellFormed("(()[]{()[]{}{}})"));
     ASSERT_FALSE(IsWellFormed("([)]"));
     ASSERT_FALSE(IsWellFormed("["));
+    ASSERT_FALSE(IsWellFormed("}"));
     ASSERT_FALSE(IsWellFormed("(()[]{()[]{})({}})"));
 }
 

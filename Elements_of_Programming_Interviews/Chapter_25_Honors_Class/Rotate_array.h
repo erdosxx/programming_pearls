@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_ROTATE_ARRAY_H
 #define ALGORITHM_ANALYSIS_ROTATE_ARRAY_H
+// 25.6 Rotate an array
 
 #include <algorithm>
 #include <vector>

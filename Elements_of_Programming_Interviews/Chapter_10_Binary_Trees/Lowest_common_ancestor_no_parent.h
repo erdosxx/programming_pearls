@@ -13,17 +13,15 @@ using btree_ptr= unique_ptr<BinaryTreeNode<int>>;
 
 namespace lca_no_parenet {
 
-    struct Status;
+    struct Status {
+        int num_target_nodes;
+        BinaryTreeNode<int> *ancestor;
+    };
 
     Status LCAHelper(const btree_ptr &,
                      const btree_ptr &,
                      const btree_ptr &);
 
-// @include
-    struct Status {
-        int num_target_nodes;
-        BinaryTreeNode<int> *ancestor;
-    };
 
     BinaryTreeNode<int> *LCA(const btree_ptr &tree,
                              const btree_ptr &node0,

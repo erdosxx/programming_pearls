@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SEARCH_A_PAIR_SORTED_ARRAY_H
 #define ALGORITHM_ANALYSIS_SEARCH_A_PAIR_SORTED_ARRAY_H
+// 25.36 Search for a pair-sum in an abs-sorted array
 
 #include <algorithm>
 #include <functional>

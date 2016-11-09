@@ -151,17 +151,17 @@ TEST_F(BinaryTrees_Fixture, LCA_no_prarent_Function) {
     //    2   5
     //  1    4 6
     auto tree = make_unique<btree_node>(
-            btree::BinaryTreeNode<int>{3, nullptr, nullptr});
+            btree_node {3, nullptr, nullptr});
     tree->left = make_unique<btree_node>(
-            btree::BinaryTreeNode<int>{2, nullptr, nullptr});
+            btree_node {2, nullptr, nullptr});
     tree->left->left = make_unique<btree_node>(
-            btree::BinaryTreeNode<int>{1, nullptr, nullptr});
+            btree_node {1, nullptr, nullptr});
     tree->right = make_unique<btree_node>(
-            btree::BinaryTreeNode<int>{5, nullptr, nullptr});
+            btree_node {5, nullptr, nullptr});
     tree->right->left = make_unique<btree_node>(
-            btree::BinaryTreeNode<int>{4, nullptr, nullptr});
+            btree_node {4, nullptr, nullptr});
     tree->right->right = make_unique<btree_node>(
-            btree::BinaryTreeNode<int>{6, nullptr, nullptr});
+            btree_node {6, nullptr, nullptr});
     // should output 3
     auto* x = lca_no_parenet::LCA(tree, tree->left, tree->right);
     ASSERT_EQ(x->data, 3);

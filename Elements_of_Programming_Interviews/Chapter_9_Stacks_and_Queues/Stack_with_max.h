@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_STACK_WITH_MAX_H
 #define ALGORITHM_ANALYSIS_STACK_WITH_MAX_H
+// 9.1 Implement a stack with max API
 
 #include <algorithm>
 #include <stack>

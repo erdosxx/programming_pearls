@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_NORMALIZED_PATHNAMES_H
 #define ALGORITHM_ANALYSIS_NORMALIZED_PATHNAMES_H
+// 9.4 Normalize pathnames
 
 #include <algorithm>
 #include <stdexcept>

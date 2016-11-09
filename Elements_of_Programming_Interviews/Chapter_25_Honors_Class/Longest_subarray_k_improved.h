@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_LONGEST_SUBARRAY_K_IMPROVED_H
 #define ALGORITHM_ANALYSIS_LONGEST_SUBARRAY_K_IMPROVED_H
+// 25.38 Find the longest subarray whose sum <= k
 
 #include <algorithm>
 #include <utility>
@@ -28,19 +29,19 @@ int FindLongestSubarrayLessEqualK(const vector<int> &A, int k) {
         min_prefix_sum[i] = min(prefix_sum[i], min_prefix_sum[i + 1]);
     }
 
-    int a = 0, b = 0, max_length = 0;
-    while (a < A.size() && b < A.size()) {
+    int start = 0, end = 0, max_length = 0;
+    while (start < A.size() && end < A.size()) {
         // solution from index [a, b]
         int min_curr_sum =
-                a > 0 ? min_prefix_sum[b] - prefix_sum[a - 1] : min_prefix_sum[b];
+                start > 0 ? min_prefix_sum[end] - prefix_sum[start - 1] : min_prefix_sum[end];
         if (min_curr_sum <= k) {
-            int curr_length = b - a + 1;
+            int curr_length = end - start + 1;
             if (curr_length > max_length) {
                 max_length = curr_length;
             }
-            ++b;
+            ++end;
         } else {  // min_curr_sum > k.
-            ++a;
+            ++start;
         }
     }
     return max_length;

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SEARCH_POSTINGS_LIST_ITERATIVE_H
 #define ALGORITHM_ANALYSIS_SEARCH_POSTINGS_LIST_ITERATIVE_H
+// 9.5 Search a postings list
 
 #include <cassert>
 #include <memory>

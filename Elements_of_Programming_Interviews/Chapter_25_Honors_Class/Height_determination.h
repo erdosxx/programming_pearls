@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_HEIGHT_DETERMINATION_H
 #define ALGORITHM_ANALYSIS_HEIGHT_DETERMINATION_H
+// 25.32 Determine the critical height
 
 #include <vector>
 

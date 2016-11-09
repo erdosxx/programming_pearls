@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_LONGEST_INCREASING_SUBARRAY_H
 #define ALGORITHM_ANALYSIS_LONGEST_INCREASING_SUBARRAY_H
+// 25.5 Compute the longest contiguous increasing subarray
 
 #include <algorithm>
 #include <utility>

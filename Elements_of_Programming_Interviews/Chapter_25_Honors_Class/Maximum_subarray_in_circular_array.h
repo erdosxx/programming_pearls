@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_MAXIMUM_SUBARRAY_IN_CIRCULAR_ARRAY_H
 #define ALGORITHM_ANALYSIS_MAXIMUM_SUBARRAY_IN_CIRCULAR_ARRAY_H
+// 25.31 Compute the maximum subarray sum in a circular array
 
 #include <algorithm>
 #include <vector>

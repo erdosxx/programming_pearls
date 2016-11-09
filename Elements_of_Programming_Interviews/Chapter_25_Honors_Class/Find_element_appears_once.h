@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_FIND_ELEMENT_APPEARS_ONCE_H
 #define ALGORITHM_ANALYSIS_FIND_ELEMENT_APPEARS_ONCE_H
+// 25.18 Find an element that appears only once
 
 #include <array>
 #include <vector>

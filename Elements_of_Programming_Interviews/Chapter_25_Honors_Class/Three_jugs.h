@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_THREE_JUGS_H
 #define ALGORITHM_ANALYSIS_THREE_JUGS_H
+// 25.30 Measure with defective jugs
 
 #include <unordered_set>
 #include <utility>

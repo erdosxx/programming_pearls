@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_BINARY_TREE_POSTORDER_TRAVERSAL_ITERATIVE_H
 #define ALGORITHM_ANALYSIS_BINARY_TREE_POSTORDER_TRAVERSAL_ITERATIVE_H
+// 25.13 Implement a postorder traversal without recursion
 
 #include <algorithm>
 #include <memory>

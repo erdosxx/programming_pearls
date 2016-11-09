@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_VIEW_SUNSET_H
 #define ALGORITHM_ANALYSIS_VIEW_SUNSET_H
+// 9.6 Compute buildings with a sunset view
 
 #include <sstream>
 #include <stack>

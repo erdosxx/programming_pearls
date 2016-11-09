@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_BONUS_IMPROVED_H
 #define ALGORITHM_ANALYSIS_BONUS_IMPROVED_H
+//25.14 Compute fair bonuses
 
 #include <algorithm>
 #include <numeric>

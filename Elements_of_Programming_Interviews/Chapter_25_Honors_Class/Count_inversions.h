@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_COUNT_INVERSIONS_H
 #define ALGORITHM_ANALYSIS_COUNT_INVERSIONS_H
+// 25.28 Count inversions
 
 #include <algorithm>
 #include <vector>

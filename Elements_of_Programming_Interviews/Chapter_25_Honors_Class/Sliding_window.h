@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SLIDING_WINDOW_H
 #define ALGORITHM_ANALYSIS_SLIDING_WINDOW_H
+// 25.12 Compute the maximum of a sliding window
 
 #include <queue>
 #include <stdexcept>

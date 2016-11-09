@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_DRAWING_SKYLINES_ALTERNATIVE_H
 #define ALGORITHM_ANALYSIS_DRAWING_SKYLINES_ALTERNATIVE_H
+// 25.29 Draw the skyline
 
 #include <algorithm>
 #include <vector>

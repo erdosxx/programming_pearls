@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_JUSTIFY_TEXT_H
 #define ALGORITHM_ANALYSIS_JUSTIFY_TEXT_H
+// 25.8 Justify text
 
 #include <algorithm>
 #include <cmath>

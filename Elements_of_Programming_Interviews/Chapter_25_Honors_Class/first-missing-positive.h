@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_FIRST_MISSING_POSITIVE_H
 #define ALGORITHM_ANALYSIS_FIRST_MISSING_POSITIVE_H
+// 25.2 Find the first missing positive entry
 
 #include <algorithm>
 #include <vector>

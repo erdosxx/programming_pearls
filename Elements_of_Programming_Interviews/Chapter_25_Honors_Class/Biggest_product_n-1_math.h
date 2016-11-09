@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_BIGGEST_PRODUCT_N_1_MATH_H
 #define ALGORITHM_ANALYSIS_BIGGEST_PRODUCT_N_1_MATH_H
+// 25.4 Compute the maximum product of all entries but one
 
 #include <vector>
 

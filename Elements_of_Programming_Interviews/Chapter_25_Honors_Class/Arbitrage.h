@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_ARBITRAGE_H
 #define ALGORITHM_ANALYSIS_ARBITRAGE_H
+// 25.40 Test if arbitrage is possible
 
 #include <cmath>
 #include <limits>

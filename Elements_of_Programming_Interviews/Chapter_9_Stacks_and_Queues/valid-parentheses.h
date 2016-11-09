@@ -1,10 +1,10 @@
 #ifndef ALGORITHM_ANALYSIS_VALID_PARENTHESES_H
 #define ALGORITHM_ANALYSIS_VALID_PARENTHESES_H
+// 9.3 Test a string over ‘’{,},(,),[,]’’ for well-formedness
 
 #include <stack>
 #include <string>
 
-using std::boolalpha;
 using std::stack;
 using std::string;
 
@@ -15,11 +15,10 @@ bool IsWellFormed(const string& s) {
     if (s[i] == '(' || s[i] == '{' || s[i] == '[') {
       left_chars.emplace(s[i]);
     } else {
-      // is empty case necessary?
-      // I think it can be removed.
-      if (left_chars.empty()) {
+      if (left_chars.empty()) {  // for the case "}" or "]" or ")"
         return false;  // Unmatched right char.
       }
+
       if ((s[i] == ')' && left_chars.top() != '(') ||
           (s[i] == '}' && left_chars.top() != '{') ||
           (s[i] == ']' && left_chars.top() != '[')) {

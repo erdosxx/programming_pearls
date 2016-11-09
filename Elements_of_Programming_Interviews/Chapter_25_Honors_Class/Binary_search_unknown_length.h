@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_BINARY_SEARCH_UNKNOWN_LENGTH_H
 #define ALGORITHM_ANALYSIS_BINARY_SEARCH_UNKNOWN_LENGTH_H
+// 25.15 Search a sorted array of unknown length
 
 #include <algorithm>
 #include <vector>

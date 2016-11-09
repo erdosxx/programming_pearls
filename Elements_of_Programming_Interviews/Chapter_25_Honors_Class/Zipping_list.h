@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_ZIPPING_LIST_H
 #define ALGORITHM_ANALYSIS_ZIPPING_LIST_H
+// 25.9 Implement list zipping
 
 #include <memory>
 #include <string>

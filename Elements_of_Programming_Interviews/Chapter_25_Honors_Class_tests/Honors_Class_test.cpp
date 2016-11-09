@@ -152,9 +152,11 @@ public:
 void Ch25_Honors_Class_Fixture::p_25_38_2_CheckAnswer(const vector<int> &A, int ans, const int &k) {
   vector<int> sum(A.size() + 1, 0);
   sum[0] = 0;
+
   for (size_t i = 0; i < A.size(); ++i) {
     sum[i + 1] = sum[i] + A[i];
   }
+
   if (ans != 0) {
     for (size_t i = 0; i < sum.size(); ++i) {
       for (size_t j = i + 1; j < sum.size(); ++j) {
@@ -163,7 +165,7 @@ void Ch25_Honors_Class_Fixture::p_25_38_2_CheckAnswer(const vector<int> &A, int 
         }
       }
     }
-  } else {
+  } else { // No anser case all pairs are > k
     for (size_t i = 0; i < sum.size(); ++i) {
       for (size_t j = i + 1; j < sum.size(); ++j) {
         ASSERT_GT(sum[j] - sum[i], k);
@@ -176,15 +178,18 @@ void Ch25_Honors_Class_Fixture::p_25_38_2_CheckAnswer(const vector<int> &A, int 
 void Ch25_Honors_Class_Fixture::p_25_38_check_answer(const vector<int>& A, const long_sub::Subarray& ans, int k) {
     vector<int> sum(A.size() + 1, 0);
     sum[0] = 0;
+
     for (size_t i = 0; i < A.size(); ++i) {
         sum[i + 1] = sum[i] + A[i];
     }
+
     if (ans.start != -1 && ans.end != -1) {
         int s = 0;
         for (size_t i = ans.start; i <= ans.end; ++i) {
             s += A[i];
         }
         ASSERT_LE(s, k);
+
         for (size_t i = 0; i < sum.size(); ++i) {
             for (size_t j = i + 1; j < sum.size(); ++j) {
                 if (sum[j] - sum[i] <= k) {
@@ -192,7 +197,8 @@ void Ch25_Honors_Class_Fixture::p_25_38_check_answer(const vector<int>& A, const
                 }
             }
         }
-    } else {
+
+    } else { // No solution case
         for (size_t i = 0; i < sum.size(); ++i) {
             for (size_t j = i + 1; j < sum.size(); ++j) {
                 ASSERT_GE(sum[j] - sum[i], k);
@@ -566,14 +572,27 @@ TEST_F(Ch25_Honors_Class_Fixture, GCD_Function) {
     long long x = 18, y = 12;
 
     ASSERT_EQ(GCD1::GCD(x, y), 6);
+    ASSERT_EQ(GCD1::GCD2(x, y), 6);
+
+    // 2^64 -1 = 18446744073709551615,
+    ASSERT_EQ(18446744073709551615UL, numeric_limits<unsigned long long>::max());
+    // 2^63 -1 = 9223372036854775807
+    ASSERT_EQ(9223372036854775807L, numeric_limits<long long>::max());
+
+    x = 22; y = 30;
+    ASSERT_EQ(2, GCD1::GCD(x, y));
+    ASSERT_EQ(2, GCD1::GCD2(x, y));
 
     default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<long long> dis(
                 1, numeric_limits<long long>::max());
+                //1, 100);
         x = dis(gen), y = dis(gen);
 
+        //cout << "x = " << x << ", y= " << y << endl;
         ASSERT_EQ(GCD1::GCD(x, y), GCD2::GCD(x, y));
+        ASSERT_EQ(GCD1::GCD(x, y), GCD1::GCD2(x, y));
     }
 }
 

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_MAX_DIFFERENCE_K_PAIRS_H
 #define ALGORITHM_ANALYSIS_MAX_DIFFERENCE_K_PAIRS_H
+// 25.3 Buy and sell a stock k times
 
 #include <algorithm>
 #include <limits>

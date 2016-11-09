@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_COPYING_POSTINGS_LIST_H
 #define ALGORITHM_ANALYSIS_COPYING_POSTINGS_LIST_H
+// 25.10 Copy a postings list
 
 #include <memory>
 

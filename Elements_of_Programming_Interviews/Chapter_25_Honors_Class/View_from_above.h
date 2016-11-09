@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_VIEW_FROM_ABOVE_H
 #define ALGORITHM_ANALYSIS_VIEW_FROM_ABOVE_H
+// 25.25 The view from above
 
 #include <algorithm>
 #include <map>

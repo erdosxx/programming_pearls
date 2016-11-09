@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_ROOK_ATTACK_H
 #define ALGORITHM_ANALYSIS_ROOK_ATTACK_H
+// 25.7 Identify positions attacked by rooks
 
 #include <algorithm>
 #include <vector>

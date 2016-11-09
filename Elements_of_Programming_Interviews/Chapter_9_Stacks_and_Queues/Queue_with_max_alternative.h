@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_QUEUE_WITH_MAX_ALTERNATIVE_H
 #define ALGORITHM_ANALYSIS_QUEUE_WITH_MAX_ALTERNATIVE_H
+// 9.10 Implement a queue with max API
 
 #include <algorithm>
 #include <deque>
