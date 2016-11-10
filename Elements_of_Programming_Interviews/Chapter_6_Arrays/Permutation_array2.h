@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_PERMUTATION_ARRAY2_H
 #define ALGORITHM_ANALYSIS_PERMUTATION_ARRAY2_H
+// 6.9 Permute the elements of an array
 
 #include <vector>
 

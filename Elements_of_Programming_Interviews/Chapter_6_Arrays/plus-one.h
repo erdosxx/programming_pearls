@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_PLUS_ONE_H
 #define ALGORITHM_ANALYSIS_PLUS_ONE_H
+// 6.2 Increment an arbitrary-precision integer
 
 #include <algorithm>
 #include <vector>

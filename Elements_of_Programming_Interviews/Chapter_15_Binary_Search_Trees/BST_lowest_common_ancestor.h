@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_BST_LOWEST_COMMON_ANCESTOR_H
 #define ALGORITHM_ANALYSIS_BST_LOWEST_COMMON_ANCESTOR_H
+// 15.4 Compute the LCA in a BST
 
 #include <memory>
 
@@ -9,22 +10,26 @@ using std::make_unique;
 using std::unique_ptr;
 
 // @include
-// Input nodes are not nonempty and the key at s is less than or equal to that
-// at b.
+// Input nodes are not nonempty and the key at node1 is less than or equal to that
+// at node2.
 BSTNode<int>* FindLCA(const unique_ptr<BSTNode<int>>& tree,
-                      const unique_ptr<BSTNode<int>>& s,
-                      const unique_ptr<BSTNode<int>>& b) {
-    auto* p = tree.get();
-    while (p->data < s->data || p->data > b->data) { // TODO: Is this while can be ommitted?
+                      const unique_ptr<BSTNode<int>>& small,
+                      const unique_ptr<BSTNode<int>>& big) {
+    BSTNode<int>* p = tree.get();
+
+    // Stop when small->data <= p->data <= big->data
+    // while (p->data < small->data || p->data > big->data) {
+    while (!(small->data <= p->data && p->data <= big->data)) {
         // Keep searching since p is outside of [s, b].
-        while (p->data < s->data) {
+        while (p->data < small->data) {
             p = p->right.get();  // LCA must be in p's right child.
         }
-        while (p->data > b->data) {
+
+        while (p->data > big->data) {
             p = p->left.get();  // LCA must be in p's left child.
         }
     }
-    // Now, s->data <= p->data && p->data <= b->data.
+
     return p;
 }
 // @exclude

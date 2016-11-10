@@ -18,21 +18,10 @@ namespace lca_no_parenet {
         BinaryTreeNode<int> *ancestor;
     };
 
-    Status LCAHelper(const btree_ptr &,
-                     const btree_ptr &,
-                     const btree_ptr &);
-
-
-    BinaryTreeNode<int> *LCA(const btree_ptr &tree,
-                             const btree_ptr &node0,
-                             const btree_ptr &node1) {
-        return LCAHelper(tree, node0, node1).ancestor;
-    }
-
-// Returns an object consisting of an int and a node. The int field is
-// 0, 1, or 2 depending on how many of {node0, node1} are present in
-// the tree. If both are present in the tree, when ancestor is
-// assigned to a non-null value, it is the LCA.
+    // Returns an object consisting of an int and a node. The int field is
+    // 0, 1, or 2 depending on how many of {node0, node1} are present in
+    // the tree. If both are present in the tree, when ancestor is
+    // assigned to a non-null value, it is the LCA.
     Status LCAHelper(const btree_ptr &tree,
                      const btree_ptr &node0,
                      const btree_ptr &node1) {
@@ -55,7 +44,13 @@ namespace lca_no_parenet {
                                (tree == node1);
         return {num_target_nodes, num_target_nodes == 2 ? tree.get() : nullptr};
     }
-// @exclude
+
+    BinaryTreeNode<int> *LCA(const btree_ptr &tree,
+                             const btree_ptr &node0,
+                             const btree_ptr &node1) {
+        return LCAHelper(tree, node0, node1).ancestor;
+    }
+
 }
 
 #endif //ALGORITHM_ANALYSIS_LOWEST_COMMON_ANCESTOR_NO_PARENT_H

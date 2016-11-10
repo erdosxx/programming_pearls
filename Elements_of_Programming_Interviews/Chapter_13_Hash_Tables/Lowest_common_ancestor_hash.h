@@ -9,7 +9,6 @@
 #include "Binary_tree_with_parent_prototype.h"
 
 using std::invalid_argument;
-using std::make_unique;
 using std::unique_ptr;
 using std::unordered_set;
 using btree_with_parent::BinaryTreeNode;
@@ -21,15 +20,19 @@ BinaryTreeNode<int>* LCA(const unique_ptr<BinaryTreeNode<int>>& node_0,
     auto *iter_1 = node_1.get();
 
     unordered_set<const BinaryTreeNode<int>*> nodes_on_path_to_root;
+
     while (iter_0 || iter_1) {
     // Ascend tree in tandem for these two nodes.
         if (iter_0) {
             // if iter_0 is already checked
+            // pair <iterator,bool> emplace
+            // if the element is exist, second  set false.
             if (nodes_on_path_to_root.emplace(iter_0).second == false) {
                 return iter_0;
             }
             iter_0 = iter_0->parent;
         }
+
         if (iter_1) {
             if (nodes_on_path_to_root.emplace(iter_1).second == false) {
                 return iter_1;

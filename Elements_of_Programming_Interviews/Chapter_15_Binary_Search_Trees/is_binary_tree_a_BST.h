@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_IS_BINARY_TREE_A_BST_H
 #define ALGORITHM_ANALYSIS_IS_BINARY_TREE_A_BST_H
+// 15.1 Test if a binary tree satisfies the BST property
 
 #include <limits>
 #include <memory>
@@ -22,7 +23,8 @@ bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& tree,
                     int low_range, int high_range) {
     if (tree == nullptr) {
         return true;
-    } else if (tree->data < low_range || tree->data > high_range) {
+    //} else if (tree->data < low_range || tree->data > high_range) {
+    } else if ( !(low_range <= tree->data && tree->data <= high_range) ) {
         return false;
     }
 

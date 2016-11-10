@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_REMOVE_DUPLICATES_FROM_SORTED_ARRAY_H
 #define ALGORITHM_ANALYSIS_REMOVE_DUPLICATES_FROM_SORTED_ARRAY_H
+// 6.5 Delete duplicates from a sorted array
 
 #include <algorithm>
 #include <cassert>

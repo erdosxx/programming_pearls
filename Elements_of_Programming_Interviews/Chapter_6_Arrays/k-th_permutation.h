@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_K_TH_PERMUTATION_H
 #define ALGORITHM_ANALYSIS_K_TH_PERMUTATION_H
+// 6.10 Variant Compute the next permutation
 
 #include <cmath>
 #include <vector>

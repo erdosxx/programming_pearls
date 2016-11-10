@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_GENERATING_A_B_SQRT2_IMPROVED_H
 #define ALGORITHM_ANALYSIS_GENERATING_A_B_SQRT2_IMPROVED_H
+// 15.7 Enumerate numbers of the form a + b sqrt(2)
 
 #include <functional>
 #include <set>

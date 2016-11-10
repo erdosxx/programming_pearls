@@ -236,6 +236,14 @@ TEST_F(Ch15_BST_Fixture, stl_library) {
     ASSERT_EQ(1, mymap['a']);
     ASSERT_EQ(3, mymap['c']);
 
+    // count : 1 if exist , 0 not.
+    ASSERT_EQ(1, mymap.count('a'));
+    ASSERT_EQ(0, mymap.count('d'));
+
+    // find : return iterator
+    ASSERT_EQ(1, mymap.find('a')->second);
+    ASSERT_EQ(mymap.end(), mymap.find('d'));
+
     mymap.insert(pair<char,int>{'d',4});
     mymap.insert({'e',5});
     mymap.emplace('f',6);
@@ -406,6 +414,25 @@ TEST_F(Ch15_BST_Fixture, BST_LCA_Function) {
     ASSERT_EQ(5, FindLCA(tree, tree->right->left, tree->right->right)->data);
     ASSERT_EQ(2, FindLCA(tree, tree->left->left, tree->left)->data);
     ASSERT_EQ(3, FindLCA(tree, tree->left->left, tree->right)->data);
+
+    // Example at page 229
+    tree = make_unique<BSTNode<int>>(BSTNode<int>{19});
+    tree->left = make_unique<BSTNode<int>>(BSTNode<int>{7});
+    tree->right = make_unique<BSTNode<int>>(BSTNode<int>{43});
+    tree->left->left = make_unique<BSTNode<int>>(BSTNode<int>{3});
+    tree->left->right = make_unique<BSTNode<int>>(BSTNode<int>{11});
+    tree->left->left->left = make_unique<BSTNode<int>>(BSTNode<int>{2});
+    tree->left->left->right = make_unique<BSTNode<int>>(BSTNode<int>{5});
+    tree->left->right->right = make_unique<BSTNode<int>>(BSTNode<int>{17});
+    tree->left->right->right->left = make_unique<BSTNode<int>>(BSTNode<int>{13});
+    tree->right->left = make_unique<BSTNode<int>>(BSTNode<int>{23});
+    tree->right->right = make_unique<BSTNode<int>>(BSTNode<int>{47});
+    tree->right->left->right = make_unique<BSTNode<int>>(BSTNode<int>{37});
+    tree->right->left->right->left = make_unique<BSTNode<int>>(BSTNode<int>{29});
+    tree->right->left->right->right = make_unique<BSTNode<int>>(BSTNode<int>{41});
+    tree->right->left->right->left->right = make_unique<BSTNode<int>>(BSTNode<int>{31});
+    tree->right->right->right = make_unique<BSTNode<int>>(BSTNode<int>{53});
+    ASSERT_EQ(37, FindLCA(tree, tree->right->left->right->left , tree->right->left->right->right)->data);
 }
 
 TEST_F(Ch15_BST_Fixture, rebuild_BST_preorder_Function) {

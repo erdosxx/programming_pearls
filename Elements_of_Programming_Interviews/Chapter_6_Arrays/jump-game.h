@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_JUMP_GAME_H
 #define ALGORITHM_ANALYSIS_JUMP_GAME_H
+// 6.4 Advancing through an array
 
 #include <algorithm>
 #include <cassert>

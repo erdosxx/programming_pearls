@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_ARRAY_BOOT_CAMP_H
 #define ALGORITHM_ANALYSIS_ARRAY_BOOT_CAMP_H
+// 6. Arrays Boot Camp
 
 #include <vector>
 

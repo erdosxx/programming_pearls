@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_RESERVOIR_SAMPLING_H
 #define ALGORITHM_ANALYSIS_RESERVOIR_SAMPLING_H
+// 6.12 Sample online data
 
 #include <cassert>
 #include <iostream>

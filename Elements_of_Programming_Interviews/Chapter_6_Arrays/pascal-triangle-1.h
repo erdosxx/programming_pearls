@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_PASCAL_TRIANGLE_1_H
 #define ALGORITHM_ANALYSIS_PASCAL_TRIANGLE_1_H
+// 6.19 Compute rows in Pascal’s Triangle
 
 #include <algorithm>
 #include <vector>

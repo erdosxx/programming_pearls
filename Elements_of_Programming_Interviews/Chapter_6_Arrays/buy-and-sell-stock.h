@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_BUY_AND_SELL_STOCK_H
 #define ALGORITHM_ANALYSIS_BUY_AND_SELL_STOCK_H
+// 6.6 Buy and sell a stock once
 
 #include <algorithm>
 #include <limits>

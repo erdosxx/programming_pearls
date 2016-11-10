@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_BIGNUMBER_MULTIPLICATION_H
 #define ALGORITHM_ANALYSIS_BIGNUMBER_MULTIPLICATION_H
+// 6.3 Multiply two arbitrary-precision integers
 
 #include <algorithm>
 #include <cassert>

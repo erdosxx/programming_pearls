@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_COMPUTE_RANDOM_PERMUTATION_H
 #define ALGORITHM_ANALYSIS_COMPUTE_RANDOM_PERMUTATION_H
+// 6.13 Compute a random permutation
 
 #include <algorithm>
 #include <vector>

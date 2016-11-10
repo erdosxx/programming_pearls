@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SUDOKU_CHECK_H
 #define ALGORITHM_ANALYSIS_SUDOKU_CHECK_H
+// 6.16 The Sudoku checker problem
 
 #include <cassert>
 #include <cmath>

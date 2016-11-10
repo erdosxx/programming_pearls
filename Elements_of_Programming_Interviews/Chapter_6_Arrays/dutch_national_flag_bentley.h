@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_DUTCH_NATIONAL_FLAG_BENTLEY_H
 #define ALGORITHM_ANALYSIS_DUTCH_NATIONAL_FLAG_BENTLEY_H
+// 6.1 The Dutch national flag problem
 
 #include <algorithm>
 #include <vector>

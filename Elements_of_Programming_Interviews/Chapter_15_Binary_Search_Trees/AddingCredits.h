@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_ADDINGCREDITS_H
 #define ALGORITHM_ANALYSIS_ADDINGCREDITS_H
+// 15.13 Add credits
 
 #include <map>
 #include <string>

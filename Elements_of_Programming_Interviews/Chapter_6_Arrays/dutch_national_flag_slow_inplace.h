@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_DUTCH_NATIONAL_FLAG_SLOW_INPLACE_H
 #define ALGORITHM_ANALYSIS_DUTCH_NATIONAL_FLAG_SLOW_INPLACE_H
+// 6.1 The Dutch national flag problem
 
 #include <algorithm>
 #include <vector>

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_INVERSE_PERMUTATION_H
 #define ALGORITHM_ANALYSIS_INVERSE_PERMUTATION_H
+// 6.9 Variant Permute the elements of an array
 
 #include <vector>
 #include <algorithm>

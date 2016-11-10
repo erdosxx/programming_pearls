@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SPIRAL_MATRIX_CLOCKWISE_H
 #define ALGORITHM_ANALYSIS_SPIRAL_MATRIX_CLOCKWISE_H
+// 6.17 Compute the spiral ordering of a 2D array
 
 #include <cmath>
 #include <vector>

@@ -1,7 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_PRIME_SIEVE_H
 #define ALGORITHM_ANALYSIS_PRIME_SIEVE_H
-
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// 6.8 Enumerate all primes to n
 
 #include <cmath>
 #include <deque>

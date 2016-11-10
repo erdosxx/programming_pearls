@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_OFFLINE_SAMPLING_H
 #define ALGORITHM_ANALYSIS_OFFLINE_SAMPLING_H
+// 6.11 Sample offline data
 
 #include <algorithm>
 #include <random>

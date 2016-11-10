@@ -204,6 +204,12 @@ TEST_F(BinaryTrees_Fixture, lowest_common_ancestor_Function) {
     root->right->right = make_unique<btree_node_with_parent>(
             btree_with_parent::BinaryTreeNode<int>{6, nullptr, nullptr, root->right.get()});
 
+    ASSERT_EQ(0, lca::GetDepth(root.get()));
+    ASSERT_EQ(1, lca::GetDepth((root->left).get()));
+    ASSERT_EQ(1, lca::GetDepth((root->right).get()));
+    ASSERT_EQ(2, lca::GetDepth((root->left->left).get()));
+    ASSERT_EQ(2, lca::GetDepth((root->right->left).get()));
+
     ASSERT_EQ(lca::LCA(root->left, root->right)->data, 3);
     ASSERT_EQ(lca::LCA(root->right->left, root->right->right)->data, 5);
     ASSERT_EQ(lca::LCA(root->left, root->right->left)->data, 3);

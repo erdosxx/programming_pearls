@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_MINIMUM_DISTANCE_3_SORTED_ARRAYS_H
 #define ALGORITHM_ANALYSIS_MINIMUM_DISTANCE_3_SORTED_ARRAYS_H
+// 15.6 Find the closest entries in three sorted arrays
 
 #include <algorithm>
 #include <iterator>

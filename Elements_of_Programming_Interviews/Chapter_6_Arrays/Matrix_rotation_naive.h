@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_MATRIX_ROTATION_NAIVE_H
 #define ALGORITHM_ANALYSIS_MATRIX_ROTATION_NAIVE_H
+// 6.18 Rotate a 2D array
 
 #include <algorithm>
 #include <vector>

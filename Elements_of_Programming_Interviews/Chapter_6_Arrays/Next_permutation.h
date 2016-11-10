@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_NEXT_PERMUTATION_H
 #define ALGORITHM_ANALYSIS_NEXT_PERMUTATION_H
+// 6.10 Compute the next permutation
 
 #include <algorithm>
 #include <vector>

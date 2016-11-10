@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_NONUNIFORM_RANDOM_NUMBER_GENERATION_H
 #define ALGORITHM_ANALYSIS_NONUNIFORM_RANDOM_NUMBER_GENERATION_H
+// 6.15 Generate nonuniform random numbers
 
 #include <algorithm>
 #include <iostream>

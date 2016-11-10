@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_ONLINE_SAMPLING_H
 #define ALGORITHM_ANALYSIS_ONLINE_SAMPLING_H
+// 6.14 Compute a random subset
 
 #include <algorithm>
 #include <random>
