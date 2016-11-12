@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_RABIN_KARP_H
 #define ALGORITHM_ANALYSIS_RABIN_KARP_H
+// 7.13 Find the first occurrence of a substring
 
 #include <string>
 #include <vector>

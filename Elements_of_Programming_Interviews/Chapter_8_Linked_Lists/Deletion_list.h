@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_DELETION_LIST_H
 #define ALGORITHM_ANALYSIS_DELETION_LIST_H
+// 8.6 Delete a node from a singly linked list
 
 #include <memory>
 

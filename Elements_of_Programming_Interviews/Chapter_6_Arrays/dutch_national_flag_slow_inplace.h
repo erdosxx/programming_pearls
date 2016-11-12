@@ -16,6 +16,7 @@ namespace DutchFlag_slow {
     void DutchFlagPartition(int pivot_index, vector <Color> *A_ptr) {
         vector <Color> &A = *A_ptr;
         Color pivot = A[pivot_index];
+
         // First pass: group elements smaller than pivot.
         for (int i = 0; i < A.size(); ++i) {
             // Look for a smaller element.
@@ -26,6 +27,7 @@ namespace DutchFlag_slow {
                 }
             }
         }
+
         // Second pass: group elements larger than pivot.
         for (int i = A.size() - 1; i >= 0 && A[i] >= pivot; --i) {
             // Look for a larger element. Stop when we reach an element less

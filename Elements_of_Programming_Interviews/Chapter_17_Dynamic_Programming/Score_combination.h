@@ -12,18 +12,18 @@ int NumCombinationsForFinalScore(int final_score,
     vector<vector<int>> num_combinations_for_score(
             individual_play_scores.size(), vector<int>(final_score + 1, 0));
 
-    for (int i = 0; i < individual_play_scores.size(); ++i) {
-        num_combinations_for_score[i][0] = 1;  // One way to reach 0.
+    for (int row = 0; row < individual_play_scores.size(); ++row) {
+        num_combinations_for_score[row][0] = 1;  // One way to reach 0.
 
         // see the table in EPI p.276
-        for (int j = 1; j <= final_score; ++j) {
+        for (int score_column = 1; score_column <= final_score; ++score_column) {
             int without_this_play =
-                    i >= 1 ? num_combinations_for_score[i - 1][j] : 0;
+                    row >= 1 ? num_combinations_for_score[row - 1][score_column] : 0;
             int with_this_play =
-                    j >= individual_play_scores[i]
-                    ? num_combinations_for_score[i][j - individual_play_scores[i]]
+                    score_column >= individual_play_scores[row]
+                    ? num_combinations_for_score[row][score_column - individual_play_scores[row]]
                     : 0;
-            num_combinations_for_score[i][j] = without_this_play + with_this_play;
+            num_combinations_for_score[row][score_column] = without_this_play + with_this_play;
         }
     }
     return num_combinations_for_score.back().back();

@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <random>
 #include <cctype>
+#include <cstdio> // for sprintf
 #include "strings_boot_camp.h"
 #include "Square_root.h" // for using Compare
 #include "Interconverting_string_integer.h"
@@ -30,6 +31,7 @@ using std::islower;
 using std::isupper;
 using std::isalnum;
 using std::isdigit;
+using std::sprintf;
 //using rabin_karp::RabinKarp;
 
 class Strings_Fixture : public ::testing::Test {
@@ -45,12 +47,47 @@ public:
 
     }
 
+    string p_7_1_RandIntString(int len);
+    string p_7_3_RandString(int len);
     int p_7_13_CheckAnswer(const string &t, const string &s);
     string p_7_13_RandString(int len);
 
     virtual ~Strings_Fixture() {
     }
 };
+
+string Strings_Fixture::p_7_3_RandString(int len) {
+    default_random_engine gen((random_device())());
+    string ret;
+    uniform_int_distribution<int> dis('A', 'Z');
+    while (len--) {
+        ret.push_back(dis(gen));
+    }
+    return ret;
+}
+
+string Strings_Fixture::p_7_1_RandIntString(int len) {
+    default_random_engine gen((random_device())());
+    string ret;
+    if (len == 0) {
+        return {"0"};
+    }
+
+    uniform_int_distribution<int> pos_or_neg(0, 1);
+    if (pos_or_neg(gen)) {
+        ret.push_back('-');
+    }
+
+    uniform_int_distribution<int> num_dis('1', '9');
+    ret.push_back(num_dis(gen));
+
+    while (--len) {
+        uniform_int_distribution<int> dis('0', '9');
+        ret.push_back(dis(gen));
+    }
+
+    return ret;
+}
 
 int Strings_Fixture::p_7_13_CheckAnswer(const string &t, const string &s) {
     for (int i = 0; i + s.size() - 1 < t.size(); ++i) {
@@ -156,6 +193,7 @@ TEST_F(Strings_Fixture, stl_library) {
     ASSERT_EQ("abe", s1);
 
     // Numeric conversions
+    // sting -> integer
     // Initial whitespace is skpped
     s1 = "   123.45";
     int x1 = stoi(s1);  // convert to decimal x=123
@@ -166,6 +204,18 @@ TEST_F(Strings_Fixture, stl_library) {
 
     float x3 = stof(s1); // convert to float
     ASSERT_EQ(Compare(x3, 123.45), SMALLER);
+    // integer -> string
+    // itoa
+    // This function is not defined in ANSI-C and is not part of C++, but is supported by some compilers.
+    // see http://www.cplusplus.com/reference/cstdlib/itoa/
+    int x = 324;
+    char* carray = new char[4];
+    // int sprintf ( char * str, const char * format, ... );
+    // see http://www.cplusplus.com/reference/cstdio/sprintf/
+    sprintf(carray, "%d", x);
+    string str(carray);
+    ASSERT_EQ("324", str);
+    delete [] carray;
 
     // sort
     s1="dfceab";
@@ -231,19 +281,25 @@ TEST_F(Strings_Fixture, stl_library) {
 
 TEST_F(Strings_Fixture, interconverting_stirng_integer_Function) {
     default_random_engine gen((random_device()) ());
+    // 2^31 -1 = 2147483648
+    char* tmp_char = new char[11];
 
     for (int times = 0; times < 10000; ++times) {
         uniform_int_distribution<int> dis(numeric_limits<int>::min(),
                                           numeric_limits<int>::max());
         int x = dis(gen);
         string str = IntToString(x);
+        sprintf(tmp_char, "%d", x);
+        string str2(tmp_char);
+        ASSERT_EQ(str2, str);
         ASSERT_EQ(stoi(str), x);
 
         uniform_int_distribution<int> len_dis(0, 9);
-        str = RandIntString(len_dis(gen));
+        str = p_7_1_RandIntString(len_dis(gen));
         x = StringToInt(str);
         ASSERT_EQ(stoi(str), x);
     }
+    delete [] tmp_char;
 }
 
 TEST_F(Strings_Fixture, Convert_base_Function) {
@@ -251,7 +307,7 @@ TEST_F(Strings_Fixture, Convert_base_Function) {
 
     for (int times = 0; times < 100000; ++times) {
         uniform_int_distribution<int> len_dis(1, 9);
-        string input = RandIntString(len_dis(gen));
+        string input = p_7_1_RandIntString(len_dis(gen));
 
         uniform_int_distribution<int> base_dis(2, 16);
         int base = base_dis(gen);

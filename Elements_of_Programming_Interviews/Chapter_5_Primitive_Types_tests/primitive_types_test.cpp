@@ -32,7 +32,6 @@ protected:
 
     virtual void SetUp() {
     }
-    const int kFourBitParityLookupTable=0x6996; // = 0b0110100110010110
 
 public:
     Primitive_Types_Fixture() : Test() {
@@ -151,6 +150,9 @@ TEST_F(Primitive_Types_Fixture, count_bits) {
 }
 
 TEST_F(Primitive_Types_Fixture, parity_Function) {
+    // 2^15 - 1 = 32767
+    ASSERT_EQ(32767, numeric_limits<short>::max());
+
     ASSERT_EQ(1, Parity1::Parity(0b0001));
     ASSERT_EQ(1, Parity2::Parity(0b0001));
     ASSERT_EQ(1, Parity3::Parity(0b0001));
@@ -163,12 +165,28 @@ TEST_F(Primitive_Types_Fixture, parity_Function) {
 
     int parity_val;
 
+    const int kFourBitParityLookupTable=0x6996; // = 0b0110100110010110
+
     for(int i =0; i< 16; i++) {
         parity_val= (kFourBitParityLookupTable >> i) & 1;
         ASSERT_EQ(parity_val, Parity1::Parity(i));
         ASSERT_EQ(parity_val, Parity2::Parity(i));
         ASSERT_EQ(parity_val, Parity3::Parity(i));
         ASSERT_EQ(parity_val, Parity4::Parity(i));
+    }
+
+    default_random_engine gen((random_device())());
+    for (int times = 0; times < 1000; ++times) {
+        uniform_int_distribution<unsigned long> dis(0, numeric_limits<unsigned long>::max());
+        unsigned long x = dis(gen);
+        short result1 = Parity1::Parity(x);
+        short result2 = Parity2::Parity(x);
+        short result3 = Parity3::Parity(x);
+        short result4 = Parity4::Parity(x);
+
+        ASSERT_EQ(result1, result2);
+        ASSERT_EQ(result2, result3);
+        ASSERT_EQ(result3, result4);
     }
 }
 

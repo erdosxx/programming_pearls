@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_EVEN_ODD_MERGE_LINKED_LIST_H
 #define ALGORITHM_ANALYSIS_EVEN_ODD_MERGE_LINKED_LIST_H
+// 8.10 Implement even-odd merge
 
 #include <array>
 #include <memory>

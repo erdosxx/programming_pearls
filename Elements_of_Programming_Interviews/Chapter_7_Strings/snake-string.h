@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SNAKE_STRING_H
 #define ALGORITHM_ANALYSIS_SNAKE_STRING_H
+// 7.11 Write a string sinusoidally
 
 #include <random>
 #include <string>

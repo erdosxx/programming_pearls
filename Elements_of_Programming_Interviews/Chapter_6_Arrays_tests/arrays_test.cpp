@@ -50,7 +50,9 @@ protected:
 
     virtual void SetUp() {
     }
-    const int kFourBitParityLookupTable=0x6996; // = 0b0110100110010110
+
+    vector<Color> p_6_1_RandVector(int len);
+
 
 public:
     Arrays_Fixture() : Test() {
@@ -60,6 +62,17 @@ public:
     virtual ~Arrays_Fixture() {
     }
 };
+
+vector<Color> Arrays_Fixture::p_6_1_RandVector(int len) {
+    default_random_engine gen((random_device()) ());
+    vector<Color> ret;
+
+    while (len--) {
+        uniform_int_distribution<int> dis(0, 2);
+        ret.push_back(static_cast<Color>(dis(gen)));
+    }
+    return ret;
+}
 
 TEST_F(Arrays_Fixture, even_odd_groupping) {
     vector<int> data = {2};
@@ -262,7 +275,7 @@ TEST_F(Arrays_Fixture, Dutch_national_flag_Function) {
         uniform_int_distribution<int> dis(1, 100);
         n = dis(gen);
 
-        vector<Color> A(DutchFlag::RandVector(n));
+        vector<Color> A(p_6_1_RandVector(n));
         uniform_int_distribution<int> dis2(0, A.size() - 1);
         int pivot_index = dis2(gen);
 
@@ -291,7 +304,7 @@ TEST_F(Arrays_Fixture, Dutch_national_flag_slow_Function) {
         uniform_int_distribution<int> dis(1, 100);
         n = dis(gen);
 
-        vector<Color> A(DutchFlag::RandVector(n));
+        vector<Color> A(p_6_1_RandVector(n));
         uniform_int_distribution<int> dis2(0, A.size() - 1);
         int pivot_index = dis2(gen);
 
@@ -320,7 +333,7 @@ TEST_F(Arrays_Fixture, Dutch_national_flag_two_Function) {
         uniform_int_distribution<int> dis(1, 100);
         n = dis(gen);
 
-        vector<Color> A(DutchFlag::RandVector(n));
+        vector<Color> A(p_6_1_RandVector(n));
         uniform_int_distribution<int> dis2(0, A.size() - 1);
         int pivot_index = dis2(gen);
 
@@ -349,7 +362,7 @@ TEST_F(Arrays_Fixture, Dutch_national_flag_bentley_Function) {
         uniform_int_distribution<int> dis(1, 100);
         n = dis(gen);
 
-        vector<Color> A(DutchFlag::RandVector(n));
+        vector<Color> A(p_6_1_RandVector(n));
         uniform_int_distribution<int> dis2(0, A.size() - 1);
         int pivot_index = dis2(gen);
 

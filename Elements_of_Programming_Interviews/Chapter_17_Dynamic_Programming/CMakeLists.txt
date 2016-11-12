@@ -8,6 +8,10 @@ set(HEADER_FILES
         fibonacci.h
         Max-sum_subarray.h
         Score_combination.h
+        Score_combination_alternative.h
+        Score_permutation.h
+        Score_permutation_two_team.h
+        Lead_changes.h
         Levenshtein_distance.h
         Number_ways.h
         Computing_binomial_coefficients.h

@@ -9,6 +9,7 @@
 #include "binary_search_trees_boot_camp.h"
 #include "is_binary_tree_a_BST.h"
 #include "is_binary_tree_a_BST_BFS.h"
+#include "is_binary_tree_a_BST_inorder.h"
 #include "Search_BST_first_larger_k.h"
 #include "Find_k_largest_BST.h"
 #include "BST_lowest_common_ancestor.h"
@@ -327,7 +328,7 @@ TEST_F(Ch15_BST_Fixture, is_BST_BFS_Function) {
     tree->right->right =
             make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{6});
     // should output true
-    ASSERT_EQ(IsBinaryTreeBST(tree), true);
+    ASSERT_EQ(bfs::IsBinaryTreeBST(tree), true);
     // cout << boolalpha << IsBinaryTreeBST(tree) << endl;
     //      10
     //    2   5
@@ -338,6 +339,33 @@ TEST_F(Ch15_BST_Fixture, is_BST_BFS_Function) {
     // cout << boolalpha << IsBinaryTreeBST(tree) << endl;
     // empty tree, should output true
     ASSERT_EQ(bfs::IsBinaryTreeBST(nullptr), true);
+    // cout << boolalpha << IsBinaryTreeBST(nullptr) << endl;
+}
+
+TEST_F(Ch15_BST_Fixture, is_BST_inorder_Function) {
+    //      3
+    //    2   5
+    //  1    4 6
+    auto tree = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{3});
+    tree->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{2});
+    tree->left->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{1});
+    tree->right = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{5});
+    tree->right->left =
+            make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{4});
+    tree->right->right =
+            make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{6});
+    // should output true
+    ASSERT_EQ(inorder::IsBinaryTreeBST(tree), true);
+    // cout << boolalpha << IsBinaryTreeBST(tree) << endl;
+    //      10
+    //    2   5
+    //  1    4 6
+    tree->data = 10;
+    // should output false
+    ASSERT_FALSE(inorder::IsBinaryTreeBST(tree));
+    // cout << boolalpha << IsBinaryTreeBST(tree) << endl;
+    // empty tree, should output true
+    ASSERT_EQ(inorder::IsBinaryTreeBST(nullptr), true);
     // cout << boolalpha << IsBinaryTreeBST(nullptr) << endl;
 }
 

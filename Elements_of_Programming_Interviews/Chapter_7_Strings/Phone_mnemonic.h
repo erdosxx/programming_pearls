@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_PHONE_MNEMONIC_H
 #define ALGORITHM_ANALYSIS_PHONE_MNEMONIC_H
+// 7.7 Compute all mnemonics for a phone number
 
 #include <array>
 #include <string>

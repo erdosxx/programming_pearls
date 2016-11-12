@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_REVERSE_WORDS_H
 #define ALGORITHM_ANALYSIS_REVERSE_WORDS_H
+// 7.6 Reverse all the words in a sentence
 
 #include <algorithm>
 #include <string>

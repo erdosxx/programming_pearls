@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_OVERLAPPING_LISTS_H
 #define ALGORITHM_ANALYSIS_OVERLAPPING_LISTS_H
+// 8.5 Test for overlapping lists - lists may have cycles
 
 #include <memory>
 

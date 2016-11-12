@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_RUN_LENGTH_COMPRESSION_H
 #define ALGORITHM_ANALYSIS_RUN_LENGTH_COMPRESSION_H
+// 7.12 Implement run-length encoding
 
 #include <cctype>
 #include <cstdlib>

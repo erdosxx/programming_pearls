@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_OVERLAPPING_LISTS_NO_CYCLE_H
 #define ALGORITHM_ANALYSIS_OVERLAPPING_LISTS_NO_CYCLE_H
+// 8.4 Test for overlapping lists - lists are cycle-free
 
 #include "Linked_list_prototype.h"
 

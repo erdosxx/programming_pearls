@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_STRINGS_BOOT_CAMP_H
 #define ALGORITHM_ANALYSIS_STRINGS_BOOT_CAMP_H
+// 7. Strings Boot Camp
 
 #include <string>
 

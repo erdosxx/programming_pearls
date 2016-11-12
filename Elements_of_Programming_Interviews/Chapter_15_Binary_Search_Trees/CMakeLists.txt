@@ -10,6 +10,7 @@ set(HEADER_FILES
         Binary_tree_prototype.h
         is_binary_tree_a_BST.h
         is_binary_tree_a_BST_BFS.h
+        is_binary_tree_a_BST_inorder.h
         Search_BST_first_larger_k.h
         Find_k_largest_BST.h
         BST_lowest_common_ancestor.h

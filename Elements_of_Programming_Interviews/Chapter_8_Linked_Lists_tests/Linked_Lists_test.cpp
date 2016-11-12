@@ -464,10 +464,12 @@ TEST_F(LinkedLists_Fixture, stl_library) {
 }
 
 TEST_F(LinkedLists_Fixture, merge_sorted_lists_Function) {
+    // a1 -> 1 -> 3 -> 5
     shared_ptr<ListNode<int>> a3 = make_shared<ListNode<int>>(ListNode<int>{5, nullptr});
     shared_ptr<ListNode<int>> a2 = make_shared<ListNode<int>>(ListNode<int>{3, a3});
     shared_ptr<ListNode<int>> a1 = make_shared<ListNode<int>>(ListNode<int>{1, a2});
 
+    // b1 -> 2 -> 4 -> 6
     shared_ptr<ListNode<int>> b3 = make_shared<ListNode<int>>(ListNode<int>{6, nullptr});
     shared_ptr<ListNode<int>> b2 = make_shared<ListNode<int>>(ListNode<int>{4, b3});
     shared_ptr<ListNode<int>> b1 = make_shared<ListNode<int>>(ListNode<int>{2, b2});
@@ -476,6 +478,7 @@ TEST_F(LinkedLists_Fixture, merge_sorted_lists_Function) {
 
     L3 = MergeTwoSortedLists(a1, b1);
 
+    // L3 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6
     ASSERT_TRUE(L3->data == 1 && L3->next->data == 2 && L3->next->next->data == 3 &&
     L3->next->next->next->data == 4 && L3->next->next->next->next->data == 5 &&
     L3->next->next->next->next->next->data == 6);

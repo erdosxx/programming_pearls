@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_VALID_PALINDROME_H
 #define ALGORITHM_ANALYSIS_VALID_PALINDROME_H
+// 7.5 Test palindromicity
 
 #include <string>
 

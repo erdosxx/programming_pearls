@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_REPLACE_AND_REMOVE_H
 #define ALGORITHM_ANALYSIS_REPLACE_AND_REMOVE_H
+// 7.4 Replace and remove
 
 #include <cassert>
 #include <iostream>

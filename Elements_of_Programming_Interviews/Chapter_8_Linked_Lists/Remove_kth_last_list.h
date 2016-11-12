@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_REMOVE_KTH_LAST_LIST_H
 #define ALGORITHM_ANALYSIS_REMOVE_KTH_LAST_LIST_H
+// 8.7 Remove the kth last element from a list
 
 #include <memory>
 

@@ -2,6 +2,7 @@
 #define ALGORITHM_ANALYSIS_PARITY1_H
 // 5.1 Computing the parity of a word
 
+// See Hacker's Delight page 96.
 namespace Parity1 {
 
 // @include

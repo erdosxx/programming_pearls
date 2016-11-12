@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_REVERSE_LIST_IN_K_GROUP_ERDOS_H
 #define ALGORITHM_ANALYSIS_REVERSE_LIST_IN_K_GROUP_ERDOS_H
+// 8.2.2 Variant Reverse a single sublist
 
 #include <memory>
 #include "Linked_list_prototype.h"

@@ -8,7 +8,6 @@
 
 #include "Binary_tree_prototype.h"
 
-using std::make_unique;
 using std::numeric_limits;
 using std::queue;
 using std::unique_ptr;
@@ -16,7 +15,7 @@ using std::unique_ptr;
 namespace bfs {
 // @include
     struct QueueEntry {
-        const unique_ptr<BinaryTreeNode<int>> &tree_node;
+        const unique_ptr<BinaryTreeNode<int>>& tree_node;
         int lower_bound, upper_bound;
     };
 
@@ -27,8 +26,10 @@ namespace bfs {
 
         while (!BFS_queue.empty()) {
             if (BFS_queue.front().tree_node.get()) {
-                if (BFS_queue.front().tree_node->data < BFS_queue.front().lower_bound ||
-                    BFS_queue.front().tree_node->data > BFS_queue.front().upper_bound) {
+                //if (BFS_queue.front().tree_node->data < BFS_queue.front().lower_bound ||
+                //    BFS_queue.front().tree_node->data > BFS_queue.front().upper_bound) {
+                if (! (BFS_queue.front().lower_bound <= BFS_queue.front().tree_node->data &&
+                        BFS_queue.front().tree_node->data <= BFS_queue.front().upper_bound) ) {
                     return false;
                 }
 

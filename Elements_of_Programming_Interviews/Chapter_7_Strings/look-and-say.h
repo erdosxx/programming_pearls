@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_LOOK_AND_SAY_H
 #define ALGORITHM_ANALYSIS_LOOK_AND_SAY_H
+// 7.8 The look-and-say problem
 
 #include <algorithm>
 #include <string>

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_REMOVE_DUPLICATES_SORTED_LIST_H
 #define ALGORITHM_ANALYSIS_REMOVE_DUPLICATES_SORTED_LIST_H
+// 8.8 Remove duplicates from a sorted list
 
 #include <memory>
 

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_PALINDROME_LINKED_LIST_H
 #define ALGORITHM_ANALYSIS_PALINDROME_LINKED_LIST_H
+// 8.11 Test whether a singly linked list is palindromic
 
 #include <memory>
 

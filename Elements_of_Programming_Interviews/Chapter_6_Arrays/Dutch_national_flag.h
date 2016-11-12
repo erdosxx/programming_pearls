@@ -3,16 +3,9 @@
 // 6.1 The Dutch national flag problem
 
 #include <algorithm>
-#include <iostream>
-#include <random>
 #include <vector>
 
-using std::cout;
-using std::default_random_engine;
-using std::endl;
-using std::random_device;
 using std::swap;
-using std::uniform_int_distribution;
 using std::vector;
 
 // @include
@@ -22,10 +15,11 @@ namespace DutchFlag {
         RED, WHITE, BLUE
     };
 
-    void DutchFlagPartition(int pivot_index, vector<Color> *A_ptr) {
-        //vector<Color> &A = *A_ptr;
+    void DutchFlagPartition(const int& pivot_index, vector<Color>* A_ptr) {
+        vector<Color> &A = *A_ptr;
         // alias A does not necessary. Instead of A[i], we can use A_ptr->at(i)
-        Color pivot = A_ptr->at(pivot_index);
+        // But more simplicity, we use alias.
+        Color pivot = A[pivot_index];
         /**
          * Keep the following invariants during partitioning:
          * bottom group: A[0 : smaller - 1].
@@ -33,28 +27,21 @@ namespace DutchFlag {
          * unclassified group: A[equal : larger - 1].
          * top group: A[larger : A.size() - 1].
          */
-        int smaller = 0, equal = 0, larger = A_ptr->size();
+        //  |    <    |    =            |    unknown        |     >     |
+        //             |next_to_small    | next_to_equal     | right_most_greater
+        //
+        int next_to_small = 0, next_to_equal = 0, right_most_greater = A.size();
         // Keep iterating as long as there is an unclassified element.
-        while (equal < larger) {
+        while (next_to_equal < right_most_greater) {
             // A[equal] is the incoming unclassified element.
-            if (A_ptr->at(equal) < pivot) {
-                swap(A_ptr->at(smaller++), A_ptr->at(equal++));
-            } else if (A_ptr->at(equal) == pivot) {
-                ++equal;
+            if (A[next_to_equal] < pivot) {
+                swap(A[next_to_small++], A[next_to_equal++]);
+            } else if (A[next_to_equal] == pivot) {
+                ++next_to_equal;
             } else {  // A[equal] > pivot.
-                swap(A_ptr->at(equal), A_ptr->at(--larger));
+                swap(A[next_to_equal], A[--right_most_greater]);
             }
         }
-    }
-
-    vector<Color> RandVector(int len) {
-        default_random_engine gen((random_device()) ());
-        vector<Color> ret;
-        while (len--) {
-            uniform_int_distribution<int> dis(0, 2);
-            ret.push_back(static_cast<Color>(dis(gen)));
-        }
-        return ret;
     }
 }
 #endif //ALGORITHM_ANALYSIS_DUTCH_NATIONAL_FLAG_H

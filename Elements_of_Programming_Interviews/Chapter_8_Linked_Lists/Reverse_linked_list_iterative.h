@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_REVERSE_LINKED_LIST_ITERATIVE_H
 #define ALGORITHM_ANALYSIS_REVERSE_LINKED_LIST_ITERATIVE_H
+// 8.2.1 Variant Reverse a single sublist
 
 #include <memory>
 

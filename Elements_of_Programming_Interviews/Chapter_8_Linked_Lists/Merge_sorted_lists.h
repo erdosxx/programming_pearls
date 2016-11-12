@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_MERGE_SORTED_LISTS_H
 #define ALGORITHM_ANALYSIS_MERGE_SORTED_LISTS_H
+// 8.1 Merge two sorted lists
 
 #include "Linked_list_prototype.h"
 
@@ -10,7 +11,8 @@ shared_ptr<ListNode<int>> MergeTwoSortedLists(shared_ptr<ListNode<int>> L1,
                                               shared_ptr<ListNode<int>> L2) {
     // Creates a placeholder for the result.
     shared_ptr<ListNode<int>> dummy_head(new ListNode<int>);
-    auto tail = dummy_head;
+    // auto tail = dummy_head;
+    shared_ptr<ListNode<int>> tail = dummy_head;
 
     while (L1 && L2) {
         AppendNode(L1->data <= L2->data ? &L1 : &L2, &tail);

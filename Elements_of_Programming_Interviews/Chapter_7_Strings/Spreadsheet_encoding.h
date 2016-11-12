@@ -1,19 +1,10 @@
 #ifndef ALGORITHM_ANALYSIS_SPREADSHEET_ENCODING_H
 #define ALGORITHM_ANALYSIS_SPREADSHEET_ENCODING_H
+// 7.3 Compute the spreadsheet column encoding
 
 #include <string>
 
 using std::string;
-
-string RandString(int len) {
-    default_random_engine gen((random_device())());
-    string ret;
-    uniform_int_distribution<int> dis('A', 'Z');
-    while (len--) {
-        ret.push_back(dis(gen));
-    }
-    return ret;
-}
 
 // @include
 int SSDecodeColID(const string& col) {

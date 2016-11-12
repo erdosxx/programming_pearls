@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_CONVERT_BASE_H
 #define ALGORITHM_ANALYSIS_CONVERT_BASE_H
+// 7.2 Base conversion
 
 #include <algorithm>
 #include <string>

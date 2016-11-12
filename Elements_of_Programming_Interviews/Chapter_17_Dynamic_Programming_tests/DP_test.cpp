@@ -7,6 +7,10 @@
 #include "fibonacci.h"
 #include "Max-sum_subarray.h"
 #include "Score_combination.h"
+#include "Score_combination_alternative.h"
+#include "Score_permutation.h"
+#include "Score_permutation_two_team.h"
+#include "Lead_changes.h"
 #include "Levenshtein_distance.h"
 #include "Number_ways.h"
 #include "Computing_binomial_coefficients.h"
@@ -204,6 +208,7 @@ string Ch17_DP_Fixture::RandString(int len) {
     return ret;
 }
 
+// Solution for Variant of 17.1.1
 int Ch17_DP_Fixture::p_17_1_CheckAnswer(int total_score, const vector<int>& score_ways) {
     vector<int> combinations(total_score + 1, 0);
     combinations[0] = 1;  // One way to reach 0.
@@ -339,6 +344,178 @@ TEST_F(Ch17_DP_Fixture, score_combination_Function) {
     // cout << NumCombinationsForFinalScore(k, individual_play_scores) << endl;
     ASSERT_EQ(NumCombinationsForFinalScore(k, individual_play_scores),
            p_17_1_CheckAnswer(k, individual_play_scores));
+}
+
+TEST_F(Ch17_DP_Fixture, score_combination_alternative) {
+    vector<int> score_ways = {2, 3, 7};
+    int c12 = CountCombinationsAlt(12, score_ways);
+    // cout << "\nNumber of ways to 12 = " << c12 << endl;
+    ASSERT_EQ(4, CountCombinationsAlt(12, score_ways));
+    ASSERT_EQ(1, CountCombinationsAlt(5, score_ways));
+    ASSERT_EQ(3, CountCombinationsAlt(9, score_ways));
+    for (int i = 0; i < 100; i++) {
+        ASSERT_EQ(CountCombinationsAlt(i, score_ways),
+                  p_17_1_CheckAnswer(i, score_ways));
+    }
+
+    for (int i = 0; i < 1000; i++) {
+        default_random_engine gen((random_device()) ());
+        int k;
+
+        score_ways.clear();
+        uniform_int_distribution<int> k_dis(0, 999);
+        k = k_dis(gen);
+        uniform_int_distribution<int> size_dis(1, 50);
+        score_ways.resize(size_dis(gen));
+        for (int i = 0; i < score_ways.size(); ++i) {
+            uniform_int_distribution<int> score_dis(1, 1000);
+            score_ways[i] = score_dis(gen);
+        }
+
+        ASSERT_EQ(CountCombinationsAlt(k, score_ways),
+                  p_17_1_CheckAnswer(k, score_ways));
+    }
+}
+
+TEST_F(Ch17_DP_Fixture, score_permutation) {
+    int k = 12;
+    vector<int> score_ways = {2, 3, 7};
+    ASSERT_EQ(18, CountPermutations(k, score_ways));
+
+    k = 4;
+    score_ways = {1, 2};
+    ASSERT_EQ(5, CountPermutations(k, score_ways));
+
+    default_random_engine gen((random_device())());
+    score_ways.clear();
+    uniform_int_distribution<int> k_dis(0, 999);
+    k = k_dis(gen);
+    uniform_int_distribution<int> size_dis(1, 50);
+    score_ways.resize(size_dis(gen));
+
+    for (int i = 0; i < score_ways.size(); ++i) {
+        uniform_int_distribution<int> score_dis(1, 1000);
+        score_ways[i] = score_dis(gen);
+    }
+    //cout << CountPermutations(k, score_ways) << endl;
+    CountPermutations(k, score_ways);
+}
+
+TEST_F(Ch17_DP_Fixture, score_permutation_two_team) {
+    two_scores A = {6, 3};
+    vector<int> score_ways = {2, 3, 7};
+    ASSERT_EQ(7, CountPermutations_two_teams(A, score_ways));
+
+    A = {4, 3};
+    score_ways = {2, 3, 7};
+    ASSERT_EQ(3, CountPermutations_two_teams(A, score_ways));
+
+    A = {5, 3};
+    score_ways = {2, 3, 7};
+    ASSERT_EQ(6, CountPermutations_two_teams(A, score_ways));
+}
+
+TEST_F(Ch17_DP_Fixture, lead_changes) {
+    lead::two_scores A = {0, 0};
+    vector<int> score_ways = {2, 3, 7};
+    ASSERT_EQ(0, lead::max_lead_changes(A, score_ways));
+
+    A = {0, 1};
+    ASSERT_EQ(-1, lead::max_lead_changes(A, score_ways));
+
+    A = {0, 2};
+    ASSERT_EQ(0, lead::max_lead_changes(A, score_ways));
+
+    A = {1, 0};
+    ASSERT_EQ(-1, lead::max_lead_changes(A, score_ways));
+
+    A = {1, 1};
+    ASSERT_EQ(-1, lead::max_lead_changes(A, score_ways));
+
+    A = {1, 2};
+    ASSERT_EQ(-1, lead::max_lead_changes(A, score_ways));
+
+    A = {2, 0};
+    ASSERT_EQ(0, lead::max_lead_changes(A, score_ways));
+
+    A = {2, 1};
+    ASSERT_EQ(-1, lead::max_lead_changes(A, score_ways));
+
+    A = {2, 2};
+    ASSERT_EQ(0, lead::max_lead_changes(A, score_ways));
+
+    A = {2, 3};
+    ASSERT_EQ(1, lead::max_lead_changes(A, score_ways));
+
+    A = {2, 4};
+    ASSERT_EQ(0, lead::max_lead_changes(A, score_ways));
+
+    A = {3, 0};
+    ASSERT_EQ(0, lead::max_lead_changes(A, score_ways));
+
+    A = {3, 1};
+    ASSERT_EQ(-1, lead::max_lead_changes(A, score_ways));
+
+    A = {3, 2};
+    ASSERT_EQ(1, lead::max_lead_changes(A, score_ways));
+
+    A = {3, 3};
+    ASSERT_EQ(0, lead::max_lead_changes(A, score_ways));
+
+    A = {4, 0};
+    ASSERT_EQ(0, lead::max_lead_changes(A, score_ways));
+
+    A = {4, 1};
+    ASSERT_EQ(-1, lead::max_lead_changes(A, score_ways));
+
+    A = {4, 2};
+    ASSERT_EQ(0, lead::max_lead_changes(A, score_ways));
+
+    A = {4, 3};
+    ASSERT_EQ(2, lead::max_lead_changes(A, score_ways));
+
+    A = {4, 4};
+    ASSERT_EQ(0, lead::max_lead_changes(A, score_ways));
+
+    A = {4, 6};
+    ASSERT_EQ(3, lead::max_lead_changes(A, score_ways));
+
+    A = {5, 0};
+    ASSERT_EQ(0, lead::max_lead_changes(A, score_ways));
+
+    A = {5, 1};
+    ASSERT_EQ(-1, lead::max_lead_changes(A, score_ways));
+
+    A = {5, 2};
+    ASSERT_EQ(1, lead::max_lead_changes(A, score_ways));
+
+    A = {5, 4};
+    ASSERT_EQ(3, lead::max_lead_changes(A, score_ways));
+
+    A = {5, 6};
+    ASSERT_EQ(4, lead::max_lead_changes(A, score_ways));
+
+    A = {7, 0};
+    ASSERT_EQ(0, lead::max_lead_changes(A, score_ways));
+
+    A = {7, 2};
+    ASSERT_EQ(1, lead::max_lead_changes(A, score_ways));
+
+    A = {7, 3};
+    ASSERT_EQ(2, lead::max_lead_changes(A, score_ways));
+
+    A = {7, 4};
+    ASSERT_EQ(3, lead::max_lead_changes(A, score_ways));
+
+    A = {7, 6};
+    ASSERT_EQ(5, lead::max_lead_changes(A, score_ways));
+
+    A = {10, 6};
+    ASSERT_EQ(5, lead::max_lead_changes(A, score_ways));
+
+    // EPI code count_lead_changes seems wrong.
+    ASSERT_NE(4, lead::count_lead_changes(10, 6, score_ways));
+    ASSERT_NE(3, lead::count_lead_changes(5, 4, score_ways));
 }
 
 TEST_F(Ch17_DP_Fixture, Levenshtein_distance_Function) {

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_REVERSE_LINKED_LIST_FROM_S_TO_F_H
 #define ALGORITHM_ANALYSIS_REVERSE_LINKED_LIST_FROM_S_TO_F_H
+// 8.2 Reverse a single sublist
 
 #include <memory>
 
