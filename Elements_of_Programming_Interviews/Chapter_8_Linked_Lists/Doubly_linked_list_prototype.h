@@ -10,7 +10,8 @@ namespace DL {
     template<typename T>
     struct ListNode {
         T data;
-        shared_ptr<DL::ListNode<T>> prev, next;
+        shared_ptr<DL::ListNode<T>> prev;
+        shared_ptr<DL::ListNode<T>> next;
     };
 // @exclude
 }

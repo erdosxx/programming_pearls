@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_MERGE_SORTED_ARRAYS_H
 #define ALGORITHM_ANALYSIS_MERGE_SORTED_ARRAYS_H
+// 11.1 Merge sorted files
 
 #include <algorithm>
 #include <iterator>
@@ -11,6 +12,7 @@ using std::next;
 using std::priority_queue;
 using std::vector;
 using std::greater;
+using std::less;
 
 // @include
 struct IteratorCurrentAndEnd {

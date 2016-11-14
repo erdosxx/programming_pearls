@@ -8,6 +8,9 @@ set(HEADER_FILES
         Binary_tree_prototype.h
         tree_traversal.h
         Balanced_binary_tree.h
+        largest_complete_subtree.h
+        k-balanced_binary_tree.h
+        k-balanced_binary_tree_erdos.h
         Symmetric_binary_tree.h
         Lowest_common_ancestor_no_parent.h
         Binary_tree_with_parent_prototype.h

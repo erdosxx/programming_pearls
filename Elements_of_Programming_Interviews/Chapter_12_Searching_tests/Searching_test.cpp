@@ -77,7 +77,7 @@ void Ch12Searching_Fixture::CheckOrderStatistic(int K, bool increasing_order,
         reverse(A_sort.begin(), A_sort.end());
     }
 
-    assert(equal(A_sort.begin(), A_sort.end(), B_sort.begin(), B_sort.end()));
+    ASSERT_TRUE(equal(A_sort.begin(), A_sort.end(), B_sort.begin(), B_sort.end()));
 }
 
 void Ch12Searching_Fixture::TestAllOrders(const vector<int>& order, vector<int>* A_ptr) {
@@ -136,6 +136,8 @@ TEST_F(Ch12Searching_Fixture, Bentley_bsearch_Function) {
     ASSERT_EQ(0, bentley::bsearch(1, A));
     ASSERT_EQ(1, bentley::bsearch(2, A));
     ASSERT_EQ(2, bentley::bsearch(3, A));
+    ASSERT_EQ(-1, bentley::bsearch(4, A));
+    ASSERT_EQ(-1, bentley::bsearch(0, A));
     A = {2, 2, 2};
     ASSERT_TRUE(0 <= bentley::bsearch(2, A) && bentley::bsearch(2, A) <= 2);
     ASSERT_EQ(-1, bentley::bsearch(3, A));
@@ -199,49 +201,71 @@ TEST_F(Ch12Searching_Fixture, student_search) {
 
 TEST_F(Ch12Searching_Fixture, first_k_bsearch_Function) {
     vector<int> A = {0, 1, 2, 3, 4, 5, 6, 7};
-    int k = 4;
     ASSERT_EQ(0, SearchFirstOfK(A, 0));
     ASSERT_EQ(0, binary_search_first(A, 0));
+    ASSERT_EQ(0, distance(A.cbegin(), lower_bound(A.cbegin(), A.cend(), 0)));
 
     ASSERT_EQ(1, SearchFirstOfK(A, 1));
     ASSERT_EQ(1, binary_search_first(A, 1));
+    ASSERT_EQ(1, distance(A.cbegin(), lower_bound(A.cbegin(), A.cend(), 1)));
 
     ASSERT_EQ(4, SearchFirstOfK(A, 4));
     ASSERT_EQ(4, binary_search_first(A, 4));
+    ASSERT_EQ(4, distance(A.cbegin(), lower_bound(A.cbegin(), A.cend(), 4)));
 
     ASSERT_EQ(6, SearchFirstOfK(A, 6));
     ASSERT_EQ(6, binary_search_first(A, 6));
+    ASSERT_EQ(6, distance(A.cbegin(), lower_bound(A.cbegin(), A.cend(), 6)));
 
     ASSERT_EQ(7, SearchFirstOfK(A, 7));
     ASSERT_EQ(7, binary_search_first(A, 7));
+    ASSERT_EQ(7, distance(A.cbegin(), lower_bound(A.cbegin(), A.cend(), 7)));
 
     ASSERT_EQ(-1, SearchFirstOfK(A, 8));
     ASSERT_EQ(-1, binary_search_first(A, 8));
+    // lower_bound: If all the element in the range compare less than val,
+    // the function returns last.
+    ASSERT_EQ(0, distance(A.cend(), lower_bound(A.cbegin(), A.cend(), 8)));
 
     ASSERT_EQ(-1, SearchFirstOfK(A, numeric_limits<int>::min()));
     ASSERT_EQ(-1, binary_search_first(A, numeric_limits<int>::min()));
+    ASSERT_EQ(0, distance(A.cbegin(), lower_bound(A.cbegin(), A.cend(), numeric_limits<int>::min())));
 
-    A[0] = 1;
+    A = {1, 1, 2, 3, 4, 5, 6, 7};
     ASSERT_EQ(0, SearchFirstOfK(A, 1));
     ASSERT_EQ(0, binary_search_first(A, 1));
-    A[5] = 4;
-    A[6] = 4;
+    ASSERT_EQ(0, distance(A.cbegin(), lower_bound(A.cbegin(), A.cend(), 1)));
+
+    A = {1, 1, 2, 3, 4, 4, 4, 7};
     ASSERT_EQ(4, SearchFirstOfK(A, 4));
     ASSERT_EQ(4, binary_search_first(A, 4));
+    ASSERT_EQ(4, distance(A.cbegin(), lower_bound(A.cbegin(), A.cend(), 4)));
+
     A = {1, 1, 1, 1, 1, 2};
     ASSERT_EQ(-1, SearchFirstOfK(A, 0));
     ASSERT_EQ(-1, binary_search_first(A, 0));
-
+    ASSERT_EQ(0, distance(A.cbegin(), lower_bound(A.cbegin(), A.cend(), 0)));
     ASSERT_EQ(0, SearchFirstOfK(A, 1));
     ASSERT_EQ(0, binary_search_first(A, 1));
-
+    ASSERT_EQ(0, distance(A.cbegin(), lower_bound(A.cbegin(), A.cend(), 1)));
     ASSERT_EQ(5, SearchFirstOfK(A, 2));
     ASSERT_EQ(5, binary_search_first(A, 2));
-    A[4] = 2;
+    ASSERT_EQ(5, distance(A.cbegin(), lower_bound(A.cbegin(), A.cend(), 2)));
+
+    A = {1, 1, 1, 1, 2, 2};
     ASSERT_EQ(4, SearchFirstOfK(A, 2));
     ASSERT_EQ(4, binary_search_first(A, 2));
+    ASSERT_EQ(4, distance(A.cbegin(), lower_bound(A.cbegin(), A.cend(), 2)));
 
+    A = {1, 3, 5, 7, 9, 11};
+    ASSERT_EQ(-1, SearchFirstOfK(A, 6));
+    ASSERT_EQ(-1, binary_search_first(A, 6));
+    // lower_bound:
+    // Returns an iterator pointing to the first element in the range [first,last)
+    // which does not compare less than val.
+    ASSERT_EQ(3, distance(A.cbegin(), lower_bound(A.cbegin(), A.cend(), 6))); // 7
     default_random_engine gen((random_device())());
+
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> dis(1, 1000);
         int n = dis(gen);
@@ -263,9 +287,22 @@ TEST_F(Ch12Searching_Fixture, first_k_bsearch_Function) {
             cout << "A[k] = " << A[ans] << endl;
         }
          */
+        //cout << "fist = " << A[0] << " last = " << A[n-1] << " k = " << k << endl ;
         auto it = find(A.cbegin(), A.cend(), k);
         ASSERT_TRUE((it == A.cend() && ans == -1) ||
                (distance(A.cbegin(), it) == ans));
+
+        auto it2 = lower_bound(A.cbegin(), A.cend(), k);
+        if (it2 == A.cend()) {
+            ASSERT_EQ(-1, ans);
+        } else if (it2 == A.cbegin() && *A.cbegin() != k) {
+            ASSERT_EQ(-1, ans);
+        } else if (*it2 != k) { // if k is not exist in A.
+            // lower_bound return min element > k.
+            ASSERT_EQ(-1, ans);
+        } else {
+            ASSERT_EQ(distance(A.cbegin(), it2), ans);
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_SORT_K_INCREASING_DECREASING_ARRAY_H
 #define ALGORITHM_ANALYSIS_SORT_K_INCREASING_DECREASING_ARRAY_H
+// 11.2 Sort an increasing-decreasing array
 
 #include <vector>
 

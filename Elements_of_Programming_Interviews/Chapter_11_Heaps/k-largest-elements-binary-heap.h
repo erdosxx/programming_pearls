@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_K_LARGEST_ELEMENTS_BINARY_HEAP_H
 #define ALGORITHM_ANALYSIS_K_LARGEST_ELEMENTS_BINARY_HEAP_H
+// 11.6 Compute the k largest elements in a max-heap
 
 #include <functional>
 #include <queue>

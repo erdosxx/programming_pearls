@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_ONLINE_MEDIAN_H
 #define ALGORITHM_ANALYSIS_ONLINE_MEDIAN_H
+// 11.5 Compute the median of online data
 
 #include <functional>
 #include <queue>

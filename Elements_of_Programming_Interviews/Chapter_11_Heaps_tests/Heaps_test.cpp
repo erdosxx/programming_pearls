@@ -57,6 +57,56 @@ TEST_F(Ch11Heaps_Fixture, heaps_boot_camp) {
     ASSERT_TRUE(equal(result.cbegin(), result.cend(), golden_sol.cbegin(), golden_sol.cend()));
 }
 
+TEST_F(Ch11Heaps_Fixture, stl_library) {
+    // default is map_heap
+    priority_queue<int, vector<int>> max_heap; // {4,2,3,5,6,8,9};
+    max_heap.emplace(4);
+    max_heap.emplace(2);
+    max_heap.emplace(3);
+    max_heap.emplace(5);
+    max_heap.emplace(6);
+    max_heap.emplace(8);
+    max_heap.emplace(9);
+    ASSERT_EQ(9, max_heap.top());
+    max_heap.pop();
+    ASSERT_EQ(8, max_heap.top());
+
+    vector<int> data = {4,2,3,5,6,8,9};
+    priority_queue<int> max_heap2; // = {4,2,3,5,6,8,9};
+    max_heap2.emplace(4);
+    max_heap2.emplace(2);
+    max_heap2.emplace(3);
+    max_heap2.emplace(5);
+    max_heap2.emplace(6);
+    max_heap2.emplace(8);
+    max_heap2.emplace(9);
+    ASSERT_EQ(7, max_heap2.size());
+    max_heap2.pop();
+    ASSERT_EQ(6, max_heap2.size());
+    ASSERT_EQ(8, max_heap2.top());
+    max_heap2.pop();
+    max_heap2.pop();
+    max_heap2.pop();
+    max_heap2.pop();
+    max_heap2.pop();
+    max_heap2.pop();
+    ASSERT_EQ(0, max_heap2.size());
+    //max_heap2.pop(); // more pops than size, do not work.
+
+    //same as following priority_queue<int, vector<int>, greater<int>> min_heap3;
+    priority_queue<int, vector<int>, greater<>> min_heap3;
+    min_heap3.emplace(4);
+    min_heap3.emplace(2);
+    min_heap3.emplace(3);
+    min_heap3.emplace(5);
+    min_heap3.emplace(6);
+    min_heap3.emplace(8);
+    min_heap3.emplace(9);
+    ASSERT_EQ(2, min_heap3.top());
+    min_heap3.pop();
+    ASSERT_EQ(3, min_heap3.top());
+}
+
 TEST_F(Ch11Heaps_Fixture, merge_sorted_arrays_Function) {
     vector<vector<int>> S = {
             {1, 5, 10}, {2, 3, 100}, {2, 12, numeric_limits<int>::max()}};

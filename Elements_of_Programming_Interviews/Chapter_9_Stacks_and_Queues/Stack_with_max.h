@@ -36,7 +36,7 @@ namespace stack_max {
 
         void Push(int x) {
             element_with_cached_max_.emplace(
-                    ElementWithCachedMax{x, max(x, Empty() ? x : Max())});
+                    ElementWithCachedMax{x, max( x, Empty() ? x : Max() ) });
         }
 
     private:

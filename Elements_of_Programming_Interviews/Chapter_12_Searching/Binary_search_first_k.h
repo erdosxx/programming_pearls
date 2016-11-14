@@ -40,8 +40,9 @@ int binary_search_first(const vector<int>& x, int value) {
     int high = x.size();
 
     // invariant: x[low] < value && x[high] >= value && low < high
-    while (low + 1 != high) {
-        middle = (low + high) / 2;
+    //while (low + 1 != high) {
+    while (high - low > 1) {
+        middle = low + (high - low)/2;
 
         if (x[middle] < value)
             low = middle;
@@ -49,7 +50,7 @@ int binary_search_first(const vector<int>& x, int value) {
             high = middle;
     }
 
-    if (high >= x.size() || x[high] != value)
+    if (high == x.size() || x[high] != value)
         return -1;
     return high;
 }

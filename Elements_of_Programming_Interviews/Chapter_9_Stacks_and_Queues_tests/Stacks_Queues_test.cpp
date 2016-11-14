@@ -137,8 +137,25 @@ TEST_F(StacksQueues_Fixture, stl_library) {
     dq1.pop_front(); // empty
     ASSERT_TRUE(dq1.empty());
 }
-
 TEST_F(StacksQueues_Fixture, stack_with_max_Function) {
+    stack_max::Stack s;
+    s.Push(1);
+    s.Push(2);
+    ASSERT_EQ(2, s.Max());
+    s.Pop();  // 2
+    ASSERT_EQ(1, s.Max());
+    s.Push(3);
+    s.Push(2);
+    ASSERT_EQ(3, s.Max());
+    s.Pop();
+    ASSERT_EQ(3, s.Max());
+    s.Pop();
+    ASSERT_EQ(1, s.Max());
+    s.Pop();
+    ASSERT_THROW(s.Max(); s.Pop(); s.Pop(); s.Pop(); s.Pop(), length_error );
+}
+
+TEST_F(StacksQueues_Fixture, stack_with_max_improved_Function) {
     stack_max_imp::Stack s;
     s.Push(1);
     s.Push(2);

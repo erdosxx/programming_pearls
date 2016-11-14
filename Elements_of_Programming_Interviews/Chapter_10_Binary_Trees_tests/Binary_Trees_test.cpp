@@ -3,6 +3,9 @@
 #include <limits>
 #include "tree_traversal.h"
 #include "Balanced_binary_tree.h"
+#include "largest_complete_subtree.h"
+#include "k-balanced_binary_tree.h"
+#include "k-balanced_binary_tree_erdos.h"
 #include "Symmetric_binary_tree.h"
 #include "Lowest_common_ancestor_no_parent.h"
 #include "Lowest_common_ancestor.h"
@@ -83,21 +86,244 @@ TEST_F(BinaryTrees_Fixture, balanced_binary_tree_Function) {
     //      3
     //    2   5
     //  1    4 6
-    unique_ptr<btree::BinaryTreeNode <int>>
-    tree =
-            make_unique <btree_node> (btree::BinaryTreeNode<int>());
-    tree->left = make_unique <btree_node> (btree::BinaryTreeNode<int>());
-    tree->left->left = make_unique <btree_node> (btree::BinaryTreeNode<int>());
-    tree->right = make_unique <btree_node> (btree::BinaryTreeNode<int>());
-    tree->right->left = make_unique <btree_node> (btree::BinaryTreeNode<int>());
-    tree->right->right =
-            make_unique <btree_node> (btree::BinaryTreeNode<int>());
+    unique_ptr<btree_node> tree = make_unique<btree_node>(btree_node{3, nullptr, nullptr});
+    tree->left = make_unique<btree_node>(btree_node{2, nullptr, nullptr});
+    tree->left->left = make_unique<btree_node>(btree_node{1, nullptr, nullptr});
+    tree->right = make_unique<btree_node>(btree_node{5, nullptr, nullptr});
+    tree->right->left = make_unique<btree_node>(btree_node{4, nullptr, nullptr});
+    tree->right->right = make_unique<btree_node>(btree_node{6, nullptr, nullptr});
     ASSERT_EQ(true, IsBalanced(tree));
+
     // Non-balanced binary tree test.
-    tree = make_unique <btree_node> (btree::BinaryTreeNode<int>());
-    tree->left = make_unique <btree_node> (btree::BinaryTreeNode<int>());
-    tree->left->left = make_unique <btree_node> (btree::BinaryTreeNode<int>());
+    //      3
+    //    2
+    //  1
+    tree = make_unique<btree_node>(btree_node{3, nullptr, nullptr});
+    tree->left = make_unique<btree_node>(btree_node{2, nullptr, nullptr});
+    tree->left->left = make_unique<btree_node>(btree_node{1, nullptr, nullptr});
     ASSERT_EQ(false, IsBalanced(tree));
+}
+
+TEST_F(BinaryTrees_Fixture, largest_complete_subtree) {
+    // Fig 10.1
+    //                  314
+    //            6               6
+    //         271  561        2       271
+    //       28  0     3         1         28
+    //               17       401   257
+    //                          641
+    unique_ptr<btree_node> tree = make_unique<btree_node>(btree_node{314, nullptr, nullptr});
+    tree->left = make_unique<btree_node>(btree_node{6, nullptr, nullptr});
+    tree->right = make_unique<btree_node>(btree_node{6, nullptr, nullptr});
+    tree->left->left = make_unique<btree_node>(btree_node{271, nullptr, nullptr});
+    tree->left->right = make_unique<btree_node>(btree_node{561, nullptr, nullptr});
+    tree->left->left->left = make_unique<btree_node>(btree_node{28, nullptr, nullptr});
+    tree->left->left->right = make_unique<btree_node>(btree_node{0, nullptr, nullptr});
+    tree->left->right->right = make_unique<btree_node>(btree_node{3, nullptr, nullptr});
+    tree->left->right->right->left = make_unique<btree_node>(btree_node{17, nullptr, nullptr});
+    tree->right->left = make_unique<btree_node>(btree_node{2, nullptr, nullptr});
+    tree->right->right = make_unique<btree_node>(btree_node{271, nullptr, nullptr});
+    tree->right->left->right = make_unique<btree_node>(btree_node{1, nullptr, nullptr});
+    tree->right->left->right->left = make_unique<btree_node>(btree_node{401, nullptr, nullptr});
+    tree->right->left->right->right = make_unique<btree_node>(btree_node{257, nullptr, nullptr});
+    tree->right->left->right->left->right = make_unique<btree_node>(btree_node{641, nullptr, nullptr});
+    tree->right->right->right = make_unique<btree_node>(btree_node{28, nullptr, nullptr});
+    ASSERT_EQ(3, size_largest_complete_subtree(tree));
+
+    // Fig 10.2
+    //                  1
+    //           2             3
+    //         4    5       12   13
+    //       6  7  8  9   14  15
+    //     10 11
+    tree = make_unique<btree_node>(btree_node{1, nullptr, nullptr});
+    tree->left = make_unique<btree_node>(btree_node{2, nullptr, nullptr});
+    tree->right = make_unique<btree_node>(btree_node{3, nullptr, nullptr});
+    tree->left->left = make_unique<btree_node>(btree_node{4, nullptr, nullptr});
+    tree->left->right = make_unique<btree_node>(btree_node{5, nullptr, nullptr});
+    tree->left->left->left = make_unique<btree_node>(btree_node{6, nullptr, nullptr});
+    tree->left->left->right = make_unique<btree_node>(btree_node{7, nullptr, nullptr});
+    tree->left->left->left->left = make_unique<btree_node>(btree_node{10, nullptr, nullptr});
+    tree->left->left->left->right = make_unique<btree_node>(btree_node{11, nullptr, nullptr});
+    tree->left->right->left = make_unique<btree_node>(btree_node{8, nullptr, nullptr});
+    tree->left->right->right = make_unique<btree_node>(btree_node{9, nullptr, nullptr});
+    tree->right->left = make_unique<btree_node>(btree_node{12, nullptr, nullptr});
+    tree->right->right = make_unique<btree_node>(btree_node{13, nullptr, nullptr});
+    tree->right->left->left = make_unique<btree_node>(btree_node{14, nullptr, nullptr});
+    tree->right->left->right = make_unique<btree_node>(btree_node{15, nullptr, nullptr});
+    ASSERT_EQ(3, size_largest_complete_subtree(tree));
+
+    // Fig 10.2-1
+    //                  1
+    //           2               3
+    //         4       5      12    13
+    //       6  7     8 9   14 15
+    //   10 11 16 17
+    tree = make_unique<btree_node>(btree_node{1, nullptr, nullptr});
+    tree->left = make_unique<btree_node>(btree_node{2, nullptr, nullptr});
+    tree->right = make_unique<btree_node>(btree_node{3, nullptr, nullptr});
+    tree->left->left = make_unique<btree_node>(btree_node{4, nullptr, nullptr});
+    tree->left->right = make_unique<btree_node>(btree_node{5, nullptr, nullptr});
+    tree->left->left->left = make_unique<btree_node>(btree_node{6, nullptr, nullptr});
+    tree->left->left->right = make_unique<btree_node>(btree_node{7, nullptr, nullptr});
+    tree->left->left->right->left = make_unique<btree_node>(btree_node{16, nullptr, nullptr});
+    tree->left->left->right->right = make_unique<btree_node>(btree_node{17, nullptr, nullptr});
+    tree->left->left->left->left = make_unique<btree_node>(btree_node{10, nullptr, nullptr});
+    tree->left->left->left->right = make_unique<btree_node>(btree_node{11, nullptr, nullptr});
+    tree->left->right->left = make_unique<btree_node>(btree_node{8, nullptr, nullptr});
+    tree->left->right->right = make_unique<btree_node>(btree_node{9, nullptr, nullptr});
+    tree->right->left = make_unique<btree_node>(btree_node{12, nullptr, nullptr});
+    tree->right->right = make_unique<btree_node>(btree_node{13, nullptr, nullptr});
+    tree->right->left->left = make_unique<btree_node>(btree_node{14, nullptr, nullptr});
+    tree->right->left->right = make_unique<btree_node>(btree_node{15, nullptr, nullptr});
+    ASSERT_EQ(7, size_largest_complete_subtree(tree));
+}
+
+TEST_F(BinaryTrees_Fixture, k_balanced_binary_tree) {
+    // Fig 10.1
+    //                  314
+    //            6               6
+    //         271  561        2       271
+    //       28  0     3         1         28
+    //               17       401   257
+    //                          641
+    unique_ptr<btree_node> tree = make_unique<btree_node>(btree_node{314, nullptr, nullptr});
+    tree->left = make_unique<btree_node>(btree_node{6, nullptr, nullptr});
+    tree->right = make_unique<btree_node>(btree_node{6, nullptr, nullptr});
+    tree->left->left = make_unique<btree_node>(btree_node{271, nullptr, nullptr});
+    tree->left->right = make_unique<btree_node>(btree_node{561, nullptr, nullptr});
+    tree->left->left->left = make_unique<btree_node>(btree_node{28, nullptr, nullptr});
+    tree->left->left->right = make_unique<btree_node>(btree_node{0, nullptr, nullptr});
+    tree->left->right->right = make_unique<btree_node>(btree_node{3, nullptr, nullptr});
+    tree->left->right->right->left = make_unique<btree_node>(btree_node{17, nullptr, nullptr});
+    tree->right->left = make_unique<btree_node>(btree_node{2, nullptr, nullptr});
+    tree->right->right = make_unique<btree_node>(btree_node{271, nullptr, nullptr});
+    tree->right->left->right = make_unique<btree_node>(btree_node{1, nullptr, nullptr});
+    tree->right->left->right->left = make_unique<btree_node>(btree_node{401, nullptr, nullptr});
+    tree->right->left->right->right = make_unique<btree_node>(btree_node{257, nullptr, nullptr});
+    tree->right->left->right->left->right = make_unique<btree_node>(btree_node{641, nullptr, nullptr});
+    tree->right->right->right = make_unique<btree_node>(btree_node{28, nullptr, nullptr});
+    ASSERT_EQ(tree->right->left.get(), FindKUnbalancedNode(tree, 3));
+
+    // Fig 10.2-1
+    //                  1
+    //             2             3
+    //         4       5      12    13
+    //       6  7            14 15
+    //   10 11 16 17
+    tree = make_unique<btree_node>(btree_node{1, nullptr, nullptr});
+    tree->left = make_unique<btree_node>(btree_node{2, nullptr, nullptr});
+    tree->right = make_unique<btree_node>(btree_node{3, nullptr, nullptr});
+    tree->left->left = make_unique<btree_node>(btree_node{4, nullptr, nullptr});
+    tree->left->right = make_unique<btree_node>(btree_node{5, nullptr, nullptr});
+    tree->left->left->left = make_unique<btree_node>(btree_node{6, nullptr, nullptr});
+    tree->left->left->right = make_unique<btree_node>(btree_node{7, nullptr, nullptr});
+    tree->left->left->right->left = make_unique<btree_node>(btree_node{16, nullptr, nullptr});
+    tree->left->left->right->right = make_unique<btree_node>(btree_node{17, nullptr, nullptr});
+    tree->left->left->left->left = make_unique<btree_node>(btree_node{10, nullptr, nullptr});
+    tree->left->left->left->right = make_unique<btree_node>(btree_node{11, nullptr, nullptr});
+    tree->right->left = make_unique<btree_node>(btree_node{12, nullptr, nullptr});
+    tree->right->right = make_unique<btree_node>(btree_node{13, nullptr, nullptr});
+    tree->right->left->left = make_unique<btree_node>(btree_node{14, nullptr, nullptr});
+    tree->right->left->right = make_unique<btree_node>(btree_node{15, nullptr, nullptr});
+    ASSERT_EQ(tree->left.get(), FindKUnbalancedNode(tree, 2));
+
+    // Fig 10.2
+    //                  1
+    //           2             3
+    //         4    5       12   13
+    //       6  7  8  9   14  15
+    //     10 11
+    tree = make_unique<btree_node>(btree_node{1, nullptr, nullptr});
+    tree->left = make_unique<btree_node>(btree_node{2, nullptr, nullptr});
+    tree->right = make_unique<btree_node>(btree_node{3, nullptr, nullptr});
+    tree->left->left = make_unique<btree_node>(btree_node{4, nullptr, nullptr});
+    tree->left->right = make_unique<btree_node>(btree_node{5, nullptr, nullptr});
+    tree->left->left->left = make_unique<btree_node>(btree_node{6, nullptr, nullptr});
+    tree->left->left->right = make_unique<btree_node>(btree_node{7, nullptr, nullptr});
+    tree->left->left->left->left = make_unique<btree_node>(btree_node{10, nullptr, nullptr});
+    tree->left->left->left->right = make_unique<btree_node>(btree_node{11, nullptr, nullptr});
+    tree->left->right->left = make_unique<btree_node>(btree_node{8, nullptr, nullptr});
+    tree->left->right->right = make_unique<btree_node>(btree_node{9, nullptr, nullptr});
+    tree->right->left = make_unique<btree_node>(btree_node{12, nullptr, nullptr});
+    tree->right->right = make_unique<btree_node>(btree_node{13, nullptr, nullptr});
+    tree->right->left->left = make_unique<btree_node>(btree_node{14, nullptr, nullptr});
+    tree->right->left->right = make_unique<btree_node>(btree_node{15, nullptr, nullptr});
+    ASSERT_EQ(nullptr, FindKUnbalancedNode(tree, 7));
+}
+
+TEST_F(BinaryTrees_Fixture, k_balanced_binary_tree_erdos) {
+    // Fig 10.1
+    //                  314
+    //            6               6
+    //         271  561        2       271
+    //       28  0     3         1         28
+    //               17       401   257
+    //                          641
+    unique_ptr<btree_node> tree = make_unique<btree_node>(btree_node{314, nullptr, nullptr});
+    tree->left = make_unique<btree_node>(btree_node{6, nullptr, nullptr});
+    tree->right = make_unique<btree_node>(btree_node{6, nullptr, nullptr});
+    tree->left->left = make_unique<btree_node>(btree_node{271, nullptr, nullptr});
+    tree->left->right = make_unique<btree_node>(btree_node{561, nullptr, nullptr});
+    tree->left->left->left = make_unique<btree_node>(btree_node{28, nullptr, nullptr});
+    tree->left->left->right = make_unique<btree_node>(btree_node{0, nullptr, nullptr});
+    tree->left->right->right = make_unique<btree_node>(btree_node{3, nullptr, nullptr});
+    tree->left->right->right->left = make_unique<btree_node>(btree_node{17, nullptr, nullptr});
+    tree->right->left = make_unique<btree_node>(btree_node{2, nullptr, nullptr});
+    tree->right->right = make_unique<btree_node>(btree_node{271, nullptr, nullptr});
+    tree->right->left->right = make_unique<btree_node>(btree_node{1, nullptr, nullptr});
+    tree->right->left->right->left = make_unique<btree_node>(btree_node{401, nullptr, nullptr});
+    tree->right->left->right->right = make_unique<btree_node>(btree_node{257, nullptr, nullptr});
+    tree->right->left->right->left->right = make_unique<btree_node>(btree_node{641, nullptr, nullptr});
+    tree->right->right->right = make_unique<btree_node>(btree_node{28, nullptr, nullptr});
+    ASSERT_EQ(tree->right->left, *upper_k_balanced_subtree(tree, 3));
+
+
+    // Fig 10.2-1
+    //                  1
+    //             2             3
+    //         4       5      12    13
+    //       6  7            14 15
+    //   10 11 16 17
+    tree = make_unique<btree_node>(btree_node{1, nullptr, nullptr});
+    tree->left = make_unique<btree_node>(btree_node{2, nullptr, nullptr});
+    tree->right = make_unique<btree_node>(btree_node{3, nullptr, nullptr});
+    tree->left->left = make_unique<btree_node>(btree_node{4, nullptr, nullptr});
+    tree->left->right = make_unique<btree_node>(btree_node{5, nullptr, nullptr});
+    tree->left->left->left = make_unique<btree_node>(btree_node{6, nullptr, nullptr});
+    tree->left->left->right = make_unique<btree_node>(btree_node{7, nullptr, nullptr});
+    tree->left->left->right->left = make_unique<btree_node>(btree_node{16, nullptr, nullptr});
+    tree->left->left->right->right = make_unique<btree_node>(btree_node{17, nullptr, nullptr});
+    tree->left->left->left->left = make_unique<btree_node>(btree_node{10, nullptr, nullptr});
+    tree->left->left->left->right = make_unique<btree_node>(btree_node{11, nullptr, nullptr});
+    tree->right->left = make_unique<btree_node>(btree_node{12, nullptr, nullptr});
+    tree->right->right = make_unique<btree_node>(btree_node{13, nullptr, nullptr});
+    tree->right->left->left = make_unique<btree_node>(btree_node{14, nullptr, nullptr});
+    tree->right->left->right = make_unique<btree_node>(btree_node{15, nullptr, nullptr});
+    ASSERT_EQ(tree->left, *upper_k_balanced_subtree(tree, 2));
+
+    // Fig 10.2
+    //                  1
+    //           2             3
+    //         4    5       12   13
+    //       6  7  8  9   14  15
+    //     10 11
+    tree = make_unique<btree_node>(btree_node{1, nullptr, nullptr});
+    tree->left = make_unique<btree_node>(btree_node{2, nullptr, nullptr});
+    tree->right = make_unique<btree_node>(btree_node{3, nullptr, nullptr});
+    tree->left->left = make_unique<btree_node>(btree_node{4, nullptr, nullptr});
+    tree->left->right = make_unique<btree_node>(btree_node{5, nullptr, nullptr});
+    tree->left->left->left = make_unique<btree_node>(btree_node{6, nullptr, nullptr});
+    tree->left->left->right = make_unique<btree_node>(btree_node{7, nullptr, nullptr});
+    tree->left->left->left->left = make_unique<btree_node>(btree_node{10, nullptr, nullptr});
+    tree->left->left->left->right = make_unique<btree_node>(btree_node{11, nullptr, nullptr});
+    tree->left->right->left = make_unique<btree_node>(btree_node{8, nullptr, nullptr});
+    tree->left->right->right = make_unique<btree_node>(btree_node{9, nullptr, nullptr});
+    tree->right->left = make_unique<btree_node>(btree_node{12, nullptr, nullptr});
+    tree->right->right = make_unique<btree_node>(btree_node{13, nullptr, nullptr});
+    tree->right->left->left = make_unique<btree_node>(btree_node{14, nullptr, nullptr});
+    tree->right->left->right = make_unique<btree_node>(btree_node{15, nullptr, nullptr});
+    ASSERT_EQ(nullptr, upper_k_balanced_subtree(tree, 7));
 }
 
 TEST_F(BinaryTrees_Fixture, symmetric_binary_tree_Function) {

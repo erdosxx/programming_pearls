@@ -30,7 +30,7 @@ set(HEADER_FILES
         Find_element_appears_once.h
         Line_most_points.h
         Shortest_unique_prefix.h
-        Doubly_linked_list_prototype.h
+        ../Chapter_8_Linked_Lists/Doubly_linked_list_prototype.h
         Sorted_list_to_BST.h
         BST_to_sorted_doubly_list.h
         BST_prototype_shared_ptr.h

@@ -5,6 +5,7 @@
 #include <iterator>
 #include "linked_list_boot_camp.h"
 #include "Merge_sorted_lists.h"
+#include "Merge_sorted_doubly_linked_lists.h"
 #include "reverse_linked_list_from_s_to_f.h"
 #include "Reverse_linked_list_iterative.h"
 #include "Reverse_linked_list_recursive.h"
@@ -464,12 +465,12 @@ TEST_F(LinkedLists_Fixture, stl_library) {
 }
 
 TEST_F(LinkedLists_Fixture, merge_sorted_lists_Function) {
-    // a1 -> 1 -> 3 -> 5
+    // 1 -> 3 -> 5
     shared_ptr<ListNode<int>> a3 = make_shared<ListNode<int>>(ListNode<int>{5, nullptr});
     shared_ptr<ListNode<int>> a2 = make_shared<ListNode<int>>(ListNode<int>{3, a3});
     shared_ptr<ListNode<int>> a1 = make_shared<ListNode<int>>(ListNode<int>{1, a2});
 
-    // b1 -> 2 -> 4 -> 6
+    // 2 -> 4 -> 6
     shared_ptr<ListNode<int>> b3 = make_shared<ListNode<int>>(ListNode<int>{6, nullptr});
     shared_ptr<ListNode<int>> b2 = make_shared<ListNode<int>>(ListNode<int>{4, b3});
     shared_ptr<ListNode<int>> b1 = make_shared<ListNode<int>>(ListNode<int>{2, b2});
@@ -482,6 +483,39 @@ TEST_F(LinkedLists_Fixture, merge_sorted_lists_Function) {
     ASSERT_TRUE(L3->data == 1 && L3->next->data == 2 && L3->next->next->data == 3 &&
     L3->next->next->next->data == 4 && L3->next->next->next->next->data == 5 &&
     L3->next->next->next->next->next->data == 6);
+}
+
+TEST_F(LinkedLists_Fixture, merge_sorted_doubly_linked_lists) {
+    // 1 <-> 3 <-> 5
+    shared_ptr<DL::ListNode<int>> a3 (new DL::ListNode<int>{5, nullptr, nullptr});
+    shared_ptr<DL::ListNode<int>> a2 (new DL::ListNode<int>{3, nullptr, a3});
+    shared_ptr<DL::ListNode<int>> a1 (new DL::ListNode<int>{1, nullptr, a2});
+    a2->prev = a1;
+    a3->prev = a2;
+
+    // 2 <-> 4 <-> 6
+    shared_ptr<DL::ListNode<int>> b3 (new DL::ListNode<int>{6, nullptr, nullptr});
+    shared_ptr<DL::ListNode<int>> b2 (new DL::ListNode<int>{4, nullptr, b3});
+    shared_ptr<DL::ListNode<int>> b1 (new DL::ListNode<int>{2, nullptr, b2});
+    b2->prev = b1;
+    b3->prev = b2;
+
+    shared_ptr<DL::ListNode<int>> L3 = nullptr;
+
+    // L3 -> 1 <-> 2 <-> 3 <-> 4 <-> 5 <-> 6
+    L3 = MergeTwoSortedDoublyLists(a1, b1);
+    ASSERT_TRUE(L3->data == 1 && L3->next->data == 2 && L3->next->next->data == 3 &&
+                L3->next->next->next->data == 4 && L3->next->next->next->next->data == 5 &&
+                L3->next->next->next->next->next->data == 6);
+    //ASSERT_TRUE(b3->data == 6 && b3->prev->data == 5 && b3->prev->prev->data == 4 &&
+                //b3->prev->prev->prev->data == 3 && b3->prev->prev->prev->prev->data == 2 &&
+                //b3->prev->prev->prev->prev->prev->data == 1);
+    ASSERT_EQ(6, b3->data);
+    ASSERT_EQ(5, b3->prev->data);
+    ASSERT_EQ(4, b3->prev->prev->data);
+    ASSERT_EQ(3, b3->prev->prev->prev->data);
+    ASSERT_EQ(2, b3->prev->prev->prev->prev->data);
+    ASSERT_EQ(1, b3->prev->prev->prev->prev->prev->data);
 }
 
 TEST_F(LinkedLists_Fixture, reverse_linked_list_s_to_t_Function) {

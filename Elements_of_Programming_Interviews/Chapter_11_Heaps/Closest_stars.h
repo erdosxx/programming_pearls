@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_CLOSEST_STARS_H
 #define ALGORITHM_ANALYSIS_CLOSEST_STARS_H
+// 11.4 Compute the k closest stars
 
 #include <algorithm>
 #include <array>
