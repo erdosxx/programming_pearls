@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_INSERT_INTERVAL_H
 #define ALGORITHM_ANALYSIS_INSERT_INTERVAL_H
+// 14.5 Merging intervals
 
 #include <algorithm>
 #include <string>

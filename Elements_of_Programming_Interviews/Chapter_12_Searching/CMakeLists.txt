@@ -8,6 +8,10 @@ set(HEADER_FILES
         Bentleybsearch.h
         student_search.h
         Binary_search_first_k.h
+        Binary_search_first_larger_k.h
+        Binary_search_upper_lower_k.h
+        Binary_search_local_minimum.h
+        prefix_search.h
         Binary_search_Ai=i.h
         Binary_search_circular_array.h
         Binary_search_circular_array_with_duplicates.h

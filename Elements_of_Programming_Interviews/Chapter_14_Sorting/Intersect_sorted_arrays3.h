@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_INTERSECT_SORTED_ARRAYS3_H
 #define ALGORITHM_ANALYSIS_INTERSECT_SORTED_ARRAYS3_H
+// 14.1 Compute the intersection of two sorted arrays
 
 #include <vector>
 
@@ -18,7 +19,7 @@ namespace IntersectTwoSortedArrays3 {
                 ++i, ++j;
             } else if (A[i] < B[j]) {
                 ++i;
-            } else {  // A[i] > B[j].
+            } else {  // A[i] > B[j] or A[i] == B[j] && A[i] == A[i-1]
                 ++j;
             }
         }

@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_UNION_INTERVALS_H
 #define ALGORITHM_ANALYSIS_UNION_INTERVALS_H
+// 14.6 Compute the union of intervals
 
 #include <algorithm>
 #include <vector>

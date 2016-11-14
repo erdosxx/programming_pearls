@@ -3,12 +3,10 @@
 // 25.12 Compute the maximum of a sliding window
 
 #include <queue>
-#include <stdexcept>
 #include <vector>
 
 #include "Queue_with_max_alternative.h"
 
-using std::length_error;
 using std::queue;
 using std::vector;
 using QueueWithMaxAlternative::QueueWithMax;

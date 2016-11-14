@@ -3,6 +3,7 @@
 #include <limits>
 #include <unordered_set>
 #include <cmath>
+#include <memory>
 #include "hash_tables_boot_camp.h"
 #include "Hash_dictionary.h"
 #include "Anagrams.h"
@@ -40,6 +41,7 @@ using btree_with_parent::BinaryTreeNode;
 using std::ostream_iterator;
 using near::FindNearestRepetition;
 using distinct::LongestSubarrayWithDistinctEntries;
+using std::make_unique;
 
 class Ch13Hash_Tables_Fixture : public ::testing::Test {
 private:

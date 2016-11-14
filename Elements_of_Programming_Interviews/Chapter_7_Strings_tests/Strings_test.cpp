@@ -234,6 +234,13 @@ TEST_F(Strings_Fixture, stl_library) {
     s2= s1.substr(2,3);  //   ^ ^
     ASSERT_EQ("cde", s2);
 
+    // substr more than size
+    s1= "abcd";
+    s2= s1.substr(0,5);
+    ASSERT_EQ("abcd", s2);
+    s2= s1.substr(0,15);  // just copy existing.
+    ASSERT_EQ("abcd", s2);
+
     // n = s.compare(s2)
     // A lexicographical comparision of s and s2;
     // using char_traits<C>::compare() for comparison;

@@ -7,6 +7,10 @@
 #include "Bentleybsearch.h"
 #include "student_search.h"
 #include "Binary_search_first_k.h"
+#include "Binary_search_first_larger_k.h"
+#include "Binary_search_local_minimum.h"
+#include "Binary_search_upper_lower_k.h"
+#include "prefix_search.h"
 #include "Binary_search_Ai=i.h"
 #include "Binary_search_circular_array.h"
 #include "Binary_search_circular_array_with_duplicates.h"
@@ -32,6 +36,7 @@ using std::max;
 using std::binary_search;
 using std::lower_bound;
 using std::upper_bound;
+using std::mismatch;
 
 class Ch12Searching_Fixture : public ::testing::Test {
 private:
@@ -47,6 +52,10 @@ protected:
     static void RandomTestFixedN(int N);
     static void TestAllOrders(const vector<int>& order, vector<int>* A_ptr);
 
+    string p_12_1_4_rand_string(int len);
+
+    bool p_12_1_4_check_ans(const vector<string>& A, const string& target);
+
 public:
     Ch12Searching_Fixture() : Test() {
 
@@ -55,6 +64,35 @@ public:
     virtual ~Ch12Searching_Fixture() {
     }
 };
+
+bool is_prefix(const string& prefix, const string& a) {
+    if (prefix.size() > a.size()) {
+        return false;
+    }
+    return mismatch(prefix.cbegin(), prefix.cend(), a.cbegin()).first == prefix.cend();
+}
+
+bool Ch12Searching_Fixture::p_12_1_4_check_ans(const vector<string>& A, const string& target) {
+    for (const string& s : A) {
+        // s.compare(target) > 0 <=> s > target
+        if (s.compare(target) > 0 && !is_prefix(target, s)) {
+            return false;
+        } else if (is_prefix(target, s)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+string Ch12Searching_Fixture::p_12_1_4_rand_string(int len) {
+    default_random_engine gen((random_device())());
+    uniform_int_distribution<char> dis('a', 'z');
+    string ret;
+    while (len--) {
+        ret += dis(gen);
+    }
+    return ret;
+}
 
 void Ch12Searching_Fixture::CheckOrderStatistic(int K, bool increasing_order,
                                 vector<int>* A_ptr) {
@@ -305,6 +343,307 @@ TEST_F(Ch12Searching_Fixture, first_k_bsearch_Function) {
         }
     }
 
+}
+
+TEST_F(Ch12Searching_Fixture, first_larger_k_bsearch_Function) {
+    vector<int> A = {0, 1, 2, 3, 4, 5, 6, 7};
+    ASSERT_EQ(1, SearchFirstOfLargerK(A, 0));
+    ASSERT_EQ(1, distance(A.cbegin(), upper_bound(A.cbegin(), A.cend(), 0)));
+
+    ASSERT_EQ(2, SearchFirstOfLargerK(A, 1));
+    ASSERT_EQ(2, distance(A.cbegin(), upper_bound(A.cbegin(), A.cend(), 1)));
+
+    ASSERT_EQ(5, SearchFirstOfLargerK(A, 4));
+    ASSERT_EQ(5, distance(A.cbegin(), upper_bound(A.cbegin(), A.cend(), 4)));
+
+    ASSERT_EQ(7, SearchFirstOfLargerK(A, 6));
+    ASSERT_EQ(7, distance(A.cbegin(), upper_bound(A.cbegin(), A.cend(), 6)));
+
+    ASSERT_EQ(-1, SearchFirstOfLargerK(A, 7));
+    // upper_bound go to end() when it cannot found it in array.
+    ASSERT_EQ(8, distance(A.cbegin(), upper_bound(A.cbegin(), A.cend(), 7)));
+
+    ASSERT_EQ(-1, SearchFirstOfLargerK(A, 8));
+    // lower_bound: If all the element in the range compare less than val,
+    // the function returns last.
+    ASSERT_EQ(0, distance(A.cend(), upper_bound(A.cbegin(), A.cend(), 8)));
+
+    ASSERT_EQ(0, SearchFirstOfLargerK(A, numeric_limits<int>::min()));
+    ASSERT_EQ(0, distance(A.cbegin(), upper_bound(A.cbegin(), A.cend(), numeric_limits<int>::min())));
+
+    A = {1, 1, 2, 3, 4, 5, 6, 7};
+    ASSERT_EQ(2, SearchFirstOfLargerK(A, 1));
+    ASSERT_EQ(2, distance(A.cbegin(), upper_bound(A.cbegin(), A.cend(), 1)));
+
+    A = {1, 1, 2, 3, 4, 4, 4, 7};
+    ASSERT_EQ(7, SearchFirstOfLargerK(A, 4));
+    ASSERT_EQ(7, distance(A.cbegin(), upper_bound(A.cbegin(), A.cend(), 4)));
+
+    A = {1, 1, 1, 1, 1, 2};
+    ASSERT_EQ(0, SearchFirstOfLargerK(A, 0));
+    ASSERT_EQ(0, distance(A.cbegin(), upper_bound(A.cbegin(), A.cend(), 0)));
+    ASSERT_EQ(5, SearchFirstOfLargerK(A, 1));
+    ASSERT_EQ(5, distance(A.cbegin(), upper_bound(A.cbegin(), A.cend(), 1)));
+    ASSERT_EQ(-1, SearchFirstOfLargerK(A, 2));
+    ASSERT_EQ(6, distance(A.cbegin(), upper_bound(A.cbegin(), A.cend(), 2)));
+
+    A = {1, 1, 1, 1, 2, 2};
+    ASSERT_EQ(-1, SearchFirstOfLargerK(A, 2));
+    ASSERT_EQ(6, distance(A.cbegin(), upper_bound(A.cbegin(), A.cend(), 2)));
+
+    A = {1, 3, 5, 7, 9, 11};
+    ASSERT_EQ(3, SearchFirstOfLargerK(A, 6));
+    // lower_bound:
+    // Returns an iterator pointing to the first element in the range [first,last)
+    // which does not compare less than val.
+    ASSERT_EQ(3, distance(A.cbegin(), upper_bound(A.cbegin(), A.cend(), 6))); // 7
+
+    default_random_engine gen((random_device())());
+
+    for (int times = 0; times < 10; ++times) {
+        uniform_int_distribution<int> dis(1, 1000);
+        int n = dis(gen);
+
+        vector<int> A;
+        uniform_int_distribution<int> k_dis(0, n - 1);
+        int k = k_dis(gen);
+        for (int i = 0; i < n; ++i) {
+            uniform_int_distribution<int> dis(0, n - 1);
+            A.emplace_back(dis(gen));
+        }
+        sort(A.begin(), A.end());
+
+        int ans = SearchFirstOfLargerK(A, k);
+
+        auto it2 = upper_bound(A.cbegin(), A.cend(), k);
+        if (it2 == A.cend()) {
+            ASSERT_EQ(-1, ans);
+        } else {
+            ASSERT_EQ(distance(A.cbegin(), it2), ans);
+        }
+    }
+}
+
+TEST_F(Ch12Searching_Fixture, bsearch_local_minimum) {
+    vector<int> A = {1};
+    ASSERT_EQ(-1, search_local_minimum(A));
+
+    A = {1, 1};
+    ASSERT_EQ(-1, search_local_minimum(A));
+
+    A = {1, 1, 3, 4, 5, 6};
+    ASSERT_EQ(1, search_local_minimum(A));
+
+    A = {1, -1, 3, 4, 5, 6};
+    ASSERT_EQ(1, search_local_minimum(A));
+
+    A = {1, -1, -1, -1, -1, 1};
+    // accoring to program algorithm we get index = middle of 1 and 4
+    ASSERT_EQ(2, search_local_minimum(A));
+
+    A = {1, 1, 1, 1, 1, 1};
+    // accoring to program algorithm we get index = middle of 1 and 4
+    ASSERT_EQ(2, search_local_minimum(A));
+
+    A = {1, -1, 2};
+    ASSERT_EQ(1, search_local_minimum(A));
+
+    A = {1, -1, 2, 3};
+    ASSERT_EQ(1, search_local_minimum(A));
+
+    A = {1, -1, -2, 3};
+    ASSERT_EQ(2, search_local_minimum(A));
+
+    A = {1, -1, 1, -1, 1};
+    ASSERT_EQ(3, search_local_minimum(A));
+
+    default_random_engine gen((random_device()) ());
+
+    for (int times = 0; times < 10000; ++times) {
+        uniform_int_distribution<int> dis(3, 100);
+        int n = dis(gen);
+
+        vector<int> A(n);
+        //uniform_int_distribution<int> k_dis(numeric_limits<int>::min(), numeric_limits<int>::max());
+        uniform_int_distribution<int> k_dis(-10000, 10000);
+        int k = k_dis(gen);
+        A[0] = k;
+
+        //uniform_int_distribution<int> k_dis1(numeric_limits<int>::min(), k);
+        uniform_int_distribution<int> k_dis1(-10000, k);
+        int k2 = k_dis1(gen);
+        A[1] = k2;
+
+        k = k_dis(gen);
+        A[n-1] = k;
+        //uniform_int_distribution<int> k_dis2(numeric_limits<int>::min(), k);
+        if (n == 3) {
+            uniform_int_distribution<int> k_dis2(-10000, min(A[0], A[n-1]));
+            k2 = k_dis2(gen);
+        } else {
+            uniform_int_distribution<int> k_dis2(-10000, k);
+            k2 = k_dis2(gen);
+        }
+        A[n - 2] = k2;
+
+        for (int i = 2; i < n-3; ++i) {
+            //uniform_int_distribution<int> dis3(numeric_limits<int>::min(), numeric_limits<int>::max());
+            uniform_int_distribution<int> dis3(-10000, 10000);
+            A[i] = dis(gen);
+        }
+
+        int ans = search_local_minimum(A);
+
+        /*
+        cout << endl;
+        cout << "n = " << n << endl;
+        cout << "ans = " << ans << endl;
+        cout << "A = " << endl;
+        for (int i =0; i < A.size(); ++i) {
+            cout << A[i] <<", " << endl;
+        }
+        cout << endl;
+        */
+
+        ASSERT_NE(-1, ans);
+        ASSERT_TRUE(check_local_minimum(A, ans));
+    }
+}
+
+TEST_F(Ch12Searching_Fixture, bsearch_upper_lower_k) {
+    vector<int> A = {0, 1, 2, 3, 4, 5, 6, 7};
+    ASSERT_EQ(0, SearchLastOfK(A, 0));
+    ASSERT_EQ(1, SearchLastOfK(A, 1));
+    ASSERT_EQ(4, SearchLastOfK(A, 4));
+    ASSERT_EQ(6, SearchLastOfK(A, 6));
+    ASSERT_EQ(7, SearchLastOfK(A, 7));
+    ASSERT_EQ(-1, SearchLastOfK(A, 8));
+    ASSERT_EQ(-1, SearchLastOfK(A, numeric_limits<int>::min()));
+
+    A = {1, 1, 2, 3, 4, 5, 6, 7};
+    ASSERT_EQ(1, SearchLastOfK(A, 1));
+
+    A = {1, 1, 2, 3, 4, 4, 4, 7};
+    ASSERT_EQ(6, SearchLastOfK(A, 4));
+
+    A = {1, 1, 1, 1, 1, 2};
+    ASSERT_EQ(-1, SearchLastOfK(A, 0));
+    ASSERT_EQ(4, SearchLastOfK(A, 1));
+    ASSERT_EQ(5, SearchLastOfK(A, 2));
+
+    A = {1, 1, 1, 1, 2, 2};
+    ASSERT_EQ(5, SearchLastOfK(A, 2));
+
+    A = {1, 3, 5, 7, 9, 11};
+    ASSERT_EQ(-1, SearchLastOfK(A, 6));
+
+    ///// lower_upper
+    A = {0};
+    ASSERT_EQ(-1, lower_upper(A, 1).low);
+    ASSERT_EQ(-1, lower_upper(A, 1).high);
+
+    A = {0};
+    ASSERT_EQ(0, lower_upper(A, 0).low);
+    ASSERT_EQ(0, lower_upper(A, 0).high);
+
+    A = {0,0,0};
+    ASSERT_EQ(0, lower_upper(A, 0).low);
+    ASSERT_EQ(2, lower_upper(A, 0).high);
+
+    A = {0,0,1,1,1,3,3};
+    ASSERT_EQ(2, lower_upper(A, 1).low);
+    ASSERT_EQ(4, lower_upper(A, 1).high);
+    ASSERT_EQ(-1, lower_upper(A, 2).low);
+    ASSERT_EQ(-1, lower_upper(A, 2).high);
+    ASSERT_EQ(5, lower_upper(A, 3).low);
+    ASSERT_EQ(6, lower_upper(A, 3).high);
+    ASSERT_EQ(-1, lower_upper(A, -1).low);
+    ASSERT_EQ(-1, lower_upper(A, -1).high);
+    ASSERT_EQ(-1, lower_upper(A, 10).low);
+    ASSERT_EQ(-1, lower_upper(A, 10).high);
+    default_random_engine gen((random_device())());
+
+    for (int times = 0; times < 1000; ++times) {
+        uniform_int_distribution<int> dis(1, 1000);
+        int n = dis(gen);
+
+        vector<int> A;
+        uniform_int_distribution<int> k_dis(0, n - 1);
+        int k = k_dis(gen);
+
+        for (int i = 0; i < n; ++i) {
+            uniform_int_distribution<int> dis(0, n - 1);
+            A.emplace_back(dis(gen));
+        }
+        sort(A.begin(), A.end());
+
+        low_high result = lower_upper(A, k);
+        if (result.low > 0) {
+            ASSERT_LT(A[result.low -1], A[result.low]);
+        }
+
+        if (result.high < A.size()-1) {
+            ASSERT_LT(A[result.high], A[result.high +1]);
+        }
+
+        if (result.low != -1) {
+            ASSERT_EQ(A[result.low], k);
+        }
+
+        if (result.high != -1) {
+            ASSERT_EQ(A[result.high], k);
+        }
+    }
+}
+
+TEST_F(Ch12Searching_Fixture, prefix_search) {
+    vector<string> A = {"a"};
+    ASSERT_EQ(-1, search_prefix(A, "z"));
+
+    A = {"a"};
+    ASSERT_EQ(0, search_prefix(A, "a"));
+
+    A = {"a", "b", "c"};
+    ASSERT_EQ(1, search_prefix(A, "b"));
+
+    A = {"a", "bc", "c"};
+    ASSERT_EQ(1, search_prefix(A, "b"));
+
+    A = {"a", "bc", "c"};
+    ASSERT_EQ(-1, search_prefix(A, "bcd"));
+
+    A = {"aardvark", "ant", "antelope", "bat", "cat", "dog", "emu"};
+    ASSERT_EQ(2, search_prefix(A, "ante"));
+    ASSERT_EQ(1, search_prefix(A, "ant"));
+    ASSERT_EQ(-1, search_prefix(A, "anti"));
+
+    default_random_engine gen((random_device())());
+    for (int times = 0; times < 100; ++times) {
+        size_t n;
+        uniform_int_distribution<size_t> n_dis(0, 1000);
+        n = n_dis(gen);
+
+        uniform_int_distribution<int> A_dis(1, 20);
+        vector<string> A;
+        generate_n(back_inserter(A), n, [&] { return p_12_1_4_rand_string(A_dis(gen)); });
+        sort(A.begin(), A.end());
+        /*
+        for (const string& a : A) {
+          cout << a << " ";
+        }
+        cout << endl;
+        */
+        string target = p_12_1_4_rand_string(A_dis(gen));
+        // cout << "target = " << target << endl;
+        int result = search_prefix(A, target);
+        // cout << std::boolalpha << result << " " << ans << endl;
+        if (result != -1) {
+            ASSERT_EQ(target, A[result].substr(0, target.size()));
+        }
+        else { // not exist
+            ASSERT_FALSE(p_12_1_4_check_ans(A, target));
+        }
+    }
 }
 
 TEST_F(Ch12Searching_Fixture, bsearch_ai_eq_i_Function) {

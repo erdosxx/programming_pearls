@@ -9,7 +9,6 @@
 #include <queue>
 #include <random>
 #include <set>
-#include <stdexcept>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -17,7 +16,6 @@
 using std::default_random_engine;
 using std::greater;
 using std::ifstream;
-using std::invalid_argument;
 using std::map;
 using std::ofstream;
 using std::priority_queue;

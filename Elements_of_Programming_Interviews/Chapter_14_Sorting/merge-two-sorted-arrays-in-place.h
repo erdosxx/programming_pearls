@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_MERGE_TWO_SORTED_ARRAYS_IN_PLACE_H
 #define ALGORITHM_ANALYSIS_MERGE_TWO_SORTED_ARRAYS_IN_PLACE_H
+// 14.2 Merge two sorted arrays
 
 #include <algorithm>
 #include <string>

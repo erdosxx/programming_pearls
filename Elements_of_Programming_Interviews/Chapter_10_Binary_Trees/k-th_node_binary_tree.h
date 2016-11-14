@@ -3,9 +3,7 @@
 // 10.9 Compute the kth node in an inorder traversal
 
 #include <memory>
-#include <stdexcept>
 
-using std::length_error;
 using std::make_unique;
 using std::unique_ptr;
 

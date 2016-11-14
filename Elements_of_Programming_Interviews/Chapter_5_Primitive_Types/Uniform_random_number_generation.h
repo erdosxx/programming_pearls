@@ -2,9 +2,9 @@
 #define ALGORITHM_ANALYSIS_UNIFORM_RANDOM_NUMBER_GENERATION_H
 // 5.10 Generate uniform random numbers
 
-
 #include <random>
 
+using std::default_random_engine;
 using std::random_device;
 using std::uniform_int_distribution;
 

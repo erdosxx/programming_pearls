@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_ELIMINATE_DUPLICATE_H
 #define ALGORITHM_ANALYSIS_ELIMINATE_DUPLICATE_H
+// 14.3 Remove first-name duplicates
 
 #include <algorithm>
 #include <string>

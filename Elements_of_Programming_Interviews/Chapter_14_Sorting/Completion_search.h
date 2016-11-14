@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_COMPLETION_SEARCH_H
 #define ALGORITHM_ANALYSIS_COMPLETION_SEARCH_H
+// 14.10 Compute a salary threshold
 
 #include <algorithm>
 #include <vector>

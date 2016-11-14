@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_TEAM_PHOTO_1_H
 #define ALGORITHM_ANALYSIS_TEAM_PHOTO_1_H
+// 14.8 Team photo day - 1
 
 #include <algorithm>
 #include <vector>

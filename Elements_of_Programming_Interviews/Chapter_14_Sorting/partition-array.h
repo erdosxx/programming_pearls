@@ -1,5 +1,6 @@
 #ifndef ALGORITHM_ANALYSIS_PARTITION_ARRAY_H
 #define ALGORITHM_ANALYSIS_PARTITION_ARRAY_H
+// 14.7 Partitioning and sorting an array with many repeated entries
 
 #include <algorithm>
 #include <functional>
