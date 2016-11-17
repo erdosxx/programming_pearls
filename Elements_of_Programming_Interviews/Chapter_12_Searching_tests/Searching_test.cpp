@@ -21,6 +21,7 @@
 #include "order_statistic.h"
 #include "Missing_element.h"
 #include "Find_missing_and_duplicate_XOR.h"
+#include "min_index_distance.h"
 
 using std::istringstream;
 using std::stringstream;
@@ -1098,4 +1099,62 @@ TEST_F(Ch12Searching_Fixture, missing_and_dup_Function) {
         // cout << ans.duplicate << ' ' << ans.missing << endl;
         ASSERT_TRUE(ans.duplicate == dup && ans.missing == missing);
     }
+}
+
+TEST_F(Ch12Searching_Fixture, min_index_distance) {
+    vector<int> test = {1, 4, 7, 3, 3, 5};
+    map<int, vector<int>> index_map;
+
+    for (int i = 0; i < test.size() ; ++i) {
+        index_map[test[i]].emplace_back(i);
+    }
+
+    //vector<int>& idx_vec = index_map.find(3)->second;
+    vector<int>& idx_vec = index_map.at(3);
+    ASSERT_EQ(3, idx_vec[0]);
+    ASSERT_EQ(4, idx_vec[1]);
+    ASSERT_EQ(2, idx_vec.size());
+
+    //idx_vec = index_map.find(4)->second;
+    idx_vec = index_map.at(4);
+    ASSERT_EQ(1, idx_vec[0]);
+    ASSERT_EQ(1, idx_vec.size());
+
+    vector<int> vec1 = {1,2,5};
+    vector<int> vec2 = {4,6,7};
+    ASSERT_EQ(1, min_distance(vec1, vec2));
+
+    vec1 = {1,3,7,8};
+    vec2 = {2,4,9,10};
+    ASSERT_EQ(1, min_distance(vec1, vec2));
+
+    vec1 = {3};
+    vec2 = {10};
+    ASSERT_EQ(7, min_distance(vec1, vec2));
+
+    vec1 = {3, 5};
+    vec2 = {10};
+    ASSERT_EQ(5, min_distance(vec1, vec2));
+
+    vec1 = {3, 5};
+    vec2 = {1, 10};
+    ASSERT_EQ(2, min_distance(vec1, vec2));
+
+    vec1 = {3,3,3,3,3,3,3};
+    ASSERT_EQ(-1, Solution(vec1));
+
+    vec1 = {1,4,7,3,3,5};
+    ASSERT_EQ(2, Solution(vec1));
+
+    vec1 = {0,3,3,7,5,3,11,1};
+    ASSERT_EQ(1, Solution(vec1));
+
+    vec1 = {3,3,3,3,5,5,5,5};
+    ASSERT_EQ(1, Solution(vec1));
+
+    vec1 = {3};
+    ASSERT_EQ(-1, Solution(vec1));
+
+    vec1 = {3, 5};
+    ASSERT_EQ(1, Solution(vec1));
 }

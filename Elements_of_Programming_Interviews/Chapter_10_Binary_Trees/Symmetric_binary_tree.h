@@ -8,18 +8,9 @@
 
 #include "Binary_tree_prototype.h"
 
-using std::make_unique;
 using std::unique_ptr;
 using btree::BinaryTreeNode;
 using btree_ptr= unique_ptr<BinaryTreeNode<int>>;
-
-bool CheckSymmetric(const btree_ptr &,
-                    const btree_ptr &);
-
-// @include
-bool IsSymmetric(const btree_ptr & tree) {
-    return tree == nullptr || CheckSymmetric(tree->left, tree->right);
-}
 
 bool CheckSymmetric(const btree_ptr & subtree_0,
                     const btree_ptr & subtree_1) {
@@ -33,6 +24,9 @@ bool CheckSymmetric(const btree_ptr & subtree_0,
     // One subtree is empty, and the other is not.
     return false;
 }
-// @exclude
+
+bool IsSymmetric(const btree_ptr & tree) {
+    return tree == nullptr || CheckSymmetric(tree->left, tree->right);
+}
 
 #endif //ALGORITHM_ANALYSIS_SYMMETRIC_BINARY_TREE_H

@@ -23,6 +23,7 @@
 #include "Pretty_printing.h"
 #include "Longest_nondecreasing_subsequence_n2.h"
 #include "Longest_nondecreasing_subsequence_nlogn.h"
+#include "fibonacci_rakuten.h"
 
 using std::istringstream;
 using std::stringstream;
@@ -229,6 +230,10 @@ void Ch17_DP_Fixture::CheckMaxSum(const vector<int>& A, int max_sum) {
             ASSERT_LE(sum, max_sum);
         }
     }
+}
+
+TEST_F(Ch17_DP_Fixture, Fibonacci_rakuten) {
+    ASSERT_EQ(29, solution(3,4,5));
 }
 
 TEST_F(Ch17_DP_Fixture, Fibonacci_Function) {

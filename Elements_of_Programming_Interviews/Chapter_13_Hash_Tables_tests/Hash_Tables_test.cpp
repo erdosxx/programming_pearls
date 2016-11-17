@@ -240,6 +240,7 @@ TEST_F(Ch13Hash_Tables_Fixture, hash_tables_boot_camp) {
     un_map.emplace("f", 6);
     ASSERT_EQ(6, un_map.size());
     ASSERT_EQ(6, un_map.find("f")->second);
+    ASSERT_EQ(6, un_map.at("f"));
     ASSERT_EQ("f", un_map.find("f")->first);
 
     un_map.erase("f");

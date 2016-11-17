@@ -22,6 +22,7 @@ set(HEADER_FILES
         order_statistic.h
         Missing_element.h
         Find_missing_and_duplicate_XOR.h
+        min_index_distance.h
         )
 
 #set(SOURCE_FILES
