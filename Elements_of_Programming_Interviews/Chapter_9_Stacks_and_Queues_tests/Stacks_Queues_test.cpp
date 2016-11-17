@@ -7,6 +7,7 @@
 #include "Stack_with_max.h"
 #include "Stack_with_max_improved.h"
 #include "RPN.h"
+#include "Polish_Notation.h"
 #include "valid-parentheses.h"
 #include "normalized_pathnames.h"
 #include "Search_postings_list_iterative.h"
@@ -26,6 +27,7 @@ using std::unique_ptr;
 using std::numeric_limits;
 using std::make_shared;
 using std::shared_ptr;
+using std::make_unique;
 
 class StacksQueues_Fixture : public ::testing::Test {
 protected:
@@ -183,6 +185,33 @@ TEST_F(StacksQueues_Fixture, RPN_Function) {
     ASSERT_EQ(15, Eval("1,2,+,3,4,*,+"));
     ASSERT_EQ(42, Eval("1,2,3,4,5,+,*,+,+,3,4,*,+"));
     ASSERT_EQ(-6, Eval("1,2,3,4,5,+,*,+,+,3,4,*,+,-7,/"));
+}
+
+TEST_F(StacksQueues_Fixture, Polish_Notation) {
+    ASSERT_TRUE(isNumber("2342"));
+    ASSERT_TRUE(isNumber("-2342"));
+    ASSERT_FALSE(isNumber("A"));
+    ASSERT_FALSE(isNumber("-A"));
+    ASSERT_FALSE(isNumber("-A123"));
+    ASSERT_FALSE(isNumber("+"));
+    ASSERT_FALSE(isNumber("-"));
+    ASSERT_FALSE(isNumber("/"));
+    ASSERT_FALSE(isNumber("*"));
+
+    ASSERT_EQ(3, eval_polish_notation("+,1,2"));
+    ASSERT_EQ(-1, eval_polish_notation("-,1,2"));
+    ASSERT_EQ(2, eval_polish_notation("/,2,1"));
+    ASSERT_EQ(2, eval_polish_notation("*,2,1"));
+    // b*c + a + (d*e + f)*g
+    // 2*3 + 1 + (4*5 + 6)*7 = 189
+    ASSERT_EQ(7, eval_polish_notation("+,*,2,3,1"));
+    ASSERT_EQ(182, eval_polish_notation("*,+,*,4,5,6,7"));
+    ASSERT_EQ(189, eval_polish_notation("+,*,+,*,4,5,6,7,7"));
+    ASSERT_EQ(3, eval_polish_notation("+,1,*,1,2"));
+    ASSERT_EQ(1, eval_polish_notation("+,1,/,1,2"));
+    ASSERT_EQ(189, eval_polish_notation("+,7,182"));
+    ASSERT_EQ(189, eval_polish_notation("+,7,*,26,7"));
+    ASSERT_EQ(189, eval_polish_notation("+,+,*,2,3,1,*,+,*,4,5,6,7"));
 }
 
 TEST_F(StacksQueues_Fixture, valid_parentheses_Function) {

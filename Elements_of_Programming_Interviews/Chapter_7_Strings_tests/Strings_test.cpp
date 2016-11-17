@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <random>
+#include <stdexcept>
 #include <cctype>
 #include <cstdio> // for sprintf
 #include "strings_boot_camp.h"
@@ -32,6 +33,8 @@ using std::isupper;
 using std::isalnum;
 using std::isdigit;
 using std::sprintf;
+using std::invalid_argument;
+using std::to_string;
 //using rabin_karp::RabinKarp;
 
 class Strings_Fixture : public ::testing::Test {
@@ -52,9 +55,71 @@ public:
     int p_7_13_CheckAnswer(const string &t, const string &s);
     string p_7_13_RandString(int len);
 
+    string p_7_4_RandString(int len);
+    bool p_7_4_CheckAns(const string &s, const string &ans);
+    string p_7_6_RandString(int len);
+    bool p_7_6_CheckAnswer(const string &ori, string *str);
+    string p_7_7_RandString(int len);
+
     virtual ~Strings_Fixture() {
     }
 };
+
+string p_7_7_RandString(int len) {
+    default_random_engine gen((random_device()) ());
+    string ret;
+    while (len--) {
+        uniform_int_distribution<char> dis('0', '9');
+        ret += dis(gen);
+    }
+    return ret;
+}
+
+string Strings_Fixture::p_7_4_RandString(int len) {
+    default_random_engine gen((random_device()) ());
+    string ret;
+    while (len--) {
+        uniform_int_distribution<char> dis('a', 'd');
+        ret += dis(gen);
+    }
+    return ret;
+}
+
+string Strings_Fixture::p_7_6_RandString(int len) {
+    default_random_engine gen((random_device()) ());
+    string ret;
+
+    while (len--) {
+        uniform_int_distribution<int> dis(0, 52);
+        int ch = dis(gen);
+
+        if (ch == 52) {
+            ret += ' ';
+        } else if (ch < 26) {
+            ret += ch + 'a';
+        } else {
+            ret += ch - 26 + 'A';
+        }
+    }
+    return ret;
+}
+
+bool Strings_Fixture::p_7_6_CheckAnswer(const string &ori, string *str) {
+    reverse_words::ReverseWords(str);
+    return ori.compare(*str) == 0;
+}
+
+bool Strings_Fixture::p_7_4_CheckAns(const string &s, const string &ans) {
+    string temp;
+    for (int i = 0; i < s.size(); ++i) {
+        if (s[i] == 'a') {
+            temp += 'd', temp += 'd';
+        } else if (s[i] != 'b') {
+            temp += s[i];
+        }
+    }
+    return ans.compare(temp) == 0;
+}
 
 string Strings_Fixture::p_7_3_RandString(int len) {
     default_random_engine gen((random_device())());
@@ -156,6 +221,11 @@ TEST_F(Strings_Fixture, stl_library) {
     s1.insert(p, ' '+ s2);  // insert before p.
     ASSERT_EQ("a middle b", s1);
 
+    // find from start position
+    s1="a b c d";
+    size_t p1 = s1.find(" ",4); // search from c
+    ASSERT_EQ(5, p1);
+
     s1= "a b";
     s1.insert(p, {' ', '|', 'm', '|'});
     ASSERT_EQ("a |m| b", s1);
@@ -204,6 +274,11 @@ TEST_F(Strings_Fixture, stl_library) {
 
     float x3 = stof(s1); // convert to float
     ASSERT_EQ(Compare(x3, 123.45), SMALLER);
+    // for non numeric data, throw invalid_argument.
+    s1 = "+";
+    size_t idx;
+    ASSERT_THROW(stoi(s1, &idx), invalid_argument);
+
     // integer -> string
     // itoa
     // This function is not defined in ANSI-C and is not part of C++, but is supported by some compilers.
@@ -216,6 +291,13 @@ TEST_F(Strings_Fixture, stl_library) {
     string str(carray);
     ASSERT_EQ("324", str);
     delete [] carray;
+    // to_string
+    x = 12;
+    string x_str = to_string(x);
+    ASSERT_EQ("12", x_str);
+    x = -12;
+    x_str = to_string(x);
+    ASSERT_EQ("-12", x_str);
 
     // sort
     s1="dfceab";
@@ -330,16 +412,23 @@ TEST_F(Strings_Fixture, spreadsheet_encoding_Function) {
 }
 
 TEST_F(Strings_Fixture, replace_and_remove_Function) {
+    ASSERT_EQ(2, 1<<1);  // 1 = 1   -> 10   = 2
+    ASSERT_EQ(4, 2<<1);  // 2 = 10  -> 100  = 4
+    ASSERT_EQ(6, 3<<1);  // 3 = 11  -> 110  = 6
+    ASSERT_EQ(8, 4<<1);  // 4 = 100 -> 1000 = 8
+    ASSERT_EQ(10, 5<<1); // 5 = 101 -> 1010 = 10
+
     default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(1, 1000);
-        string s = r_n_r::RandString(dis(gen));
+        string s = p_7_4_RandString(dis(gen));
 
+        //char *s_copy = new char[2 * s.size() + 1];
         char *s_copy = new char[(s.size() << 1) + 1];
         strcpy(s_copy, s.c_str());
         int final_size = r_n_r::ReplaceAndRemove(s.size(), s_copy);
-        ASSERT_TRUE(r_n_r::CheckAns(s, string(s_copy, final_size)));
+        ASSERT_TRUE(p_7_4_CheckAns(s, string(s_copy, final_size)));
     }
 }
 
@@ -360,25 +449,29 @@ TEST_F(Strings_Fixture, Reverse_words_Function) {
     reverse_words::ReverseWords(&input);
     ASSERT_TRUE(input.compare("dog") == 0);
 
-    input = "a  bbb cc";
+    input = "a  abc cd";
     reverse_words::ReverseWords(&input);
-    ASSERT_TRUE(input.compare("cc bbb  a") == 0);
+    ASSERT_TRUE(input.compare("cd abc  a") == 0);
+
+    input = " abc";
+    reverse_words::ReverseWords(&input);
+    ASSERT_TRUE(input.compare("abc ") == 0);
 
     default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(0, 9999);
-        string str = reverse_words::RandString(dis(gen));
+        string str = p_7_6_RandString(dis(gen));
 
         string original_str(str);
         reverse_words::ReverseWords(&str);
 
-        ASSERT_TRUE(reverse_words::CheckAnswer(original_str, &str));
+        ASSERT_TRUE(p_7_6_CheckAnswer(original_str, &str));
     }
 }
 
 /*  TODO: add testing with sort vector<string> and compare the result.
 TEST_F(Strings_Fixture, phone_mnemonic_Function) {
-    string num = phone::RandString(3);
+    string num = p_7_7_RandString(3);
     auto result = phone::PhoneMnemonic(num);
     cout << "number = " << num << endl;
     for (const string& str : result) {

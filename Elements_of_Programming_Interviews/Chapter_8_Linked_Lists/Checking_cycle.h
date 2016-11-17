@@ -10,7 +10,7 @@
 namespace cycle {
 
 // @include
-    shared_ptr<ListNode<int>> HasCycle(const shared_ptr<ListNode<int>> &head) {
+    shared_ptr<ListNode<int>> HasCycle(const shared_ptr<ListNode<int>>& head) {
         shared_ptr<ListNode<int>> fast = head;
         shared_ptr<ListNode<int>> slow = head;
 

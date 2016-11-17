@@ -16,7 +16,9 @@ namespace cycle_alt {
         shared_ptr<ListNode<int>> slow = head;
 
         while (fast && fast->next && fast->next->next) {
-            slow = slow->next, fast = fast->next->next;
+            slow = slow->next;
+            fast = fast->next->next;
+
             if (slow == fast) {  // There is a cycle.
                 // Tries to find the start of the cycle.
                 slow = head;

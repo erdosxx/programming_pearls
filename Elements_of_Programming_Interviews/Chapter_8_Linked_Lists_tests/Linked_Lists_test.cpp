@@ -968,6 +968,7 @@ TEST_F(LinkedLists_Fixture, reverse_list_in_k_group_Function) {
 }
 
 TEST_F(LinkedLists_Fixture, cycle_Function) {
+    // 1 -> 2 -> 3
     shared_ptr<ListNode<int>> L3 =
             make_shared<ListNode<int>>(ListNode<int>{3, nullptr});
     shared_ptr<ListNode<int>> L2 =
@@ -980,6 +981,7 @@ TEST_F(LinkedLists_Fixture, cycle_Function) {
     ASSERT_TRUE(cycle_alt::HasCycle(L1) == nullptr);
 
     // make it a cycle
+    // 1 -> 2 <-> 3
     L3->next = L2;
     // should output "L1 has cycle, located at node has value 2"
     ASSERT_TRUE(cycle::HasCycle(L1) != nullptr);
@@ -1045,15 +1047,19 @@ TEST_F(LinkedLists_Fixture, deletion_list_Function) {
 }
 
 TEST_F(LinkedLists_Fixture, Remove_kth_last_list_Function) {
+    // L -> 1 -> 2 -> 3
     shared_ptr<ListNode<int>> L;
     L = make_shared<ListNode<int>>(ListNode<int>{
             1, make_shared<ListNode<int>>(ListNode<int>{
                     2, make_shared<ListNode<int>>(ListNode<int>{3, nullptr})})});
     L = RemoveKthLast(L, 2);
+    // L -> 1 -> 3
     ASSERT_TRUE(L->data == 1 && L->next->data == 3 && L->next->next == nullptr);
     L = RemoveKthLast(L, 2);
+    // L -> 3
     ASSERT_TRUE(L->data == 3 && L->next == nullptr);
     L = RemoveKthLast(L, 1);
+    // L
     ASSERT_TRUE(L == nullptr);
 }
 

@@ -46,16 +46,6 @@ namespace phone {
         }
     }
 // @exclude
-
-    string RandString(int len) {
-        default_random_engine gen((random_device()) ());
-        string ret;
-        while (len--) {
-            uniform_int_distribution<char> dis('0', '9');
-            ret += dis(gen);
-        }
-        return ret;
-    }
 }
 
 #endif //ALGORITHM_ANALYSIS_PHONE_MNEMONIC_H

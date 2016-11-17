@@ -21,7 +21,6 @@ int FindKth(int, Compare, vector<int>*);
 template <typename Compare>
 int PartitionAroundPivot(int, int, int, Compare, vector<int>*);
 
-// @include
 // The numbering starts from one, i.e., if A = [3,1,-1,2] then
 // FindKthLargest(1, A) returns 3, FindKthLargest(2, A) returns 2,
 // FindKthLargest(3, A) returns 1, and FindKthLargest(4, A) returns -1.
@@ -29,7 +28,6 @@ int FindKthLargest(int k, vector<int>* A_ptr) {
     return FindKth(k, greater<int>(), A_ptr);
 }
 
-// @exclude
 
 // The numbering starts from one, i.e., if A = [3,1,-1,2] then
 // FindKthSmallest(1, A) returns -1, FindKthSmallest(2, A) returns 1,
@@ -37,31 +35,31 @@ int FindKthLargest(int k, vector<int>* A_ptr) {
 int FindKthSmallest(int k, vector<int>* A_ptr) {
     return FindKth(k, less<int>(), A_ptr);
 }
-// @include
+
 template <typename Compare>
 int FindKth(int k, Compare comp, vector<int>* A_ptr) {
-    //vector<int>& A = *A_ptr;
+    vector<int>& A = *A_ptr;
 
     int left = 0;
-    int right = A_ptr->size() - 1;
+    int right = A.size() - 1;
 
     default_random_engine gen((random_device())());
     while (left <= right) {
         // Generates a random integer in [left, right].
         int pivot_idx = uniform_int_distribution<int>{left, right}(gen);
+
         int new_pivot_idx =
                 PartitionAroundPivot(left, right, pivot_idx, comp, A_ptr);
+
         if (new_pivot_idx == k - 1) {
-            return A_ptr->at(new_pivot_idx);
+            return A[new_pivot_idx];
         } else if (new_pivot_idx > k - 1) {
             right = new_pivot_idx - 1;
         } else {  // new_pivot_idx < k - 1.
             left = new_pivot_idx + 1;
         }
     }
-    // @exclude
     throw length_error("no k-th node in array A");
-    // @include
 }
 
 // Partition A[left : right] around pivot_idx, returns the new index of the

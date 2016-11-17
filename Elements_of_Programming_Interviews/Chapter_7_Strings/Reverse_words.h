@@ -8,26 +8,7 @@
 using std::string;
 
 namespace reverse_words {
-    string RandString(int len) {
-        default_random_engine gen((random_device()) ());
-        string ret;
 
-        while (len--) {
-            uniform_int_distribution<int> dis(0, 52);
-            int ch = dis(gen);
-
-            if (ch == 52) {
-                ret += ' ';
-            } else if (ch < 26) {
-                ret += ch + 'a';
-            } else {
-                ret += ch - 26 + 'A';
-            }
-        }
-        return ret;
-    }
-
-// @include
     void ReverseWords(string *s) {
         // Reverses the whole string first.
         // Reverses the order of the elements in the range [first,last)
@@ -37,6 +18,7 @@ namespace reverse_words {
         size_t end;
 
         // find: If no matches were found, the function returns string::npos.
+        // find : search from start.
         while ((end = s->find(" ", start)) != string::npos) {
             // Reverses each word in the string.
             reverse(s->begin() + start, s->begin() + end);
@@ -44,12 +26,6 @@ namespace reverse_words {
         }
         // Reverses the last word.
         reverse(s->begin() + start, s->end());
-    }
-// @exclude
-
-    bool CheckAnswer(const string &ori, string *str) {
-        ReverseWords(str);
-        return ori.compare(*str) == 0;
     }
 }
 

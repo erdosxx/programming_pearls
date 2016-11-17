@@ -9,6 +9,7 @@
 using std::stack;
 using std::string;
 using std::stringstream;
+using std::stoi;
 
 // @include
 int Eval(const string& RPN_expression) {
@@ -23,6 +24,8 @@ int Eval(const string& RPN_expression) {
             intermediate_results.pop();
             int x = intermediate_results.top();
             intermediate_results.pop();
+
+            //switch (token[0]) {
             switch (token.front()) {
                 case '+':
                     intermediate_results.emplace(x + y);

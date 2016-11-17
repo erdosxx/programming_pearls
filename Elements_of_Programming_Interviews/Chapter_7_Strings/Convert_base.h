@@ -7,9 +7,12 @@
 
 using std::string;
 
-string ConstructFromBase(int, int);
+string ConstructFromBase(int x, int base) {
+    return x == 0 ? "" : ConstructFromBase(x / base, base) +
+                         (char)(x % base >= 10 ? 'A' + x % base - 10
+                                               : '0' + x % base);
+}
 
-// @include
 string ConvertBase(const string& s, int b1, int b2) {
     bool is_negative = s.front() == '-';
 
@@ -21,12 +24,5 @@ string ConvertBase(const string& s, int b1, int b2) {
 
     return (is_negative ? "-" : "") + (x == 0 ? "0" : ConstructFromBase(x, b2));
 }
-
-string ConstructFromBase(int x, int base) {
-    return x == 0 ? "" : ConstructFromBase(x / base, base) +
-                         (char)(x % base >= 10 ? 'A' + x % base - 10
-                                               : '0' + x % base);
-}
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_CONVERT_BASE_H

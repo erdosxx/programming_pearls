@@ -8,6 +8,7 @@
 #include "k-balanced_binary_tree_erdos.h"
 #include "Symmetric_binary_tree.h"
 #include "Lowest_common_ancestor_no_parent.h"
+#include "Lowest_common_ancestor_employee.h"
 #include "Lowest_common_ancestor.h"
 #include "sum-root-to-leaf-binary-tree.h"
 #include "path-sum-binary-tree.h"
@@ -411,6 +412,40 @@ TEST_F(BinaryTrees_Fixture, LCA_no_prarent_Function) {
     // should output 2
     x = lca_no_parenet::LCA(tree, tree->left, tree->left);
     ASSERT_EQ(x->data, 2);
+}
+
+TEST_F(BinaryTrees_Fixture, lowest_common_ancestor_employee) {
+    //
+    //          Bill ------------> CEO
+    //       /     |    \            \
+    //     DOM      SAMIR  MICHAEL    Erdos
+    //      /  \  \
+    //  Peter  Bob  Porter
+    //   /   \
+    // Milton Nina                          Other
+    Employee Other{100, "Other", {}};
+    Employee Nina{32, "Nina", {}};
+    Employee Milton{31, "Milton", {}};
+    Employee Porter{23, "Porter", {}};
+    Employee Bob{22, "Bob", {}};
+    Employee Peter{21, "Peter", {&Milton, &Nina}};
+    Employee DOM{13, "DOM", {&Peter, &Bob, &Porter}};
+    Employee SAMIR{12, "SAMIR", {}};
+    Employee MICHAEL{11, "MICHAEL", {}};
+    Employee Bill{1, "Bill", {&DOM, &SAMIR, &MICHAEL}};
+    Employee Erdos{2, "Erdos", {}};
+    Employee CEO{0, "CEO", {&Bill, &Erdos}};
+    const Employee* ceo = &CEO;
+    const Employee* peter = &Peter;
+    const Employee* samir = &SAMIR;
+    const Employee* milton = &Milton;
+    const Employee* porter = &Porter;
+    const Employee* other = &Other;
+
+    ASSERT_EQ(closestCommonManager2(&CEO,peter,samir)->getName(), "Bill");
+    ASSERT_EQ(closestCommonManager2(&CEO,milton,peter)->getName(), "Peter");
+    ASSERT_EQ(closestCommonManager2(&CEO,milton,porter)->getName(), "DOM");
+    ASSERT_EQ(closestCommonManager2(&CEO,peter,other), nullptr);
 }
 
 TEST_F(BinaryTrees_Fixture, lowest_common_ancestor_Function) {

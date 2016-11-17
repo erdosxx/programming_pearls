@@ -10,6 +10,7 @@ set(HEADER_FILES
         Stack_with_max.h
         Stack_with_max_improved.h
         RPN.h
+        Polish_Notation.h
         valid-parentheses.h
         normalized_pathnames.h
         Postings_list_prototype.h

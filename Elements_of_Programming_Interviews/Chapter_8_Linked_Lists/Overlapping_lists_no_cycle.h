@@ -7,9 +7,8 @@
 int Length(shared_ptr<ListNode<int>> L);
 void AdvanceListByK(int k, shared_ptr<ListNode<int>>* L);
 
-// @include
 shared_ptr<ListNode<int>> OverlappingNoCycleLists(
-    shared_ptr<ListNode<int>> L1, shared_ptr<ListNode<int>> L2) {
+        shared_ptr<ListNode<int>> L1, shared_ptr<ListNode<int>> L2) {
   int L1_len = Length(L1);
   int L2_len = Length(L2);
 
@@ -38,6 +37,5 @@ void AdvanceListByK(int k, shared_ptr<ListNode<int>>* L) {
     *L = (*L)->next;
   }
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_OVERLAPPING_LISTS_NO_CYCLE_H

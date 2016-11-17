@@ -13,6 +13,7 @@ set(HEADER_FILES
         k-balanced_binary_tree_erdos.h
         Symmetric_binary_tree.h
         Lowest_common_ancestor_no_parent.h
+        Lowest_common_ancestor_employee.h
         Binary_tree_with_parent_prototype.h
         Lowest_common_ancestor.h
         sum-root-to-leaf-binary-tree.h

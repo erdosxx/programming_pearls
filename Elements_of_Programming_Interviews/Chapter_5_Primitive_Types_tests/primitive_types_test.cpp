@@ -53,6 +53,19 @@ TEST_F(Primitive_Types_Fixture, primitive_types_boot_camp) {
 
     bitset<10> b4 {"1010101010"};  // 1010101010
     bitset<10> b5 {"10110111011110", 4}; // 0111011110
+
+    // [] operator
+    bitset<10> bs1;
+    bs1[0] = 1;
+    ASSERT_EQ(bs1, bitset<10>{"000000001"});
+    bs1[3] = 1;
+    ASSERT_EQ(bs1, bitset<10>{"000001001"});
+    // initialise with constant
+    const int n = 5;
+    bitset<n> bs2;
+    bs2[4] = 1;
+    ASSERT_EQ(bs2, bitset<5>{"10000"});
+
     //                  ^
     ASSERT_EQ(b5, bitset<10>{"1011"});
     bitset<10> b6 {string{"1010101010"}};   // 1010101010

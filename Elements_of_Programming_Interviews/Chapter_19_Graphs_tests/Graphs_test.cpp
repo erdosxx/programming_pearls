@@ -402,7 +402,7 @@ TEST_F(Ch19_Graphs_Fixture, shortest_path_maze_simple_test) {
     maze3[3] = new int[4]{0, 1, 1, 0};
     maze3[4] = new int[4]{0, 0, 0, 0};
     ASSERT_EQ(5, findMinNumSteps(maze3, 5, 4, 4, 1));
-    ASSERT_EQ(5, jaythe1st::findMinNumSteps(maze3,5,4,4,1));
+    //ASSERT_EQ(5, jaythe1st::findMinNumSteps(maze3,5,4,4,1));
 
     /*
     for (int i = 0; i < 5; ++i) {
@@ -418,7 +418,7 @@ TEST_F(Ch19_Graphs_Fixture, shortest_path_maze_simple_test) {
     maze4[3] = new int[4]{0, 1, 1, 0};
     maze4[4] = new int[4]{0, 0, 1, 0};
     ASSERT_EQ(-1, findMinNumSteps(maze4, 5, 4, 4, 1));
-    ASSERT_EQ(-1, jaythe1st::findMinNumSteps(maze4,5,4,4,1));
+    //ASSERT_EQ(-1, jaythe1st::findMinNumSteps(maze4,5,4,4,1));
 
     /*
     for (int i = 0; i < 5; ++i) {

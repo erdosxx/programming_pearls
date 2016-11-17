@@ -6,7 +6,6 @@
 
 using std::string;
 
-// @include
 bool IsPalindrome(const string& s) {
     // i moves forward, and j moves backward.
     int i = 0;
@@ -28,6 +27,5 @@ bool IsPalindrome(const string& s) {
     }
     return true;
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_VALID_PALINDROME_H

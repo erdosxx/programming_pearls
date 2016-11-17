@@ -16,6 +16,8 @@ namespace circular_queue {
     public:
         explicit Queue(size_t capacity) : entries_(capacity) { }
 
+        // head: position to pop
+        // tail: position to push
         void Enqueue(int x) {
             if (num_queue_elements == entries_.size()) {  // Needs to resize.
                 // Makes the queue elements appear consecutively.
@@ -35,6 +37,7 @@ namespace circular_queue {
             if (num_queue_elements == 0) {
                 throw length_error("empty queue");
             }
+
             --num_queue_elements;
             int ret = entries_[head_];
             head_ = (head_ + 1) % entries_.size();

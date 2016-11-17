@@ -161,6 +161,15 @@ TEST_F(Arrays_Fixture, stl_functions) {
     ASSERT_EQ(vA3.size(), 4);
     ASSERT_EQ(vA3[3], 4);
 
+    // insert
+    vA3 = {1,2,3};
+    vA3.insert(vA3.begin(), 0);
+    ASSERT_EQ(0, vA3[0]);  // 0,1,2,3
+    vA3.insert(next(vA3.begin(),2), 12);
+    ASSERT_EQ(12, vA3[2]);  // 0,1,2,3
+    ASSERT_EQ(2, vA3[3]);  // 0,1,12,2,3
+
+    vA3 = {1,2,3,4};
     vA3.emplace_back(5);
     ASSERT_EQ(vA3.size(), 5);
     ASSERT_EQ(vA3[4], 5);
@@ -258,13 +267,13 @@ TEST_F(Arrays_Fixture, stl_functions) {
 
     // rotate
     vector<int> vA10 = {0,1,2,3,4,5,6,7,8};
-    vector<int> vA10_1 ={4,5,6,7,8,0,1,2,3};
+    vector<int> vA10_rotate ={4,5,6,7,8,0,1,2,3};
     array<int, 9> aA10 = {0,1,2,3,4,5,6,7,8};
-    array<int, 9> aA10_1 = {4,5,6,7,8,0,1,2,3};
+    array<int, 9> aA10_rotate = {4,5,6,7,8,0,1,2,3};
     rotate(vA10.begin(), vA10.begin()+4, vA10.end());
     rotate(aA10.begin(), aA10.begin()+4, aA10.end());
-    ASSERT_TRUE(equal(vA10.cbegin(), vA10.cend(), vA10_1.cbegin(), vA10_1.cend()));
-    ASSERT_TRUE(equal(aA10.cbegin(), aA10.cend(), aA10_1.cbegin(), aA10_1.cend()));
+    ASSERT_TRUE(equal(vA10.cbegin(), vA10.cend(), vA10_rotate.cbegin(), vA10_rotate.cend()));
+    ASSERT_TRUE(equal(aA10.cbegin(), aA10.cend(), aA10_rotate.cbegin(), aA10_rotate.cend()));
 }
 
 TEST_F(Arrays_Fixture, Dutch_national_flag_Function) {
