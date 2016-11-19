@@ -55,7 +55,8 @@ protected:
 
     void SimpleTestCase(const vector<string>& A, const vector<string>& dict, int start, int finish);
     string RandString(int len);
-    int CheckAns(const vector<string>& A, const vector<string>& Q);
+    int p_13_7_CheckAns(const vector<string>& A, const vector<string>& Q);
+    size_t p_13_6_CheckAnswer(const vector<string> &s);
 
 public:
     Ch13Hash_Tables_Fixture() : Test() {
@@ -65,6 +66,19 @@ public:
     virtual ~Ch13Hash_Tables_Fixture() {
     }
 };
+
+// O(n^2) checking
+size_t Ch13Hash_Tables_Fixture::p_13_6_CheckAnswer(const vector<string> &s) {
+    size_t nearest_repeated_distance = numeric_limits<size_t>::max();
+    for (size_t i = 0; i < s.size(); ++i) {
+        for (size_t j = i + 1; j < s.size(); ++j) {
+            if (s[i] == s[j]) {
+                nearest_repeated_distance = min(nearest_repeated_distance, j - i);
+            }
+        }
+    }
+    return nearest_repeated_distance;
+}
 
 string Ch13Hash_Tables_Fixture::RandString(int len) {
     string ret;
@@ -77,7 +91,7 @@ string Ch13Hash_Tables_Fixture::RandString(int len) {
 }
 
 // O(n^2) solution
-int Ch13Hash_Tables_Fixture::CheckAns(const vector<string>& A, const vector<string>& Q) {
+int Ch13Hash_Tables_Fixture::p_13_7_CheckAns(const vector<string>& A, const vector<string>& Q) {
     unordered_set<string> dict;
     for (const string& s : Q) {
         dict.emplace(s);
@@ -312,7 +326,7 @@ TEST_F(Ch13Hash_Tables_Fixture, palindrome_Function) {
     for (int times = 0; times < 1000; ++times) {
         string s;
         uniform_int_distribution<int> dis(1, 10);
-        s = CanStringBeAPalindromeHash::RandString(dis(gen));
+        s = RandString(dis(gen));
         // cout << s << endl;
         ASSERT_EQ(CanStringBeAPalindromeHash::CanFormPalindrome(s),
                CanStringBeAPalindromeSorting::CanFormPalindrome(s));
@@ -452,15 +466,16 @@ TEST_F(Ch13Hash_Tables_Fixture, LCA_Hash_Function) {
 TEST_F(Ch13Hash_Tables_Fixture, nearest_repetition_Function) {
     vector<string> A = {"foo",    "bar",    "widget", "foo",
                         "widget", "widget", "adnan"};
-    ASSERT_EQ(near::CheckAnswer(A), FindNearestRepetition(A));
+    ASSERT_EQ(p_13_6_CheckAnswer(A), FindNearestRepetition(A));
     A = {"foo", "bar", "widget", "foo", "xyz", "widget", "bar", "adnan"};
-    ASSERT_EQ(near::CheckAnswer(A), FindNearestRepetition(A));
+    ASSERT_EQ(p_13_6_CheckAnswer(A), FindNearestRepetition(A));
     A = {"foo", "bar", "widget", "adnan"};
-    ASSERT_EQ(near::CheckAnswer(A), FindNearestRepetition(A));
+    ASSERT_EQ(p_13_6_CheckAnswer(A), FindNearestRepetition(A));
     A = {};
-    ASSERT_EQ(near::CheckAnswer(A), FindNearestRepetition(A));
+    ASSERT_EQ(p_13_6_CheckAnswer(A), FindNearestRepetition(A));
     A = {"foo", "foo", "foo"};
-    ASSERT_EQ(near::CheckAnswer(A), FindNearestRepetition(A));
+    ASSERT_EQ(p_13_6_CheckAnswer(A), FindNearestRepetition(A));
+
     default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 100);
@@ -469,9 +484,9 @@ TEST_F(Ch13Hash_Tables_Fixture, nearest_repetition_Function) {
         vector<string> s;
         for (int i = 0; i < n; ++i) {
             uniform_int_distribution<int> dis(1, 10);
-            s.emplace_back(near::RandString(dis(gen)));
+            s.emplace_back(RandString(dis(gen)));
         }
-        ASSERT_EQ(near::CheckAnswer(s), FindNearestRepetition(s));
+        ASSERT_EQ(p_13_6_CheckAnswer(s), FindNearestRepetition(s));
     }
 }
 
@@ -555,7 +570,7 @@ TEST_F(Ch13Hash_Tables_Fixture, smallest_subarray_covering_Function) {
         }
         ASSERT_TRUE(dict.empty() == true);
         ASSERT_EQ(res.end - res.start, res2.end - res2.start);
-        ASSERT_EQ(res.end - res.start, CheckAns(A, Q));
+        ASSERT_EQ(res.end - res.start, p_13_7_CheckAns(A, Q));
     }
 }
 

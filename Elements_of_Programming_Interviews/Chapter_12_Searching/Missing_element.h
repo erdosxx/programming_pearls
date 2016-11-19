@@ -19,7 +19,7 @@ using std::vector;
 
 // @include
 int FindMissingElement(ifstream* ifs) {
-    const int kNumBucket = 1 << 16;
+    const int kNumBucket = 1 << 16; // 2^16
     vector<size_t> counter(kNumBucket, 0);
 
     unsigned int x;
@@ -42,8 +42,10 @@ int FindMissingElement(ifstream* ifs) {
     // are equal to candidate_bucket.
     ifs->clear();
     // go to the beginning of the file.
+    // seekg(offset, way)  ios::beg = beginning of the stream
     ifs->seekg(0, ios::beg);
     bitset<kBucketCapacity> bit_vec;
+
     while (*ifs >> x) {
         int upper_part_x = x >> 16;
         if (candidate_bucket == upper_part_x) {

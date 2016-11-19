@@ -6,6 +6,7 @@
 #include <functional>
 #include <stdexcept>
 #include <vector>
+#include <random>
 
 using std::greater;
 using std::length_error;
@@ -14,6 +15,9 @@ using std::max;
 using std::min;
 using std::swap;
 using std::vector;
+using std::default_random_engine;
+using std::random_device;
+using std::uniform_int_distribution;
 
 template <typename Compare>
 int FindKth(int, Compare, vector<int>*);

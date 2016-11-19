@@ -8,7 +8,6 @@
 using std::max;
 using std::vector;
 
-// @include
 struct Event {
     int start, finish;
 };
@@ -50,6 +49,5 @@ int FindMaxSimultaneousEvents(const vector<Event>& A) {
     }
     return max_num_simultaneous_events;
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_RENDERING_CALENDAR_H

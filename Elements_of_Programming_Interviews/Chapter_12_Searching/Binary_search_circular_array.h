@@ -7,11 +7,15 @@
 using std::vector;
 
 namespace distinct {
-// @include
+
+    // for cyclically ascending sorted array
     int SearchSmallest(const vector<int> &A) {
-        int left = 0, right = A.size() - 1;
+        int left = 0;
+        int right = A.size() - 1;
+
         while (left < right) {
             int mid = left + ((right - left) / 2);
+
             if (A[mid] > A[right]) {
                 // Minimum must be in [mid + 1 : right].
                 left = mid + 1;
@@ -21,9 +25,9 @@ namespace distinct {
             }
         }
         // Loop ends when left == right.
-        return left;
+        return right;
     }
-// @exclude
+
 }
 
 #endif //ALGORITHM_ANALYSIS_BINARY_SEARCH_CIRCULAR_ARRAY_H

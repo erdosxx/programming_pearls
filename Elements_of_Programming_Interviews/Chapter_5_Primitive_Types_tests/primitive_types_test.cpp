@@ -206,8 +206,8 @@ TEST_F(Primitive_Types_Fixture, parity_Function) {
 }
 
 TEST_F(Primitive_Types_Fixture, swap_bits_Function) {
-    ASSERT_EQ(1, SwapBits(0b01000, 3, 0));
-    ASSERT_EQ(8, SwapBits(0b01000, 2, 0));
+    ASSERT_EQ(0b00001, SwapBits(0b01000, 3, 0));
+    ASSERT_EQ(0b01000, SwapBits(0b01000, 2, 0));
 }
 
 TEST_F(Primitive_Types_Fixture, reverse_bits_Function) {

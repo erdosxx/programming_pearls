@@ -33,17 +33,13 @@ vector<int> SortApproximatelySortedData(istringstream* sequence, int k) {
     while (*sequence >> x) {
         min_heap.push(x);
         //cout << min_heap.top() << endl;
-        // @exclude
-        result.push_back(min_heap.top());
-        // @include
+        result.emplace_back(min_heap.top());
         min_heap.pop();
     }
 
     // sequence is exhausted, iteratively extracts the remaining elements.
     while (!min_heap.empty()) {
-        // @exclude
-        result.push_back(min_heap.top());
-        // @include
+        result.emplace_back(min_heap.top());
         // cout << min_heap.top() << endl;
         min_heap.pop();
     }

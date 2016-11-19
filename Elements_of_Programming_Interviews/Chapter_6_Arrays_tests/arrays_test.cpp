@@ -274,6 +274,14 @@ TEST_F(Arrays_Fixture, stl_functions) {
     rotate(aA10.begin(), aA10.begin()+4, aA10.end());
     ASSERT_TRUE(equal(vA10.cbegin(), vA10.cend(), vA10_rotate.cbegin(), vA10_rotate.cend()));
     ASSERT_TRUE(equal(aA10.cbegin(), aA10.cend(), aA10_rotate.cbegin(), aA10_rotate.cend()));
+
+    // 2D array
+    array<array<int,2>, 2> m={{{1,2}, {3,4}}};
+    ASSERT_EQ(1, m[0][0]);
+    ASSERT_EQ(2, m[0][1]);
+    ASSERT_EQ(3, m[1][0]);
+    ASSERT_EQ(4, m[1][1]);
+
 }
 
 TEST_F(Arrays_Fixture, Dutch_national_flag_Function) {

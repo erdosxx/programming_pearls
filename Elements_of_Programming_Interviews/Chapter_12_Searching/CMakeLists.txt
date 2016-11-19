@@ -15,6 +15,8 @@ set(HEADER_FILES
         Binary_search_Ai=i.h
         Binary_search_circular_array.h
         Binary_search_circular_array_with_duplicates.h
+        Binary_search_ascending_descending_array.h
+        Binary_search_k_circular_array.h
         square-root-int.h
         Square_root.h
         Matrix_search.h

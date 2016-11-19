@@ -233,7 +233,64 @@ void Ch17_DP_Fixture::CheckMaxSum(const vector<int>& A, int max_sum) {
 }
 
 TEST_F(Ch17_DP_Fixture, Fibonacci_rakuten) {
-    ASSERT_EQ(29, solution(3,4,5));
+    const int mod = 1000000007;
+    ASSERT_EQ(3, GF_modulo(3,4,0, mod));
+    ASSERT_EQ(4, GF_modulo(3,4,1, mod));
+    ASSERT_EQ(7, GF_modulo(3,4,2, mod));
+    ASSERT_EQ(11, GF_modulo(3,4,3, mod));
+    ASSERT_EQ(18, GF_modulo(3,4,4, mod));
+    ASSERT_EQ(29, GF_modulo(3,4,5, mod));
+    //ASSERT_EQ(29, GF_modulo(3,4,1000000000, mod));
+
+    ASSERT_EQ(0, diff_fib(0));
+    ASSERT_EQ(0, diff_fib(1));
+    ASSERT_EQ(0, diff_fib(2));
+    ASSERT_EQ(0, diff_fib(13));
+    ASSERT_EQ(134903163, diff_fib(1000000007));
+
+    _2x2_m m1;
+    ASSERT_EQ(0, m1.m[0][0]);
+    ASSERT_EQ(0, m1.m[0][1]);
+    ASSERT_EQ(0, m1.m[1][0]);
+    ASSERT_EQ(0, m1.m[1][1]);
+
+    using m_type = array<array<int, 2>, 2>;
+
+    _2x2_m m2 = m_type{{{1,1}, {1,0}}};
+    _2x2_m m3 = m_type{{{1,1}, {1,0}}};
+    _2x2_m m4 = m2*m3;
+    _2x2_m m4_1 = m_type{{{2,1},{1,1}}};
+    ASSERT_EQ(m4_1, m4);
+    _2x2_m m5 = m_type{{{3,2},{2,1}}};
+    ASSERT_EQ(m5, m3.power(3));
+
+    ASSERT_EQ(3, GF(3,4,0));
+    ASSERT_EQ(4, GF(3,4,1));
+    ASSERT_EQ(7, GF(3,4,2));
+    ASSERT_EQ(11, GF(3,4,3));
+    ASSERT_EQ(18, GF(3,4,4));
+    ASSERT_EQ(29, GF(3,4,5));
+
+    const int Lmod = 1000000007;
+    const int LA = 2147483647;
+    const int LB = 2147483647;
+    const int LN = 1000000000;
+    _2x2_m_mod Lm = {m_type{{{Lmod, Lmod+1}, {Lmod+2, Lmod+3}}}, Lmod};
+    _2x2_m_mod Lm_1 = {{{{0,1},{2,3}}}, Lmod};
+    ASSERT_EQ(Lm_1, Lm);
+    ASSERT_GT(Lmod, Lm.power(LN)._m[0][0]);
+    ASSERT_GT(Lmod, Lm.power(LN)._m[0][1]);
+    ASSERT_GT(Lmod, Lm.power(LN)._m[1][0]);
+    ASSERT_GT(Lmod, Lm.power(LN)._m[1][1]);
+
+    // final solution test: GF_mod
+    ASSERT_EQ(3, GF_mod(3, 4, 0, Lmod));
+    ASSERT_EQ(4, GF_mod(3, 4, 1, Lmod));
+    ASSERT_EQ(7, GF_mod(3, 4, 2, Lmod));
+    ASSERT_EQ(11, GF_mod(3, 4, 3, Lmod));
+    ASSERT_EQ(18, GF_mod(3, 4, 4, Lmod));
+    ASSERT_EQ(29, GF_mod(3, 4, 5, Lmod));
+    ASSERT_EQ(408990538, GF_mod(LA, LA, LN, Lmod));
 }
 
 TEST_F(Ch17_DP_Fixture, Fibonacci_Function) {

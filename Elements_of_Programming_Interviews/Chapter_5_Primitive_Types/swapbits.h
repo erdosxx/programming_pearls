@@ -2,7 +2,6 @@
 #define ALGORITHM_ANALYSIS_SWAPBITS_H
 // 5.2 Swap bits
 
-// @include
 long SwapBits(long x, int i, int j) {
     // Extract the i-th and j-th bits, and see if they differ.
     if (((x >> i) & 1) != ((x >> j) & 1)) {
@@ -14,6 +13,5 @@ long SwapBits(long x, int i, int j) {
     }
     return x;
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_SWAPBITS_H

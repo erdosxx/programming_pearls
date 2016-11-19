@@ -14,6 +14,8 @@
 #include "Binary_search_Ai=i.h"
 #include "Binary_search_circular_array.h"
 #include "Binary_search_circular_array_with_duplicates.h"
+#include "Binary_search_ascending_descending_array.h"
+#include "Binary_search_k_circular_array.h"
 #include "square-root-int.h"
 #include "Square_root.h"
 #include "Matrix_search.h"
@@ -38,6 +40,7 @@ using std::binary_search;
 using std::lower_bound;
 using std::upper_bound;
 using std::mismatch;
+using std::endl;
 
 class Ch12Searching_Fixture : public ::testing::Test {
 private:
@@ -786,6 +789,113 @@ TEST_F(Ch12Searching_Fixture, bsearch_circular_with_dup_Function) {
     }
 }
 
+TEST_F(Ch12Searching_Fixture, bsearch_ascending_descending_array) {
+    vector<int> A = {1};
+    ASSERT_EQ(1, Search_AD_max(A));
+
+    A = {1,2};
+    ASSERT_EQ(2, Search_AD_max(A));
+
+    A = {1,3,2};
+    ASSERT_EQ(3, Search_AD_max(A));
+
+    A = {1,2,3,4,2,1};
+    ASSERT_EQ(4, Search_AD_max(A));
+
+    A = {1,2,3,4};
+    ASSERT_EQ(4, Search_AD_max(A));
+
+    default_random_engine gen((random_device())());
+    for (int times = 0; times < 1000; ++times) {
+        uniform_int_distribution<int> dis(3, 1000);
+        int n = dis(gen);
+
+        vector<int> A;
+        unordered_set<int> table;
+        for (size_t i = 0; i < n; ++i) {
+            while (true) {
+                uniform_int_distribution<int> dis(0, 100000);
+                int x = dis(gen);
+                //  pair <iterator,bool> emplace ( Args&&... args );
+                //  the function returns a pair with an iterator to the newly inserted element and a value of true.
+                if (table.emplace(x).second) { // if x is unique in the set
+                    A.emplace_back(x);
+                    break;
+                }
+            }
+        }
+        sort(A.begin(), A.end());
+        uniform_int_distribution<int> n_dis(0, n - 1);
+        int rev_start = n_dis(gen);
+        reverse(A.begin() + rev_start, A.end());
+        /*
+           for (size_t i = 0; i < n; ++i) {
+           cout << A[i] << ' ';
+           }
+           cout << endl;
+         */
+        int max_val = Search_AD_max(A);
+        for (size_t i = 0; i < A.size(); ++i) {
+            ASSERT_LE(A[i], max_val);
+        }
+    }
+}
+
+TEST_F(Ch12Searching_Fixture, bsearch_k_circular_array) {
+    vector<int> A = {1};
+    ASSERT_EQ(0, Search_k_circular(A, 1));
+
+    A = {1, 2};
+    ASSERT_EQ(1, Search_k_circular(A, 2));
+
+    A = {1, 2};
+    ASSERT_EQ(-1, Search_k_circular(A, 3));
+
+    A = {1, 2};
+    ASSERT_EQ(-1, Search_k_circular(A, -1));
+
+    A = {1, 2, 3, -3, -2};
+    ASSERT_EQ(4, Search_k_circular(A,-2));
+
+    A = {1, 3, 5, -3, -2};
+    ASSERT_EQ(-1, Search_k_circular(A,4));
+
+    default_random_engine gen((random_device())());
+    for (int times = 0; times < 1000; ++times) {
+        uniform_int_distribution<int> dis(1, 1000);
+        int n = dis(gen);
+
+        vector<int> A;
+        unordered_set<int> table;
+        for (size_t i = 0; i < n; ++i) {
+            while (true) {
+                uniform_int_distribution<int> dis(0, 100000);
+                int x = dis(gen);
+                if (table.emplace(x).second) { // if x is unique in the set
+                    A.emplace_back(x);
+                    break;
+                }
+            }
+        }
+        sort(A.begin(), A.end());
+        uniform_int_distribution<int> n_dis(0, n - 1);
+        int shift = n_dis(gen);
+        reverse(A.begin(), A.end());
+        reverse(A.begin(), A.begin() + shift + 1);
+        reverse(A.begin() + shift + 1, A.end());
+        /*
+           for (size_t i = 0; i < n; ++i) {
+           cout << A[i] << ' ';
+           }
+           cout << endl;
+         */
+        uniform_int_distribution<int> k_dis(0, n - 1);
+        int index = k_dis(gen);
+        int k = A[index];
+        ASSERT_EQ(index, Search_k_circular(A, k));
+    }
+}
+
 TEST_F(Ch12Searching_Fixture, square_root_int_Function) {
     ASSERT_EQ(SquareRoot(0), 0);
     ASSERT_EQ(SquareRoot(1), 1);
@@ -1037,13 +1147,16 @@ TEST_F(Ch12Searching_Fixture, order_statistic_Function) {
 }
 
 /* Following test takes long time.
+ */
 TEST_F(Ch12Searching_Fixture, missing_element_Function) {
     default_random_engine gen((random_device())());
-    int n = 300000000;
-    vector<int> A(1000000000);
+    int n = 300000;
+    vector<int> A(n); // 1 billion array
 
     // Assign every elements with numbers in [0, size()-1]
     iota(A.begin(), A.end(), 0);
+    shuffle(A.begin(), A.end(), gen);
+
     unordered_set<int> hash;
     ofstream ofs("missing.txt");
 
@@ -1062,7 +1175,7 @@ TEST_F(Ch12Searching_Fixture, missing_element_Function) {
     remove("missing.txt");
     // cout << missing << endl;
 }
- */
+/* */
 
 TEST_F(Ch12Searching_Fixture, missing_and_dup_Function) {
     vector<int> A = {0, 1, 2, 4, 5, 6, 6};

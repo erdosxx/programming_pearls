@@ -8,8 +8,6 @@
 
 using std::vector;
 
-vector<long> precomputed_reverse;
-
 long ReverseX(long x, int n) {
     for (int i = 0, j = n; i < j; ++i, --j) {
         x = SwapBits(x, i, j);
@@ -17,14 +15,14 @@ long ReverseX(long x, int n) {
     return x;
 }
 
-// emplace_back: see Effective Modern C++ Item 42, p.292
+vector<long> precomputed_reverse;
+
 void CreatePrecomputedTable() {
     for (int i = 0; i < (1 << 16); ++i) {
         precomputed_reverse.emplace_back(ReverseX(i, 15));
     }
 }
 
-// @include
 // (abcd)^R = d^R c^R b^R a^R
 long ReverseBits(long x) {
     const int kWordSize = 16;
@@ -34,6 +32,5 @@ long ReverseBits(long x) {
            precomputed_reverse[(x >> (2 * kWordSize)) & kBitMask] << kWordSize |
            precomputed_reverse[(x >> (3 * kWordSize)) & kBitMask];
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_REVERSE_BITS_H
