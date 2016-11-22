@@ -10,7 +10,6 @@ using std::to_string;
 
 string NextNumber(const string& s);
 
-// @include
 string LookAndSay(int n) {
     string s = "1";
     for (int i = 1; i < n; ++i) {
@@ -30,6 +29,5 @@ string NextNumber(const string& s) {
     }
     return ret;
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_LOOK_AND_SAY_H

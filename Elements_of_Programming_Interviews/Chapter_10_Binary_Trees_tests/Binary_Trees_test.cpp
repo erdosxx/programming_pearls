@@ -17,6 +17,8 @@
 #include "k-th_node_binary_tree.h"
 #include "Successor.h"
 #include "Inorder_traversal_with_parent.h"
+#include "preorder_traversal_with_parent.h"
+#include "postorder_traversal_with_parent.h"
 #include "Reconstruct_binary_tree_pre_in_orders.h"
 #include "Reconstruct_preorder_with_null.h"
 #include "Connect_leaves_binary_tree.h"
@@ -535,17 +537,15 @@ TEST_F(BinaryTrees_Fixture, path_sum_Function) {
 }
 
 TEST_F(BinaryTrees_Fixture, BST_sorted_order_Function) {
-    unique_ptr<BSTNode<int>> tree =
-                                     make_unique<BSTNode<int>>(BSTNode<int>{43, nullptr});
+    unique_ptr<BSTNode<int>> tree = make_unique<BSTNode<int>>(BSTNode<int>{43, nullptr});
     auto result = BSTInSortedOrder(tree);
     vector<int> golden_result = {43};
-    ASSERT_TRUE(equal(golden_result.begin(), golden_result.end(), result.begin(),
-                 result.end()));
+    ASSERT_TRUE(equal(golden_result.begin(), golden_result.end(), result.begin(), result.end()));
+
     tree->left = make_unique<BSTNode<int>>(BSTNode<int>{23, nullptr});
     result = BSTInSortedOrder(tree);
     golden_result = {23, 43};
-    ASSERT_TRUE(equal(golden_result.begin(), golden_result.end(), result.begin(),
-                 result.end()));
+    ASSERT_TRUE(equal(golden_result.begin(), golden_result.end(), result.begin(), result.end()));
 
     //        43
     //    23     47
@@ -565,8 +565,7 @@ TEST_F(BinaryTrees_Fixture, BST_sorted_order_Function) {
     tree->right->right = make_unique<BSTNode<int>>(BSTNode<int>{53, nullptr});
     result = BSTInSortedOrder(tree);
     vector<int> golden_res = {23, 29, 31, 37, 41, 43, 47, 53};
-    ASSERT_TRUE(equal(golden_res.begin(), golden_res.end(), result.begin(),
-                 result.end()));
+    ASSERT_TRUE(equal(golden_res.begin(), golden_res.end(), result.begin(), result.end()));
 }
 
 TEST_F(BinaryTrees_Fixture, btree_preorder_Function) {
@@ -670,8 +669,6 @@ TEST_F(BinaryTrees_Fixture, successor_Function) {
 
 TEST_F(BinaryTrees_Fixture, inorder_with_parent_Function) {
     //      3
-    //    2   5
-    //  1    4 6
     unique_ptr<btree_node_with_parent> root = make_unique<btree_node_with_parent>(
             btree_with_parent::BinaryTreeNode<int>{3, nullptr, nullptr});
     root->parent = nullptr;
@@ -680,6 +677,9 @@ TEST_F(BinaryTrees_Fixture, inorder_with_parent_Function) {
     ASSERT_TRUE(equal(golden_res.begin(), golden_res.end(), result.begin(),
                  result.end()));
 
+    //      3
+    //    2
+    //  1
     root->left = make_unique<btree_node_with_parent>(
             btree_with_parent::BinaryTreeNode<int>{2, nullptr, nullptr});
     root->left->parent = root.get();
@@ -691,6 +691,9 @@ TEST_F(BinaryTrees_Fixture, inorder_with_parent_Function) {
     ASSERT_TRUE(equal(golden_res.begin(), golden_res.end(), result.begin(),
                  result.end()));
 
+    //      3
+    //    2   5
+    //  1    4 6
     root->right = make_unique<btree_node_with_parent>(
             btree_with_parent::BinaryTreeNode<int>{5, nullptr, nullptr});
     root->right->parent = root.get();
@@ -700,9 +703,92 @@ TEST_F(BinaryTrees_Fixture, inorder_with_parent_Function) {
     root->right->right = make_unique<btree_node_with_parent>(
             btree_with_parent::BinaryTreeNode<int>{6, nullptr, nullptr});
     root->right->right->parent = root->right.get();
-
     result = with_parent::InorderTraversal(root);
     golden_res = {1, 2, 3, 4, 5, 6};
+    ASSERT_TRUE(equal(golden_res.begin(), golden_res.end(), result.begin(),
+                 result.end()));
+}
+
+TEST_F(BinaryTrees_Fixture, preorder_traversal_with_parenet) {
+    //      3
+    unique_ptr<btree_node_with_parent> root = make_unique<btree_node_with_parent>(
+            btree_with_parent::BinaryTreeNode<int>{3, nullptr, nullptr});
+    root->parent = nullptr;
+    auto result = with_parent::PreorderTraversal(root);
+    vector<int> golden_res = {3};
+    ASSERT_TRUE(equal(golden_res.begin(), golden_res.end(), result.begin(),
+                 result.end()));
+
+    //      3
+    //    2
+    //  1
+    root->left = make_unique<btree_node_with_parent>(
+            btree_with_parent::BinaryTreeNode<int>{2, nullptr, nullptr});
+    root->left->parent = root.get();
+    root->left->left = make_unique<btree_node_with_parent>(
+            btree_with_parent::BinaryTreeNode<int>{1, nullptr, nullptr});
+    root->left->left->parent = root->left.get();
+    result = with_parent::PreorderTraversal(root);
+    golden_res = {3, 2, 1};
+    ASSERT_TRUE(equal(golden_res.begin(), golden_res.end(), result.begin(),
+                 result.end()));
+
+    //      3
+    //    2   5
+    //  1    4 6
+    root->right = make_unique<btree_node_with_parent>(
+            btree_with_parent::BinaryTreeNode<int>{5, nullptr, nullptr});
+    root->right->parent = root.get();
+    root->right->left = make_unique<btree_node_with_parent>(
+            btree_with_parent::BinaryTreeNode<int>{4, nullptr, nullptr});
+    root->right->left->parent = root->right.get();
+    root->right->right = make_unique<btree_node_with_parent>(
+            btree_with_parent::BinaryTreeNode<int>{6, nullptr, nullptr});
+    root->right->right->parent = root->right.get();
+    result = with_parent::PreorderTraversal(root);
+    golden_res = {3, 2, 1, 5, 4, 6};
+    ASSERT_TRUE(equal(golden_res.begin(), golden_res.end(), result.begin(),
+                 result.end()));
+}
+
+TEST_F(BinaryTrees_Fixture, postorder_traversal_with_parenet) {
+    //      3
+    unique_ptr<btree_node_with_parent> root = make_unique<btree_node_with_parent>(
+            btree_with_parent::BinaryTreeNode<int>{3, nullptr, nullptr});
+    root->parent = nullptr;
+    auto result = with_parent::PostorderTraversal(root);
+    vector<int> golden_res = {3};
+    ASSERT_TRUE(equal(golden_res.begin(), golden_res.end(), result.begin(),
+                 result.end()));
+
+    //      3
+    //    2
+    //  1
+    root->left = make_unique<btree_node_with_parent>(
+            btree_with_parent::BinaryTreeNode<int>{2, nullptr, nullptr});
+    root->left->parent = root.get();
+    root->left->left = make_unique<btree_node_with_parent>(
+            btree_with_parent::BinaryTreeNode<int>{1, nullptr, nullptr});
+    root->left->left->parent = root->left.get();
+    result = with_parent::PostorderTraversal(root);
+    golden_res = {1, 2, 3};
+    ASSERT_TRUE(equal(golden_res.begin(), golden_res.end(), result.begin(),
+                 result.end()));
+
+    //      3
+    //    2   5
+    //  1    4 6
+    root->right = make_unique<btree_node_with_parent>(
+            btree_with_parent::BinaryTreeNode<int>{5, nullptr, nullptr});
+    root->right->parent = root.get();
+    root->right->left = make_unique<btree_node_with_parent>(
+            btree_with_parent::BinaryTreeNode<int>{4, nullptr, nullptr});
+    root->right->left->parent = root->right.get();
+    root->right->right = make_unique<btree_node_with_parent>(
+            btree_with_parent::BinaryTreeNode<int>{6, nullptr, nullptr});
+    root->right->right->parent = root->right.get();
+    result = with_parent::PostorderTraversal(root);
+    golden_res = {1, 2, 4, 6, 5, 3};
     ASSERT_TRUE(equal(golden_res.begin(), golden_res.end(), result.begin(),
                  result.end()));
 }

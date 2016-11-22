@@ -8,14 +8,11 @@
 #include <vector>
 
 #include "Binary_tree_prototype.h"
-#include "Binary_tree_utils.h"
 
-using std::make_unique;
 using std::stack;
 using std::unique_ptr;
 using std::vector;
 
-// @include
 // We use stack and previous node pointer to simulate postorder traversal.
 vector<int> PostorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
     if (tree == nullptr) {  // Empty tree.
@@ -55,7 +52,5 @@ vector<int> PostorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
     }
     return postorder_sequence;
 }
-// @exclude
-
 
 #endif //ALGORITHM_ANALYSIS_BINARY_TREE_POSTORDER_TRAVERSAL_ITERATIVE_H

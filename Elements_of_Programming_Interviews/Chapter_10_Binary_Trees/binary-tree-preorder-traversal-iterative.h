@@ -8,13 +8,11 @@
 #include <vector>
 
 #include "Binary_tree_prototype.h"
-#include "Binary_tree_utils.h"
 
 using std::stack;
 using std::unique_ptr;
 using std::vector;
 
-// @include
 vector<int> PreorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
     stack<BinaryTreeNode<int>*> path;
     path.emplace(tree.get());
@@ -31,6 +29,5 @@ vector<int> PreorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
     }
     return result;
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_BINARY_TREE_PREORDER_TRAVERSAL_ITERATIVE_H

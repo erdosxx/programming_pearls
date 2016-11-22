@@ -45,7 +45,6 @@ namespace even_odd {
         return even_list_head;
     }
 
-// @include
     shared_ptr<ListNode<int>> EvenOddMerge(const shared_ptr<ListNode<int>> &L) {
         if (L == nullptr) {
             return L;
@@ -64,40 +63,12 @@ namespace even_odd {
             tails[turn] = tails[turn]->next;
             turn ^= 1;  // Alternate between even and odd.
         }
+
         tails[1]->next = nullptr;
         tails[0]->next = odd_dummy_head->next;
         return even_dummy_head->next;
     }
-// @exclude
 
-    shared_ptr<ListNode<int>> CreateList(int n) {
-        shared_ptr<ListNode<int>> head = nullptr;
-        for (int i = n - 1; i >= 0; --i) {
-            auto curr = make_shared<ListNode<int>>(ListNode<int>{i, nullptr});
-            curr->next = head;
-            head = curr;
-        }
-        return head;
-    }
-
-    bool CheckAnswer(const shared_ptr<ListNode<int>> &L, int n) {
-        int x = 0;
-        int count = 0;
-
-        auto iter = L;
-        while (iter) {
-            ++count;
-            if (x != iter->data)
-                return false;
-            x += 2;
-            if (x >= n) {
-                x = 1;
-            }
-            // cout << iter->data << endl;
-            iter = iter->next;
-        }
-        return count == n;
-    }
 }
 
 #endif //ALGORITHM_ANALYSIS_EVEN_ODD_MERGE_LINKED_LIST_H

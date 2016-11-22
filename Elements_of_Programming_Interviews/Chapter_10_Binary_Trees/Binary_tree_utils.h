@@ -19,6 +19,7 @@ using std::unique_ptr;
 using std::string;
 using std::uniform_int_distribution;
 using std::vector;
+using btree::BinaryTreeNode;
 
 template <typename T>
 unique_ptr<BinaryTreeNode<T>> generate_rand_binary_tree(

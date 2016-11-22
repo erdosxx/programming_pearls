@@ -53,6 +53,8 @@ protected:
 
     vector<Color> p_6_1_RandVector(int len);
 
+    bool p_6_5_CheckAns(const vector<int>& A, size_t n);
+
 
 public:
     Arrays_Fixture() : Test() {
@@ -62,6 +64,14 @@ public:
     virtual ~Arrays_Fixture() {
     }
 };
+
+bool Arrays_Fixture::p_6_5_CheckAns(const vector<int>& A, size_t n) {
+    for (size_t i = 1; i < n; ++i) {
+        if( A[i - 1] == A[i] )
+            return false;
+    }
+    return true;
+}
 
 vector<Color> Arrays_Fixture::p_6_1_RandVector(int len) {
     default_random_engine gen((random_device()) ());
@@ -471,7 +481,7 @@ TEST_F(Arrays_Fixture, remove_deplicate_Function) {
         auto iter = unique(B.begin(), B.end());
         auto size = DeleteDuplicates(&A);
         ASSERT_EQ(size, distance(B.begin(), iter));
-        ASSERT_TRUE(CheckAns(A, size));
+        ASSERT_TRUE(p_6_5_CheckAns(A, size));
     }
 }
 

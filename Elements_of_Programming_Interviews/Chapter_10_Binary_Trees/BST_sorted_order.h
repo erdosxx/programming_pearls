@@ -11,18 +11,17 @@
 using std::stack;
 using std::unique_ptr;
 using std::vector;
-using node_ptr= unique_ptr<BSTNode<int>>;
 
-// @include
 vector<int> BSTInSortedOrder(const unique_ptr<BSTNode<int>>& tree) {
-    stack<const BSTNode<int> *> s;
+    stack<const BSTNode<int>*> s;
     // pointer to const BSTNode<int>
-    const auto * curr = tree.get();
+    //const auto * curr = tree.get();
+    const BSTNode<int>* curr = tree.get();
     vector<int> result;
 
     while (!s.empty() || curr) {
         if (curr) {
-            s.push(curr);
+            s.emplace(curr);
             // Going left.
             curr = curr->left.get();
         } else {
@@ -36,6 +35,5 @@ vector<int> BSTInSortedOrder(const unique_ptr<BSTNode<int>>& tree) {
     }
     return result;
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_BST_SORTED_ORDER_H

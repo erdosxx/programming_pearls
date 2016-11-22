@@ -10,7 +10,7 @@ using std::length_error;
 using std::stack;
 
 namespace queue_from_stack {
-// @include
+
     class Queue {
     public:
         void Enqueue(int x) { enq_.emplace(x); }
@@ -27,6 +27,7 @@ namespace queue_from_stack {
             if (deq_.empty()) {  // deq_ is still empty!
                 throw length_error("empty queue");
             }
+
             int ret = deq_.top();
             deq_.pop();
             return ret;
@@ -35,7 +36,7 @@ namespace queue_from_stack {
     private:
         stack<int> enq_, deq_;
     };
-// @exclude
+
 }
 
 #endif //ALGORITHM_ANALYSIS_QUEUE_FROM_STACKS_H

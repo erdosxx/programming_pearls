@@ -12,6 +12,7 @@
 #include "valid-palindrome.h"
 #include "Reverse_words.h"
 #include "Phone_mnemonic.h"
+#include "Phone_mnemonic_iterative.h"
 #include "look-and-say.h"
 #include "roman-to-integer.h"
 #include "valid-IP-address.h"
@@ -65,7 +66,7 @@ public:
     }
 };
 
-string p_7_7_RandString(int len) {
+string Strings_Fixture::p_7_7_RandString(int len) {
     default_random_engine gen((random_device()) ());
     string ret;
     while (len--) {
@@ -469,26 +470,66 @@ TEST_F(Strings_Fixture, Reverse_words_Function) {
     }
 }
 
-/*  TODO: add testing with sort vector<string> and compare the result.
 TEST_F(Strings_Fixture, phone_mnemonic_Function) {
+    string num = "0";
+    vector<string> result = PhoneMnemonic(num);
+    vector<string> golden = {"0"};
+    ASSERT_TRUE(equal(result.cbegin(), result.cend(), golden.cbegin(), golden.cend()));
+
+    num = "2";
+    result = PhoneMnemonic(num);
+    golden = {"A", "B", "C"};
+    ASSERT_TRUE(equal(result.cbegin(), result.cend(), golden.cbegin(), golden.cend()));
+
+    num = "23";
+    result = PhoneMnemonic(num);
+    golden = {"AD", "AE", "AF", "BD", "BE", "BF", "CD", "CE", "CF"};
+    ASSERT_TRUE(equal(result.cbegin(), result.cend(), golden.cbegin(), golden.cend()));
+
+    /*
     string num = p_7_7_RandString(3);
     auto result = phone::PhoneMnemonic(num);
     cout << "number = " << num << endl;
     for (const string& str : result) {
         cout << str << endl;
     }
+     */
 }
-*/
+
+TEST_F(Strings_Fixture, phone_mnemonic_iterative) {
+    string num = "0";
+    vector<string> result = PhoneMnemonic_iterative(num);
+    vector<string> golden = {"0"};
+    ASSERT_TRUE(equal(result.cbegin(), result.cend(), golden.cbegin(), golden.cend()));
+
+    num = "2";
+    result = PhoneMnemonic_iterative(num);
+    golden = {"A", "B", "C"};
+    ASSERT_TRUE(equal(result.cbegin(), result.cend(), golden.cbegin(), golden.cend()));
+
+    num = "23";
+    result = PhoneMnemonic_iterative(num);
+    golden = {"AD", "AE", "AF", "BD", "BE", "BF", "CD", "CE", "CF"};
+    ASSERT_TRUE(equal(result.cbegin(), result.cend(), golden.cbegin(), golden.cend()));
+
+    for (int i = 0; i < 100; ++i) {
+        num = p_7_7_RandString(4);
+        result = PhoneMnemonic(num);
+        vector<string> result2 = PhoneMnemonic_iterative(num);
+        ASSERT_TRUE(equal(result.cbegin(), result.cend(), result2.cbegin(), result2.cend()));
+    }
+}
+
 
 TEST_F(Strings_Fixture, look_and_say_Function) {
-    ASSERT_TRUE(LookAndSay(1).compare("1") == 0);
-    ASSERT_TRUE(LookAndSay(2).compare("11") == 0);
-    ASSERT_TRUE(LookAndSay(3).compare("21") == 0);
-    ASSERT_TRUE(LookAndSay(4).compare("1211") == 0);
-    ASSERT_TRUE(LookAndSay(5).compare("111221") == 0);
-    ASSERT_TRUE(LookAndSay(6).compare("312211") == 0);
-    ASSERT_TRUE(LookAndSay(7).compare("13112221") == 0);
-    ASSERT_TRUE(LookAndSay(8).compare("1113213211") == 0);
+    ASSERT_EQ("1", LookAndSay(1));
+    ASSERT_EQ("11", LookAndSay(2));
+    ASSERT_EQ("21", LookAndSay(3));
+    ASSERT_EQ("1211", LookAndSay(4));
+    ASSERT_EQ("111221", LookAndSay(5));
+    ASSERT_EQ("312211", LookAndSay(6));
+    ASSERT_EQ("13112221", LookAndSay(7));
+    ASSERT_EQ("1113213211", LookAndSay(8));
 }
 
 TEST_F(Strings_Fixture, roman_to_integer_Function) {

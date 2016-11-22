@@ -6,6 +6,7 @@
 #include <string>
 #include <deque>
 #include <thread>
+#include "Binary_tree_utils.h"
 #include "GCD1.h"
 #include "GCD2.h"
 #include "first-missing-positive.h"
@@ -900,7 +901,8 @@ TEST_F(Ch25_Honors_Class_Fixture, btree_postorder_iterative_Function) {
             BinaryTreeNode<int>{4, nullptr, nullptr});
     tree->right->right = make_unique<BinaryTreeNode<int>>(
             BinaryTreeNode<int>{6, nullptr, nullptr});
-    auto res = PostorderTraversal(tree), golden_res = generate_postorder(tree);
+    auto res = PostorderTraversal(tree);
+    auto golden_res = generate_postorder(tree);
     ASSERT_TRUE(equal(res.cbegin(), res.cend(), golden_res.cbegin(),
                  golden_res.cend()));
 }
@@ -921,7 +923,8 @@ TEST_F(Ch25_Honors_Class_Fixture, btree_postorder_iterative_alt_Function) {
             BinaryTreeNode<int>{4, nullptr, nullptr});
     tree->right->right = make_unique<BinaryTreeNode<int>>(
             BinaryTreeNode<int>{6, nullptr, nullptr});
-    auto res = alt::PostorderTraversal(tree), golden_res = generate_postorder(tree);
+    auto res = alt::PostorderTraversal(tree);
+    auto golden_res = generate_postorder(tree);
     ASSERT_TRUE(equal(res.cbegin(), res.cend(), golden_res.cbegin(),
                  golden_res.cend()));
 }

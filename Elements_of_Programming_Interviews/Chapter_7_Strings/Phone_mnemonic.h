@@ -10,28 +10,14 @@ using std::array;
 using std::string;
 using std::vector;
 
-namespace phone {
-
-    void PhoneMnemonicHelper(const string &, int, string *, vector<string> *);
-
-// @include
-    vector<string> PhoneMnemonic(const string &phone_number) {
-        string partial_mnemonic(phone_number.size(), 0);
-        vector<string> mnemonics;
-        PhoneMnemonicHelper(phone_number, 0, &partial_mnemonic, &mnemonics);
-        return mnemonics;
-    }
-
-    const int kNumTelDigits = 10;
-
-// The mapping from digit to corresponding characters.
-    const array<string, kNumTelDigits> kMapping = {
+    // The mapping from digit to corresponding characters.
+    const array<string, 10> kMapping = {
             {"0", "1", "ABC", "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ"}};
 
     // DFS search for generating phone mnemonic.
-    void PhoneMnemonicHelper(const string &phone_number, int digit,
-                             string *partial_mnemonic,
-                             vector<string> *mnemonics) {
+    void PhoneMnemonicHelper(const string& phone_number, int digit,
+                             string* partial_mnemonic,
+                             vector<string>* mnemonics) {
         if (digit == phone_number.size()) {
             // All digits are processed, so add partial_mnemonic to mnemonics.
             // (We add a copy since subsequent calls modify partial_mnemonic.)
@@ -45,7 +31,13 @@ namespace phone {
             }
         }
     }
-// @exclude
-}
+
+    vector<string> PhoneMnemonic(const string& phone_number) {
+        // string (size_t n, char c) : Fills the string with n consecutive copies of character c.
+        string partial_mnemonic(phone_number.size(), 0);
+        vector<string> mnemonics;
+        PhoneMnemonicHelper(phone_number, 0, &partial_mnemonic, &mnemonics);
+        return mnemonics;
+    }
 
 #endif //ALGORITHM_ANALYSIS_PHONE_MNEMONIC_H

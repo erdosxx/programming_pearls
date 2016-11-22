@@ -13,6 +13,7 @@ set(HEADER_FILES
         valid-palindrome.h
         Reverse_words.h
         Phone_mnemonic.h
+        Phone_mnemonic_iterative.h
         look-and-say.h
         roman-to-integer.h
         valid-IP-address.h

@@ -24,6 +24,7 @@ set(HEADER_FILES
         remove-duplicates-sorted-list.h
         cyclic-right-shift.h
         Even_odd_merge_linked_list.h
+        Even_odd_merge_linked_list_erdos.h
         Palindrome_linked_list.h
         list-pivoting.h
         add-two-number-list.h

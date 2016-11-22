@@ -20,6 +20,7 @@
 #include "remove-duplicates-sorted-list.h"
 #include "cyclic-right-shift.h"
 #include "Even_odd_merge_linked_list.h"
+#include "Even_odd_merge_linked_list_erdos.h"
 #include "Palindrome_linked_list.h"
 #include "list-pivoting.h"
 #include "add-two-number-list.h"
@@ -43,6 +44,9 @@ protected:
     virtual void SetUp() {
     }
 
+    shared_ptr<ListNode<int>> p_8_10_CreateList(int n);
+    bool p_8_10_CheckAnswer(const shared_ptr<ListNode<int>> &L, int n);
+
 public:
     LinkedLists_Fixture() : Test() {
 
@@ -51,6 +55,35 @@ public:
     virtual ~LinkedLists_Fixture() {
     }
 };
+
+shared_ptr<ListNode<int>> LinkedLists_Fixture::p_8_10_CreateList(int n) {
+    shared_ptr<ListNode<int>> head = nullptr;
+    for (int i = n - 1; i >= 0; --i) {
+        auto curr = make_shared<ListNode<int>>(ListNode<int>{i, nullptr});
+        curr->next = head;
+        head = curr;
+    }
+    return head;
+}
+
+bool LinkedLists_Fixture::p_8_10_CheckAnswer(const shared_ptr<ListNode<int>> &L, int n) {
+    int x = 0;
+    int count = 0;
+
+    auto iter = L;
+    while (iter) {
+        ++count;
+        if (x != iter->data)
+            return false;
+        x += 2;
+        if (x >= n) {
+            x = 1;
+        }
+        // cout << iter->data << endl;
+        iter = iter->next;
+    }
+    return count == n;
+}
 
 TEST_F(LinkedLists_Fixture, linked_list_boot_camp) {
     shared_ptr<ListNode<int>> a3 = make_shared<ListNode<int>>(ListNode<int>{3, nullptr});
@@ -1127,15 +1160,18 @@ TEST_F(LinkedLists_Fixture, cyclic_right_shift_Function) {
 }
 
 TEST_F(LinkedLists_Fixture, even_odd_merge_Function) {
+    // 0
     auto L = make_shared<ListNode<int>>(ListNode<int>{0, nullptr});
     auto result = EvenOddMerge(L);
     ASSERT_TRUE(result->data == 0);
 
+    // 0 -> 1
     L->next = make_shared<ListNode<int>>(ListNode<int>{1, nullptr});
     result = EvenOddMerge(L);
     ASSERT_TRUE(result->data == 0);
     ASSERT_TRUE(result->next->data == 1);
 
+    // 0 -> 1 -> 2
     L->next->next = make_shared<ListNode<int>>(ListNode<int>{2, nullptr});
     result = EvenOddMerge(L);
     ASSERT_TRUE(result->data == 0);
@@ -1145,10 +1181,38 @@ TEST_F(LinkedLists_Fixture, even_odd_merge_Function) {
     default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 1000);
     int n = dis(gen);
-    shared_ptr<ListNode<int>> head = even_odd::CreateList(n);
-    ASSERT_TRUE(even_odd::CheckAnswer(EvenOddMerge(head), n));
-    shared_ptr<ListNode<int>> another_head = even_odd::CreateList(n);
-    ASSERT_TRUE(even_odd::CheckAnswer(EvenOddMergeOriginal(another_head), n));
+    shared_ptr<ListNode<int>> head = p_8_10_CreateList(n);
+    ASSERT_TRUE(p_8_10_CheckAnswer(EvenOddMerge(head), n));
+    shared_ptr<ListNode<int>> another_head = p_8_10_CreateList(n);
+    ASSERT_TRUE(p_8_10_CheckAnswer(EvenOddMergeOriginal(another_head), n));
+}
+
+TEST_F(LinkedLists_Fixture, even_odd_merge_erdos) {
+    // 0
+    auto L = make_shared<ListNode<int>>(ListNode<int>{0, nullptr});
+    auto result = EvenOddMerge_erdos(L);
+    ASSERT_TRUE(result->data == 0);
+
+    // 0 -> 1
+    L->next = make_shared<ListNode<int>>(ListNode<int>{1, nullptr});
+    result = EvenOddMerge_erdos(L);
+    ASSERT_TRUE(result->data == 0);
+    ASSERT_TRUE(result->next->data == 1);
+
+    // 0 -> 1 -> 2
+    L->next->next = make_shared<ListNode<int>>(ListNode<int>{2, nullptr});
+    result = EvenOddMerge_erdos(L);
+    ASSERT_TRUE(result->data == 0);
+    ASSERT_TRUE(result->next->data == 2);
+    ASSERT_TRUE(result->next->next->data == 1);
+
+    for (int i = 0; i < 1000; ++i) {
+        default_random_engine gen((random_device()) ());
+        uniform_int_distribution<int> dis(1, 1000);
+        int n = dis(gen);
+        shared_ptr<ListNode<int>> head = p_8_10_CreateList(n);
+        ASSERT_TRUE(p_8_10_CheckAnswer(EvenOddMerge_erdos(head), n));
+    }
 }
 
 TEST_F(LinkedLists_Fixture, Palindrome_Funtion) {

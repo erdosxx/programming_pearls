@@ -25,6 +25,8 @@ set(HEADER_FILES
         k-th_node_binary_tree.h
         Successor.h
         Inorder_traversal_with_parent.h
+        preorder_traversal_with_parent.h
+        postorder_traversal_with_parent.h
         Reconstruct_binary_tree_pre_in_orders.h
         Reconstruct_preorder_with_null.h
         Connect_leaves_binary_tree.h
