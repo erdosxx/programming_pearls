@@ -16,6 +16,7 @@ unsigned DivideBsearch(unsigned x, unsigned y) {
     while (power_left < power_right) {
         int old_power_mid = power_mid;
         power_mid = power_left + ((power_right - power_left) / 2);
+
         if (old_power_mid == power_mid) {
             break;
         }
@@ -41,13 +42,13 @@ unsigned DivideBsearch(unsigned x, unsigned y) {
     return part | DivideBsearch(x - (y << power_left), y);
 }
 
-// @include
 // x/y = 2^k + (x - 2^k * y)/y
 unsigned Divide(unsigned x, unsigned y) {
     unsigned result = 0;
     int power = 32;
     // y_power = y * 2^32
     unsigned long long y_power = static_cast<unsigned long long>(y) << power;
+
     while (x >= y) {
         while (y_power > x) {
             y_power >>= 1;
@@ -59,6 +60,5 @@ unsigned Divide(unsigned x, unsigned y) {
     }
     return result;
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_DIVISION_H

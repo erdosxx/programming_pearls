@@ -19,6 +19,7 @@ set(HEADER_FILES
         Binary_search_k_circular_array.h
         square-root-int.h
         Square_root.h
+        DivisionFloat.h
         Matrix_search.h
         Finding_min_max.h
         order_statistic.h

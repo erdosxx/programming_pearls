@@ -9,9 +9,12 @@
 
 using std::vector;
 
-// @include
 struct DuplicateAndMissing {
     int duplicate, missing;
+
+    bool operator==(const DuplicateAndMissing& that) const {
+        return duplicate == that.duplicate && missing == that.missing;
+    }
 };
 
 DuplicateAndMissing FindDuplicateMissing(const vector<int>& A) {
@@ -48,7 +51,20 @@ DuplicateAndMissing FindDuplicateMissing(const vector<int>& A) {
     // miss_or_dup is the missing value.
     return {miss_or_dup ^ miss_XOR_dup, miss_or_dup};
 }
-// @exclude
 
+DuplicateAndMissing FindDuplicateMissing2(const vector<int>& A) {
+    int sum = 0;
+    int square_sum = 0;
+
+    for (int i = 0; i < A.size(); ++i) {
+        sum += i - A[i];
+        square_sum += i * i - A[i] * A[i];
+    }
+    // sum = (0+1+2+...+n-1) - (0+1+2...+n-1 +t -m)
+    // m - t  = sum
+    // square_sum = (0^2+1^2+...+(n-1)^2) - (0^2+1^2+...+(n-1)^2 +t^2 -m^2)
+    // m^2 - t^2 = square_sum
+    return {(square_sum / sum - sum) / 2, (square_sum / sum + sum) / 2};
+}
 
 #endif //ALGORITHM_ANALYSIS_FIND_MISSING_AND_DUPLICATE_XOR_H

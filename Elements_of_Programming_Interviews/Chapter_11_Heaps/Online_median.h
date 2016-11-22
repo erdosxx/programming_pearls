@@ -4,12 +4,10 @@
 
 #include <functional>
 #include <queue>
-#include <random>
 #include <sstream>
 #include <string>
 #include <vector>
 
-using std::endl;
 using std::greater;
 using std::istringstream;
 using std::less;
@@ -18,7 +16,6 @@ using std::string;
 using std::stringstream;
 using std::vector;
 
-// @include
 vector<double> OnlineMedian(istringstream* sequence) {
     vector<double> result;
     // min_heap stores the larger half seen so far.
@@ -49,18 +46,11 @@ vector<double> OnlineMedian(istringstream* sequence) {
             max_heap.pop();
         }
 
-        // @exclude
         result.emplace_back(min_heap.size() == max_heap.size()
                                    ? 0.5 * (min_heap.top() + max_heap.top())
                                    : min_heap.top());
-        // @include
-//        cout << (min_heap.size() == max_heap.size()
-//                 ? 0.5 * (min_heap.top() + max_heap.top())
-//                 : min_heap.top())
-//        << endl;
     }
     return result;
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_ONLINE_MEDIAN_H

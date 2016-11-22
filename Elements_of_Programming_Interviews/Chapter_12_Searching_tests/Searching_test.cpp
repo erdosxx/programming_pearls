@@ -18,6 +18,7 @@
 #include "Binary_search_k_circular_array.h"
 #include "square-root-int.h"
 #include "Square_root.h"
+#include "DivisionFloat.h"
 #include "Matrix_search.h"
 #include "Finding_min_max.h"
 #include "order_statistic.h"
@@ -41,6 +42,7 @@ using std::lower_bound;
 using std::upper_bound;
 using std::mismatch;
 using std::endl;
+using std::fabs;
 
 class Ch12Searching_Fixture : public ::testing::Test {
 private:
@@ -945,6 +947,30 @@ TEST_F(Ch12Searching_Fixture, square_root_Function) {
     }
 }
 
+TEST_F(Ch12Searching_Fixture, division_float) {
+    ASSERT_EQ(Compare(division_no_operator(1.0, 2.0), 1.0/2.0), EQUAL);
+    ASSERT_EQ(Compare(division_no_operator(2.0, 3.0), 2.0/3.0), EQUAL);
+    ASSERT_EQ(Compare(division_no_operator(0.5, 0.5), 0.5/0.5), EQUAL);
+
+    default_random_engine gen((random_device())());
+    for (int times = 0; times < 10000; ++times) {
+        uniform_real_distribution<double> dis(0.0, 100000000.0);
+        double x = dis(gen);
+
+        uniform_real_distribution<double> dis1(1.0, 100000000.0);
+        double y = dis1(gen);
+
+        double res[2];
+        //cout << "x is " << x << endl;
+        //cout << (res[0] = SquareRoot(x)) << ' ' << (res[1] = sqrt(x)) << endl;
+        res[0] = division_no_operator(x,y);
+        res[1] = x/y;
+        // following does not work properly.
+        //ASSERT_EQ(Compare(res[0], res[1]), EQUAL);
+        ASSERT_LE(fabs(res[0]-res[1]), 0.000000000001);
+    }
+}
+
 TEST_F(Ch12Searching_Fixture, matrix_search_Function) {
     vector<vector<int>> A = {{1}};
     ASSERT_FALSE(MatrixSearch(A, 0));
@@ -1207,10 +1233,12 @@ TEST_F(Ch12Searching_Fixture, missing_and_dup_Function) {
         int dup = A[dup_idx];
         A[missing_idx] = dup;
         DuplicateAndMissing ans = FindDuplicateMissing(A);
+        DuplicateAndMissing ans2 = FindDuplicateMissing2(A);
         // cout << "times = " << times << endl;
         // cout << dup << ' ' << missing << endl;
         // cout << ans.duplicate << ' ' << ans.missing << endl;
         ASSERT_TRUE(ans.duplicate == dup && ans.missing == missing);
+        ASSERT_EQ(ans, ans2);
     }
 }
 

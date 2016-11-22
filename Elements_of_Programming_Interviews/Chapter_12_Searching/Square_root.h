@@ -6,12 +6,19 @@
 
 using std::numeric_limits;
 
-// @include
 using Ordering =  enum { SMALLER, EQUAL, LARGER };
 
-// @exclude
-Ordering Compare(double a, double b);
-// @include
+// for comparison of double data.
+// EQUAL:  -Epsilon <= diff <= Epsilon
+//          Epsilon = 2.22045e-16
+Ordering Compare(double a, double b) {
+    // Uses normalization for precision problem.
+    double diff = (a - b) / b;
+    return diff < -numeric_limits<double>::epsilon()
+           ? SMALLER
+           : diff > numeric_limits<double>::epsilon() ? LARGER : EQUAL;
+}
+
 double SquareRoot(double x) {
     // Decides the search range according to x's value relative to 1.0.
     double left, right;
@@ -23,8 +30,9 @@ double SquareRoot(double x) {
 
     // Keeps searching as long as left < right, within tolerance.
     while (Compare(left, right) == SMALLER) {
-        double mid = left + 0.5 * (right - left);
+        double mid = left + (right - left)/2.0;
         double mid_squared = mid * mid;
+
         if (Compare(mid_squared, x) == EQUAL) {
             return mid;
         } else if (Compare(mid_squared, x) == LARGER) {
@@ -35,16 +43,5 @@ double SquareRoot(double x) {
     }
     return left;
 }
-
-// for comparison of double data.
-// EQUAL:  -Epsilon <= diff <= Epsilon
-Ordering Compare(double a, double b) {
-    // Uses normalization for precision problem.
-    double diff = (a - b) / b;
-    return diff < -numeric_limits<double>::epsilon()
-           ? SMALLER
-           : diff > numeric_limits<double>::epsilon() ? LARGER : EQUAL;
-}
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_SQUARE_ROOT_H
