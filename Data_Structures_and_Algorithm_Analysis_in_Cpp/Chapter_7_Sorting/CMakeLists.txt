@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.3)
 
-project(Ch6_Sorting C CXX)
+project(Ch7_Sorting C CXX)
 
 add_definitions(-std=c++14)
 
@@ -14,4 +14,4 @@ set(HEADER_FILES
 #        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
 #        )
 
-add_library(Ch6_Sorting STATIC ${SOURCE_FILES} ${HEADER_FILES})
+#add_library(Ch6_Sorting STATIC ${SOURCE_FILES} ${HEADER_FILES})

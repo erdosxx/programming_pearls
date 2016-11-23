@@ -9,7 +9,6 @@ set(HEADER_FILES
         )
 
 set(SOURCE_FILES
-        DisjSets.cpp
         )
 
-add_library(Ch8_Disjoint_Sets STATIC ${SOURCE_FILES} ${HEADER_FILES})
+#add_library(Ch8_Disjoint_Sets STATIC ${SOURCE_FILES} ${HEADER_FILES})

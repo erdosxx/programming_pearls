@@ -12,4 +12,4 @@ set(HEADER_FILES
 #        sortedrand.cpp
 #        )
 
-add_library(column_15_strings_of_pearls STATIC ${SOURCE_FILES} ${HEADER_FILES})
+#add_library(column_15_strings_of_pearls STATIC ${SOURCE_FILES} ${HEADER_FILES})

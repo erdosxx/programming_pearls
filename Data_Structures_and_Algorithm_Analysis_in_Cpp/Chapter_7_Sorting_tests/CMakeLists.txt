@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.3)
 
-project(Ch6_Sorting)
+project(Ch7_Sorting)
 
 add_definitions(-std=c++14)
 

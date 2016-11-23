@@ -8,13 +8,12 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include "Smallest_subarray_covering_set.h"
 
 using std::istringstream;
 using std::list;
-using std::pair;
 using std::unordered_map;
 
-// @include
 Subarray FindSmallestSubarrayCoveringSubset(
         istringstream* sin, const vector<string>& query_strings) {
     // Tracks the last occurrence (index) of each string in query_strings.
@@ -50,6 +49,5 @@ Subarray FindSmallestSubarrayCoveringSubset(
     }
     return res;
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_SMALLEST_SUBARRAY_COVERING_SET_STREAM_H

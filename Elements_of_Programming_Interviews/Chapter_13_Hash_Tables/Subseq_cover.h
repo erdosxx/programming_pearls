@@ -3,21 +3,18 @@
 // 13.8 Find smallest subarray sequentially covering all values
 
 #include <algorithm>
-#include <iterator>
 #include <limits>
 #include <string>
 #include <unordered_map>
-#include <unordered_set>
 #include <utility>
 #include <vector>
+#include "Smallest_subarray_covering_set.h"
 
 using std::numeric_limits;
 using std::string;
 using std::unordered_map;
-using std::unordered_set;
 using std::vector;
 
-// @include
 Subarray FindSmallestSequentiallyCoveringSubset(
         const vector<string>& paragraph, const vector<string>& keywords) {
     // Maps each keyword to its index in the keywords array.
@@ -41,7 +38,9 @@ Subarray FindSmallestSequentiallyCoveringSubset(
 
     for (int i = 0; i < paragraph.size(); ++i) {
         if (keyword_to_idx.count(paragraph[i])) {
-            int keyword_idx = keyword_to_idx.find(paragraph[i])->second;
+            //int keyword_idx = keyword_to_idx.find(paragraph[i])->second;
+            int keyword_idx = keyword_to_idx.at(paragraph[i]);
+
             if (keyword_idx == 0) {  // First keyword.
                 shortest_subarray_length[keyword_idx] = 1;
             } else if (shortest_subarray_length[keyword_idx - 1] !=
@@ -64,7 +63,6 @@ Subarray FindSmallestSequentiallyCoveringSubset(
     }
     return result;
 }
-// @exclude
 
 
 #endif //ALGORITHM_ANALYSIS_SUBSEQ_COVER_H

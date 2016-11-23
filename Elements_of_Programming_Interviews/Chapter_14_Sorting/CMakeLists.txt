@@ -6,9 +6,9 @@ add_definitions(-std=c++14)
 
 set(HEADER_FILES
         sorting_boot_camp.h
-        Intersect_sorted_array1.h
-        Intersect_sorted_array2.h
-        Intersect_sorted_array3.h
+        Intersect_sorted_arrays1.h
+        Intersect_sorted_arrays2.h
+        Intersect_sorted_arrays3.h
         merge-two-sorted-arrays-in-place.h
         Eliminate_duplicate.h
         Rendering_calendar.h
@@ -25,4 +25,4 @@ set(HEADER_FILES
 #        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
 #        )
 
-add_library(Ch14_Sorting STATIC ${SOURCE_FILES} ${HEADER_FILES})
+#add_library(Ch14_Sorting STATIC ${SOURCE_FILES} ${HEADER_FILES})

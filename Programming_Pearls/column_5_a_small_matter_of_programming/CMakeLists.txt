@@ -12,4 +12,4 @@ set(HEADER_FILES
 #        search.c.c
 #        )
 
-add_library(column_5_small_matter_of_programming STATIC ${SOURCE_FILES} ${HEADER_FILES})
+#add_library(column_5_small_matter_of_programming STATIC ${SOURCE_FILES} ${HEADER_FILES})

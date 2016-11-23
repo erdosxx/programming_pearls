@@ -12,4 +12,4 @@ set(HEADER_FILES
 #        sort.cpp
 #        )
 
-add_library(column_11_sorting STATIC ${SOURCE_FILES} ${HEADER_FILES})
+#add_library(column_11_sorting STATIC ${SOURCE_FILES} ${HEADER_FILES})

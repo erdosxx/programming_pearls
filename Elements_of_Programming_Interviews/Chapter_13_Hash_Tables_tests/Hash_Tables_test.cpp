@@ -57,6 +57,7 @@ protected:
     string RandString(int len);
     int p_13_7_CheckAns(const vector<string>& A, const vector<string>& Q);
     size_t p_13_6_CheckAnswer(const vector<string> &s);
+    int p_13_9_CheckAns(const vector<int> &A);
 
 public:
     Ch13Hash_Tables_Fixture() : Test() {
@@ -66,6 +67,22 @@ public:
     virtual ~Ch13Hash_Tables_Fixture() {
     }
 };
+
+// O(n^2) checking solution.
+int Ch13Hash_Tables_Fixture::p_13_9_CheckAns(const vector<int> &A) {
+    size_t len = 0;
+    for (size_t i = 0; i < A.size(); ++i) {
+        unordered_set<int> table;
+        size_t j;
+        for (j = i; A.size() - i > len && j < A.size(); ++j) {
+            if (!table.emplace(A[j]).second) { // if A[i] is already exist
+                break;
+            }
+        }
+        len = max(len, j - i);
+    }
+    return len;
+}
 
 // O(n^2) checking
 size_t Ch13Hash_Tables_Fixture::p_13_6_CheckAnswer(const vector<string> &s) {
@@ -643,7 +660,7 @@ TEST_F(Ch13Hash_Tables_Fixture, longest_distinct_subarray_Function) {
         cout << endl;
         */
         int ans = LongestSubarrayWithDistinctEntries(A);
-        int golden_ans = distinct::CheckAns(A);
+        int golden_ans = p_13_9_CheckAns(A);
         // cout << ans << " " << golden_ans << endl;
         ASSERT_EQ(ans, golden_ans);
     }

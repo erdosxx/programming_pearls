@@ -12,4 +12,4 @@ set(HEADER_FILES
 #        priqueue.cpp
 #        )
 
-add_library(column_14_heaps STATIC ${SOURCE_FILES} ${HEADER_FILES})
+#add_library(column_14_heaps STATIC ${SOURCE_FILES} ${HEADER_FILES})

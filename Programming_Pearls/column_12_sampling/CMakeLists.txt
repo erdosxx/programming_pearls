@@ -12,4 +12,4 @@ set(HEADER_FILES
 #        sortedrand.cpp
 #        )
 
-add_library(column_12_sampling STATIC ${SOURCE_FILES} ${HEADER_FILES})
+#add_library(column_12_sampling STATIC ${SOURCE_FILES} ${HEADER_FILES})

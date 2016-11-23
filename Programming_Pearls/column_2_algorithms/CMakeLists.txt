@@ -12,4 +12,4 @@ set(HEADER_FILES
 #        gcd.c myrotate-2.cpp rotate.c sign.c squash.c
 #        )
 
-add_library(column_2_algorithms STATIC ${SOURCE_FILES} ${HEADER_FILES})
+#add_library(column_2_algorithms STATIC ${SOURCE_FILES} ${HEADER_FILES})
