@@ -8,9 +8,6 @@
 #include "Linked_list_prototype.h"
 #include "Merge_sorted_lists.h"
 
-using std::make_shared;
-
-// @include
 shared_ptr<ListNode<int>> StableSortList(const shared_ptr<ListNode<int>>& L) {
     // Base cases: L is empty or a single node, nothing to do.
     if (L == nullptr || L->next == nullptr) {
@@ -32,7 +29,6 @@ shared_ptr<ListNode<int>> StableSortList(const shared_ptr<ListNode<int>>& L) {
 
     return MergeTwoSortedLists(StableSortList(L), StableSortList(slow));
 }
-// @exclude
 
 
 #endif //ALGORITHM_ANALYSIS_SORT_LIST_H

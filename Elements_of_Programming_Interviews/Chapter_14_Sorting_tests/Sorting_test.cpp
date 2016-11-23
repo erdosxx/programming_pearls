@@ -344,7 +344,8 @@ TEST_F(Ch14_Sorting_Fixture, team_photo_Function) {
            !Team::valid_placement_exists(t1, t2));
 }
 
-TEST_F(Ch14_Sorting_Fixture, osrt_list_Function) {
+TEST_F(Ch14_Sorting_Fixture, sort_list_Function) {
+    // 1 -> 4 -> 3 -> 2 -> 5
     shared_ptr<ListNode<int>> L;
     L = make_shared<ListNode<int>>(ListNode<int>{
             1, make_shared<ListNode<int>>(ListNode<int>{
