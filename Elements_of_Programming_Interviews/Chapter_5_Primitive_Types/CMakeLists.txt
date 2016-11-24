@@ -22,8 +22,8 @@ set(HEADER_FILES
         Intersect_rectangle.h
         )
 
-#set(SOURCE_FILES
-#        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(Ch5_Primitive_Types STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(Ch5_Primitive_Types STATIC ${SOURCE_FILES} ${HEADER_FILES})

@@ -8,8 +8,8 @@ set(HEADER_FILES
         column13.h
         )
 
-#set(SOURCE_FILES
-#        sortedrand.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(column_13_searching STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(column_13_searching STATIC ${SOURCE_FILES} ${HEADER_FILES})

@@ -8,8 +8,8 @@ set(HEADER_FILES
         column8.h
         )
 
-#set(SOURCE_FILES
-#        search.c.c
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(column_8_algorithm_design_techniques STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(column_8_algorithm_design_techniques STATIC ${SOURCE_FILES} ${HEADER_FILES})

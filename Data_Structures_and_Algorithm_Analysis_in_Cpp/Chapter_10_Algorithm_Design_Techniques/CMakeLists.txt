@@ -13,8 +13,8 @@ set(HEADER_FILES
         primality.h
         )
 
-#set(SOURCE_FILES
-#        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(Ch10_Algorithm_Design STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(Ch10_Algorithm_Design STATIC ${SOURCE_FILES} ${HEADER_FILES})

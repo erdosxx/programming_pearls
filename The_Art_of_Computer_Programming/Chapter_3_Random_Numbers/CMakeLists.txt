@@ -10,8 +10,8 @@ set(HEADER_FILES
         3_4_2_Floyd_algorithm.h
         )
 
-#set(SOURCE_FILES
-#        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(Ch3_Random_Numbers STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(Ch3_Random_Numbers STATIC ${SOURCE_FILES} ${HEADER_FILES})

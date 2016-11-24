@@ -25,8 +25,8 @@ set(HEADER_FILES
         Queue_with_max_alternative.h
         )
 
-#set(SOURCE_FILES
-#        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(Ch9_StacksQueues STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(Ch9_StacksQueues STATIC ${SOURCE_FILES} ${HEADER_FILES})

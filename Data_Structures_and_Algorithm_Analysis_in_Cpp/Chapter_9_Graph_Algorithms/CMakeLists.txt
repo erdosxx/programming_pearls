@@ -8,8 +8,8 @@ set(HEADER_FILES
         Graph.h
         )
 
-#set(SOURCE_FILES
-#        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(Ch9_Graph_Algorithms STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(Ch9_Graph_Algorithms STATIC ${SOURCE_FILES} ${HEADER_FILES})

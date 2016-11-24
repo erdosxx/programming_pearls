@@ -8,8 +8,8 @@ set(HEADER_FILES
         min_priqueue.h
         )
 
-#set(SOURCE_FILES
-#        priqueue.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(column_14_heaps STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(column_14_heaps STATIC ${SOURCE_FILES} ${HEADER_FILES})

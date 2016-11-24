@@ -19,8 +19,8 @@ set(HEADER_FILES
         Largest_rectangle_under_skyline.h
         )
 
-#set(SOURCE_FILES
-#        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(Ch18_Greedy_Invariants STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(Ch18_Greedy_Invariants STATIC ${SOURCE_FILES} ${HEADER_FILES})

@@ -26,8 +26,8 @@ set(HEADER_FILES
         Longest_nondecreasing_subsequence_nlogn.h
         )
 
-#set(SOURCE_FILES
-#        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(Ch17_DP STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(Ch17_DP STATIC ${SOURCE_FILES} ${HEADER_FILES})

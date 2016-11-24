@@ -15,7 +15,6 @@ using std::vector;
 unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(const vector<int>&, int,
                                                       int);
 
-// @include
 unique_ptr<BSTNode<int>> RebuildBSTFromPreorder(
         const vector<int>& preorder_sequence) {
     return RebuildBSTFromPreorderHelper(preorder_sequence, 0,
@@ -40,6 +39,5 @@ unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
                          RebuildBSTFromPreorderHelper(preorder_sequence,
                                                       transition_point, end)});
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_REBUILD_BST_PREORDER_H

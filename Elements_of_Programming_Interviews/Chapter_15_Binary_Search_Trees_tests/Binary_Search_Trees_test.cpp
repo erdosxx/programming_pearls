@@ -54,15 +54,7 @@ protected:
     virtual void SetUp() {
     }
 
-    void CheckAns(const unique_ptr<BSTNode<int>>& n, const int& pre) {
-        if (n) {
-            CheckAns(n->left, pre);
-            ASSERT_LE(pre, n->data);
-            // cout << n->data << endl;
-            CheckAns(n->right, n->data);
-        }
-    }
-
+    void p_15_5_CheckAns(const unique_ptr<BSTNode<int>>& n, const int& pre);
     void TraversalCheck(const unique_ptr<BSTNode<int>>& tree, int* target);
 
 public:
@@ -73,6 +65,15 @@ public:
     virtual ~Ch15_BST_Fixture() {
     }
 };
+
+void Ch15_BST_Fixture::p_15_5_CheckAns(const unique_ptr<BSTNode<int>>& n, const int& pre) {
+    if (n) {
+        p_15_5_CheckAns(n->left, pre);
+        ASSERT_LE(pre, n->data);
+        // cout << n->data << endl;
+        p_15_5_CheckAns(n->right, n->data);
+    }
+}
 
 void Ch15_BST_Fixture::TraversalCheck(const unique_ptr<BSTNode<int>>& tree, int* target) {
     if (tree) {
@@ -471,14 +472,13 @@ TEST_F(Ch15_BST_Fixture, rebuild_BST_preorder_Function) {
     // preorder [3, 2, 1, 5, 4, 6]
     vector<int> preorder = {3, 2, 1, 5, 4, 6};
     unique_ptr<BSTNode<int>> tree(RebuildBSTFromPreorder(preorder));
-    CheckAns(tree, numeric_limits<int>::min());
+    p_15_5_CheckAns(tree, numeric_limits<int>::min());
     ASSERT_EQ(3, tree->data);
     ASSERT_EQ(2, tree->left->data);
     ASSERT_EQ(1, tree->left->left->data);
     ASSERT_EQ(5, tree->right->data);
     ASSERT_EQ(4, tree->right->left->data);
     ASSERT_EQ(6, tree->right->right->data);
-
 }
 
 TEST_F(Ch15_BST_Fixture, rebuild_BST_preorder_better_Function) {
@@ -489,7 +489,7 @@ TEST_F(Ch15_BST_Fixture, rebuild_BST_preorder_better_Function) {
     // preorder [3, 2, 1, 5, 4, 6]
     vector<int> preorder = {3, 2, 1, 5, 4, 6};
     unique_ptr<BSTNode<int>> tree(improved::RebuildBSTFromPreorder(preorder));
-    CheckAns(tree, numeric_limits<int>::min());
+    p_15_5_CheckAns(tree, numeric_limits<int>::min());
     ASSERT_EQ(3, tree->data);
     ASSERT_EQ(2, tree->left->data);
     ASSERT_EQ(1, tree->left->left->data);

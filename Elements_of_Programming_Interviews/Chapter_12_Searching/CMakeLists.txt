@@ -28,8 +28,8 @@ set(HEADER_FILES
         min_index_distance.h
         )
 
-#set(SOURCE_FILES
-#        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(Ch12_Searching STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(Ch12_Searching STATIC ${SOURCE_FILES} ${HEADER_FILES})

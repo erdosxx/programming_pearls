@@ -26,8 +26,8 @@ set(HEADER_FILES
         AddingCredits.h
         )
 
-#set(SOURCE_FILES
-#        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(Ch15_BST STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(Ch15_BST STATIC ${SOURCE_FILES} ${HEADER_FILES})

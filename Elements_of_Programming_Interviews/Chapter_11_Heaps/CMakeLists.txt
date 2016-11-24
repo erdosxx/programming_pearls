@@ -15,8 +15,8 @@ set(HEADER_FILES
         Stack_queue_using_heap.h
         )
 
-#set(SOURCE_FILES
-#        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(Ch11_Heaps STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(Ch11_Heaps STATIC ${SOURCE_FILES} ${HEADER_FILES})

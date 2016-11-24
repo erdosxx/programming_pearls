@@ -38,8 +38,8 @@ set(HEADER_FILES
         inverse_permutation.h
         )
 
-#set(SOURCE_FILES
-#        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(Ch6_Arrays STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(Ch6_Arrays STATIC ${SOURCE_FILES} ${HEADER_FILES})

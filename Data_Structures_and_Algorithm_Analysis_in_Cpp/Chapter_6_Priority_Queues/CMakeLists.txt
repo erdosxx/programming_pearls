@@ -10,8 +10,8 @@ set(HEADER_FILES
         BinomialQueue.h
         )
 
-#set(SOURCE_FILES
-#        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(Ch6_Priority_Queues STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(Ch6_Priority_Queues STATIC ${SOURCE_FILES} ${HEADER_FILES})

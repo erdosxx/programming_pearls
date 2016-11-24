@@ -7,8 +7,8 @@ set(HEADER_FILES
         column9.h
         )
 
-#set(SOURCE_FILES
-#        search.c.c
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(column_9_code_tuning STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(column_9_code_tuning STATIC ${SOURCE_FILES} ${HEADER_FILES})

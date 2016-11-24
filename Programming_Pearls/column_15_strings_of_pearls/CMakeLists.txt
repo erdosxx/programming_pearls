@@ -8,8 +8,8 @@ set(HEADER_FILES
         column15.h
         )
 
-#set(SOURCE_FILES
-#        sortedrand.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(column_15_strings_of_pearls STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(column_15_strings_of_pearls STATIC ${SOURCE_FILES} ${HEADER_FILES})

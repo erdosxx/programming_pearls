@@ -8,8 +8,8 @@ set(HEADER_FILES
         column12.h
         )
 
-#set(SOURCE_FILES
-#        sortedrand.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(column_12_sampling STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(column_12_sampling STATIC ${SOURCE_FILES} ${HEADER_FILES})

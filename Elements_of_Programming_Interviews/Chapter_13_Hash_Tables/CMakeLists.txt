@@ -26,8 +26,8 @@ set(HEADER_FILES
         Collatz_conjecture.h
         )
 
-#set(SOURCE_FILES
-#        bitsort.cpp bitsortgen.cpp qsortints.cpp sortints.cpp spacebitsort.cpp
-#        )
+set(SOURCE_FILES
+        ../dummy.cpp
+        )
 
-#add_library(Ch13_Hash_Tables STATIC ${SOURCE_FILES} ${HEADER_FILES})
+add_library(Ch13_Hash_Tables STATIC ${SOURCE_FILES} ${HEADER_FILES})
