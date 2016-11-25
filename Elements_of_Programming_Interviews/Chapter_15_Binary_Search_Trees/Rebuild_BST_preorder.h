@@ -19,18 +19,18 @@ unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
         return nullptr;
     }
 
-    int transition_point = start + 1;
-    while (transition_point < end &&
-           preorder_sequence[transition_point] < preorder_sequence[start]) {
-        ++transition_point;
+    int right_subtree_start_idx = start + 1;
+    while (right_subtree_start_idx < end &&
+           preorder_sequence[right_subtree_start_idx] < preorder_sequence[start]) {
+        ++right_subtree_start_idx;
     }
 
     return make_unique<BSTNode<int>>(
             BSTNode<int>{preorder_sequence[start],
                          RebuildBSTFromPreorderHelper(preorder_sequence, start + 1,
-                                                      transition_point),
+                                                      right_subtree_start_idx),
                          RebuildBSTFromPreorderHelper(preorder_sequence,
-                                                      transition_point, end)});
+                                                      right_subtree_start_idx, end)});
 }
 
 unique_ptr<BSTNode<int>> RebuildBSTFromPreorder(

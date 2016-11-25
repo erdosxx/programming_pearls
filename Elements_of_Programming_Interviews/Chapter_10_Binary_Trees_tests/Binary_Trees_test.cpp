@@ -811,7 +811,9 @@ TEST_F(BinaryTrees_Fixture, reconstruct_pre_inorder_Function) {
     ASSERT_TRUE(res->data == N - 1 && res->left->data == N - 2 &&
            res->right == nullptr);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 1000);
         int n = dis(gen);
@@ -849,7 +851,9 @@ TEST_F(BinaryTrees_Fixture, reconstruct_preorder_with_null_Function) {
     ASSERT_EQ(result->right->left->data, 3);
     ASSERT_EQ(result->right->right, nullptr);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     // Random test 1000 times.
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 100);

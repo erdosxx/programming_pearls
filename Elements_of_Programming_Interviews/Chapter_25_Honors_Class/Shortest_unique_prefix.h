@@ -13,12 +13,10 @@ using std::string;
 using std::unordered_map;
 using std::unordered_set;
 
-// @include
 class Trie {
 public:
-    // @exclude
     virtual ~Trie() { Clear(); }
-    // @include
+
     bool Insert(const string& s) {
         auto* p = root_.get();
 
@@ -49,11 +47,12 @@ public:
             }
             p = p->leaves[c].get();
         }
-        return {};
+
+        // bug fix: return {} is not work in icpc
+        return "";
     }
-    // @exclude
+
     void Clear() { Clear(&root_); }
-    // @include
 
 private:
     struct TrieNode {
@@ -63,16 +62,15 @@ private:
 
     unique_ptr<TrieNode> root_ = make_unique<TrieNode>(TrieNode());
 
-    // @exclude
     void Clear(unique_ptr<TrieNode>* p) {
-        for (auto& e : (*p)->leaves) {
+        //for (auto& e : (*p)->leaves) {
+        for (pair<const char, unique_ptr<TrieNode>>& e : (*p)->leaves) {
             if (e.second) {
                 Clear(&(e.second));
             }
         }
         p->reset(nullptr);
     }
-    // @include
 };
 
 string FindShortestPrefix(const string& s, const unordered_set<string>& D) {
@@ -83,6 +81,5 @@ string FindShortestPrefix(const string& s, const unordered_set<string>& D) {
     }
     return T.GetShortestUniquePrefix(s);
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_SHORTEST_UNIQUE_PREFIX_H

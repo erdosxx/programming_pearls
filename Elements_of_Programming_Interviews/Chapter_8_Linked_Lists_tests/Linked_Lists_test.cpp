@@ -1178,7 +1178,9 @@ TEST_F(LinkedLists_Fixture, even_odd_merge_Function) {
     ASSERT_TRUE(result->next->data == 2);
     ASSERT_TRUE(result->next->next->data == 1);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 1000);
     int n = dis(gen);
     shared_ptr<ListNode<int>> head = p_8_10_CreateList(n);
@@ -1207,7 +1209,9 @@ TEST_F(LinkedLists_Fixture, even_odd_merge_erdos) {
     ASSERT_TRUE(result->next->next->data == 1);
 
     for (int i = 0; i < 1000; ++i) {
-        default_random_engine gen((random_device()) ());
+        random_device rd;
+        default_random_engine gen(rd());
+        //default_random_engine gen((random_device()) ());
         uniform_int_distribution<int> dis(1, 1000);
         int n = dis(gen);
         shared_ptr<ListNode<int>> head = p_8_10_CreateList(n);

@@ -98,7 +98,9 @@ void Ch14_Sorting_Fixture::p_14_6_CheckIntervals(const vector<p_14_6::Interval>&
 
 string Ch14_Sorting_Fixture::p_14_7_RandString(int len) {
     string ret;
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> char_dis(0, 25);
     while (len--) {
         ret += 'a' + char_dis(gen);
@@ -127,7 +129,9 @@ TEST_F(Ch14_Sorting_Fixture, sorting_boot_camp) {
 }
 
 TEST_F(Ch14_Sorting_Fixture, intersect_sorted_array_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         vector<int> A, B;
         uniform_int_distribution<int> dis(1, 1000);
@@ -158,7 +162,9 @@ TEST_F(Ch14_Sorting_Fixture, intersect_sorted_array_Function) {
 }
 
 TEST_F(Ch14_Sorting_Fixture, merge_two_sorted_array_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<size_t> size_dis(0, 1000);
         size_t m = size_dis(gen);
@@ -184,7 +190,9 @@ TEST_F(Ch14_Sorting_Fixture, eliminate_duplicate_Function) {
     EliminateDuplicate(&A);
     ASSERT_EQ(A.size(), 2);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         vector<Name> A;
         uniform_int_distribution<int> dis(0, 1000);
@@ -204,7 +212,9 @@ TEST_F(Ch14_Sorting_Fixture, rendering_calendar_Function) {
                        {9, 17}, {11, 13}, {12, 15}, {14, 15}};
     ASSERT_EQ(FindMaxSimultaneousEvents(A), 3);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 100000);
     int n = dis(gen);
 
@@ -233,7 +243,9 @@ TEST_F(Ch14_Sorting_Fixture, insert_interval_Function) {
            result.front().right == 0 && result.back().left == 1 &&
            result.back().right == 5);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<size_t> dis(1, 10000);
         size_t n = dis(gen);
@@ -258,7 +270,9 @@ TEST_F(Ch14_Sorting_Fixture, insert_interval_Function) {
 }
 
 TEST_F(Ch14_Sorting_Fixture, union_intervals_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(1, 1000);
         int n = dis(gen);
@@ -295,7 +309,9 @@ TEST_F(Ch14_Sorting_Fixture, partition_array_Function) {
         ASSERT_TRUE(people[1].age == 20 && people[2].age == 20 && people[3].age == 10);
     }
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> dis(1, 10000);
         int size = dis(gen);
@@ -362,7 +378,9 @@ TEST_F(Ch14_Sorting_Fixture, sort_list_Function) {
         result = result->next;
     }
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10000; ++times) {
         shared_ptr<ListNode<int>> L = nullptr;
         uniform_int_distribution<int> dis(0, 99);
@@ -399,7 +417,9 @@ TEST_F(Ch14_Sorting_Fixture, salary_threshold_Function) {
     T = 281;
     ASSERT_EQ(FindSalaryCap(T, A), -1.0);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         A.clear();
         double tar;

@@ -25,7 +25,9 @@ int NonuniformRandomNumberGeneration(const vector<int>& values,
     partial_sum(probabilities.cbegin(), probabilities.cend(),
                 back_inserter(prefix_sums_of_probabilities));
 
-    default_random_engine seed((random_device())());
+    random_device rd;
+    default_random_engine seed(rd());
+    //default_random_engine seed((random_device())());
     double uniform_0_1 =
             generate_canonical<double, numeric_limits<double>::digits>(seed);
     // Find the index of the interval that uniform_0_1 lies in, which is the

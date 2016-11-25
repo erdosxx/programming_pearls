@@ -399,7 +399,9 @@ TEST_F(Ch15_BST_Fixture, find_k_largest_Function) {
     tree->right = make_unique<BSTNode<int>>(BSTNode<int>{5});
     tree->right->left = make_unique<BSTNode<int>>(BSTNode<int>{4});
     tree->right->right = make_unique<BSTNode<int>>(BSTNode<int>{6});
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     uniform_int_distribution<int> dis(1, 6);
     int k = dis(gen);
@@ -523,7 +525,9 @@ TEST_F(Ch15_BST_Fixture, rebuild_BST_postorder_better) {
 }
 
 TEST_F(Ch15_BST_Fixture, min_distance_3_sorted_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    //default_random_engine gen((random_device())());
+    default_random_engine gen(rd());
     for (int times = 0; times < 10; ++times) {
         vector<vector<int>> sorted_arrays;
         uniform_int_distribution<int> dis(1, 5);
@@ -558,7 +562,9 @@ TEST_F(Ch15_BST_Fixture, generating_a_b_sqrt_2_Function) {
     ASSERT_EQ(3.0, ans[6].val);
     ASSERT_EQ(2.0 + sqrt(2.0), ans[7].val);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> dis(1, 10000);
         int k = dis(gen);
@@ -588,7 +594,9 @@ TEST_F(Ch15_BST_Fixture, generating_a_b_sqrt_2_improved_Function) {
     ASSERT_EQ(3.0, ans[6].val);
     ASSERT_EQ(2.0 + sqrt(2.0), ans[7].val);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> dis(1, 10000);
         int k = dis(gen);
@@ -625,7 +633,9 @@ TEST_F(Ch15_BST_Fixture, build_BST_from_sorted_array_Function) {
     ASSERT_EQ(1, result->left->left->data);
     ASSERT_EQ(4, result->right->data);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(1, 1000);
         int n = dis(gen);

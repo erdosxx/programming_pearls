@@ -99,7 +99,9 @@ size_t Ch13Hash_Tables_Fixture::p_13_6_CheckAnswer(const vector<string> &s) {
 
 string Ch13Hash_Tables_Fixture::RandString(int len) {
     string ret;
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     while (len--) {
         uniform_int_distribution<int> dis('a', 'z');
         ret += dis(gen);
@@ -280,7 +282,9 @@ TEST_F(Ch13Hash_Tables_Fixture, hash_tables_boot_camp) {
 }
 
 TEST_F(Ch13Hash_Tables_Fixture, stringHash_Function) {
-    default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device()) ());
     string str;
 
     uniform_int_distribution<int> dis(1, 20);
@@ -307,7 +311,9 @@ TEST_F(Ch13Hash_Tables_Fixture, anagrams) {
     // contains 3 entries
     ASSERT_EQ(3, result.size());
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     uniform_int_distribution<int> n_dis(0, 99999);
     int n = n_dis(gen);
@@ -339,7 +345,9 @@ TEST_F(Ch13Hash_Tables_Fixture, merge_contacts) {
 }
 
 TEST_F(Ch13Hash_Tables_Fixture, palindrome_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         string s;
         uniform_int_distribution<int> dis(1, 10);
@@ -493,7 +501,9 @@ TEST_F(Ch13Hash_Tables_Fixture, nearest_repetition_Function) {
     A = {"foo", "foo", "foo"};
     ASSERT_EQ(p_13_6_CheckAnswer(A), FindNearestRepetition(A));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 100);
         int n = dis(gen);
@@ -521,7 +531,9 @@ TEST_F(Ch13Hash_Tables_Fixture, smallest_subarray_covering_Function) {
     dict = {"b", "a"};
     SimpleTestCase(A, dict, 0, 1);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         vector<string> A;
         uniform_int_distribution<int> dis(1, 100);
@@ -598,7 +610,9 @@ TEST_F(Ch13Hash_Tables_Fixture, subseq_cover_Function) {
     Subarray rr = FindSmallestSequentiallyCoveringSubset(A3, subseq4);
     ASSERT_TRUE(rr.start == 0 && rr.end == 12);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         vector<string> A;
         uniform_int_distribution<int> dis(1, 10000);
@@ -646,7 +660,9 @@ TEST_F(Ch13Hash_Tables_Fixture, longest_distinct_subarray_Function) {
     ASSERT_EQ(2,
            LongestSubarrayWithDistinctEntries({1, 2, 2, 3, 3, 1, 1, 2, 1}));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<size_t> dis(0, 1000);
     int n = dis(gen);
     // cout << "n = " << n << endl;
@@ -667,7 +683,9 @@ TEST_F(Ch13Hash_Tables_Fixture, longest_distinct_subarray_Function) {
 }
 
 TEST_F(Ch13Hash_Tables_Fixture, longest_contained_range_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<size_t> dis(0, 1000);
         size_t n = dis(gen);
@@ -705,7 +723,9 @@ TEST_F(Ch13Hash_Tables_Fixture, average_top_3_Function) {
     // cout << "result = " << result << endl;
     ASSERT_EQ(result, "adnan");
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 10000);
     int n = dis(gen);
     ofstream ofs1("/tmp/scores.txt");
@@ -741,7 +761,9 @@ TEST_F(Ch13Hash_Tables_Fixture, concat_substring_Function) {
 }
 
 TEST_F(Ch13Hash_Tables_Fixture, Collatz_conjecture_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 10000);
         int n = dis(gen);

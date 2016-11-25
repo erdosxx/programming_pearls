@@ -30,7 +30,9 @@ string SnakeString(const string& s) {
 // @exclude
 
 string RandString(size_t len) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<char> dis('A', 'Z');
     string result;
     while (len--) {

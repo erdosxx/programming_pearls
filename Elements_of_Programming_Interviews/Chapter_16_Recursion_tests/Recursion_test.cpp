@@ -86,7 +86,9 @@ void Ch16_Recursion_Fixture::p_16_7_CheckAns(const vector<vector<string>>& vecs,
 }
 
 string Ch16_Recursion_Fixture::p_16_7_RandString(size_t len) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     string ret;
     uniform_int_distribution<char> dis('a', 'z');
     while (len) {
@@ -97,7 +99,9 @@ string Ch16_Recursion_Fixture::p_16_7_RandString(size_t len) {
 }
 
 TEST_F(Ch16_Recursion_Fixture, tower_hanoi_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 10);
     int n = dis(gen);
 
@@ -134,7 +138,9 @@ TEST_F(Ch16_Recursion_Fixture, n_queens_Function) {
     ASSERT_NE(result[0], result[1]);
 
     /*
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 15);
     int n = dis(gen);
     //cout << "n = " << n << endl;
@@ -161,7 +167,9 @@ TEST_F(Ch16_Recursion_Fixture, permutations_Function) {
     }
 
     /*
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<size_t> dis(1, 10);
     size_t n = dis(gen);
 
@@ -190,7 +198,9 @@ TEST_F(Ch16_Recursion_Fixture, permutations_alt_Function) {
     }
 
     /*
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 10);
     size_t n = dis(gen);
 
@@ -216,7 +226,9 @@ TEST_F(Ch16_Recursion_Fixture, Power_set_Function) {
 
     /*
     vector<int> S;
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 10);
     S.resize(dis(gen));
     iota(S.begin(), S.end(), 0);
@@ -243,7 +255,9 @@ TEST_F(Ch16_Recursion_Fixture, Power_set_alt_Function) {
             S.emplace_back(atoi(argv[i]));
         }
     } else {
-        default_random_engine gen((random_device())());
+        random_device rd;
+        default_random_engine gen(rd());
+        //default_random_engine gen((random_device())());
         uniform_int_distribution<int> dis(1, 10);
         S.resize(dis(gen));
         iota(S.begin(), S.end(), 0);
@@ -264,7 +278,9 @@ TEST_F(Ch16_Recursion_Fixture, combinations_Function) {
                  golden_result.end()));
 
     /*
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     int n, k;
     if (argc == 3) {
         n = stoi(argv[1]), k = stoi(argv[2]);
@@ -295,7 +311,9 @@ TEST_F(Ch16_Recursion_Fixture, generate_parentheses_Function) {
              (!result.front().compare("()()") && !result.back().compare("(())"))));
 
     /*
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis_n(0, 10);
     int n = dis_n(gen);
 
@@ -318,7 +336,9 @@ TEST_F(Ch16_Recursion_Fixture, palindrome_partitioning_Function) {
     vector<vector<string>> golden = {v0, v1, v2, v3, v4};
     ASSERT_EQ(result, golden);
 
-    default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device()) ());
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<size_t> dis_len(0, 10);
         string s = p_16_7_RandString(dis_len(gen));
@@ -345,7 +365,9 @@ TEST_F(Ch16_Recursion_Fixture, generate_binary_trees_Function) {
     ASSERT_EQ(GenerateAllBinaryTrees(10).size(), 16796);
 
     /*
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     int n;
     if (argc == 2) {
         n = stoi(argv[1]);
@@ -394,7 +416,9 @@ TEST_F(Ch16_Recursion_Fixture, gray_code_backtracking_Function) {
     vector<int> expected = {0, 1, 3, 2, 6, 7, 5, 4};
     ASSERT_TRUE(equal(vec.begin(), vec.end(), expected.begin(), expected.end()));
 
-    default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device()) ());
     uniform_int_distribution<int> dis(1, 9);
     int n = dis(gen);
 
@@ -414,7 +438,9 @@ TEST_F(Ch16_Recursion_Fixture, gray_code_Function) {
     vector<int> expected = {0, 1, 3, 2, 6, 7, 5, 4};
     ASSERT_TRUE(equal(vec.begin(), vec.end(), expected.begin(), expected.end()));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 9);
     int n = dis(gen);
 

@@ -63,13 +63,13 @@ void shellsort( vector<Comparable> & a ) {
 
 
 template <typename Comparable>
-void max_heap_percDown(vector<Comparable> &a, int i, int n);
+void max_heap_percDown(vector<Comparable>& a, int i, int n);
 
 /**
  * Standard heapsort.
  */
 template <typename Comparable>
-void heapsort( vector<Comparable> & a ) {
+void heapsort(vector<Comparable>& a) {
     for( int i = a.size()/2 -1; i >= 0; --i )  /* buildHeap */
         max_heap_percDown(a, i, a.size());
 

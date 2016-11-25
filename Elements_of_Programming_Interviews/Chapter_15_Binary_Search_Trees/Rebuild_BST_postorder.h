@@ -17,15 +17,15 @@ using std::vector;
 unique_ptr<BSTNode<int>> RebuildBSTFromPostorderHelper(
         const vector<int>& postorder, int start, int end) {
     if (start < end) {
-        int x = start;
-        while (x < end && postorder[x] < postorder[end - 1]) {
-            ++x;
+        int right_subtree_begin_idx = start;
+        while (right_subtree_begin_idx < end && postorder[right_subtree_begin_idx] < postorder[end - 1]) {
+            ++right_subtree_begin_idx;
         }
 
         return make_unique<BSTNode<int>>(
                 BSTNode<int>{postorder[end - 1],
-                             RebuildBSTFromPostorderHelper(postorder, start, x),
-                             RebuildBSTFromPostorderHelper(postorder, x, end - 1)});
+                             RebuildBSTFromPostorderHelper(postorder, start, right_subtree_begin_idx),
+                             RebuildBSTFromPostorderHelper(postorder, right_subtree_begin_idx, end - 1)});
     }
 
     return nullptr;

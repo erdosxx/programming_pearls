@@ -26,13 +26,15 @@ using boost::thread_group;
 using boost::sync_bounded_queue;
 using boost::queue_op_status;
 
-typedef unsigned long long CollatzInt;
-typedef sync_bounded_queue<pair<CollatzInt, CollatzInt>> QueueType;
+//typedef unsigned long long CollatzInt;
+using CollatzInt = unsigned long long;
+//typedef sync_bounded_queue<pair<CollatzInt, CollatzInt>> QueueType1;
+using QueueType1 = sync_bounded_queue<pair<CollatzInt, CollatzInt>>;
 void Worker(CollatzInt lower, CollatzInt upper);
 bool CollatzCheck(CollatzInt x, unordered_set<CollatzInt>& visited);
 
 // @include
-void ThreadFunc(QueueType& q) {
+void ThreadFunc(QueueType1& q) {
     pair<CollatzInt, CollatzInt> args;
     while (q.wait_pull_front(args) == queue_op_status::success) {
         Worker(args.first, args.second);
@@ -41,8 +43,10 @@ void ThreadFunc(QueueType& q) {
 
 // Performs basic unit of work
 void Worker(CollatzInt lower, CollatzInt upper) {
+    unordered_set<CollatzInt> collset;
     for (CollatzInt i = lower; i <= upper; ++i) {
-        assert(CollatzCheck(i, unordered_set<CollatzInt>()));
+        //assert(CollatzCheck(i, unordered_set<CollatzInt>()));
+        assert(CollatzCheck(i, collset));
     }
     cout << '(' << lower << ',' << upper << ')' << endl;
 }

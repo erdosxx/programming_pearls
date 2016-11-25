@@ -18,26 +18,26 @@ namespace improved {
     // upper_bound).
     unique_ptr<BSTNode<int>> RebuildBSTFromPostorderHelper(
             const vector<int> &postorder_sequence, int lower_bound, int upper_bound,
-            int *root_idx) {
-        if (*root_idx < 0) {
+            int* root_idx_ptr) {
+        if (*root_idx_ptr < 0) {
             return nullptr;
         }
 
-        int root = postorder_sequence[*root_idx];
+        int root = postorder_sequence[*root_idx_ptr];
         if (root < lower_bound || root > upper_bound) {
             return nullptr;
         }
-        --*root_idx;
+
+        --*root_idx_ptr;
         auto right_subtree = RebuildBSTFromPostorderHelper(postorder_sequence, root,
-                                                           upper_bound, root_idx);
-        auto left_subtree = RebuildBSTFromPostorderHelper(
-                postorder_sequence, lower_bound, root, root_idx);
+                                                           upper_bound, root_idx_ptr);
+        auto left_subtree = RebuildBSTFromPostorderHelper(postorder_sequence, lower_bound,
+                                                           root, root_idx_ptr);
         return make_unique<BSTNode<int>>(
                 BSTNode<int>{root, move(left_subtree), move(right_subtree)});
     }
 
-    unique_ptr<BSTNode<int>> RebuildBSTFromPostorder(
-            const vector<int> &postorder_sequence) {
+    unique_ptr<BSTNode<int>> RebuildBSTFromPostorder(const vector<int> &postorder_sequence) {
         int root_idx = postorder_sequence.size() - 1;
         return RebuildBSTFromPostorderHelper(postorder_sequence,
                                              numeric_limits<int>::min(),

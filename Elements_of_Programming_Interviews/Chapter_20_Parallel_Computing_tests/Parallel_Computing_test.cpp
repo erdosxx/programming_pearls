@@ -102,6 +102,9 @@ TEST_F(Ch20_Parallel_Computing_Fixture, simple_web_server_Function) {
 
     asio::io_service io_service;
     tcp::acceptor acceptor(io_service, tcp::endpoint(tcp::v4(), SERVERPORT));
+    // TODO:: bug fix
+    // no matching constructor for initialization of 'std::__1::thread'
+    // thread(ProcessReq, sock).detach();
     while (true) {
         tcp::socket sock(io_service);
         acceptor.accept(sock);
@@ -114,6 +117,9 @@ TEST_F(Ch20_Parallel_Computing_Fixture, thread_per_task_webserver_Function) {
 
     asio::io_service io_service;
     tcp::acceptor acceptor(io_service, tcp::endpoint(tcp::v4(), SERVERPORT));
+    // TODO:: bug fix
+    // no matching constructor for initialization of 'std::__1::thread'
+    // thread(ProcessReq, sock).detach();
     while (true) {
         shared_ptr <tcp::socket> sock(new tcp::socket(io_service));
         acceptor.accept(*sock);
@@ -125,7 +131,7 @@ TEST_F(Ch20_Parallel_Computing_Fixture, task_execution_web_server_Function) {
     const unsigned short kServerPort = 8080;
     const int kNThreads = 2;
 
-    QueueType q(kNThreads);
+    QueueType1 q(kNThreads);
     for (int i = 0; i < kNThreads; ++i) {
         thread(ThreadFunc, ref(q)).detach();
     }
@@ -176,7 +182,7 @@ TEST_F(Ch20_Parallel_Computing_Fixture, Collatz_Function) {
 
     // @include
     // Uses synchronized bounded queue for task assignment and load balancing
-    QueueType q(NTHREADS);
+    QueueType1 q(NTHREADS);
     thread_group threads;
     for (int i = 0; i < NTHREADS; ++i) {
         threads.create_thread(bind(ThreadFunc, ref(q)));

@@ -6,6 +6,7 @@ add_definitions(-std=c++14)
 
 set(HEADER_FILES
         fibonacci.h
+        fibonacci_rakuten.h
         Max-sum_subarray.h
         Score_combination.h
         Score_combination_alternative.h

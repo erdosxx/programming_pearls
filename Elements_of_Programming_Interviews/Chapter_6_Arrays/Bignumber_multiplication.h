@@ -55,7 +55,9 @@ namespace multiply {
     vector<int> RandVector(int len) {
         if (!len) return {0};
 
-        default_random_engine gen((random_device())());
+        random_device rd;
+        default_random_engine gen(rd());
+        //default_random_engine gen((random_device())());
         uniform_int_distribution<int> dis(1, 9);
         vector<int> ret;
         ret.emplace_back(dis(gen));

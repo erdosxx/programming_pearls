@@ -24,7 +24,9 @@ using btree::BinaryTreeNode;
 template <typename T>
 unique_ptr<BinaryTreeNode<T>> generate_rand_binary_tree(
         int n, bool is_unique = false) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     list<unique_ptr<BinaryTreeNode<T>>*> l;
     uniform_int_distribution<int> dis(0, numeric_limits<int>::max());
     auto root = make_unique<BinaryTreeNode<T>>(

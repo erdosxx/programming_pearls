@@ -85,7 +85,9 @@ unsigned long diff_fib(const unsigned long& N) {
 struct _2x2_m {
     m_type m;
 
-    _2x2_m(m_type ma = {{{0,0}, {0,0}}}): m{ma} {};
+    _2x2_m(m_type ma = {{{0,0}, {0,0}}}) {
+        m = ma;
+    };
 
     _2x2_m operator*(_2x2_m that){
         return m_type{{

@@ -109,7 +109,9 @@ void Ch18_Greedy_Invariants_Fixture::p_18_6_CheckAns(const vector<int>& gallons,
 }
 
 string Ch18_Greedy_Invariants_Fixture::p_18_5_RandString(int len) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     string ret;
     while (len--) {
         uniform_int_distribution<int> dis('a', 'z');
@@ -218,7 +220,9 @@ TEST_F(Ch18_Greedy_Invariants_Fixture, coin_change) {
 }
 
 TEST_F(Ch18_Greedy_Invariants_Fixture, task_assignment_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 10000);
     int n = dis(gen);
 
@@ -245,7 +249,9 @@ TEST_F(Ch18_Greedy_Invariants_Fixture, min_waiting_time_Function) {
   ASSERT_EQ(10, MinimumTotalWaitingTime({5, 1, 2, 3}));
 
   /*
-  default_random_engine gen((random_device())());
+  random_device rd;
+  default_random_engine gen(rd());
+  //default_random_engine gen((random_device())());
   uniform_int_distribution<int> dis(1, 100);
   int n = dis(gen);
 
@@ -284,7 +290,9 @@ TEST_F(Ch18_Greedy_Invariants_Fixture, points_covering_Function) {
     ans = FindMinimumVisits(intervals);
     ASSERT_TRUE(ans.size() == 3 && ans[0] == 2 && ans[1] == 4 && ans[2] == 6);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         // cout << "Test " << times << endl;
         uniform_int_distribution<int> dis(1, 10000);
@@ -324,7 +332,9 @@ TEST_F(Ch18_Greedy_Invariants_Fixture, points_covering_alt_Function) {
     ans = alt::FindMinimumVisits(intervals);
     ASSERT_TRUE(ans.size() == 3 && ans[0] == 2 && ans[1] == 4 && ans[2] == 6);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         // cout << "Test " << times << endl;
         uniform_int_distribution<int> dis(1, 10000);
@@ -364,7 +374,9 @@ TEST_F(Ch18_Greedy_Invariants_Fixture, points_covering_sorting_Function) {
     ans = sorting::FindMinimumVisits(intervals);
     ASSERT_TRUE(ans.size() == 3 && ans[0] == 2 && ans[1] == 4 && ans[2] == 6);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         // cout << "Test " << times << endl;
         uniform_int_distribution<int> dis(1, 10000);
@@ -384,7 +396,9 @@ TEST_F(Ch18_Greedy_Invariants_Fixture, points_covering_sorting_Function) {
 }
 
 TEST_F(Ch18_Greedy_Invariants_Fixture, 2_sum_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> dis(1, 10000);
         int n = dis(gen);
@@ -404,7 +418,9 @@ TEST_F(Ch18_Greedy_Invariants_Fixture, 2_sum_Function) {
 }
 
 TEST_F(Ch18_Greedy_Invariants_Fixture, 3_sum_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> dis(1, 10000);
         int n = dis(gen);
@@ -423,7 +439,9 @@ TEST_F(Ch18_Greedy_Invariants_Fixture, 3_sum_Function) {
 }
 
 TEST_F(Ch18_Greedy_Invariants_Fixture, search_majority_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         vector<string> stream;
 
@@ -465,7 +483,9 @@ TEST_F(Ch18_Greedy_Invariants_Fixture, gassing_up_Function) {
     ASSERT_EQ(ans, 8);
     p_18_6_CheckAns(gallons, distances, ans);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(1, 10000);
         int n = dis(gen);
@@ -502,7 +522,9 @@ TEST_F(Ch18_Greedy_Invariants_Fixture, container_water_Function) {
     vector<int> A = {1, 2, 1, 3, 4, 4, 5, 6, 2, 1, 3, 1, 3, 2, 1, 2, 4, 1};
     ASSERT_EQ(48, GetMaxTrappedWater(A));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<size_t> dis(2, 10000);
         size_t n = dis(gen);
@@ -527,7 +549,9 @@ TEST_F(Ch18_Greedy_Invariants_Fixture, skyline_Function) {
     A = {1, 1, 2};
     ASSERT_EQ(3, CalculateLargestRectangle(A));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 30; ++times) {
         vector<int> A;
         uniform_int_distribution<int> dis(1, 1000);

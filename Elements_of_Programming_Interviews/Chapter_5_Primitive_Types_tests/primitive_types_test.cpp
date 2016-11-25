@@ -152,7 +152,9 @@ TEST_F(Primitive_Types_Fixture, count_bits) {
     ASSERT_EQ(0, CountBits_imp(0b0));
     ASSERT_EQ(3, CountBits_imp(0b1011));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(0, numeric_limits<int>::max());
@@ -190,7 +192,9 @@ TEST_F(Primitive_Types_Fixture, parity_Function) {
         ASSERT_EQ(parity_val, Parity4::Parity(i));
     }
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<unsigned long> dis(0, numeric_limits<unsigned long>::max());
         unsigned long x = dis(gen);
@@ -212,7 +216,9 @@ TEST_F(Primitive_Types_Fixture, swap_bits_Function) {
 
 TEST_F(Primitive_Types_Fixture, reverse_bits_Function) {
     CreatePrecomputedTable();
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<long> dis(0, numeric_limits<long>::max());
@@ -230,7 +236,9 @@ TEST_F(Primitive_Types_Fixture, closest_int_Function) {
     ASSERT_THROW(ClosestIntSameBitCount(numeric_limits<unsigned long>::max()), std::invalid_argument);
     ASSERT_THROW(ClosestIntSameBitCount(0), std::invalid_argument);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<unsigned long> dis(0, numeric_limits<unsigned long>::max());
     unsigned long x = dis(gen);
 
@@ -241,7 +249,9 @@ TEST_F(Primitive_Types_Fixture, closest_int_Function) {
 }
 
 TEST_F(Primitive_Types_Fixture, multiply_shift_add_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     // Random test, only works if the product is not greater than 2^32 - 1.
     for (int i = 0; i < 100000; ++i) {
         uniform_int_distribution<int> dis(0, 65534);
@@ -276,7 +286,9 @@ TEST_F(Primitive_Types_Fixture, Division_Function) {
     ASSERT_EQ(2, DivideBsearch(82282176, 36803266));
     ASSERT_EQ(4, DivideBsearch(4240510108, 1035769031));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<size_t> dis(0, numeric_limits<size_t>::max());
     for (int times = 0; times < 100000; ++times) {
         unsigned x = dis(gen), y = dis(gen);
@@ -287,7 +299,9 @@ TEST_F(Primitive_Types_Fixture, Division_Function) {
 }
 
 TEST_F(Primitive_Types_Fixture, power_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     double x;
     int y;
     uniform_real_distribution<> dis_x(0.0, 10.0);
@@ -300,7 +314,9 @@ TEST_F(Primitive_Types_Fixture, power_Function) {
 }
 
 TEST_F(Primitive_Types_Fixture, reverse_integer_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     int n;
     uniform_int_distribution<int> dis(numeric_limits<int>::min(),
                                       numeric_limits<int>::max());
@@ -311,7 +327,9 @@ TEST_F(Primitive_Types_Fixture, reverse_integer_Function) {
 }
 
 TEST_F(Primitive_Types_Fixture, palindrome_number_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     int x;
     uniform_int_distribution<int> dis(-99999, 99999);
 
@@ -322,7 +340,9 @@ TEST_F(Primitive_Types_Fixture, palindrome_number_Function) {
 }
 
 TEST_F(Primitive_Types_Fixture, uniform_random_number_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         int a, b;
         uniform_int_distribution<int> a_dis(0, 99);
@@ -349,7 +369,9 @@ TEST_F(Primitive_Types_Fixture, Intersect_rectangle_Function) {
 
     for (int times = 0; times < 10000; ++times) {
         Rectangle R1, R2;
-        default_random_engine gen((random_device())());
+        random_device rd;
+        default_random_engine gen(rd());
+        //default_random_engine gen((random_device())());
         uniform_int_distribution<int> dis(1, 100);
         R1.x = dis(gen), R1.y = dis(gen), R1.width = dis(gen),
         R1.height = dis(gen);

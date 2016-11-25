@@ -1,3 +1,4 @@
+#include "Doubly_linked_list_prototype.h"
 #include <gtest/gtest.h>
 #include <random>
 #include <limits>
@@ -6,6 +7,7 @@
 #include <string>
 #include <deque>
 #include <thread>
+#include "Square_root.h"
 #include "Binary_tree_utils.h"
 #include "GCD1.h"
 #include "GCD2.h"
@@ -118,7 +120,7 @@ protected:
 
     string RandString(int len);
 
-    string p_25_20_CheckAns(const string& s, unordered_set<string>& D);
+    string p_25_20_CheckAns(const string& query, unordered_set<string>& dict);
 
     void PrintBSTInorder(shared_ptr<BSTNode<int>> n, const int& pre);
 
@@ -140,6 +142,9 @@ protected:
     void p_25_38_check_answer(const vector<int>& A, const long_sub::Subarray& ans, int k);
     void p_25_38_2_CheckAnswer(const vector<int> &A, int ans, const int &k);
 
+    void p_25_22_InorderTraversal(const shared_ptr<DL::ListNode<int>>& node, const int& pre,
+                                  const int& depth);
+
 public:
     Ch25_Honors_Class_Fixture() : Test() {
 
@@ -148,6 +153,16 @@ public:
     virtual ~Ch25_Honors_Class_Fixture() {
     }
 };
+
+void Ch25_Honors_Class_Fixture::p_25_22_InorderTraversal(const shared_ptr<DL::ListNode<int>>& node, const int& pre,
+                      const int& depth) {
+    if (node) {
+        p_25_22_InorderTraversal(node->prev, pre, depth + 1);
+        ASSERT_LE(pre, node->data);
+        //cout << node->data << ' ' << "; depth = " << depth << endl;
+        p_25_22_InorderTraversal(node->next, node->data, depth + 1);
+    }
+}
 
 // O(n^2) checking answer.
 void Ch25_Honors_Class_Fixture::p_25_38_2_CheckAnswer(const vector<int> &A, int ans, const int &k) {
@@ -210,7 +225,9 @@ void Ch25_Honors_Class_Fixture::p_25_38_check_answer(const vector<int>& A, const
 
 string Ch25_Honors_Class_Fixture::p_25_37_RandString(int len) {
     string ret;
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     while (len--) {
         uniform_int_distribution<int> dis('a', 'z');
         ret += dis(gen);
@@ -353,28 +370,32 @@ void Ch25_Honors_Class_Fixture::PrintBSTInorder(shared_ptr<BSTNode<int>> n, cons
     }
 }
 
-string Ch25_Honors_Class_Fixture::p_25_20_CheckAns(const string& s, unordered_set<string>& D) {
-    int len = 0;
-    for (auto iter = D.cbegin(); iter != D.cend(); ++iter) {
+string Ch25_Honors_Class_Fixture::p_25_20_CheckAns(const string& query, unordered_set<string>& dict) {
+    int matching_len = 0;
+
+    for (auto iter = dict.cbegin(); iter != dict.cend(); ++iter) {
         int i;
-        for (i = 0; i < s.size() && i < (*iter).size(); ++i) {
-            if (s[i] != (*iter)[i]) {
+
+        for (i = 0; i < query.size() && i < (*iter).size(); ++i) {
+            if (query[i] != (*iter)[i]) {
                 break;
             }
         }
-        if (i > len) {
-            len = i;
-        }
+
+        matching_len = (i > matching_len) ? i : matching_len;
     }
-    if (len == s.size()) {
+
+    if (matching_len == query.size()) {
         return string();
     } else {
-        return s.substr(0, len + 1);
+        return query.substr(0, matching_len + 1);
     }
 }
 
 string Ch25_Honors_Class_Fixture::RandString(int len) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     string ret;
     while (len--) {
         uniform_int_distribution<int> dis(0, 25);
@@ -479,7 +500,9 @@ void Ch25_Honors_Class_Fixture::p_25_7_CheckAns(const vector<vector<int>>& A, co
 }
 
 vector<int> Ch25_Honors_Class_Fixture::p_25_6_RandVector(int len) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     vector<int> ret;
     uniform_int_distribution<int> dis(0, len);
     while (len--) {
@@ -584,7 +607,9 @@ TEST_F(Ch25_Honors_Class_Fixture, GCD_Function) {
     ASSERT_EQ(2, GCD1::GCD(x, y));
     ASSERT_EQ(2, GCD1::GCD2(x, y));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<long long> dis(
                 1, numeric_limits<long long>::max());
@@ -601,7 +626,9 @@ TEST_F(Ch25_Honors_Class_Fixture, first_missing_positive_Function) {
     vector<int> A1= {3,3,3,-1, 2, 2};
     ASSERT_EQ(FindFirstMissingPositive(A1), 1);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<size_t> dis(0, 500000);
@@ -621,10 +648,12 @@ TEST_F(Ch25_Honors_Class_Fixture, first_missing_positive_Function) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, max_difference_k_pairs_Function) {
-    default_random_engine gen((random_device())());
-    int n = 30, k = 4;
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
+    int n = 20, k = 4;
     // random tests for n = 30, k = 4 for 100 times/
-    for (int times = 0; times < 5; ++times) {
+    for (int times = 0; times < 10; ++times) {
         vector<double> A;
         uniform_real_distribution<double> dis(0, 99);
         for (int i = 0; i < n; ++i) {
@@ -632,7 +661,8 @@ TEST_F(Ch25_Honors_Class_Fixture, max_difference_k_pairs_Function) {
         }
         // cout << "n = " << n << ", k = " << k << endl;
         // cout << MaxKPairsProfits(A, k) << endl;
-        ASSERT_EQ(p_25_3_CheckAns(A, k), MaxKPairsProfits(A, k));
+        //ASSERT_EQ(p_25_3_CheckAns(A, k), MaxKPairsProfits(A, k));
+        ASSERT_EQ(Compare(p_25_3_CheckAns(A, k), MaxKPairsProfits(A, k)), EQUAL);
     }
 
     uniform_int_distribution<int> n_dis(1, 60);
@@ -651,7 +681,9 @@ TEST_F(Ch25_Honors_Class_Fixture, max_difference_k_pairs_Function) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, biggest_product_n_1) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 10000; ++times) {
         vector<int> A;
@@ -671,7 +703,9 @@ TEST_F(Ch25_Honors_Class_Fixture, biggest_product_n_1) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, biggest_product_n_1_math) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100000; ++times) {
         vector<int> A;
         uniform_int_distribution<int> dis(2, 11);
@@ -695,7 +729,9 @@ TEST_F(Ch25_Honors_Class_Fixture, longest_increasing_subarray) {
     ans = FindLongestIncreasingSubarray({1, 2});
     ASSERT_TRUE(ans.start == 0 && ans.end == 1);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         vector<int> A;
         uniform_int_distribution<int> dis(1, 10000);
@@ -723,7 +759,9 @@ TEST_F(Ch25_Honors_Class_Fixture, longest_increasing_subarray) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, rotate_array_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         int len;
@@ -745,7 +783,9 @@ TEST_F(Ch25_Honors_Class_Fixture, rotate_array_Function) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, rook_attack_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         size_t m, n;
@@ -806,7 +846,9 @@ TEST_F(Ch25_Honors_Class_Fixture, justify_text_Function) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, zipping_list_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     shared_ptr<ListNode<int>> head = nullptr;
 
     uniform_int_distribution<int> dis(1, 20);
@@ -830,7 +872,9 @@ TEST_F(Ch25_Honors_Class_Fixture, zipping_list_Function) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, copying_postings_list_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> n_dis(1, 1000);
@@ -942,7 +986,9 @@ TEST_F(Ch25_Honors_Class_Fixture, bonus_Function) {
     golden_A = {1, 2, 3, 1};
     ASSERT_TRUE(EqualVector(CalculateBonus(A), golden_A));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(1, 1000);
         int n = dis(gen);
@@ -971,7 +1017,9 @@ TEST_F(Ch25_Honors_Class_Fixture, improved_bonus_Function) {
     golden_A = {1, 2, 3, 1};
     ASSERT_TRUE(imp::EqualVector(imp::CalculateBonus(A), golden_A));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(1, 1000);
         int n = dis(gen);
@@ -995,7 +1043,9 @@ TEST_F(Ch25_Honors_Class_Fixture, binary_search_unknown_length_Function) {
     ASSERT_EQ(BinarySearchUnknownLength(A, 4), -1);
     ASSERT_EQ(BinarySearchUnknownLength(A, -1), -1);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> n_dis(1, 1000);
         int n = n_dis(gen);
@@ -1035,7 +1085,9 @@ TEST_F(Ch25_Honors_Class_Fixture, find_kth_in_two_array_Function) {
     ASSERT_EQ(1, FindKthInTwoSortedArrays(A0, B0, 4));
     ASSERT_EQ(2, FindKthInTwoSortedArrays(A0, B0, 5));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     // Random test 10000 times.
     for (int times = 0; times < 100; ++times) {
         vector<int> A, B;
@@ -1089,7 +1141,9 @@ TEST_F(Ch25_Honors_Class_Fixture, find_kth_in_two_array_template_Function) {
     ASSERT_EQ(1, FindKthInTwoSortedArrays<int>(A0, B0, 4));
     ASSERT_EQ(2, FindKthInTwoSortedArrays<int>(A0, B0, 5));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     // Random test 10000 times.
     for (int times = 0; times < 100; ++times) {
         vector<int> A, B;
@@ -1130,7 +1184,9 @@ TEST_F(Ch25_Honors_Class_Fixture, k_th_largest_elements_large_n) {
     SimpleTestArray(A);
     A = {5, -1, 2, 1, 3, 1, 4, (2 << 31) - 1, 5};
     SimpleTestArray(A);
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     int N = 1000;
     A = {};
     for (int i = 0; i < N; ++i) {
@@ -1170,7 +1226,9 @@ TEST_F(Ch25_Honors_Class_Fixture, k_th_largest_elements_large_n) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, find_element_appears_once) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 10000; ++times) {
         vector<int> A;
@@ -1193,7 +1251,9 @@ TEST_F(Ch25_Honors_Class_Fixture, find_element_appears_once) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, line_most_points) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 100; ++times) {
         // cout << times << endl;
@@ -1227,34 +1287,52 @@ TEST_F(Ch25_Honors_Class_Fixture, line_most_points) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, shortest_unique_prefix) {
-    default_random_engine gen((random_device())());
+    string query= "cat";
+    unordered_set<string> dict = {"dog", "be", "cut", "car"};
+    ASSERT_EQ("cat", FindShortestPrefix(query, dict));
+    ASSERT_EQ(FindShortestPrefix(query, dict), p_25_20_CheckAns(query, dict));
 
-    for (int times = 0; times < 100; ++times) {
-        unordered_set<string> D;
+    query = "df";
+    dict = {"sks", "dfmbbbkbu", "rskrj", "l"};
+    ASSERT_EQ("", FindShortestPrefix(query, dict));
+    ASSERT_EQ(FindShortestPrefix(query, dict), p_25_20_CheckAns(query, dict));
+
+    query = "d";
+    dict = {"sks", "dfmbbbkbu", "rskrj", "l"};
+    ASSERT_EQ("", FindShortestPrefix(query, dict));
+    ASSERT_EQ(FindShortestPrefix(query, dict), p_25_20_CheckAns(query, dict));
+
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
+
+    for (int times = 0; times < 10; ++times) {
+        unordered_set<string> Dictionary;
         uniform_int_distribution<int> dis(1, 10);
-        string s = RandString(dis(gen));
+        string query_str = RandString(dis(gen));
 
-        uniform_int_distribution<int> dis1(1, 10000);
+        uniform_int_distribution<int> dis1(1, 100);
         int n = dis1(gen);
         while (n--) {
             uniform_int_distribution<int> dis(1, 10);
-            D.emplace(RandString(dis(gen)));
+            Dictionary.emplace(RandString(dis(gen)));
         }
-        // cout << s << ' ' << "shortest prefix = " << FindShortestPrefix(s, D)
-        //     << endl;
-        ASSERT_EQ(FindShortestPrefix(s, D), p_25_20_CheckAns(s, D));
+        /*
+        cout << "---- Query: " << query_str << endl;
+        for (const string& str : Dictionary) {
+            cout << str << endl;
+        }
+         */
+        ASSERT_EQ(FindShortestPrefix(query_str, Dictionary), p_25_20_CheckAns(query_str, Dictionary));
     }
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, sorted_list_to_BST) {
-    auto temp0 =
-            make_shared<DL::ListNode<int>>(DL::ListNode<int>{0});
-    auto temp1 =
-            make_shared<DL::ListNode<int>>(DL::ListNode<int>{1});
-    auto temp2 =
-            make_shared<DL::ListNode<int>>(DL::ListNode<int>{2});
-    auto temp3 =
-            make_shared<DL::ListNode<int>>(DL::ListNode<int>{3});
+    //  0 <-> 1 <-> 2 <-> 3
+    auto temp0 = make_shared<DL::ListNode<int>>(DL::ListNode<int>{0});
+    auto temp1 = make_shared<DL::ListNode<int>>(DL::ListNode<int>{1});
+    auto temp2 = make_shared<DL::ListNode<int>>(DL::ListNode<int>{2});
+    auto temp3 = make_shared<DL::ListNode<int>>(DL::ListNode<int>{3});
 
     temp0->next = temp1;
     temp1->next = temp2;
@@ -1268,18 +1346,18 @@ TEST_F(Ch25_Honors_Class_Fixture, sorted_list_to_BST) {
 
     shared_ptr<DL::ListNode<int>> L = temp0;
     auto tree = BuildBSTFromSortedDoublyList(L, 4);
-    InorderTraversal(tree, -1, 0);
+    p_25_22_InorderTraversal(tree, -1, 0);
     // Break the links of shared_ptr to prevent memory leak.
     // See: http://talk.elementsofprogramminginterviews.com/t/doubly-linked-list-memory-leak/335
     temp1->prev = temp2->prev = temp3->prev = nullptr;
 
+    // 2 <-> 3 <-> 5 <-> 7 <-> 11
     auto node0 = make_shared<DL::ListNode<int>>(DL::ListNode<int>{2});
     auto node1 = make_shared<DL::ListNode<int>>(DL::ListNode<int>{3});
     auto node2 = make_shared<DL::ListNode<int>>(DL::ListNode<int>{5});
     auto node3 = make_shared<DL::ListNode<int>>(DL::ListNode<int>{7});
     auto node4 = make_shared<DL::ListNode<int>>(DL::ListNode<int>{11});
 
-    // 2 - 3 - 5 - 7 - 11
     node0->next = node1;
     node1->next = node2;
     node2->next = node3;
@@ -1296,7 +1374,7 @@ TEST_F(Ch25_Honors_Class_Fixture, sorted_list_to_BST) {
     //       5
     //     3   11
     //   2    7
-    InorderTraversal(tree1, -1, 0);
+    p_25_22_InorderTraversal(tree1, -1, 0);
     node1->prev = node2->prev = node3->prev = node4->prev = nullptr;
 }
 
@@ -1433,7 +1511,9 @@ TEST_F(Ch25_Honors_Class_Fixture, add_operator_n_string) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, count_inversions) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 10; ++times) {
         int n;
@@ -1450,7 +1530,9 @@ TEST_F(Ch25_Honors_Class_Fixture, count_inversions) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, draw_skyline) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 20; ++times) {
         uniform_int_distribution<int> dis(1, 5000);
         int n = dis(gen);
@@ -1472,7 +1554,9 @@ TEST_F(Ch25_Honors_Class_Fixture, draw_skyline) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, draw_skyline_alt) {
-    default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device()) ());
     for (int times = 0; times < 20; ++times) {
         uniform_int_distribution<int> dis(1, 5000);
         int n = dis(gen);
@@ -1498,7 +1582,9 @@ TEST_F(Ch25_Honors_Class_Fixture, three_jugs) {
     vector<Jug> jugs = {{230, 240}, {290, 310}, {500, 515}};
     ASSERT_TRUE(CheckFeasible(jugs, 2100, 2300));
     jugs.clear();
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 100);
     n = dis(gen);
 
@@ -1518,7 +1604,9 @@ TEST_F(Ch25_Honors_Class_Fixture, three_jugs) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, max_subarray_in_circular) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 10; ++times) {
         vector<int> A;
@@ -1542,7 +1630,9 @@ TEST_F(Ch25_Honors_Class_Fixture, max_subarray_in_circular) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, max_subarray_in_circular_constant_space) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 10; ++times) {
         vector<int> A;
@@ -1600,7 +1690,9 @@ TEST_F(Ch25_Honors_Class_Fixture, hegiht_determination) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, max_submatrix_rectangle) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> dis(1, 50);
@@ -1631,7 +1723,9 @@ TEST_F(Ch25_Honors_Class_Fixture, max_submatrix_rectangle) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, max_submatrix_rectangle_improved) {
-    default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device()) ());
 
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> dis(1, 60);
@@ -1660,7 +1754,9 @@ TEST_F(Ch25_Honors_Class_Fixture, max_submatrix_rectangle_improved) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, max_submatrix_square) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> dis(1, 50);
@@ -1690,7 +1786,9 @@ TEST_F(Ch25_Honors_Class_Fixture, max_submatrix_square) {
 
 TEST_F(Ch25_Honors_Class_Fixture, huffman_encoding) {
     int n = 26;
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     vector<huffman::CharWithFrequency> symbols;
     int sum = 0;
@@ -1746,7 +1844,9 @@ TEST_F(Ch25_Honors_Class_Fixture, trapping_rain_water) {
     A = {1, 2, 1, 3, 4, 4, 5, 6, 2, 1, 3, 1, 3, 2, 1, 2, 4, 1};
     ASSERT_EQ(CalculateTrappingWater(A), 18);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> n_dis(1, 1000);
         int n = n_dis(gen);
@@ -1767,7 +1867,9 @@ TEST_F(Ch25_Honors_Class_Fixture, search_pair_sorted_array) {
     IndexPair ans = FindPairSumK(A, 2);
     ASSERT_NE(ans.index_1, -1);
 
-    default_random_engine gen((random_device())());
+    //default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> dis(1, 10000);
         int n = dis(gen);
@@ -1804,7 +1906,9 @@ TEST_F(Ch25_Honors_Class_Fixture, search_pair_sorted_array) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, search_frequent_items) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 10; ++times) {
         // cout << times << endl;
@@ -1836,7 +1940,9 @@ TEST_F(Ch25_Honors_Class_Fixture, longest_subarray_k) {
     ASSERT_EQ(res.start, 3);
     ASSERT_EQ(res.end, 6);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> n_dis(1, 10000);
@@ -1872,7 +1978,9 @@ TEST_F(Ch25_Honors_Class_Fixture, logest_subarray_k_improved) {
     res = FindLongestSubarrayLessEqualK(A, 184);
     ASSERT_EQ(res, 4);
 
-    default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device()) ());
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> n_dis(1, 10000);
         int n = n_dis(gen);
@@ -1901,7 +2009,9 @@ TEST_F(Ch25_Honors_Class_Fixture, road_network) {
     ASSERT_TRUE(t.x == 0 && t.y == 3 && t.distance == 1.0);
 
     for (int times = 0; times < 10; ++times) {
-        default_random_engine gen((random_device())());
+        random_device rd;
+        default_random_engine gen(rd());
+        //default_random_engine gen((random_device())());
 
         uniform_int_distribution<int> five_to_100(5, 100);
         int n = five_to_100(gen);
@@ -1954,7 +2064,9 @@ TEST_F(Ch25_Honors_Class_Fixture, road_network) {
 }
 
 TEST_F(Ch25_Honors_Class_Fixture, arbitrage) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     uniform_int_distribution<int> n_dis(1, 100);
     int n = n_dis(gen);
@@ -1982,3 +2094,4 @@ TEST_F(Ch25_Honors_Class_Fixture, arbitrage) {
     ASSERT_EQ(res, true);
     // cout << boolalpha << IsArbitrageExist(g) << endl;
 }
+

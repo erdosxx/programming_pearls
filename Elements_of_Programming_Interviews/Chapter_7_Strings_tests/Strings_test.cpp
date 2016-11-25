@@ -67,7 +67,9 @@ public:
 };
 
 string Strings_Fixture::p_7_7_RandString(int len) {
-    default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device()) ());
     string ret;
     while (len--) {
         uniform_int_distribution<char> dis('0', '9');
@@ -77,7 +79,9 @@ string Strings_Fixture::p_7_7_RandString(int len) {
 }
 
 string Strings_Fixture::p_7_4_RandString(int len) {
-    default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device()) ());
     string ret;
     while (len--) {
         uniform_int_distribution<char> dis('a', 'd');
@@ -87,7 +91,9 @@ string Strings_Fixture::p_7_4_RandString(int len) {
 }
 
 string Strings_Fixture::p_7_6_RandString(int len) {
-    default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device()) ());
     string ret;
 
     while (len--) {
@@ -123,7 +129,9 @@ bool Strings_Fixture::p_7_4_CheckAns(const string &s, const string &ans) {
 }
 
 string Strings_Fixture::p_7_3_RandString(int len) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     string ret;
     uniform_int_distribution<int> dis('A', 'Z');
     while (len--) {
@@ -133,7 +141,9 @@ string Strings_Fixture::p_7_3_RandString(int len) {
 }
 
 string Strings_Fixture::p_7_1_RandIntString(int len) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     string ret;
     if (len == 0) {
         return {"0"};
@@ -172,7 +182,9 @@ int Strings_Fixture::p_7_13_CheckAnswer(const string &t, const string &s) {
 }
 
 string Strings_Fixture::p_7_13_RandString(int len) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     string ret;
     while (len--) {
         uniform_int_distribution<char> dis('a', 'z');
@@ -370,7 +382,9 @@ TEST_F(Strings_Fixture, stl_library) {
 }
 
 TEST_F(Strings_Fixture, interconverting_stirng_integer_Function) {
-    default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device()) ());
     // 2^31 -1 = 2147483648
     char* tmp_char = new char[11];
 
@@ -393,7 +407,9 @@ TEST_F(Strings_Fixture, interconverting_stirng_integer_Function) {
 }
 
 TEST_F(Strings_Fixture, Convert_base_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 100000; ++times) {
         uniform_int_distribution<int> len_dis(1, 9);
@@ -419,7 +435,9 @@ TEST_F(Strings_Fixture, replace_and_remove_Function) {
     ASSERT_EQ(8, 4<<1);  // 4 = 100 -> 1000 = 8
     ASSERT_EQ(10, 5<<1); // 5 = 101 -> 1010 = 10
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(1, 1000);
@@ -458,7 +476,9 @@ TEST_F(Strings_Fixture, Reverse_words_Function) {
     reverse_words::ReverseWords(&input);
     ASSERT_TRUE(input.compare("abc ") == 0);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(0, 9999);
         string str = p_7_6_RandString(dis(gen));
@@ -605,7 +625,9 @@ TEST_F(Strings_Fixture, rabin_karp_Function) {
     ASSERT_EQ(RabinKarp("FOOBAR", "BAR"), 3);
     ASSERT_EQ(RabinKarp("absycvh", "y"), 3);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> t_dis(1, 1000);
         uniform_int_distribution<int> s_dis(1, 20);

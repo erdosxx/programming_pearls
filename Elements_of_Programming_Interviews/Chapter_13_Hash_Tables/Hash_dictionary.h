@@ -14,7 +14,9 @@ using std::uniform_int_distribution;
 namespace str_hash {
     string RandString(int len) {
         string ret;
-        default_random_engine gen((random_device()) ());
+        random_device rd;
+        default_random_engine gen(rd());
+        //default_random_engine gen((random_device()) ());
         while (len--) {
             uniform_int_distribution<int> zero_or_one(0, 1);
             uniform_int_distribution<char> dis(0, 26);

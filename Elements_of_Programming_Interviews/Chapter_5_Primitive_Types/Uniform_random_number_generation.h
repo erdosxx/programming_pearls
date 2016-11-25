@@ -9,7 +9,9 @@ using std::random_device;
 using std::uniform_int_distribution;
 
 int ZeroOneRandom() {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(0, 1);
     return dis(gen);
 }

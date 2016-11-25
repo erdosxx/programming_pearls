@@ -79,7 +79,9 @@ public:
 };
 
 string Ch17_DP_Fixture::p_17_7_RandString(int len) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     string ret;
     while (len--) {
         uniform_int_distribution<int> dis('a', 'z');
@@ -102,7 +104,9 @@ void Ch17_DP_Fixture::p_17_7_CheckAns(const string& s, vector<string>& ans) {
 
 vector<vector<int>> Ch17_DP_Fixture::p_17_5_RandMatrix(int n) {
     vector<vector<int>> matrix(n, vector<int>(n));
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             uniform_int_distribution<int> dis(0, n - 1);
@@ -200,7 +204,9 @@ int Ch17_DP_Fixture::p_17_2_CheckAnswer(string A, string B) {
 }
 
 string Ch17_DP_Fixture::RandString(int len) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis('a', 'z');
     string ret;
     while (len--) {
@@ -363,7 +369,9 @@ TEST_F(Ch17_DP_Fixture, max_sum_subarray_Function) {
     ASSERT_EQ(1479, FindMaximumSubarray3(B));
     ASSERT_EQ(1479, FindMaximumSubarray4(B));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         vector<int> A;
         uniform_int_distribution<int> dis(1, 1000);
@@ -390,7 +398,9 @@ TEST_F(Ch17_DP_Fixture, score_combination_Function) {
     ASSERT_EQ(1, NumCombinationsForFinalScore(5, individual_play_scores));
     ASSERT_EQ(3, NumCombinationsForFinalScore(9, individual_play_scores));
 
-    default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device()) ());
     individual_play_scores.clear();
     uniform_int_distribution<int> k_dis(0, 999);
 
@@ -421,7 +431,9 @@ TEST_F(Ch17_DP_Fixture, score_combination_alternative) {
     }
 
     for (int i = 0; i < 1000; i++) {
-        default_random_engine gen((random_device()) ());
+        random_device rd;
+        default_random_engine gen(rd());
+        //default_random_engine gen((random_device()) ());
         int k;
 
         score_ways.clear();
@@ -448,7 +460,9 @@ TEST_F(Ch17_DP_Fixture, score_permutation) {
     score_ways = {1, 2};
     ASSERT_EQ(5, CountPermutations(k, score_ways));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     score_ways.clear();
     uniform_int_distribution<int> k_dis(0, 999);
     k = k_dis(gen);
@@ -581,7 +595,9 @@ TEST_F(Ch17_DP_Fixture, lead_changes) {
 }
 
 TEST_F(Ch17_DP_Fixture, Levenshtein_distance_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     string A, B;
     // Wiki example (http://en.wikipedia.org/wiki/Levenshtein_distance)
     A = "k", B = "sitt";
@@ -602,7 +618,9 @@ TEST_F(Ch17_DP_Fixture, Levenshtein_distance_Function) {
 }
 
 TEST_F(Ch17_DP_Fixture, Number_ways_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(1, 10);
@@ -616,7 +634,9 @@ TEST_F(Ch17_DP_Fixture, Number_ways_Function) {
 }
 
 TEST_F(Ch17_DP_Fixture, binomial_coefficients_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> n_dis(1, 21);
@@ -633,7 +653,9 @@ TEST_F(Ch17_DP_Fixture, binomial_coefficients_Function) {
 }
 
 TEST_F(Ch17_DP_Fixture, string_in_matrix_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(2, 10);
     int n = dis(gen);
 
@@ -718,7 +740,9 @@ TEST_F(Ch17_DP_Fixture, word_breaking_Function) {
     golden_ans = {};
     ASSERT_TRUE(equal(ans.begin(), ans.end(), golden_ans.begin(), golden_ans.end()));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         unordered_set<string> dictionary;
         string target;
@@ -749,7 +773,9 @@ TEST_F(Ch17_DP_Fixture, picking_up_coins_Function) {
     ASSERT_EQ(MaximumRevenueAlternative(coins), MaximumRevenue(coins));
     ASSERT_EQ(120, Greedy(coins));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     coins.clear();
     uniform_int_distribution<int> dis(1, 1000);
     coins.resize(dis(gen));
@@ -775,7 +801,9 @@ TEST_F(Ch17_DP_Fixture, climb_stairs_Function) {
     ASSERT_EQ(1, way_to_step::NumberOfWaysToTop(0, 3));
 
     /*
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 20);
     int n = dis(gen);
     uniform_int_distribution<int> k_dis(1, n);
@@ -790,7 +818,9 @@ TEST_F(Ch17_DP_Fixture, pretty_printing_Function) {
     ASSERT_EQ(MinimumMessiness({"a", "b", "c", "d"}, 5), 8);
 
     /*
-    default_random_engine gen((17_7_random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((17_7_random_device())());
     uniform_int_distribution<int> n_dis(1, 30);
     int n = n_dis(gen);
     uniform_int_distribution<int> L_dis(11, 20);
@@ -810,7 +840,9 @@ TEST_F(Ch17_DP_Fixture, pretty_printing_Function) {
 }
 
 TEST_F(Ch17_DP_Fixture, LNS_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> dis(1, 10000);

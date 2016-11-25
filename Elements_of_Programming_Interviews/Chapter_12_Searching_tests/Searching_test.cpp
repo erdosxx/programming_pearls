@@ -91,7 +91,9 @@ bool Ch12Searching_Fixture::p_12_1_4_check_ans(const vector<string>& A, const st
 }
 
 string Ch12Searching_Fixture::p_12_1_4_rand_string(int len) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<char> dis('a', 'z');
     string ret;
     while (len--) {
@@ -146,7 +148,9 @@ void Ch12Searching_Fixture::RandomTestFixedN(int N) {
     order.emplace_back(N);
 
     vector<int> A;
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(0, 9999999);
     for (int i = 0; i < N; ++i) {
         A.emplace_back(dis(gen));
@@ -308,7 +312,9 @@ TEST_F(Ch12Searching_Fixture, first_k_bsearch_Function) {
     // Returns an iterator pointing to the first element in the range [first,last)
     // which does not compare less than val.
     ASSERT_EQ(3, distance(A.cbegin(), lower_bound(A.cbegin(), A.cend(), 6))); // 7
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> dis(1, 1000);
@@ -404,7 +410,9 @@ TEST_F(Ch12Searching_Fixture, first_larger_k_bsearch_Function) {
     // which does not compare less than val.
     ASSERT_EQ(3, distance(A.cbegin(), upper_bound(A.cbegin(), A.cend(), 6))); // 7
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> dis(1, 1000);
@@ -463,7 +471,9 @@ TEST_F(Ch12Searching_Fixture, bsearch_local_minimum) {
     A = {1, -1, 1, -1, 1};
     ASSERT_EQ(3, search_local_minimum(A));
 
-    default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device()) ());
 
     for (int times = 0; times < 10000; ++times) {
         uniform_int_distribution<int> dis(3, 100);
@@ -567,7 +577,9 @@ TEST_F(Ch12Searching_Fixture, bsearch_upper_lower_k) {
     ASSERT_EQ(-1, lower_upper(A, -1).high);
     ASSERT_EQ(-1, lower_upper(A, 10).low);
     ASSERT_EQ(-1, lower_upper(A, 10).high);
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(1, 1000);
@@ -623,7 +635,9 @@ TEST_F(Ch12Searching_Fixture, prefix_search) {
     ASSERT_EQ(1, search_prefix(A, "ant"));
     ASSERT_EQ(-1, search_prefix(A, "anti"));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         size_t n;
         uniform_int_distribution<size_t> n_dis(0, 1000);
@@ -667,7 +681,9 @@ TEST_F(Ch12Searching_Fixture, bsearch_ai_eq_i_Function) {
     ASSERT_EQ(-1, SearchEntryEqualToItsIndex(A));
 
     A.clear();
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         unordered_set<int> table;
         uniform_int_distribution<int> dis(1, 1000);
@@ -712,7 +728,9 @@ TEST_F(Ch12Searching_Fixture, bsearch_circular_array_Function) {
     //A = {3, 2, 1, 7, 6, 5, 4};
     //ASSERT_EQ(2, SearchSmallest(A));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 1000);
         int n = dis(gen);
@@ -767,7 +785,9 @@ TEST_F(Ch12Searching_Fixture, bsearch_circular_with_dup_Function) {
     A = {5, 5, 2, 2, 2, 3, 3, 3};
     ASSERT_EQ(2, duplicate::SearchSmallest(A));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 1000);
         int n = dis(gen);
@@ -807,7 +827,9 @@ TEST_F(Ch12Searching_Fixture, bsearch_ascending_descending_array) {
     A = {1,2,3,4};
     ASSERT_EQ(4, Search_AD_max(A));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(3, 1000);
         int n = dis(gen);
@@ -862,7 +884,9 @@ TEST_F(Ch12Searching_Fixture, bsearch_k_circular_array) {
     A = {1, 3, 5, -3, -2};
     ASSERT_EQ(-1, Search_k_circular(A,4));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(1, 1000);
         int n = dis(gen);
@@ -910,7 +934,9 @@ TEST_F(Ch12Searching_Fixture, square_root_int_Function) {
     ASSERT_EQ(SquareRoot(300), 17);
     ASSERT_EQ(SquareRoot(numeric_limits<int>::max()), 46340);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(0, numeric_limits<int>::max());
     for (int times = 0; times < 100000; ++times) {
         int x = dis(gen);
@@ -933,7 +959,9 @@ TEST_F(Ch12Searching_Fixture, square_root_Function) {
     ASSERT_EQ(Compare(SquareRoot(100000000.001), sqrt(100000000.001)), EQUAL);
     ASSERT_EQ(Compare(SquareRoot(1024.0), sqrt(1024.0)), EQUAL);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100000; ++times) {
         uniform_real_distribution<double> dis(0.0, 100000000.0);
         double x = dis(gen);
@@ -952,7 +980,9 @@ TEST_F(Ch12Searching_Fixture, division_float) {
     ASSERT_EQ(Compare(division_no_operator(2.0, 3.0), 2.0/3.0), EQUAL);
     ASSERT_EQ(Compare(division_no_operator(0.5, 0.5), 0.5/0.5), EQUAL);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10000; ++times) {
         uniform_real_distribution<double> dis(0.0, 100000000.0);
         double x = dis(gen);
@@ -999,7 +1029,9 @@ TEST_F(Ch12Searching_Fixture, matrix_search_Function) {
     ASSERT_FALSE(MatrixSearch(A, numeric_limits<int>::max() - 1));
     ASSERT_TRUE(MatrixSearch(A, 12));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 100);
         int n = dis(gen);
@@ -1034,7 +1066,9 @@ TEST_F(Ch12Searching_Fixture, finding_min_max_Function) {
     res = FindMinMax(A);
     ASSERT_TRUE(-4 == res.min && 3 == res.max);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 10000);
         int n = dis(gen);
@@ -1154,7 +1188,9 @@ TEST_F(Ch12Searching_Fixture, order_statistic_Function) {
         }
     }
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> n_dis(1, 100000);
         int n = n_dis(gen);
@@ -1175,7 +1211,9 @@ TEST_F(Ch12Searching_Fixture, order_statistic_Function) {
 /* Following test takes long time.
  */
 TEST_F(Ch12Searching_Fixture, missing_element_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     int n = 300000;
     vector<int> A(n); // 1 billion array
 
@@ -1216,7 +1254,9 @@ TEST_F(Ch12Searching_Fixture, missing_and_dup_Function) {
     ans = FindDuplicateMissing(A);
     ASSERT_TRUE(ans.duplicate == 3 && ans.missing == 0);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> n_dis(2, 10000);
         int n = n_dis(gen);

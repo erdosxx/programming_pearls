@@ -68,7 +68,9 @@ namespace p_13_11 {
 // @exclude
 
     string RandString(int len) {
-        default_random_engine gen((random_device()) ());
+        random_device rd;
+        default_random_engine gen(rd());
+        //default_random_engine gen((random_device()) ());
         uniform_int_distribution<int> dis('a', 'z');
         string ret;
         while (len--) {

@@ -72,7 +72,9 @@ public:
 };
 
 string Ch19_Graphs_Fixture::p_19_7_RandString(int len) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis('a', 'z');
     string ret;
     while (len--) {
@@ -193,7 +195,9 @@ TEST_F(Ch19_Graphs_Fixture, team_reachability_Function) {
 }
 
 TEST_F(Ch19_Graphs_Fixture, search_maze_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(1, 30);
@@ -252,7 +256,9 @@ TEST_F(Ch19_Graphs_Fixture, search_maze_Function) {
 
 TEST_F(Ch19_Graphs_Fixture, shortest_path_maze_Random_erdos_vs_jaythe1st) {
     for (int k= 0; k< 50; k++) {
-        default_random_engine gen((random_device()) ());
+        random_device rd;
+        default_random_engine gen(rd());
+        //default_random_engine gen((random_device()) ());
         uniform_int_distribution<int> dis(5, 10);
         const int rows = dis(gen);
         const int cols = dis(gen);
@@ -439,7 +445,9 @@ TEST_F(Ch19_Graphs_Fixture, shortest_path_maze_simple_test) {
 
 TEST_F(Ch19_Graphs_Fixture, shortest_path_maze_Random_testing_erdos) {
     for (int k= 0; k< 10; k++) {
-        default_random_engine gen((random_device()) ());
+        random_device rd;
+        default_random_engine gen(rd());
+        //default_random_engine gen((random_device()) ());
         uniform_int_distribution<int> dis(10, 50);
         const int rows = dis(gen);
         const int cols = dis(gen);
@@ -486,7 +494,9 @@ TEST_F(Ch19_Graphs_Fixture, shortest_path_maze_Random_testing_erdos) {
 
 TEST_F(Ch19_Graphs_Fixture, shortest_path_maze_Random_testing_shkim) {
     for (int k= 0; k< 10; k++) {
-        default_random_engine gen((random_device()) ());
+        random_device rd;
+        default_random_engine gen(rd());
+        //default_random_engine gen((random_device()) ());
         uniform_int_distribution<int> dis(10, 50);
         const int rows = dis(gen);
         const int cols = dis(gen);
@@ -533,7 +543,9 @@ TEST_F(Ch19_Graphs_Fixture, shortest_path_maze_Random_testing_shkim) {
 
 TEST_F(Ch19_Graphs_Fixture, shortest_path_maze_Random_testing_jaythe1st) {
     for (int k= 0; k< 10; k++) {
-        default_random_engine gen((random_device()) ());
+        random_device rd;
+        default_random_engine gen(rd());
+        //default_random_engine gen((random_device()) ());
         uniform_int_distribution<int> dis(5, 10);
         const int rows = dis(gen);
         const int cols = dis(gen);
@@ -578,7 +590,9 @@ TEST_F(Ch19_Graphs_Fixture, shortest_path_maze_Random_testing_jaythe1st) {
 }
 
 TEST_F(Ch19_Graphs_Fixture, painting_iterative_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     uniform_int_distribution<size_t> dis(1, 100);
     size_t n = dis(gen);
@@ -613,7 +627,9 @@ TEST_F(Ch19_Graphs_Fixture, surrounded_regions_Function) {
                                    {'B', 'B', 'B', 'B'}};
     ASSERT_TRUE(equal(A.begin(), A.end(), golden.begin(), golden.end()));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 100);
     int n = dis(gen);
     int m = dis(gen);
@@ -718,7 +734,9 @@ TEST_F(Ch19_Graphs_Fixture, 2_exists_Function) {
     TestDirectedBinaryTree();
     TestDirectedTwoSeparateCycles();
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         uniform_int_distribution<int> dis(2, 2000);
         int n = dis(gen);
@@ -756,7 +774,9 @@ TEST_F(Ch19_Graphs_Fixture, 2_exists_Function) {
 }
 
 TEST_F(Ch19_Graphs_Fixture, clone_graph_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         vector<p_19_5::GraphVertex> G;
@@ -797,7 +817,9 @@ TEST_F(Ch19_Graphs_Fixture, clone_graph_Function) {
 }
 
 TEST_F(Ch19_Graphs_Fixture, wiring_circuit_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 90; ++times) {
         uniform_int_distribution<int> dis(2, 101);
@@ -836,7 +858,9 @@ TEST_F(Ch19_Graphs_Fixture, wiring_circuit_Function) {
 }
 
 TEST_F(Ch19_Graphs_Fixture, transform_string_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 10);
     int len = dis(gen);
 
@@ -932,7 +956,9 @@ TEST_F(Ch19_Graphs_Fixture, shortest_path_Function) {
          */
     ASSERT_EQ(G[t].distance_with_fewest_edges.min_num_edges, 3);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(2, 1000);
     int n = dis(gen);
 

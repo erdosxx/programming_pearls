@@ -315,7 +315,9 @@ TEST_F(StacksQueues_Fixture, search_postings_list_rec_Function) {
 }
 
 TEST_F(StacksQueues_Fixture, view_sunset_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 10000);

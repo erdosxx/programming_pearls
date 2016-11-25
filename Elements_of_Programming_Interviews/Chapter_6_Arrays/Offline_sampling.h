@@ -15,7 +15,9 @@ using std::vector;
 // @include
 void RandomSampling(int k, vector<int>* A_ptr) {
     vector<int>& A = *A_ptr;
-    default_random_engine seed((random_device())());  // Random num generator.
+    random_device rd;
+    default_random_engine seed(rd());
+    //default_random_engine seed((random_device())());  // Random num generator.
 
     for (int i = 0; i < k; ++i) {
         // Generate a random index in [i, A.size() - 1].

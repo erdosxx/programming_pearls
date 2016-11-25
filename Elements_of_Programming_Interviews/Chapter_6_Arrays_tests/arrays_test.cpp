@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include "Square_root.h"
 #include "array_boot_camp.h"
 #include "Dutch_national_flag.h"
 #include "dutch_national_flag_slow_inplace.h"
@@ -74,7 +75,9 @@ bool Arrays_Fixture::p_6_5_CheckAns(const vector<int>& A, size_t n) {
 }
 
 vector<Color> Arrays_Fixture::p_6_1_RandVector(int len) {
-    default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device()) ());
     vector<Color> ret;
 
     while (len--) {
@@ -295,7 +298,9 @@ TEST_F(Arrays_Fixture, stl_functions) {
 }
 
 TEST_F(Arrays_Fixture, Dutch_national_flag_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         int n;
@@ -324,7 +329,9 @@ TEST_F(Arrays_Fixture, Dutch_national_flag_Function) {
 }
 
 TEST_F(Arrays_Fixture, Dutch_national_flag_slow_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         int n;
@@ -353,7 +360,9 @@ TEST_F(Arrays_Fixture, Dutch_national_flag_slow_Function) {
 }
 
 TEST_F(Arrays_Fixture, Dutch_national_flag_two_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         int n;
@@ -382,7 +391,9 @@ TEST_F(Arrays_Fixture, Dutch_national_flag_two_Function) {
 }
 
 TEST_F(Arrays_Fixture, Dutch_national_flag_bentley_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     for (int times = 0; times < 1000; ++times) {
         int n;
@@ -429,7 +440,9 @@ TEST_F(Arrays_Fixture, Bignumber_multiply_Function) {
     ASSERT_TRUE(EqualVector(Multiply({7, 3}, {-3}), {-2, 1, 9}));
 
     for (int times = 0; times < 100; ++times) {
-        default_random_engine gen((random_device()) ());
+        random_device rd;
+        default_random_engine gen(rd());
+        //default_random_engine gen((random_device()) ());
         uniform_int_distribution<int> dis(0, 19);
         vector<int> num1 = multiply::RandVector(dis(gen)), num2 = multiply::RandVector(dis(gen));
         auto res = Multiply(num1, num2);
@@ -452,7 +465,9 @@ TEST_F(Arrays_Fixture, jump_game_Function) {
     max_advance_steps = {2, 2, -1, -1, 100};
     ASSERT_TRUE(!CanReachEnd(max_advance_steps));
 
-    default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device()) ());
     size_t n;
     uniform_int_distribution<size_t> dis(1, 1000);
     n = dis(gen);
@@ -467,7 +482,9 @@ TEST_F(Arrays_Fixture, remove_deplicate_Function) {
     vector<int> A = {2, 3, 5, 5, 7, 11, 11, 11, 13};
     ASSERT_EQ(6, DeleteDuplicates(&A));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     size_t n;
     uniform_int_distribution<size_t> dis_n(0, 10000);
     n = dis_n(gen);
@@ -486,7 +503,9 @@ TEST_F(Arrays_Fixture, remove_deplicate_Function) {
 }
 
 TEST_F(Arrays_Fixture, buy_and_sell_once_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 10; ++times) {
         int n;
         uniform_int_distribution<int> dis(1, 10000);
@@ -497,12 +516,15 @@ TEST_F(Arrays_Fixture, buy_and_sell_once_Function) {
         for (int i = 0; i < n; ++i) {
             A.emplace_back(dis1(gen));
         }
-        ASSERT_EQ(buy_and_sell::CheckAns(A),buy_and_sell::BuyAndSellStockOnce(A));
+        //ASSERT_EQ(buy_and_sell::CheckAns(A),buy_and_sell::BuyAndSellStockOnce(A));
+        ASSERT_EQ(Compare(buy_and_sell::CheckAns(A), buy_and_sell::BuyAndSellStockOnce(A)), EQUAL);
     }
 }
 
 TEST_F(Arrays_Fixture, buy_and_sell_twice_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 100);
         int n = dis(gen);
@@ -512,12 +534,15 @@ TEST_F(Arrays_Fixture, buy_and_sell_twice_Function) {
         for (int i = 0; i < n; ++i) {
             A.emplace_back(dis1(gen));
         }
-        ASSERT_EQ(buy_and_sell_twice::CheckAns(A), buy_and_sell_twice::BuyAndSellStockTwice(A));
+        //ASSERT_EQ(buy_and_sell_twice::CheckAns(A), buy_and_sell_twice::BuyAndSellStockTwice(A));
+        ASSERT_EQ(Compare(buy_and_sell_twice::CheckAns(A), buy_and_sell_twice::BuyAndSellStockTwice(A)), EQUAL);
     }
 }
 
 TEST_F(Arrays_Fixture, prime_sieve_basic_Function) {
-    default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device()) ());
 
     for (int times = 0; times < 1; ++times) {
         uniform_int_distribution<int> dis(2, 100000);
@@ -533,7 +558,9 @@ TEST_F(Arrays_Fixture, prime_sieve_basic_Function) {
 }
 
 TEST_F(Arrays_Fixture, prime_sieve_Function) {
-     default_random_engine gen((random_device()) ());
+    random_device rd;
+    default_random_engine gen(rd());
+    // default_random_engine gen((random_device()) ());
 
     for (int times = 0; times < 1; ++times) {
         uniform_int_distribution<int> dis(2, 100000);
@@ -628,7 +655,9 @@ TEST_F(Arrays_Fixture, next_permutation_Function) {
     ans_ex = {1,3,2,2,4,5};
     ASSERT_TRUE(equal(answer.cbegin(), answer.cend(), ans_ex.cbegin(), ans_ex.cend()));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
         vector<int> perm;
         uniform_int_distribution<int> dis(1, 100);
@@ -646,7 +675,9 @@ TEST_F(Arrays_Fixture, next_permutation_Function) {
 
 TEST_F(Arrays_Fixture, offline_sampling_Function) {
     int n, k;
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     uniform_int_distribution<int> n_dis(1, 1000000);
     n = n_dis(gen);
@@ -668,7 +699,9 @@ TEST_F(Arrays_Fixture, offline_sampling_Function) {
 
 TEST_F(Arrays_Fixture, reservoir_sampling_Function) {
     int n, k;
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> n_dis(0, 99999);
     n = n_dis(gen);
     uniform_int_distribution<int> k_dis(1, n);
@@ -693,7 +726,9 @@ TEST_F(Arrays_Fixture, reservoir_sampling_Function) {
 
 TEST_F(Arrays_Fixture, random_permutation_Function) {
     int n;
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> n_dis(1, 1000000);
     n = n_dis(gen);
 
@@ -736,7 +771,9 @@ TEST_F(Arrays_Fixture, random_subset_Function) {
     iter = unique(A.begin(), A.end());
     ASSERT_NE(A.cend(), iter);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
 
     uniform_int_distribution<int> n_dis(1, 10000);
     int n = n_dis(gen);
@@ -750,7 +787,9 @@ TEST_F(Arrays_Fixture, random_subset_Function) {
 }
 
 TEST_F(Arrays_Fixture, nonuniform_random_Function) {
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     size_t n;
     uniform_int_distribution<size_t> dis(1, 50);
     n = dis(gen);
@@ -807,7 +846,9 @@ TEST_F(Arrays_Fixture, sprial_matrix_clockwise_Function) {
     ASSERT_TRUE(equal(result.begin(), result.end(), golden_result.begin(),
                       golden_result.end()));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 50);
     int N = dis(gen);
 
@@ -834,7 +875,9 @@ TEST_F(Arrays_Fixture, sprial_matrix_Function) {
     ASSERT_TRUE(equal(result.begin(), result.end(), golden_result.begin(),
                  golden_result.end()));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 50);
     int N = dis(gen);
 
@@ -854,7 +897,9 @@ TEST_F(Arrays_Fixture, sprial_matrix_Function) {
 
 TEST_F(Arrays_Fixture, matrix_rotation_constant_Function) {
     int n;
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 10);
         n = dis(gen);
@@ -873,7 +918,9 @@ TEST_F(Arrays_Fixture, matrix_rotation_constant_Function) {
 
 TEST_F(Arrays_Fixture, matrix_rotation_naive_Function) {
     int n;
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 10);
     for (int times = 0; times < 100; ++times) {
         n = dis(gen);

@@ -47,7 +47,9 @@ int FindKth(int k, Compare comp, vector<int>* A_ptr) {
     int left = 0;
     int right = A.size() - 1;
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     while (left <= right) {
         // Generates a random integer in [left, right].
         int pivot_idx = uniform_int_distribution<int>{left, right}(gen);

@@ -33,7 +33,9 @@ vector<int> RandomSubset(int n, int k) {
     // map position with datq.
     unordered_map<int, int> changed_elements;
 
-    default_random_engine seed((random_device())());  // Random num generator.
+    random_device rd;
+    default_random_engine seed(rd());
+    //default_random_engine seed((random_device())());  // Random num generator.
 
     for (int select_position = 0; select_position < k; ++select_position) {
         // Generate a random index in [i, n - 1].

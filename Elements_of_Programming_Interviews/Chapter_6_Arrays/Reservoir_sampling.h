@@ -30,7 +30,9 @@ vector<int> OnlineRandomSample(istringstream* sin, int k) {
         running_sample.emplace_back(x);
     }
 
-    default_random_engine seed((random_device())());  // Random num generator.
+    random_device rd;
+    default_random_engine seed(rd());
+    //default_random_engine seed((random_device())());  // Random num generator.
     // Have read the first k elements.
     int num_seen_so_far = k;
     while (*sin >> x) {

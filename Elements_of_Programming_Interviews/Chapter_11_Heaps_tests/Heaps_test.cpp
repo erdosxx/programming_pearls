@@ -123,7 +123,9 @@ TEST_F(Ch11Heaps_Fixture, merge_sorted_arrays_Function) {
     ans = MergeSortedArrays(S);
     ASSERT_TRUE(ans.size() == 2 && ans[0] == 1 && ans[1] == 2);
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 100);
         int n = dis(gen);
@@ -159,7 +161,9 @@ TEST_F(Ch11Heaps_Fixture, sort_k_inc_dec_Function) {
     ans = SortKIncreasingDecreasingArray(A);
     ASSERT_TRUE(ans.size() == A.size() && is_sorted(ans.cbegin(), ans.cend()));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 1000);
         int n = dis(gen);
@@ -189,7 +193,9 @@ TEST_F(Ch11Heaps_Fixture, approximate_sort_Function) {
     ASSERT_TRUE(equal(result.begin(), result.end(), golden_result.begin(),
                  golden_result.end()));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> n_dis(1, 100000);
     int n = n_dis(gen);
 
@@ -240,7 +246,9 @@ TEST_F(Ch11Heaps_Fixture, closest_stars_Function) {
     ASSERT_EQ(closest_stars[0].Distance(), (Star{1, 2, 3}.Distance()));
     ASSERT_EQ(closest_stars[1].Distance(), (Star{3, 2, 1}.Distance()));
 
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     for (int times = 0; times < 100; ++times) {
         int num, k;
         uniform_int_distribution<int> num_dis(1, 100);
@@ -298,7 +306,9 @@ TEST_F(Ch11Heaps_Fixture, online_median_Function) {
                  result.end()));
 
     result.clear();
-    default_random_engine gen((random_device())());
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
     uniform_int_distribution<int> dis(1, 100000);
     int num = dis(gen);
 
