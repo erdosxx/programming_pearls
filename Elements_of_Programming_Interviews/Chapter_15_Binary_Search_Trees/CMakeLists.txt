@@ -16,6 +16,8 @@ set(HEADER_FILES
         BST_lowest_common_ancestor.h
         Rebuild_BST_preorder.h
         Rebuild_BST_preorder_better.h
+        Rebuild_BST_postorder.h
+        Rebuild_BST_postorder_better.h
         Minimum_distance_3_sorted_arrays.h
         generating-a-b-sqrt2-improved.h
         Generating_a_b_sqrt2.h

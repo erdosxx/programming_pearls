@@ -15,6 +15,8 @@
 #include "BST_lowest_common_ancestor.h"
 #include "Rebuild_BST_preorder.h"
 #include "Rebuild_BST_preorder_better.h"
+#include "Rebuild_BST_postorder.h"
+#include "Rebuild_BST_postorder_better.h"
 #include "Minimum_distance_3_sorted_arrays.h"
 #include "Generating_a_b_sqrt2.h"
 #include "generating-a-b-sqrt2-improved.h"
@@ -496,6 +498,28 @@ TEST_F(Ch15_BST_Fixture, rebuild_BST_preorder_better_Function) {
     ASSERT_EQ(5, tree->right->data);
     ASSERT_EQ(4, tree->right->left->data);
     ASSERT_EQ(6, tree->right->right->data);
+}
+
+TEST_F(Ch15_BST_Fixture, rebuild_BST_postorder) {
+    //      3
+    //    2   5
+    //  1    4  6
+    // should output 1, 2, 3, 4, 5, 6
+    // preorder [1, 2, 4, 6, 5, 3]
+    vector<int> postorder = {1, 2, 4, 6, 5, 3};
+    unique_ptr<BSTNode<int>> root(RebuildBSTFromPostorder(postorder));
+    p_15_5_CheckAns(root, numeric_limits<int>::min());
+}
+
+TEST_F(Ch15_BST_Fixture, rebuild_BST_postorder_better) {
+    //      3
+    //    2   5
+    //  1    4  6
+    // should output 1, 2, 3, 4, 5, 6
+    // preorder [1, 2, 4, 6, 5, 3]
+    vector<int> postorder = {1, 2, 4, 6, 5, 3};
+    unique_ptr<BSTNode<int>> root(improved::RebuildBSTFromPostorder(postorder));
+    p_15_5_CheckAns(root, numeric_limits<int>::min());
 }
 
 TEST_F(Ch15_BST_Fixture, min_distance_3_sorted_Function) {
