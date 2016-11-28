@@ -7,7 +7,6 @@
 
 using std::to_string;
 
-// @include
 bool IsPalindromeNumber(int x) {
     if (x < 0) {
         return false;
@@ -28,19 +27,6 @@ bool IsPalindromeNumber(int x) {
         msd_mask /= 100;
     }
     return true;
-}
-// @exclude
-
-namespace palindrome_number {
-    bool CheckAns(int x) {
-        auto s = to_string(x);
-        for (size_t i = 0, j = s.size() - 1; i < j; ++i, --j) {
-            if (s[i] != s[j]) {
-                return false;
-            }
-        }
-        return true;
-    }
 }
 
 #endif //ALGORITHM_ANALYSIS_PALINDROME_NUMBER_H

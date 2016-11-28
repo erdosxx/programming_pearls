@@ -37,9 +37,7 @@ using std::uniform_real_distribution;
 using std::invalid_argument;
 using DutchFlag::Color;
 using plusone::PlusOne;
-using multiply::EqualVector;
 using multiply::Multiply;
-using multiply::VectorToString;
 using std::istringstream;
 using std::stringstream;
 using std::ostream_iterator;
@@ -55,7 +53,9 @@ protected:
     vector<Color> p_6_1_RandVector(int len);
 
     bool p_6_5_CheckAns(const vector<int>& A, size_t n);
-
+    vector<int> p_6_3_RandVector(int len);
+    bool EqualVector(const vector<int> &A, const vector<int> &B);
+    string VectorToString(const vector<int> &A);
 
 public:
     Arrays_Fixture() : Test() {
@@ -65,6 +65,39 @@ public:
     virtual ~Arrays_Fixture() {
     }
 };
+
+string Arrays_Fixture::VectorToString(const vector<int> &A) {
+    stringstream converter;
+    copy(A.begin(), A.end(), ostream_iterator<int>(converter, ""));
+    return converter.str();
+}
+
+bool Arrays_Fixture::EqualVector(const vector<int> &A, const vector<int> &B) {
+    // following equal is from C++14
+    return equal(A.begin(), A.end(), B.begin(), B.end());
+}
+
+vector<int> Arrays_Fixture::p_6_3_RandVector(int len) {
+    if (!len) return {0};
+
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
+    uniform_int_distribution<int> dis(1, 9);
+    vector<int> ret;
+    ret.emplace_back(dis(gen));
+    --len;
+    while (len--) {
+        uniform_int_distribution<int> dis(0, 9);
+        ret.emplace_back(dis(gen));
+    }
+
+    uniform_int_distribution<int> positive_or_negative(0, 1);
+    if (positive_or_negative(gen)) {
+        ret.front() *= -1;
+    }
+    return ret;
+}
 
 bool Arrays_Fixture::p_6_5_CheckAns(const vector<int>& A, size_t n) {
     for (size_t i = 1; i < n; ++i) {
@@ -444,12 +477,14 @@ TEST_F(Arrays_Fixture, Bignumber_multiply_Function) {
         default_random_engine gen(rd());
         //default_random_engine gen((random_device()) ());
         uniform_int_distribution<int> dis(0, 19);
-        vector<int> num1 = multiply::RandVector(dis(gen)), num2 = multiply::RandVector(dis(gen));
+        vector<int> num1 = p_6_3_RandVector(dis(gen));
+        vector<int> num2 = p_6_3_RandVector(dis(gen));
+
         auto res = Multiply(num1, num2);
         string command = "bash -c 'bc <<<" + VectorToString(num1) + "*" +
                          VectorToString(num2) + "'";
         string result = execute_shell(command);
-        ASSERT_TRUE(result.substr(0, result.size() - 1) == VectorToString(res));
+        ASSERT_EQ(result.substr(0, result.size() - 1), VectorToString(res));
     }
 }
 

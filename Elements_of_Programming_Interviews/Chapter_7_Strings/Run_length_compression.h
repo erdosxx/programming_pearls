@@ -9,7 +9,7 @@
 using std::string;
 using std::to_string;
 
-// @include
+// 3e4f2e -> eeeffffee
 string Decoding(const string &s) {
     int count = 0;
     string result;
@@ -25,9 +25,13 @@ string Decoding(const string &s) {
     return result;
 }
 
+// eeeffffee -> 3e4f2e
 string Encoding(const string &s) {
     string result;
-    for (int i = 1, count = 1; i <= s.size(); ++i) {
+
+    int count = 1;
+
+    for (int i = 1; i <= s.size(); ++i) {
         if (i == s.size() || s[i] != s[i - 1]) {
             // Found new character so write the count of previous character.
             result += to_string(count) + s[i - 1];
@@ -38,6 +42,5 @@ string Encoding(const string &s) {
     }
     return result;
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_RUN_LENGTH_COMPRESSION_H

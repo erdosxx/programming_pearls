@@ -16,9 +16,11 @@ set(HEADER_FILES
         Phone_mnemonic_iterative.h
         look-and-say.h
         roman-to-integer.h
+        integer-to-roman.h
         valid-IP-address.h
         snake-string.h
         Run_length_compression.h
+        Run_length_compression_google.h
         rabin-karp.h
         )
 

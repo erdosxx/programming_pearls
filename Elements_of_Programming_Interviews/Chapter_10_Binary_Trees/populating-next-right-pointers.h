@@ -17,7 +17,6 @@ namespace right_sibling {
 
     void PopulateLowerLevelNextField(BinaryTreeNode<int> *);
 
-// @include
     void ConstructRightSibling(BinaryTreeNode<int> *tree) {
         auto left_start = tree;
 
@@ -41,7 +40,6 @@ namespace right_sibling {
             iter = iter->next;
         }
     }
-// @exclude
 }
 
 #endif //ALGORITHM_ANALYSIS_POPULATING_NEXT_RIGHT_POINTERS_H

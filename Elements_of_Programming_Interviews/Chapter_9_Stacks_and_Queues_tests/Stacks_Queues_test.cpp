@@ -226,22 +226,20 @@ TEST_F(StacksQueues_Fixture, valid_parentheses_Function) {
 }
 
 TEST_F(StacksQueues_Fixture, normalized_pathnames_Function) {
-    ASSERT_TRUE(ShortestEquivalentPath("123/456") == string("123/456"));
-    ASSERT_TRUE(ShortestEquivalentPath("/123/456") == string("/123/456"));
-    ASSERT_TRUE(ShortestEquivalentPath("usr/lib/../bin/gcc") ==
-           string("usr/bin/gcc"));
-    ASSERT_TRUE(ShortestEquivalentPath("./../") == string(".."));
-    ASSERT_TRUE(ShortestEquivalentPath("../../local") == string("../../local"));
-    ASSERT_TRUE(ShortestEquivalentPath("./.././../local") == string("../../local"));
-    ASSERT_TRUE(ShortestEquivalentPath("/foo/../foo/./../") == string("/"));
+    ASSERT_EQ(ShortestEquivalentPath("123/456"), "123/456");
+    ASSERT_EQ(ShortestEquivalentPath("/123/456"), "/123/456");
+    ASSERT_EQ(ShortestEquivalentPath("usr/lib/../bin/gcc"), "usr/bin/gcc");
+    ASSERT_EQ(ShortestEquivalentPath("./../"), "..");
+    ASSERT_EQ(ShortestEquivalentPath("../../local"), "../../local");
+    ASSERT_EQ(ShortestEquivalentPath("./.././../local"), "../../local");
+    ASSERT_EQ(ShortestEquivalentPath("/foo/../foo/./../"), "/");
 
 //    ASSERT_THROW(ShortestEquivalentPath("/foo.txt"), invalid_argument);
     ASSERT_THROW(ShortestEquivalentPath(""), invalid_argument);
     ASSERT_THROW(ShortestEquivalentPath("/.."), invalid_argument);
 //    ASSERT_THROW(ShortestEquivalentPath("/cpp_name/bin/"), invalid_argument);
 
-    ASSERT_TRUE(ShortestEquivalentPath("scripts//./../scripts/awkscripts/././") ==
-           string("scripts/awkscripts"));
+    ASSERT_EQ(ShortestEquivalentPath("scripts//./../scripts/awkscripts/././"),"scripts/awkscripts");
 }
 
 TEST_F(StacksQueues_Fixture, search_postings_list_itr_Function) {

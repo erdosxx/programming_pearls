@@ -1221,14 +1221,18 @@ TEST_F(LinkedLists_Fixture, even_odd_merge_erdos) {
 
 TEST_F(LinkedLists_Fixture, Palindrome_Funtion) {
     ASSERT_TRUE(IsLinkedListAPalindrome(nullptr) == true);
+    // 1
     ASSERT_TRUE(IsLinkedListAPalindrome(
             make_shared<ListNode<int>>(ListNode<int>{1, nullptr})) == true);
+    // 1 -> 1
     ASSERT_TRUE(IsLinkedListAPalindrome(make_shared<ListNode<int>>(ListNode<int>{
             1, make_shared<ListNode<int>>(ListNode<int>{1, nullptr})})) ==
            true);
+    // 1 -> 2
     ASSERT_TRUE(IsLinkedListAPalindrome(make_shared<ListNode<int>>(ListNode<int>{
             1, make_shared<ListNode<int>>(ListNode<int>{2, nullptr})})) ==
            false);
+    // 1 -> 3 -> 2 -> 1 
     ASSERT_TRUE(IsLinkedListAPalindrome(make_shared<ListNode<int>>(ListNode<int>{
             1, make_shared<ListNode<int>>(ListNode<int>{
                     3, make_shared<ListNode<int>>(ListNode<int>{
@@ -1237,6 +1241,7 @@ TEST_F(LinkedLists_Fixture, Palindrome_Funtion) {
 
     shared_ptr<ListNode<int>> head = nullptr;
     // A link list is a palindrome.
+    // 1 -> 1 -> 1 -> 1 -> 1 -> 1
     for (int i = 6; i >= 1; --i) {
         shared_ptr<ListNode<int>> curr =
                 make_shared<ListNode<int>>(ListNode<int>{1, head});
@@ -1245,6 +1250,7 @@ TEST_F(LinkedLists_Fixture, Palindrome_Funtion) {
     ASSERT_TRUE(IsLinkedListAPalindrome(head) == true);
 
     // Still a palindrome linked list.
+    // 1 -> 1 -> 3 -> 1 -> 1
     head = shared_ptr<ListNode<int>>(nullptr);
     for (int i = 5; i >= 1; --i) {
         shared_ptr<ListNode<int>> curr =
@@ -1255,6 +1261,7 @@ TEST_F(LinkedLists_Fixture, Palindrome_Funtion) {
     ASSERT_TRUE(IsLinkedListAPalindrome(head) == true);
 
     // Not a palindrome linked list.
+    // 1 -> 2 -> 3 -> 4 -> 5
     head = nullptr;
     for (int i = 5; i >= 1; --i) {
         shared_ptr<ListNode<int>> curr =
@@ -1262,7 +1269,6 @@ TEST_F(LinkedLists_Fixture, Palindrome_Funtion) {
         head = curr;
     }
     ASSERT_TRUE(IsLinkedListAPalindrome(head) == false);
-    ASSERT_TRUE(IsLinkedListAPalindrome(nullptr) == true);
 }
 
 TEST_F(LinkedLists_Fixture, list_pivoting_Function) {

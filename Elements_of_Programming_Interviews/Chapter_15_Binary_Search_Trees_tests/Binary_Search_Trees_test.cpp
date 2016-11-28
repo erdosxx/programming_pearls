@@ -6,6 +6,7 @@
 #include <unordered_set>
 #include <cmath>
 #include <string>
+#include <functional>
 #include "binary_search_trees_boot_camp.h"
 #include "is_binary_tree_a_BST.h"
 #include "is_binary_tree_a_BST_BFS.h"
@@ -45,6 +46,7 @@ using std::ostream_iterator;
 using std::to_string;
 using std::upper_bound;
 using std::lower_bound;
+using std::greater;
 
 class Ch15_BST_Fixture : public ::testing::Test {
 private:
@@ -289,6 +291,14 @@ TEST_F(Ch15_BST_Fixture, stl_library) {
     ASSERT_EQ(ret3.second->first, 'c');
     ASSERT_EQ(ret3.first->second, 2);
     ASSERT_EQ(ret3.second->second, 3);
+
+    // using comparator
+    map<int, string> mymap1 = {{1, "A"}, {2, "B"}}; // comparator less is default
+    ASSERT_EQ(1, (*mymap1.cbegin()).first);
+
+    map<int, string, greater<>> mymap2 = {{1, "A"}, {2, "B"}};
+    ASSERT_EQ(2, (*mymap2.cbegin()).first);
+
 }
 
 TEST_F(Ch15_BST_Fixture, is_BST_Function) {
@@ -628,6 +638,9 @@ TEST_F(Ch15_BST_Fixture, generating_a_b_sqrt_2_improved_Function) {
 TEST_F(Ch15_BST_Fixture, build_BST_from_sorted_array_Function) {
     vector<int> A = {1, 2, 3, 4};
     unique_ptr<BSTNode<int>> result = BuildMinHeightBSTFromSortedArray(A);
+    //       3
+    //     2   4   
+    //   1
     ASSERT_EQ(3, result->data);
     ASSERT_EQ(2, result->left->data);
     ASSERT_EQ(1, result->left->left->data);

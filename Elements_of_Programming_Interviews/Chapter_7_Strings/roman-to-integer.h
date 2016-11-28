@@ -9,7 +9,6 @@
 using std::string;
 using std::unordered_map;
 
-// @include
 int RomanToInteger(const string& s) {
     unordered_map<char, int> T = {{'I', 1},   {'V', 5},   {'X', 10},  {'L', 50},
                                   {'C', 100}, {'D', 500}, {'M', 1000}};
@@ -24,6 +23,5 @@ int RomanToInteger(const string& s) {
     }
     return sum;
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_ROMAN_TO_INTEGER_H

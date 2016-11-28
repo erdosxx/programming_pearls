@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <random>
 #include <limits>
+#include "Binary_tree_utils.h"
 #include "tree_traversal.h"
 #include "Balanced_binary_tree.h"
 #include "largest_complete_subtree.h"
@@ -21,6 +22,7 @@
 #include "postorder_traversal_with_parent.h"
 #include "Reconstruct_binary_tree_pre_in_orders.h"
 #include "Reconstruct_preorder_with_null.h"
+#include "Reconstruct_postorder_with_null.h"
 #include "Connect_leaves_binary_tree.h"
 #include "Exterior_binary_tree.h"
 #include "populating-next-right-pointers.h"
@@ -830,19 +832,25 @@ TEST_F(BinaryTrees_Fixture, reconstruct_pre_inorder_Function) {
 }
 
 TEST_F(BinaryTrees_Fixture, reconstruct_preorder_with_null_Function) {
-    int A[] = {1, 2, 3};
+    // 1
+    int A[3] = {1, 2, 3};
     vector<int*> preorder = {A, nullptr, nullptr};
     auto result = ReconstructPreorder(preorder);
     ASSERT_EQ(result->data, 1);
     ASSERT_EQ(result->left, nullptr);
     ASSERT_EQ(result->right, nullptr);
 
+    //   1
+    //     2
     preorder = {A, nullptr, A + 1, nullptr, nullptr};
     result = ReconstructPreorder(preorder);
     ASSERT_EQ(result->data, 1);
     ASSERT_EQ(result->left, nullptr);
     ASSERT_EQ(result->right->data, 2);
 
+    //    1
+    //      2
+    //    3
     preorder = {A, nullptr, A + 1, A + 2, nullptr, nullptr, nullptr};
     result = ReconstructPreorder(preorder);
     ASSERT_EQ(result->data, 1);
@@ -853,8 +861,6 @@ TEST_F(BinaryTrees_Fixture, reconstruct_preorder_with_null_Function) {
 
     random_device rd;
     default_random_engine gen(rd());
-    //default_random_engine gen((random_device())());
-    // Random test 1000 times.
     for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 100);
         int n = dis(gen);
@@ -863,6 +869,50 @@ TEST_F(BinaryTrees_Fixture, reconstruct_preorder_with_null_Function) {
         vector<int*> p;
         GenPreorderWithNull(root, &p);
         auto x = unique_ptr<BinaryTreeNode<int>>(ReconstructPreorder(p));
+        ASSERT_TRUE(is_two_binary_trees_equal(root, x));
+        delete_binary_tree(&root);
+        delete_binary_tree(&x);
+    }
+}
+
+TEST_F(BinaryTrees_Fixture, reconstruct_postorder_with_null) {
+    // 1
+    int A[3] = {1, 2, 3};
+    vector<int*> postorder = {nullptr, nullptr, A};
+    auto result = ReconstructPostorder(postorder);
+    ASSERT_EQ(result->data, 1);
+    ASSERT_EQ(result->left, nullptr);
+    ASSERT_EQ(result->right, nullptr);
+
+    //   1
+    //     2
+    postorder = {nullptr, nullptr, nullptr, A+1, A};
+    result = ReconstructPostorder(postorder);
+    ASSERT_EQ(result->data, 1);
+    ASSERT_EQ(result->left, nullptr);
+    ASSERT_EQ(result->right->data, 2);
+
+    //    1
+    //      2
+    //    3
+    postorder = {nullptr, nullptr, nullptr, A+2, nullptr, A+1, A};
+    result = ReconstructPostorder(postorder);
+    ASSERT_EQ(result->data, 1);
+    ASSERT_EQ(result->left, nullptr);
+    ASSERT_EQ(result->right->data, 2);
+    ASSERT_EQ(result->right->left->data, 3);
+    ASSERT_EQ(result->right->right, nullptr);
+
+    random_device rd;
+    default_random_engine gen(rd());
+    for (int times = 0; times < 100; ++times) {
+        uniform_int_distribution<int> dis(1, 100);
+        int n = dis(gen);
+
+        unique_ptr<BinaryTreeNode<int>> root = generate_rand_binary_tree<int>(n);
+        vector<int*> p;
+        GenPostorderWithNull(root, &p);
+        auto x = unique_ptr<BinaryTreeNode<int>>(ReconstructPostorder(p));
         ASSERT_TRUE(is_two_binary_trees_equal(root, x));
         delete_binary_tree(&root);
         delete_binary_tree(&x);

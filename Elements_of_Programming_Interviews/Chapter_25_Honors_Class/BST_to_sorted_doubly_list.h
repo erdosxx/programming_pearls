@@ -6,20 +6,11 @@
 
 #include "BST_prototype_shared_ptr.h"
 
-using std::make_shared;
 using std::shared_ptr;
 
-// @include
 struct HeadAndTail {
     shared_ptr<BSTNode<int>> head, tail;
 };
-
-HeadAndTail BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>&);
-
-shared_ptr<BSTNode<int>> BSTToDoublyLinkedList(
-        const shared_ptr<BSTNode<int>>& tree) {
-    return BSTToDoublyLinkedListHelper(tree).head;
-}
 
 // Transforms a BST into a sorted doubly linked list in-place,
 // and return the head and tail of the list.
@@ -48,6 +39,10 @@ HeadAndTail BSTToDoublyLinkedListHelper(
 
     return {left.head ? left.head : tree, right.tail ? right.tail : tree};
 }
-// @exclude
+
+shared_ptr<BSTNode<int>> BSTToDoublyLinkedList(
+        const shared_ptr<BSTNode<int>>& tree) {
+    return BSTToDoublyLinkedListHelper(tree).head;
+}
 
 #endif //ALGORITHM_ANALYSIS_BST_TO_SORTED_DOUBLY_LIST_H

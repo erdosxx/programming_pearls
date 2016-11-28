@@ -34,6 +34,8 @@ protected:
 
     virtual void SetUp() {
     }
+    
+    bool p_5_9_CheckAns(int x);
 
 public:
     Primitive_Types_Fixture() : Test() {
@@ -43,6 +45,16 @@ public:
     virtual ~Primitive_Types_Fixture() {
     }
 };
+
+bool Primitive_Types_Fixture::p_5_9_CheckAns(int x) {
+    auto s = to_string(x);
+    for (size_t i = 0, j = s.size() - 1; i < j; ++i, --j) {
+        if (s[i] != s[j]) {
+            return false;
+        }
+    }
+    return true;
+}
 
 TEST_F(Primitive_Types_Fixture, primitive_types_boot_camp) {
     //// bitset
@@ -335,7 +347,7 @@ TEST_F(Primitive_Types_Fixture, palindrome_number_Function) {
 
     for (int times = 0; times < 1000; ++times) {
         x = dis(gen);
-        ASSERT_EQ(palindrome_number::CheckAns(x), IsPalindromeNumber(x));
+        ASSERT_EQ(p_5_9_CheckAns(x), IsPalindromeNumber(x));
     }
 }
 

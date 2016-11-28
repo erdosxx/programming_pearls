@@ -15,7 +15,6 @@ namespace right_any_btree {
         BinaryTreeNode<T> *next;  // populate this field.
     };
 
-// @include
     void populate_next_pointer(BinaryTreeNode<int> *node) {
         while (node) {
             BinaryTreeNode<int> *next_level_start = nullptr;
@@ -45,7 +44,6 @@ namespace right_any_btree {
             node = next_level_start;
         }
     }
-// @exclude
 }
 
 #endif //ALGORITHM_ANALYSIS_POPULATING_NEXT_RIGHT_POINTERS_ANY_BINARY_TREE_H

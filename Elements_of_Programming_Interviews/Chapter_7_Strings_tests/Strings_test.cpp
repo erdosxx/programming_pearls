@@ -15,9 +15,11 @@
 #include "Phone_mnemonic_iterative.h"
 #include "look-and-say.h"
 #include "roman-to-integer.h"
+#include "integer-to-roman.h"
 #include "valid-IP-address.h"
 #include "snake-string.h"
 #include "Run_length_compression.h"
+#include "Run_length_compression_google.h"
 #include "rabin-karp.h"
 
 using std::cout;
@@ -46,11 +48,6 @@ protected:
     virtual void SetUp() {
     }
 
-public:
-    Strings_Fixture() : Test() {
-
-    }
-
     string p_7_1_RandIntString(int len);
     string p_7_3_RandString(int len);
     int p_7_13_CheckAnswer(const string &t, const string &s);
@@ -61,10 +58,29 @@ public:
     string p_7_6_RandString(int len);
     bool p_7_6_CheckAnswer(const string &ori, string *str);
     string p_7_7_RandString(int len);
+    string p_7_11_RandString(size_t len);
+
+public:
+    Strings_Fixture() : Test() {
+
+    }
+
 
     virtual ~Strings_Fixture() {
     }
 };
+
+string Strings_Fixture::p_7_11_RandString(size_t len) {
+    random_device rd;
+    default_random_engine gen(rd());
+    //default_random_engine gen((random_device())());
+    uniform_int_distribution<char> dis('A', 'Z');
+    string result;
+    while (len--) {
+        result += dis(gen);
+    }
+    return result;
+}
 
 string Strings_Fixture::p_7_7_RandString(int len) {
     random_device rd;
@@ -217,11 +233,26 @@ TEST_F(Strings_Fixture, stl_library) {
     s1.append(" Erdos");
     ASSERT_EQ("Paul Erdos", s1); // Paul Erdos
 
+    s1.append(3, '-'); //append 3 copies of '-': "---"
+    ASSERT_EQ("Paul Erdos---", s1); // Paul Erdos
+
+    s1 = "a";
+    s2 = "b";
+    s1 += s2;
+    ASSERT_EQ("ab", s1);
+
     s1= "a";
     s1.push_back('b'); // ab
     ASSERT_EQ("ab", s1);
     s1.pop_back(); //a
     ASSERT_EQ("a", s1);
+
+    s1= "a";
+    char* a_ch = new char('b');
+    string s3(a_ch);
+    s1 += s3;
+    ASSERT_EQ("ab", s1);
+    delete a_ch;
 
     // insert
     // s.insert(pos, x): Insert x before s[pos]; x can be a character, a string.
@@ -553,6 +584,7 @@ TEST_F(Strings_Fixture, look_and_say_Function) {
 }
 
 TEST_F(Strings_Fixture, roman_to_integer_Function) {
+    ASSERT_EQ(4, RomanToInteger("IV"));
     ASSERT_EQ(7, RomanToInteger("VII"));
     ASSERT_EQ(184, RomanToInteger("CLXXXIV"));
     ASSERT_EQ(9, RomanToInteger("IX"));
@@ -562,6 +594,22 @@ TEST_F(Strings_Fixture, roman_to_integer_Function) {
     ASSERT_EQ(400, RomanToInteger("CD"));
     ASSERT_EQ(1900, RomanToInteger("MCM"));
     ASSERT_EQ(9919, RomanToInteger("MMMMMMMMMCMXIX"));
+}
+
+TEST_F(Strings_Fixture, integer_to_roman) {
+    // int_to_roman works upto 3999
+    ASSERT_EQ("I", int_to_roman(1));
+    ASSERT_EQ("IV", int_to_roman(4));
+    ASSERT_EQ("XXXIX", int_to_roman(39));
+    ASSERT_EQ("MMMCCXXV", int_to_roman(3225));
+    ASSERT_EQ("MMMCMXCIX", int_to_roman(3999));
+
+    ASSERT_EQ("I", int_to_roman_erdos(1));
+    ASSERT_EQ("IV", int_to_roman_erdos(4));
+    ASSERT_EQ("XXXIX", int_to_roman_erdos(39));
+    ASSERT_EQ("MMMCCXXV", int_to_roman_erdos(3225));
+    ASSERT_EQ("MMMCMXCIX", int_to_roman_erdos(3999));
+    ASSERT_EQ("MMMMMMMMMCMXIX", int_to_roman_erdos(9919));
 }
 
 TEST_F(Strings_Fixture, valid_ip_address_Function) {
@@ -585,13 +633,60 @@ TEST_F(Strings_Fixture, valid_ip_address_Function) {
 }
 
 TEST_F(Strings_Fixture, snake_string_Function) {
-    ASSERT_TRUE(SnakeString("Hello World!").compare("e lHloWrdlo!") == 0);
+    ASSERT_EQ("e lHloWrdlo!", SnakeString("Hello World!"));
 }
 
 TEST_F(Strings_Fixture, run_length_Function) {
-    ASSERT_TRUE(string("4a1b3c2a") == Encoding("aaaabcccaa"));
-    ASSERT_TRUE(string("eeeffffee") == Decoding("3e4f2e"));
-    ASSERT_TRUE(string("aaaaaaaaaaffffee") == Decoding("10a4f2e"));
+    ASSERT_EQ("4a1b3c2a", Encoding("aaaabcccaa"));
+    ASSERT_EQ("eeeffffee", Decoding("3e4f2e"));
+    ASSERT_EQ("aaaaaaaaaaffffee", Decoding("10a4f2e"));
+}
+
+TEST_F(Strings_Fixture, run_length_google) {
+    //// get_count
+    int idx = 0;
+    ASSERT_EQ(0, get_count("[ab]", &idx));
+    ASSERT_EQ(0, idx);
+
+    idx = 0;
+    ASSERT_EQ(1, get_count("1[ab]", &idx));
+    ASSERT_EQ(0, idx);
+
+    idx = 0;
+    ASSERT_EQ(12, get_count("12[ab]", &idx));
+    ASSERT_EQ(1, idx);
+
+    idx = 0;
+    ASSERT_EQ(123, get_count("123[ab]", &idx));
+    ASSERT_EQ(2, idx);
+
+    idx = 7;
+    ASSERT_EQ(32, get_count("123[ab]32[ac]", &idx));
+    ASSERT_EQ(8, idx);
+
+    //// get_pattern_str
+    idx = 0;
+    ASSERT_EQ("a", get_pattern_str("[a]", &idx));
+    ASSERT_EQ(2, idx);
+
+    idx = 0;
+    ASSERT_EQ("a2[ab]c", get_pattern_str("[a2[ab]c]", &idx));
+    ASSERT_EQ(8, idx);
+
+    idx = 3;
+    ASSERT_EQ("ab", get_pattern_str("[a2[ab]c]", &idx));
+    ASSERT_EQ(6, idx);
+
+    //// decoding_google
+    ASSERT_EQ("a", decoding_google("a"));
+    ASSERT_EQ("abab", decoding_google("2[ab]"));
+    ASSERT_EQ("aabab", decoding_google("a2[ab]"));
+    ASSERT_EQ("aababc", decoding_google("a2[ab]c"));
+    ASSERT_EQ("aababcdebbb", decoding_google("a2[ab]cde3[b]"));
+    ASSERT_EQ("aababcdebfbfbf", decoding_google("a2[ab]cde3[bf]"));
+    ASSERT_EQ("aabfbfbfabfbfbfa", decoding_google("aa3[bf]a3[bf]a"));
+    ASSERT_EQ("aabfbfbfabfbfbfa", decoding_google("a2[a3[bf]]a"));
+    ASSERT_EQ("tgbfbfbfhgbfbfbfhc", decoding_google("t2[g3[bf]h]c"));
 }
 
 TEST_F(Strings_Fixture, rabin_karp_Function) {

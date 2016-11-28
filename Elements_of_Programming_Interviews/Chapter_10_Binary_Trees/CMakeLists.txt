@@ -29,6 +29,7 @@ set(HEADER_FILES
         postorder_traversal_with_parent.h
         Reconstruct_binary_tree_pre_in_orders.h
         Reconstruct_preorder_with_null.h
+        Reconstruct_postorder_with_null.h
         Connect_leaves_binary_tree.h
         Exterior_binary_tree.h
         populating-next-right-pointers.h

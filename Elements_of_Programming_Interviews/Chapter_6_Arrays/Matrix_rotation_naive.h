@@ -2,10 +2,12 @@
 #define ALGORITHM_ANALYSIS_MATRIX_ROTATION_NAIVE_H
 // 6.18 Rotate a 2D array
 
+#include <iostream>
 #include <algorithm>
 #include <vector>
 
 using std::cout;
+using std::endl;
 using std::vector;
 
 namespace matrix_rotation_naive {

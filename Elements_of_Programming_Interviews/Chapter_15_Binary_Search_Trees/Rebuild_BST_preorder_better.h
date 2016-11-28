@@ -18,19 +18,20 @@ namespace improved {
     // Builds a BST on the subtree rooted at root_idx from preorder_sequence on
     // keys in (lower_bound, upper_bound).
     unique_ptr<BSTNode<int>> RebuildBSTFromPreorderOnValueRange(
-            const vector<int> &preorder_sequence, int lower_bound, int upper_bound,
+            const vector<int> &preorder_sequence, const int& lower_bound, const int& upper_bound,
             int *root_idx_pointer) {
-        //int &root_idx = *root_idx_pointer;
-        if (*root_idx_pointer == preorder_sequence.size()) {
+        int &root_idx = *root_idx_pointer;
+
+        if (root_idx == preorder_sequence.size()) {
             return nullptr;
         }
 
-        int root = preorder_sequence[*root_idx_pointer];
+        int root = preorder_sequence[root_idx];
         if (root < lower_bound || root > upper_bound) {
             return nullptr;
         }
 
-        ++(*root_idx_pointer);
+        ++root_idx;
         // Note that RebuildBSTFromPreorderOnValueRange updates root_idx. So the
         // order of following two calls are critical.
         auto left_subtree = RebuildBSTFromPreorderOnValueRange(

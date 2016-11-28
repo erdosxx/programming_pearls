@@ -10,7 +10,6 @@
 using std::make_shared;
 using std::shared_ptr;
 
-// @include
 bool IsLinkedListAPalindrome(shared_ptr<ListNode<int>> L) {
   if (L == nullptr) {
     return true;
@@ -38,6 +37,5 @@ bool IsLinkedListAPalindrome(shared_ptr<ListNode<int>> L) {
   }
   return true;
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_PALINDROME_LINKED_LIST_H

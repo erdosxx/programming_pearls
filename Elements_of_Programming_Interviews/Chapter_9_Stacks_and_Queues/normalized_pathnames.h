@@ -14,7 +14,6 @@ using std::stringstream;
 using std::string;
 using std::vector;
 
-// @include
 string ShortestEquivalentPath(const string& path) {
     if (path.empty()) {
         throw invalid_argument("Empty string is not a valid path.");
@@ -56,6 +55,5 @@ string ShortestEquivalentPath(const string& path) {
     }
     return result;
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_NORMALIZED_PATHNAMES_H
