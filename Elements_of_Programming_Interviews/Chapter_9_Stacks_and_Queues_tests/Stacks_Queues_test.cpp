@@ -14,6 +14,8 @@
 #include "Search_postings_list_recursive.h"
 #include "View_sunset.h"
 #include "Binary_tree_level_order.h"
+#include "binary-tree-level-order-bottom-up.h"
+#include "binary-tree-zigzag-level-order-traversal.h"
 #include "Circular_queue.h"
 #include "Queue_from_stacks.h"
 #include "Queue_with_max.h"
@@ -372,6 +374,57 @@ TEST_F(StacksQueues_Fixture, binary_tree_level_order_Function) {
     //               13
     auto result = BinaryTreeDepthOrder(tree);
     vector<vector<int>> golden_res = {{3}, {2, 5}, {1, 4, 6}, {10}, {13}};
+    ASSERT_TRUE(equal(golden_res.begin(), golden_res.end(), result.begin(),
+                 result.end()));
+}
+
+TEST_F(StacksQueues_Fixture, binary_tree_level_order_bottom_up) {
+    //      3
+    //    2   5
+    //  1    4 6
+    unique_ptr<BinaryTreeNode<int>> root = make_unique<BinaryTreeNode<int>>(
+            BinaryTreeNode<int>{3, nullptr, nullptr});
+    root->left = make_unique<BinaryTreeNode<int>>(
+            BinaryTreeNode<int>{2, nullptr, nullptr});
+    root->left->left = make_unique<BinaryTreeNode<int>>(
+            BinaryTreeNode<int>{1, nullptr, nullptr});
+    root->right = make_unique<BinaryTreeNode<int>>(
+            BinaryTreeNode<int>{5, nullptr, nullptr});
+    root->right->left = make_unique<BinaryTreeNode<int>>(
+            BinaryTreeNode<int>{4, nullptr, nullptr});
+    root->right->right = make_unique<BinaryTreeNode<int>>(
+            BinaryTreeNode<int>{6, nullptr, nullptr});
+    auto res = bottom_up_level_order(root);
+    vector<vector<int>> golden_res = {{1, 4, 6}, {2, 5}, {3}};
+    ASSERT_EQ(golden_res.size(), res.size());
+    for (size_t i = 0; i < res.size(); ++i) {
+        ASSERT_EQ(res[i].size(), golden_res[i].size());
+        for (size_t j = 0; j < res[i].size(); ++j) {
+            ASSERT_EQ(res[i][j], golden_res[i][j]);
+            //cout << res[i][j] << " ";
+        }
+        //cout << endl;
+    }
+}
+
+TEST_F(StacksQueues_Fixture, binary_tree_zigzag_level_order_traversal) {
+    //      3
+    //    2   5
+    //  1    4 6
+    unique_ptr<BinaryTreeNode<int>> root = make_unique<BinaryTreeNode<int>>(
+            BinaryTreeNode<int>{3, nullptr, nullptr});
+    root->left = make_unique<BinaryTreeNode<int>>(
+            BinaryTreeNode<int>{2, nullptr, nullptr});
+    root->left->left = make_unique<BinaryTreeNode<int>>(
+            BinaryTreeNode<int>{1, nullptr, nullptr});
+    root->right = make_unique<BinaryTreeNode<int>>(
+            BinaryTreeNode<int>{5, nullptr, nullptr});
+    root->right->left = make_unique<BinaryTreeNode<int>>(
+            BinaryTreeNode<int>{4, nullptr, nullptr});
+    root->right->right = make_unique<BinaryTreeNode<int>>(
+            BinaryTreeNode<int>{6, nullptr, nullptr});
+    auto result = binary_tree_zigzag_level_order(root);
+    vector<vector<int>> golden_res = {{3}, {5, 2}, {1, 4, 6}};
     ASSERT_TRUE(equal(golden_res.begin(), golden_res.end(), result.begin(),
                  result.end()));
 }

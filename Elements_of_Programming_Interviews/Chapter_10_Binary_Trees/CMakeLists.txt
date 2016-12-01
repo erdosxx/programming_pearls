@@ -34,6 +34,7 @@ set(HEADER_FILES
         Exterior_binary_tree.h
         populating-next-right-pointers.h
         populating-next-right-pointers-any-binary-tree.h
+        convert_right_child_to_next_sibling.h
         Binary_tree_lock.h
         )
 

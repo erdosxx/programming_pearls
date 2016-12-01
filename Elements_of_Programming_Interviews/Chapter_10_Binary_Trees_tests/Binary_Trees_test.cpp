@@ -27,6 +27,7 @@
 #include "Exterior_binary_tree.h"
 #include "populating-next-right-pointers.h"
 #include "populating-next-right-pointers-any-binary-tree.h"
+#include "convert_right_child_to_next_sibling.h"
 #include "Binary_tree_lock.h"
 
 using std::istringstream;
@@ -1053,6 +1054,60 @@ TEST_F(BinaryTrees_Fixture, next_right_any_btree_Function) {
     ASSERT_EQ(root->left->next, root->right.get());
     ASSERT_EQ(root->right->left->next, root->right->right.get());
     ASSERT_EQ(root->right->left->right->next, root->right->right->left.get());
+}
+
+TEST_F(BinaryTrees_Fixture, convert_right_child_to_next_sibling) {
+    //   1
+    shared_ptr<right_child::BinaryTreeNode<int>> root = make_shared<right_child::BinaryTreeNode<int>>(
+            right_child::BinaryTreeNode<int>{1, nullptr, nullptr});
+    convert_right_child_to_next_sibling(&root);
+    ASSERT_EQ(1, root->data);
+    ASSERT_EQ(nullptr, root->left);
+    ASSERT_EQ(nullptr, root->right);
+
+    //   1
+    // 2   3
+    root = make_shared<right_child::BinaryTreeNode<int>>(
+            right_child::BinaryTreeNode<int>{1, nullptr, nullptr});
+    root->left = make_shared<right_child::BinaryTreeNode<int>>(
+            right_child::BinaryTreeNode<int>{2, nullptr, nullptr});
+    root->right = make_shared<right_child::BinaryTreeNode<int>>(
+            right_child::BinaryTreeNode<int>{3, nullptr, nullptr});
+    convert_right_child_to_next_sibling(&root);
+    ASSERT_EQ(1, root->data);
+    ASSERT_EQ(2, root->left->data);
+    ASSERT_EQ(3, root->left->right->data);
+    ASSERT_EQ(nullptr, root->left->right->right);
+    ASSERT_EQ(nullptr, root->right);
+
+    //      1
+    //    2   3
+    //   4 5 6 7
+    root = make_shared<right_child::BinaryTreeNode<int>>(
+            right_child::BinaryTreeNode<int>{1, nullptr, nullptr});
+    root->left = make_shared<right_child::BinaryTreeNode<int>>(
+            right_child::BinaryTreeNode<int>{2, nullptr, nullptr});
+    root->right = make_shared<right_child::BinaryTreeNode<int>>(
+            right_child::BinaryTreeNode<int>{3, nullptr, nullptr});
+    root->left->left = make_shared<right_child::BinaryTreeNode<int>>(
+            right_child::BinaryTreeNode<int>{4, nullptr, nullptr});
+    root->left->right = make_shared<right_child::BinaryTreeNode<int>>(
+            right_child::BinaryTreeNode<int>{5, nullptr, nullptr});
+    root->right->left = make_shared<right_child::BinaryTreeNode<int>>(
+            right_child::BinaryTreeNode<int>{6, nullptr, nullptr});
+    root->right->right = make_shared<right_child::BinaryTreeNode<int>>(
+            right_child::BinaryTreeNode<int>{7, nullptr, nullptr});
+    convert_right_child_to_next_sibling(&root);
+    ASSERT_EQ(1, root->data);
+    ASSERT_EQ(nullptr, root->right);
+    ASSERT_EQ(2, root->left->data);
+    ASSERT_EQ(3, root->left->right->data);
+    ASSERT_EQ(nullptr, root->left->right->right);
+    ASSERT_EQ(4, root->left->left->data);
+    ASSERT_EQ(5, root->left->left->right->data);
+    ASSERT_EQ(6, root->left->left->right->right->data);
+    ASSERT_EQ(7, root->left->left->right->right->right->data);
+    ASSERT_EQ(nullptr, root->left->left->right->right->right->right);
 }
 
 TEST_F(BinaryTrees_Fixture, lock_btree_Function) {

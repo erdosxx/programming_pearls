@@ -13,7 +13,6 @@ using std::queue;
 using std::unique_ptr;
 using std::vector;
 
-// @include
 vector<vector<int>> BinaryTreeDepthOrder(
         const unique_ptr<BinaryTreeNode<int>>& tree) {
     queue<BinaryTreeNode<int>*> processing_queue;
@@ -39,12 +38,14 @@ vector<vector<int>> BinaryTreeDepthOrder(
         if (num_nodes_to_process_at_current_level == 0) {
             num_nodes_to_process_at_current_level = processing_queue.size();
             if (!one_level_result.empty()) {
+                // following is equivalent as this
+                // final_result.emplace_back(one_level_result);
+                // one_level_result.clear();
                 final_result.emplace_back(move(one_level_result));
             }
         }
     }
     return final_result;
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_BINARY_TREE_LEVEL_ORDER_H

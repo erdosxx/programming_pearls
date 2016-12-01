@@ -19,6 +19,8 @@ set(HEADER_FILES
         View_sunset.h
         Binary_tree_prototype.h
         Binary_tree_level_order.h
+        binary-tree-level-order-bottom-up.h
+        binary-tree-zigzag-level-order-traversal.h
         Circular_queue.h
         Queue_from_stacks.h
         Queue_with_max.h

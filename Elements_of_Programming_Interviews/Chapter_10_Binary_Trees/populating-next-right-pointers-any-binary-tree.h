@@ -4,7 +4,6 @@
 
 #include <memory>
 
-using std::make_unique;
 using std::unique_ptr;
 
 namespace right_any_btree {
@@ -12,13 +11,13 @@ namespace right_any_btree {
     struct BinaryTreeNode {
         T data;
         unique_ptr<BinaryTreeNode<T>> left, right;
-        BinaryTreeNode<T> *next;  // populate this field.
+        BinaryTreeNode<T>* next;  // populate this field.
     };
 
-    void populate_next_pointer(BinaryTreeNode<int> *node) {
+    void populate_next_pointer(BinaryTreeNode<int>* node) {
         while (node) {
-            BinaryTreeNode<int> *next_level_start = nullptr;
-            BinaryTreeNode<int> *prev = nullptr;
+            BinaryTreeNode<int>* next_level_start = nullptr;
+            BinaryTreeNode<int>* prev = nullptr;
 
             while (node) {
                 if (!next_level_start) {

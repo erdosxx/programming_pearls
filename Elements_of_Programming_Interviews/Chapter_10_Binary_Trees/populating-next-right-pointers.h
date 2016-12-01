@@ -4,7 +4,6 @@
 
 #include <memory>
 
-using std::make_unique;
 using std::unique_ptr;
 
 namespace right_sibling {
@@ -12,21 +11,10 @@ namespace right_sibling {
     struct BinaryTreeNode {
         T data;
         unique_ptr<BinaryTreeNode<T>> left, right;
-        BinaryTreeNode<T> *next;  // Populates this field.
+        BinaryTreeNode<T>* next;  // Populates this field.
     };
 
-    void PopulateLowerLevelNextField(BinaryTreeNode<int> *);
-
-    void ConstructRightSibling(BinaryTreeNode<int> *tree) {
-        auto left_start = tree;
-
-        while (left_start && left_start->left) {
-            PopulateLowerLevelNextField(left_start);
-            left_start = left_start->left.get();
-        }
-    }
-
-    void PopulateLowerLevelNextField(BinaryTreeNode<int> *start_node) {
+    void PopulateLowerLevelNextField(BinaryTreeNode<int>* start_node) {
         auto iter = start_node;
 
         while (iter) {
@@ -40,6 +28,16 @@ namespace right_sibling {
             iter = iter->next;
         }
     }
+
+    void ConstructRightSibling(BinaryTreeNode<int>* tree) {
+        auto left_start = tree;
+
+        while (left_start && left_start->left) {
+            PopulateLowerLevelNextField(left_start);
+            left_start = left_start->left.get();
+        }
+    }
+
 }
 
 #endif //ALGORITHM_ANALYSIS_POPULATING_NEXT_RIGHT_POINTERS_H

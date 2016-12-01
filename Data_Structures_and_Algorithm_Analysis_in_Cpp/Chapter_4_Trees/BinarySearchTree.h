@@ -38,19 +38,19 @@ public:
         makeEmpty();
     }
 
-    BinarySearchTree & operator=( const BinarySearchTree & rhs ) {
+    BinarySearchTree& operator=( const BinarySearchTree & rhs ) {
         BinarySearchTree copy = rhs;
         std::swap( *this, copy );
         return *this;
     }
 
-    BinarySearchTree & operator=( BinarySearchTree && rhs ) {
+    BinarySearchTree& operator=( BinarySearchTree && rhs ) {
         std::swap( root, rhs.root );
         return *this;
     }
 
 
-    const Comparable & findMin() const {
+    const Comparable& findMin() const {
         if( isEmpty() )
             throw UnderflowException{ };
         return findMin( root )->element;
@@ -81,7 +81,7 @@ public:
         makeEmpty( root );
     }
 
-    void insert( const Comparable & x ) {
+    void insert( const Comparable& x ) {
         insert( x, root );
     }
 
@@ -89,26 +89,26 @@ public:
         insert( std::move(x), root );
     }
 
-    void remove( const Comparable & x ) {
+    void remove( const Comparable& x ) {
         remove( x, root );
     }
 
 private:
     struct BinaryNode {
         Comparable element;
-        BinaryNode *left;
-        BinaryNode *right;
+        BinaryNode* left;
+        BinaryNode* right;
 
-        BinaryNode( const Comparable & theElement, BinaryNode *lt, BinaryNode *rt )
+        BinaryNode( const Comparable& theElement, BinaryNode* lt, BinaryNode* rt )
                 : element{theElement}, left{lt}, right{rt} { }
 
-        BinaryNode( Comparable && theElement, BinaryNode *lt, BinaryNode *rt )
+        BinaryNode( Comparable&& theElement, BinaryNode* lt, BinaryNode* rt )
                 : element{ std::move(theElement) }, left{lt}, right{rt} { }
     };
 
-    BinaryNode *root;
+    BinaryNode* root;
 
-    void insert( const Comparable & x, BinaryNode * & t ) {
+    void insert( const Comparable& x, BinaryNode*& t ) {
         if( t == nullptr )
             t = new BinaryNode{ x, nullptr, nullptr };
         else if( x < t->element )
@@ -119,7 +119,7 @@ private:
             ;  // Duplicate; do nothing
     }
 
-    void insert( Comparable && x, BinaryNode * & t ) {
+    void insert( Comparable&& x, BinaryNode*& t ) {
         if( t == nullptr )
             t = new BinaryNode{ std::move(x), nullptr, nullptr };
         else if( x < t->element )
@@ -130,7 +130,7 @@ private:
             ;  // Duplicate; do nothing
     }
 
-    void remove( const Comparable & x, BinaryNode * & t ) {
+    void remove( const Comparable& x, BinaryNode*& t ) {
         if( t == nullptr )
             return;   // Item not found; do nothing
         if( x < t->element )
@@ -142,7 +142,7 @@ private:
             remove( t->element, t->right );
         }
         else {
-            BinaryNode *oldNode = t;
+            BinaryNode* oldNode = t;
             t = ( t->left != nullptr ) ? t->left : t->right;
             delete oldNode;
         }
@@ -188,7 +188,7 @@ private:
     }
 *****************************************************/
 
-    void makeEmpty( BinaryNode * & t ) {
+    void makeEmpty( BinaryNode*& t ) {
         if( t != nullptr ) {
             makeEmpty( t->left );
             makeEmpty( t->right );
@@ -197,7 +197,7 @@ private:
         t = nullptr;
     }
 
-    void printTree( BinaryNode *t, ostream & out ) const {
+    void printTree( BinaryNode* t, ostream& out ) const {
         if( t != nullptr ) {
             printTree( t->left, out );
             out << t->element << endl;
@@ -205,7 +205,7 @@ private:
         }
     }
 
-    BinaryNode * clone( BinaryNode *t ) const {
+    BinaryNode* clone( BinaryNode *t ) const {
         if( t == nullptr )
             return nullptr;
         else

@@ -7,21 +7,18 @@
 using std::make_unique;
 using std::unique_ptr;
 
-// @include
 template <typename Comparable>
 class BinarySearchTree {
 public:
-    // @exclude
     bool Empty() const { return !root_.get(); }
 
-    // @include
-    bool Insert(const Comparable & key) {
+    bool Insert(const Comparable& key) {
         // Two unique_ptr compare equal (==) if their stored pointers compare equal, and not equal (!=) otherwise.
         if (root_ == nullptr) {
             root_ = make_unique<TreeNode>(TreeNode{key});
         } else {
-            TreeNode *curr = root_.get();
-            TreeNode *parent = nullptr;
+            TreeNode* curr = root_.get();
+            TreeNode* parent = nullptr;
 
             while (curr != nullptr) {
                 parent = curr;
@@ -37,6 +34,8 @@ public:
             // Inserts key according to key and parent.
             if (key < parent->data) {
                 parent->left.reset(new TreeNode{key});
+                //parent->left.release();
+                //parent->left = make_unique<TreeNode>(TreeNode{key});
             } else {
                 parent->right.reset(new TreeNode{key});
             }
@@ -44,14 +43,14 @@ public:
         return true;
     }
 
-    bool rInsert(const Comparable & key) {
+    bool rInsert(const Comparable& key) {
         return rInsertHelper(key, root_);
     }
 
-    bool Delete(const Comparable & key) {
+    bool Delete(const Comparable& key) {
         // Find the node with key.
-        TreeNode *curr = root_.get();
-        TreeNode *parent = nullptr;
+        TreeNode* curr = root_.get();
+        TreeNode* parent = nullptr;
 
         while (curr && curr->data != key) {
             parent = curr;
@@ -63,11 +62,11 @@ public:
             return false;
         }
 
-        TreeNode *key_node = curr;
+        TreeNode* key_node = curr;
         if (key_node->right) {
             // Finds the minimum of the right subtree.
-            TreeNode *r_key_node = key_node->right.get();
-            TreeNode *r_parent = key_node;
+            TreeNode* r_key_node = key_node->right.get();
+            TreeNode* r_parent = key_node;
 
             while (r_key_node->left) {
                 r_parent = r_key_node;
@@ -99,9 +98,8 @@ public:
     bool rDelete (const Comparable & key) {
         return rDeleteHelper (key, root_);
     }
-    // @exclude
+
     int GetRootVal() const { return root_->data; }
-    // @include
 
 private:
     struct TreeNode {
@@ -112,7 +110,7 @@ private:
 
     unique_ptr<TreeNode> root_ = nullptr;
 
-    bool rInsertHelper (const Comparable & key, unique_ptr<TreeNode> & uniq_ptr) {
+    bool rInsertHelper (const Comparable& key, unique_ptr<TreeNode>& uniq_ptr) {
         bool ret_val;
         if (uniq_ptr == nullptr) {
             uniq_ptr.reset(new TreeNode{key});
@@ -127,7 +125,7 @@ private:
         return ret_val;
     }
 
-    bool rDeleteHelper (const Comparable & key, unique_ptr<TreeNode> & uniq_ptr) {
+    bool rDeleteHelper (const Comparable& key, unique_ptr<TreeNode>& uniq_ptr) {
         bool ret_val;
 
         if (uniq_ptr == nullptr) {
@@ -161,6 +159,5 @@ private:
        return findMin(&((*uniq_ptr_ptr)->left));
     }
 };
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_INSERTION_DELETION_BST_H
