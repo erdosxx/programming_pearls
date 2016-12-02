@@ -42,13 +42,13 @@ DuplicateAndMissing FindDuplicateMissing(const vector<int>& A) {
         }
     }
 
-    // miss_or_dup is either the missing value or the duplicated entry.
+    // miss_or_dup is either the missing timestamp or the duplicated entry.
     for (int A_i : A) {
         if (A_i == miss_or_dup) {  // miss_or_dup is the duplicate.
             return {miss_or_dup, miss_or_dup ^ miss_XOR_dup};
         }
     }
-    // miss_or_dup is the missing value.
+    // miss_or_dup is the missing timestamp.
     return {miss_or_dup ^ miss_XOR_dup, miss_or_dup};
 }
 

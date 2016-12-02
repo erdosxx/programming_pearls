@@ -185,7 +185,7 @@ TEST_F(Ch15_BST_Fixture, stl_library) {
     // checks whether each inserted element is equivalent to an element
     // already in the container, and if so, the element is not inserted,
     // returning an iterator to this existing element (if the function
-    // returns a value).
+    // returns a timestamp).
     bst.emplace(3);  // for set, insert existing element.
     ASSERT_EQ(5, bst.size()); // same as before.
     bst.insert(6);
@@ -695,6 +695,74 @@ TEST_F(Ch15_BST_Fixture, insertion_deletion_BST_Function) {
     // cout << BST.GetRootVal() << endl;
     ASSERT_TRUE(BST.Delete(2));
     ASSERT_FALSE(BST.Delete(1));
+    ASSERT_TRUE(BST.Empty());
+    BST.Insert(7);
+    ASSERT_EQ(BST.GetRootVal(), 7);
+    BST.Insert(9);
+    ASSERT_EQ(BST.GetRootVal(), 7);
+    BST.Delete(7);
+    ASSERT_EQ(BST.GetRootVal(), 9);
+}
+
+TEST_F(Ch15_BST_Fixture, insertion_deletion_without_changing_key_BST) {
+    ///// unique_ptr function test
+    //      3
+    //    2   5
+    auto tree = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{3});
+    tree->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{2});
+    tree->right = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{5});
+    ASSERT_NE(nullptr, tree->left);
+    ASSERT_NE(nullptr, tree->right);
+
+    auto tree2 = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{10});
+    tree.reset(tree2.release());
+    ASSERT_EQ(10, tree->data);
+    ASSERT_EQ(nullptr, tree->left);
+    ASSERT_EQ(nullptr, tree->right);
+
+    auto u_ptr = make_unique<int>(int{1});
+    unique_ptr<int> u_ptr2;
+    int* a_ptr = u_ptr.get();
+
+    u_ptr2.reset(u_ptr.release());
+    ASSERT_EQ(nullptr, u_ptr);
+
+    unique_ptr<int> u_ptr3 = move(u_ptr2);
+    ASSERT_EQ(nullptr, u_ptr2);
+    ASSERT_EQ(1, *u_ptr3);
+
+    //////
+
+    BinarySearchTree<int> BST;
+    ASSERT_TRUE(BST.Empty());
+    ASSERT_TRUE(BST.Insert(7));
+    ASSERT_TRUE(BST.Insert(8));
+    ASSERT_TRUE(BST.Insert(9));
+    ASSERT_TRUE(BST.Insert(4));
+    ASSERT_TRUE(BST.Insert(3));
+    ASSERT_FALSE(BST.Empty());
+    ASSERT_TRUE(BST.Insert(2));
+    ASSERT_TRUE(BST.Insert(5));
+    ASSERT_TRUE(BST.Delete_without_changing_key(7));
+    ASSERT_TRUE(BST.Delete_without_changing_key(9));
+    // should output 8
+    ASSERT_EQ(BST.GetRootVal(), 8);
+    // cout << BST.GetRootVal() << endl;
+    ASSERT_TRUE(BST.Delete_without_changing_key(4));
+    // should output 8
+    ASSERT_EQ(BST.GetRootVal(), 8);
+    // cout << BST.GetRootVal() << endl;
+    ASSERT_TRUE(BST.Delete_without_changing_key(8));
+    // should output 5
+    ASSERT_EQ(BST.GetRootVal(), 5);
+    // cout << BST.GetRootVal() << endl;
+    ASSERT_TRUE(BST.Delete_without_changing_key(5));
+    ASSERT_TRUE(BST.Delete_without_changing_key(3));
+    // should output 2
+    ASSERT_EQ(BST.GetRootVal(), 2);
+    // cout << BST.GetRootVal() << endl;
+    ASSERT_TRUE(BST.Delete_without_changing_key(2));
+    ASSERT_FALSE(BST.Delete_without_changing_key(1));
     ASSERT_TRUE(BST.Empty());
     BST.Insert(7);
     ASSERT_EQ(BST.GetRootVal(), 7);

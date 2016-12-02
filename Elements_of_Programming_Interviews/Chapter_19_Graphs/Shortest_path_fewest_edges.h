@@ -20,8 +20,8 @@ namespace short_path {
             int distance;
             int min_num_edges;
             // point to constant
-            // So we can change the value of pointer(addredd) but
-            // can not change to value that the pointer point to.
+            // So we can change the timestamp of pointer(addredd) but
+            // can not change to timestamp that the pointer point to.
             // See C++PL page 187 and graphs_boot_camp.h with test.
             const GraphVertex *pred = nullptr;  // The predecessor in the shortest path.
         };
@@ -61,7 +61,7 @@ namespace short_path {
             }
 
             // v is const. That is, we cannot change the target address of vertex and
-            // weight value. However, we can change the attribute of vertex.
+            // weight timestamp. However, we can change the attribute of vertex.
             for (const GraphVertex::AdjacentVertexWithWeight &v : u->edges) {
                 int v_distance = u->distance_with_fewest_edges.distance + v.weight;
                 int v_num_edges = u->distance_with_fewest_edges.min_num_edges + 1;

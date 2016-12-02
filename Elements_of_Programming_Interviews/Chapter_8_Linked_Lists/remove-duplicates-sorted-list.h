@@ -14,7 +14,7 @@ shared_ptr<ListNode<int>> RemoveDuplicates(
         const shared_ptr<ListNode<int>>& L) {
     auto iter = L;
     while (iter) {
-        // Uses next_distinct to find the next distinct value.
+        // Uses next_distinct to find the next distinct timestamp.
         auto next_distinct = iter->next;
         while (next_distinct && next_distinct->data == iter->data) {
             next_distinct = next_distinct->next;

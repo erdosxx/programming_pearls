@@ -18,7 +18,7 @@ using namespace std;
 // bool isEmpty( )        --> Return true if empty; else false
 // void makeEmpty( )      --> Remove all items
 // void decreaseKey( Position p, newVal )
-//                        --> Decrease value in Position p
+//                        --> Decrease order in Position p
 // ******************ERRORS********************************
 // Throws UnderflowException as warranted
 

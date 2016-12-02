@@ -21,6 +21,7 @@ set(HEADER_FILES
         Square_root.h
         DivisionFloat.h
         Matrix_search.h
+        matrix_search_erdos.h
         Finding_min_max.h
         order_statistic.h
         Missing_element.h

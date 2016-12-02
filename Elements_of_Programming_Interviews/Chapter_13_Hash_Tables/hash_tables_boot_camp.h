@@ -72,7 +72,7 @@ unordered_set<Record, decltype(&hf), decltype(&eq)> m2 {
         eq
 };
 
-unordered_set<Record,   // value type
+unordered_set<Record,   // order type
         function<size_t(const Record&)>,    // hash type
         function<bool(const Record&, const Record&)>    // equal type
         > m3 { 10,

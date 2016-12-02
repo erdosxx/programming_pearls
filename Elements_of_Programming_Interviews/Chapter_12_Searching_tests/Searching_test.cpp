@@ -20,6 +20,7 @@
 #include "Square_root.h"
 #include "DivisionFloat.h"
 #include "Matrix_search.h"
+#include "matrix_search_erdos.h"
 #include "Finding_min_max.h"
 #include "order_statistic.h"
 #include "Missing_element.h"
@@ -62,6 +63,8 @@ protected:
 
     bool p_12_1_4_check_ans(const vector<string>& A, const string& target);
 
+    bool p_12_6_BruteForceSearch(const vector<vector<int>>& A, int x);
+
 public:
     Ch12Searching_Fixture() : Test() {
 
@@ -70,6 +73,18 @@ public:
     virtual ~Ch12Searching_Fixture() {
     }
 };
+
+// O(n^2) solution for verifying answer.
+bool Ch12Searching_Fixture::p_12_6_BruteForceSearch(const vector<vector<int>>& A, int x) {
+    for (int i = 0; i < A.size(); ++i) {
+        for (int j = 0; j < A[i].size(); ++j) {
+            if (A[i][j] == x) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 bool is_prefix(const string& prefix, const string& a) {
     if (prefix.size() > a.size()) {
@@ -742,7 +757,7 @@ TEST_F(Ch12Searching_Fixture, bsearch_circular_array_Function) {
                 uniform_int_distribution<int> dis(0, 100000);
                 int x = dis(gen);
                 //  pair <iterator,bool> emplace ( Args&&... args );
-                //  the function returns a pair with an iterator to the newly inserted element and a value of true.
+                //  the function returns a pair with an iterator to the newly inserted element and a timestamp of true.
                 if (table.emplace(x).second) { // if x is unique in the set
                     A.emplace_back(x);
                     break;
@@ -841,7 +856,7 @@ TEST_F(Ch12Searching_Fixture, bsearch_ascending_descending_array) {
                 uniform_int_distribution<int> dis(0, 100000);
                 int x = dis(gen);
                 //  pair <iterator,bool> emplace ( Args&&... args );
-                //  the function returns a pair with an iterator to the newly inserted element and a value of true.
+                //  the function returns a pair with an iterator to the newly inserted element and a timestamp of true.
                 if (table.emplace(x).second) { // if x is unique in the set
                     A.emplace_back(x);
                     break;
@@ -1032,14 +1047,14 @@ TEST_F(Ch12Searching_Fixture, matrix_search_Function) {
     random_device rd;
     default_random_engine gen(rd());
     //default_random_engine gen((random_device())());
-    for (int times = 0; times < 100; ++times) {
+    for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(1, 100);
         int n = dis(gen);
         int m = dis(gen);
 
         vector<vector<int>> A(n, vector<int>(m));
-        uniform_int_distribution<int> dis1(0, 99);
-        A[0][0] = dis1(gen);
+        //uniform_int_distribution<int> dis1(0, 99);
+        //A[0][0] = dis1(gen);
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < m; ++j) {
                 int up = (i == 0) ? 0 : A[i - 1][j];
@@ -1050,7 +1065,124 @@ TEST_F(Ch12Searching_Fixture, matrix_search_Function) {
         }
         uniform_int_distribution<int> x_dis(0, 999);
         int x = x_dis(gen);
-        ASSERT_EQ(BruteForceSearch(A, x), MatrixSearch(A, x));
+        ASSERT_EQ(p_12_6_BruteForceSearch(A, x), MatrixSearch(A, x));
+    }
+}
+
+TEST_F(Ch12Searching_Fixture, matrix_search_erdos) {
+    vector<int> v1 = {1};
+    ASSERT_EQ(0, Search_latest_less_equal_k(v1, 0, v1.size()-1, 2));
+
+    v1 = {1,1};
+    ASSERT_EQ(-1, Search_latest_less_equal_k(v1, 0, v1.size()-1, 0));
+
+    v1 = {1,1,3,3,5,5,7,7};
+    ASSERT_EQ(5, Search_latest_less_equal_k(v1, 0, v1.size()-1, 6));
+
+    v1 = {1,1,3,3,5,5,7,7};
+    ASSERT_EQ(7, Search_latest_less_equal_k(v1, 0, v1.size()-1, 7));
+
+    v1 = {1,1,3,3,5,5,7,7};
+    ASSERT_EQ(1, Search_latest_less_equal_k(v1, 0, v1.size()-1, 2));
+
+    random_device rd;
+    default_random_engine gen(rd());
+
+    for (int times = 0; times < 10000; ++times) {
+        uniform_int_distribution<int> dis(1, 1000);
+        int n = dis(gen);
+
+        vector<int> A;
+        uniform_int_distribution<int> k_dis(0, n - 1);
+        int k = k_dis(gen);
+        for (int i = 0; i < n; ++i) {
+            uniform_int_distribution<int> dis(0, n - 1);
+            A.emplace_back(dis(gen));
+        }
+        sort(A.begin(), A.end());
+
+        int ans = Search_latest_less_equal_k(A, 0, A.size()-1, k);
+
+        auto it2 = upper_bound(A.cbegin(), A.cend(), k);
+        if (it2 == A.cbegin()) {
+            ASSERT_EQ(-1, ans);
+        } else {
+            ASSERT_EQ(distance(A.cbegin(), it2)-1, ans);
+        }
+    }
+
+    vector<vector<int>> A = {{1}};
+    ASSERT_EQ(0, Search_row_latest_less_equal_k_2D(A, 0, 0, 0, 2));
+    ASSERT_EQ(-1, Search_row_latest_less_equal_k_2D(A, 0, 0, 0, 0));
+
+    A = {{1,2,3},
+         {2,3,4},
+         {3,3,5}};
+    ASSERT_EQ(1, Search_row_latest_less_equal_k_2D(A, 0, 0, 2, 2));
+    ASSERT_EQ(2, Search_row_latest_less_equal_k_2D(A, 1, 0, 2, 5));
+    ASSERT_EQ(1, Search_row_latest_less_equal_k_2D(A, 2, 0, 2, 4));
+
+    ASSERT_EQ(1, Search_col_latest_less_equal_k_2D(A, 0, 0, 2, 2));
+    ASSERT_EQ(2, Search_col_latest_less_equal_k_2D(A, 0, 0, 2, 4));
+    ASSERT_EQ(0, Search_col_latest_less_equal_k_2D(A, 1, 0, 2, 2));
+    ASSERT_EQ(2, Search_col_latest_less_equal_k_2D(A, 1, 0, 2, 3));
+    ASSERT_EQ(1, Search_col_latest_less_equal_k_2D(A, 2, 0, 2, 4));
+    ASSERT_EQ(-1, Search_col_latest_less_equal_k_2D(A, 2, 0, 2, 1));
+
+    A = {{1}};
+    ASSERT_FALSE(MatrixSearch_erdos(A, 0));
+    ASSERT_TRUE(MatrixSearch_erdos(A, 1));
+
+    A = {{1, 5}, {2, 6}};
+    ASSERT_FALSE(MatrixSearch_erdos(A, 0));
+    ASSERT_TRUE(MatrixSearch_erdos(A, 1));
+    ASSERT_TRUE(MatrixSearch_erdos(A, 2));
+    ASSERT_TRUE(MatrixSearch_erdos(A, 5));
+    ASSERT_TRUE(MatrixSearch_erdos(A, 6));
+    ASSERT_FALSE(MatrixSearch_erdos(A, 3));
+    ASSERT_FALSE(MatrixSearch_erdos(A, numeric_limits<int>::max()));
+
+    A = {{2, 5}, {2, 6}};
+    ASSERT_FALSE(MatrixSearch_erdos(A, 1));
+    ASSERT_TRUE(MatrixSearch_erdos(A, 2));
+
+    A = {{1, 5, 7}, {3, 10, 100}, {3, 12, numeric_limits<int>::max()}};
+    ASSERT_TRUE(MatrixSearch_erdos(A, 1));
+    ASSERT_FALSE(MatrixSearch_erdos(A, 2));
+    ASSERT_FALSE(MatrixSearch_erdos(A, 4));
+    ASSERT_TRUE(MatrixSearch_erdos(A, 3));
+    ASSERT_TRUE(MatrixSearch_erdos(A, 10));
+    ASSERT_TRUE(MatrixSearch_erdos(A, numeric_limits<int>::max()));
+    ASSERT_FALSE(MatrixSearch_erdos(A, numeric_limits<int>::max() - 1));
+    ASSERT_TRUE(MatrixSearch_erdos(A, 12));
+
+    A = {{1,  4,  7,  11, 15},
+         {2,  5,  8,  12, 19},
+         {3,  6,  9,  16, 22},
+         {4,  12, 14, 17, 24},
+         {10, 21, 23, 26, 30}
+    };
+    ASSERT_TRUE(MatrixSearch_erdos(A, 10));
+
+    for (int times = 0; times < 1000; ++times) {
+        uniform_int_distribution<int> dis(1, 100);
+        int n = dis(gen);
+        int m = dis(gen);
+
+        vector<vector<int>> A(n, vector<int>(m));
+        //uniform_int_distribution<int> dis1(0, 99);
+        //A[0][0] = dis1(gen);
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                int up = (i == 0) ? 0 : A[i - 1][j];
+                int left = (j == 0) ? 0 : A[i][j - 1];
+                uniform_int_distribution<int> shift_dis(1, 20);
+                A[i][j] = max(up, left) + shift_dis(gen);
+            }
+        }
+        uniform_int_distribution<int> x_dis(0, 999);
+        int x = x_dis(gen);
+        ASSERT_EQ(p_12_6_BruteForceSearch(A, x), MatrixSearch_erdos(A, x));
     }
 }
 

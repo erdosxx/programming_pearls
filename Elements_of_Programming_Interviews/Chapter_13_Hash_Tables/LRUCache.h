@@ -27,7 +27,7 @@ public:
 
     void Insert(int isbn, int price) {
         auto it = isbn_price_table_.find(isbn);
-        // We add the value for key only if key is not present - we don't update
+        // We add the timestamp for key only if key is not present - we don't update
         // existing values.
         if (it != isbn_price_table_.end()) {
             // Specification says we should make isbn the most recently used.
@@ -57,7 +57,7 @@ public:
 private:
     using Table =  unordered_map<int, pair<list<int>::iterator, int>>;
 
-    // Forces this key-value pair to move to the front.
+    // Forces this key-timestamp pair to move to the front.
     void MoveToFront(int isbn, const Table::iterator& it) {
         // list: iterator erase (const_iterator position);
         lru_queue_.erase(it->second.first);

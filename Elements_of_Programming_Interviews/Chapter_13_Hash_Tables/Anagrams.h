@@ -18,7 +18,7 @@ vector<vector<string>> FindAnagrams(const vector<string>& dictionary) {
 
     for (const string& s : dictionary) {
         // Sorts the string, uses it as a key, and then appends
-        // the original string as another value into hash table.
+        // the original string as another timestamp into hash table.
         string sorted_str(s);
         sort(sorted_str.begin(), sorted_str.end());
         sorted_string_to_anagrams[sorted_str].emplace_back(s);

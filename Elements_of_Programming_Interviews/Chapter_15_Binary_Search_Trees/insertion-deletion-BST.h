@@ -1,6 +1,7 @@
 #ifndef ALGORITHM_ANALYSIS_INSERTION_DELETION_BST_H
 #define ALGORITHM_ANALYSIS_INSERTION_DELETION_BST_H
 // 15.10 Insertion and deletion in a BST
+// 15.10.1 Variant
 
 #include <memory>
 
@@ -79,6 +80,67 @@ public:
                 r_parent->left.reset(r_key_node->right.release());
             } else {  // r_parent->right.get() == r_key_node.
                 r_parent->right.reset(r_key_node->right.release());
+            }
+        } else {
+            // Updates root_ link if needed.
+            if (root_.get() == key_node) {
+                root_.reset(key_node->left.release());
+            } else {
+                if (parent->left.get() == key_node) {
+                    parent->left.reset(key_node->left.release());
+                } else {  // parent->right.get() == key_node.
+                    parent->right.reset(key_node->left.release());
+                }
+            }
+        }
+        return true;
+    }
+
+    bool Delete_without_changing_key(const Comparable& key) {
+        // Find the node with key.
+        TreeNode* curr = root_.get();
+        TreeNode* parent = nullptr;
+
+        while (curr && curr->data != key) {
+            parent = curr;
+            curr = key < curr->data ? curr->left.get() : curr->right.get();
+        }
+
+        if (!curr) {
+            // There's no node with key in this tree.
+            return false;
+        }
+
+        TreeNode* key_node = curr;
+        if (key_node->right) {
+            // Finds the minimum of the right subtree.
+            TreeNode* r_key_node = key_node->right.get();
+            TreeNode* r_parent = key_node;
+
+            while (r_key_node->left) {
+                r_parent = r_key_node;
+                r_key_node = r_key_node->left.get();
+            }
+
+            unique_ptr<TreeNode> r_key_node_ptr;
+            // Moves links to erase the node.
+            if (r_parent->left.get() == r_key_node) {
+                r_key_node_ptr.reset(r_parent->left.release());
+                r_parent->left.reset(r_key_node_ptr->right.release());
+            } else {  // r_parent->right.get() == r_key_node.
+                r_key_node_ptr.reset(r_parent->right.release());
+                r_parent->right.reset(r_key_node_ptr->right.release());
+            }
+
+            r_key_node_ptr->left.reset(key_node->left.release());
+            r_key_node_ptr->right.reset(key_node->right.release());
+
+            if (root_.get() == key_node) { // parent == null
+                root_.reset(r_key_node_ptr.release());
+            } else if (parent->left.get() == key_node) {
+                parent->left.reset(r_key_node_ptr.release());
+            } else {// parent->right.get() == key_node.
+                parent->right.reset(r_key_node_ptr.release());
             }
         } else {
             // Updates root_ link if needed.

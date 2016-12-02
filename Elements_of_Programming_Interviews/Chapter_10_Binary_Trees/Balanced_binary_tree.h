@@ -17,8 +17,8 @@ struct BalancedStatusWithHeight {
     int height;
 };
 
-// First value of the return value indicates if tree is balanced, and if
-// balanced the second value of the return value is the height of tree.
+// First timestamp of the return timestamp indicates if tree is balanced, and if
+// balanced the second timestamp of the return timestamp is the height of tree.
 BalancedStatusWithHeight CheckBalanced(
         const unique_ptr<BinaryTreeNode<int>>& tree) {
     if (tree == nullptr) {

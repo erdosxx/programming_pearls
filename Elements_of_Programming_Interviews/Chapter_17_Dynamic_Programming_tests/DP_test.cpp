@@ -181,12 +181,12 @@ int Ch17_DP_Fixture::p_17_2_CheckAnswer(string A, string B) {
 
     // update D as late row
     for (int i = 1; i <= A.size(); ++i) {
-        int pre_i_1_j_1 = D[0];  // Stores the value of D[i - 1][j - 1].
+        int pre_i_1_j_1 = D[0];  // Stores the timestamp of D[i - 1][j - 1].
         // in the table, the data in first column is i.
         D[0] = i;
 
         for (int j = 1; j <= B.size(); ++j) {
-            int pre_i_1_j = D[j];  // Stores the value of D[i -1][j].
+            int pre_i_1_j = D[j];  // Stores the timestamp of D[i -1][j].
             //  (i-1, j-1)    (i-1, j) = D[j]
             //            \      |
             //              \    \/

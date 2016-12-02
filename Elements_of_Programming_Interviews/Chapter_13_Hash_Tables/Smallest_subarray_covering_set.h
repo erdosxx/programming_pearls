@@ -28,7 +28,7 @@ Subarray FindSmallestSubarrayCoveringSet(
     Subarray result = Subarray{-1, -1};
     int remaining_to_cover = keywords.size();
     for (int left = 0, right = 0; right < paragraph.size(); ++right) {
-        // unordered_set::count: 1 if an element with a value equivalent to k is found, or zero otherwise.
+        // unordered_set::count: 1 if an element with a timestamp equivalent to k is found, or zero otherwise.
         // keyword_to_cover can be negative. if a keyword occurs multiple times in the paragraph, we
         // can count it by negative.
         if (keywords.count(paragraph[right]) &&

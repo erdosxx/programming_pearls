@@ -1,24 +1,18 @@
 #ifndef ALGORITHM_ANALYSIS_STACK_QUEUE_USING_HEAP_H
 #define ALGORITHM_ANALYSIS_STACK_QUEUE_USING_HEAP_H
 // 11.7 Implement a stack API using a heap
+// 11.7.1 Variant
 
-#include <iostream>
-#include <limits>
 #include <queue>
 #include <stdexcept>
 #include <vector>
 #include <utility>
 
-using std::cout;
-using std::endl;
 using std::exception;
-using std::function;
 using std::length_error;
-using std::numeric_limits;
 using std::priority_queue;
 using std::vector;
 
-// @include
 class Stack {
 public:
     void Push(int x) { max_heap_.emplace(ValueWithRank{timestamp_++, x}); }
@@ -27,26 +21,26 @@ public:
         if (max_heap_.empty()) {
             throw length_error("empty stack");
         }
-        int val = max_heap_.top().rank;
+        int val = max_heap_.top().value;
         max_heap_.pop();
         return val;
     }
 
-    int Peek() const { return max_heap_.top().rank; }
+    int Peek() const { return max_heap_.top().value; }
 
 private:
     int timestamp_ = 0;
 
     struct ValueWithRank {
-        int value, rank;
+        int timestamp, value;
 
         bool operator<(const ValueWithRank& that) const {
-            return value < that.value;
+            return timestamp < that.timestamp;
         }
     };
+
     priority_queue<ValueWithRank, vector<ValueWithRank>> max_heap_;
 };
-// @exclude
 
 class Queue {
 public:
@@ -56,21 +50,21 @@ public:
         if (max_heap_.empty()) {
             throw length_error("empty queue");
         }
-        int ret = max_heap_.top().rank;
+        int val = max_heap_.top().value;
         max_heap_.pop();
-        return ret;
+        return val;
     }
 
-    int Head() const { return max_heap_.top().rank; }
+    int Head() const { return max_heap_.top().value; }
 
 private:
     int order_ = 0;
 
     struct ValueWithRank {
-        int value, rank;
+        int order, value;
 
         bool operator<(const ValueWithRank& that) const {
-            return value < that.value;
+            return order < that.order;
         }
     };
     priority_queue<ValueWithRank, vector<ValueWithRank>> max_heap_;

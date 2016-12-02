@@ -24,7 +24,7 @@ namespace prime_sieve {
             if (is_prime[i]) {
                 int p = (i * 2) + 3;
                 primes.emplace_back(p);
-                // Sieving from p^2, whose value is (4i^2 + 12i + 9). The index in
+                // Sieving from p^2, whose timestamp is (4i^2 + 12i + 9). The index in
                 // is_prime is (2i^2 + 6i + 3) because is_prime[i] represents 2i + 3.
                 // 4i^2+ 12i + 9 = 2* (2i^2 + 6i + 3) + 3
                 // Note that we need to use long for j because p^2 might overflow.

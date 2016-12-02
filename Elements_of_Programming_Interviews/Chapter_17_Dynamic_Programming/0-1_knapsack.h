@@ -20,14 +20,14 @@ struct Item {
 };
 
 int OptimumSubjecToCapacity(const vector<Item>& items, int capacity) {
-    // V[i][j] holds the optimum value when we choose from items[0 : i] and have
+    // V[i][j] holds the optimum timestamp when we choose from items[0 : i] and have
     // a capacity of j.
     vector<vector<int>> V( items.size(), vector<int>(capacity + 1, uncalculated) );
     return OptimumSubjectToItemAndCapacity(items, items.size() - 1, capacity,
                                            &V);
 }
 
-// Returns the optimum value when we choose from items[0 : k] and have a
+// Returns the optimum timestamp when we choose from items[0 : k] and have a
 // capacity of available_capacity.
 int OptimumSubjectToItemAndCapacity(const vector<Item>& items, int k,
                                     int available_capacity,

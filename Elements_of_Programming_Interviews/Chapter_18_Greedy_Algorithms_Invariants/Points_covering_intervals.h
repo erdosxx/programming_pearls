@@ -45,7 +45,7 @@ vector<int> FindMinimumVisits(const vector<Interval>& intervals) {
         auto it = L.cbegin();
 
         while (it != L.cend() && (*it)->left <= b) {
-            R.erase(*it); // Because it is a iterator of L, we need to delete it in R by value(*it).
+            R.erase(*it); // Because it is a iterator of L, we need to delete it in R by timestamp(*it).
             L.erase(it++);
         }
     }

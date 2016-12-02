@@ -15,25 +15,8 @@ using std::unordered_set;
 using std::vector;
 
 namespace p_13_10 {
-    int CheckAns(vector<int> A) {
-        sort(A.begin(), A.end());
-        int max_interval_size = 1;
-        int pre = A[0], len = 1;
-        for (size_t i = 1; i < A.size(); ++i) {
-            if (A[i] == pre + 1) {
-                ++len;
-            } else if (A[i] != pre) {
-                max_interval_size = max(max_interval_size, len);
-                len = 1;
-            }
-            pre = A[i];
-        }
-        max_interval_size = max(max_interval_size, len);
-        // cout << max_interval_size << endl;
-        return max_interval_size;
-    }
 
-    int FindLongestContainedRange(const vector<int> &A) {
+    int FindLongestContainedRange(const vector<int>& A) {
         if (A.empty()) {
             return 0;
         }
@@ -97,8 +80,7 @@ namespace p_13_10 {
         return m->first - m->second + 1;
     }
 
-// @include
-    int LongestContainedRange(const vector<int> &A) {
+    int LongestContainedRange(const vector<int>& A) {
         // unprocessed_entries records the existence of each entry in A.
         unordered_set<int> unprocessed_entries(A.begin(), A.end());
 
@@ -125,7 +107,6 @@ namespace p_13_10 {
         }
         return max_interval_size;
     }
-// @exclude
 }
 
 

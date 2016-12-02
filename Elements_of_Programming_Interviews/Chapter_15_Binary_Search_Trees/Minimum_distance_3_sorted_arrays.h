@@ -32,7 +32,7 @@ int FindClosestElementsInSortedArrays(
 
     // multimap: sort <int, IterTail> pair in ascending order.
     // Multimaps are associative containers that store elements formed
-    // by a combination of a key value and a mapped value, following a specific order,
+    // by a combination of a key timestamp and a mapped timestamp, following a specific order,
     // and where multiple elements can have equivalent keys.
     multimap<int, IterTail> iter_and_tail;
     for (const vector<int>& sorted_array : sorted_arrays) {

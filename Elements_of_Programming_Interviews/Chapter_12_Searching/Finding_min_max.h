@@ -12,7 +12,6 @@ using std::minmax;
 using std::pair;
 using std::vector;
 
-// @include
 struct MinMax {
     int min, max;
 };
@@ -37,6 +36,5 @@ MinMax FindMinMax(const vector<int>& A) {
     }
     return {global_min_max.first, global_min_max.second};
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_FINDING_MIN_MAX_H

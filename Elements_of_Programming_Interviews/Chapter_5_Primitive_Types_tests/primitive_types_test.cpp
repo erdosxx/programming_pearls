@@ -116,7 +116,7 @@ TEST_F(Primitive_Types_Fixture, primitive_types_boot_camp) {
     // make compliment
     ASSERT_EQ(bitset<10>{"0101010101"}, ~b9);
 
-    // the number of bits with value 1
+    // the number of bits with timestamp 1
     ASSERT_EQ(5, b9.count());
     // the number of bits
     ASSERT_EQ(10, b9.size());

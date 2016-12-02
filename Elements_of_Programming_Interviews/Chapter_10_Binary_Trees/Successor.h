@@ -29,7 +29,7 @@ namespace successor {
         while (iter->parent != nullptr && iter->parent->right.get() == iter) {
             iter = iter->parent;
         }
-        // A return value of nullptr means node does not have successor, i.e., it is
+        // A return timestamp of nullptr means node does not have successor, i.e., it is
         // the rightmost node in the tree.
         return iter->parent;
     }

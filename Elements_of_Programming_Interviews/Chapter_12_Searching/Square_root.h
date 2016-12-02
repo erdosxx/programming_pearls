@@ -20,7 +20,7 @@ Ordering Compare(double a, double b) {
 }
 
 double SquareRoot(double x) {
-    // Decides the search range according to x's value relative to 1.0.
+    // Decides the search range according to x's timestamp relative to 1.0.
     double left, right;
     if (x < 1.0) {
         left = x, right = 1.0;

@@ -66,7 +66,7 @@ int binary_search_first(const vector<int>& x, const int& value) {
     int low = -1;
     int high = x.size();
 
-    // invariant: x[low] < value && x[high] >= value && low < high
+    // invariant: x[low] < timestamp && x[high] >= timestamp && low < high
     //while (low + 1 != high) {
     while (high - low > 1) {
         middle = low + (high - low)/2;

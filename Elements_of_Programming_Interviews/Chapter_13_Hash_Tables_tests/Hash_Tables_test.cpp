@@ -58,6 +58,7 @@ protected:
     int p_13_7_CheckAns(const vector<string>& A, const vector<string>& Q);
     size_t p_13_6_CheckAnswer(const vector<string> &s);
     int p_13_9_CheckAns(const vector<int> &A);
+    int p_13_10_CheckAns(vector<int> A);
 
 public:
     Ch13Hash_Tables_Fixture() : Test() {
@@ -67,6 +68,24 @@ public:
     virtual ~Ch13Hash_Tables_Fixture() {
     }
 };
+
+int Ch13Hash_Tables_Fixture::p_13_10_CheckAns(vector<int> A) {
+    sort(A.begin(), A.end());
+    int max_interval_size = 1;
+    int pre = A[0], len = 1;
+    for (size_t i = 1; i < A.size(); ++i) {
+        if (A[i] == pre + 1) {
+            ++len;
+        } else if (A[i] != pre) {
+            max_interval_size = max(max_interval_size, len);
+            len = 1;
+        }
+        pre = A[i];
+    }
+    max_interval_size = max(max_interval_size, len);
+    // cout << max_interval_size << endl;
+    return max_interval_size;
+}
 
 // O(n^2) checking solution.
 int Ch13Hash_Tables_Fixture::p_13_9_CheckAns(const vector<int> &A) {
@@ -700,8 +719,8 @@ TEST_F(Ch13Hash_Tables_Fixture, longest_contained_range_Function) {
         }
         cout << endl;
         //*/
-        ASSERT_EQ(p_13_10::FindLongestContainedRange(A), p_13_10::CheckAns(A));
-        ASSERT_EQ(p_13_10::LongestContainedRange(A), p_13_10::CheckAns(A));
+        ASSERT_EQ(p_13_10::FindLongestContainedRange(A), p_13_10_CheckAns(A));
+        ASSERT_EQ(p_13_10::LongestContainedRange(A), p_13_10_CheckAns(A));
     }
 }
 

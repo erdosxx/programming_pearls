@@ -31,7 +31,7 @@ int NonuniformRandomNumberGeneration(const vector<int>& values,
     double uniform_0_1 =
             generate_canonical<double, numeric_limits<double>::digits>(seed);
     // Find the index of the interval that uniform_0_1 lies in, which is the
-    // return value of upper_bound() minus 1.
+    // return timestamp of upper_bound() minus 1.
     //TODO: why distance function is needed.
     // See ref: http://stackoverflow.com/questions/13505562/getting-index-of-set-element-via-iterator
     long interval_idx =

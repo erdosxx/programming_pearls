@@ -21,7 +21,7 @@ namespace lca_no_parenet {
     // Returns an object consisting of an int and a node. The int field is
     // 0, 1, or 2 depending on how many of {node0, node1} are present in
     // the tree. If both are present in the tree, when ancestor is
-    // assigned to a non-null value, it is the LCA.
+    // assigned to a non-null timestamp, it is the LCA.
     Status LCAHelper(const btree_ptr &tree,
                      const btree_ptr &node0,
                      const btree_ptr &node1) {

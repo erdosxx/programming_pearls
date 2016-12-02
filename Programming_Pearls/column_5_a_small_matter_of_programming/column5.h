@@ -52,7 +52,7 @@ int binary_search_first(int *x, const size_t size_ary, int value) {
     int low = -1;
     int high = size_ary;
 
-    // invariant: x[low] < value && x[high] >= value && low < high
+    // invariant: x[low] < timestamp && x[high] >= timestamp && low < high
     while (low + 1 != high) {
         middle = (low + high) / 2;
 
@@ -74,7 +74,7 @@ int binary_search_last(int *x, const size_t size_ary, int value) {
     int low = -1;
     int high = size_ary;
 
-    // invariant: x[low] <= value && x[high] > value && low < high
+    // invariant: x[low] <= timestamp && x[high] > timestamp && low < high
     while (low + 1 != high) {
         middle = (low + high) / 2;
 
@@ -94,7 +94,7 @@ int binarysearch4(int* x, const size_t size_ary, int value) {
     if (size_ary != 1000)
         return binary_search_first(x, size_ary, value);
 
-    // invariant: x[low] < value
+    // invariant: x[low] < timestamp
     int low = -1;
     if (x[511] < value) low = 1000 - 512;
     if (x[low + 256] < value) low += 256;

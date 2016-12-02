@@ -160,7 +160,7 @@ TEST_F(LinkedLists_Fixture, stl_library) {
 
     int_list={2,3,2,3,5};
     list_iter = int_list.begin();
-    // lst.remove(v): remove all elements of lst with value v.
+    // lst.remove(v): remove all elements of lst with timestamp v.
     int_list.remove(3);  // {2,2,5}
     ASSERT_EQ(int_list.size(), 3);
     ASSERT_EQ(*list_iter, 2);
@@ -1016,7 +1016,7 @@ TEST_F(LinkedLists_Fixture, cycle_Function) {
     // make it a cycle
     // 1 -> 2 <-> 3
     L3->next = L2;
-    // should output "L1 has cycle, located at node has value 2"
+    // should output "L1 has cycle, located at node has timestamp 2"
     ASSERT_TRUE(cycle::HasCycle(L1) != nullptr);
     ASSERT_TRUE(cycle_alt::HasCycle(L1) != nullptr);
     ASSERT_EQ(2, cycle::HasCycle(L1)->data);

@@ -6,7 +6,6 @@
 
 using std::vector;
 
-// @include
 bool MatrixSearch(const vector<vector<int>>& A, int x) {
     int row = 0, col = A[0].size() - 1;  // Start from the top-right corner.
     // Keeps searching while there are unclassified rows and columns.
@@ -17,20 +16,6 @@ bool MatrixSearch(const vector<vector<int>>& A, int x) {
             ++row;  // Eliminate this row.
         } else {  // A[row][col] > x.
             --col;  // Eliminate this column.
-        }
-    }
-    return false;
-}
-// @exclude
-
-
-// O(n^2) solution for verifying answer.
-bool BruteForceSearch(const vector<vector<int>>& A, int x) {
-    for (int i = 0; i < A.size(); ++i) {
-        for (int j = 0; j < A[i].size(); ++j) {
-            if (A[i][j] == x) {
-                return true;
-            }
         }
     }
     return false;

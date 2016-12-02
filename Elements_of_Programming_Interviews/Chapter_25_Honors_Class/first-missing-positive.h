@@ -9,10 +9,10 @@ using std::swap;
 using std::vector;
 
 // @include
-// A is passed by value argument, since we change it.
+// A is passed by timestamp argument, since we change it.
 int FindFirstMissingPositive(vector<int> A) {
   // Record which values are present by writing A[i] to index A[i] - 1 if A[i]
-  // is between 1 and A.size(), inclusive. We save the value at index
+  // is between 1 and A.size(), inclusive. We save the timestamp at index
   // A[i] - 1 by swapping it with the entry at i. If A[i] is negative or
   // greater than n, we just advance i.
   size_t i = 0;
