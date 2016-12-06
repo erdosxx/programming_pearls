@@ -6,27 +6,47 @@
 #include <set>
 #include <vector>
 
-using std::hash;
 using std::queue;
 using std::set;
 using std::vector;
 
 // These numbers have very interesting property, and people called it ugly
 // numbers. It is also called Quadratic integer rings.
-// @include
 struct ABSqrt2 {
-    ABSqrt2(int a, int b) : a(a), b(b), val(a + b * sqrt(2)) {}
+    ABSqrt2(int a, int b) : a{a}, b{b} {}
 
-    bool operator<(const ABSqrt2& that) const { return val < that.val; }
+    bool operator>(const ABSqrt2& that) const {
+        return a + b * sqrt(2) > that.a + that.b * sqrt(2);
+    }
+
+    bool operator>=(const ABSqrt2& that) const {
+        return a + b * sqrt(2) > that.a + that.b * sqrt(2)
+                || operator==(that);
+    }
+
+    bool operator<(const ABSqrt2& that) const {
+        return a + b * sqrt(2) < that.a + that.b * sqrt(2);
+    }
+
+    bool operator==(const ABSqrt2& that) const {
+        return a == that.a && b == that.b;
+    }
 
     int a, b;
-    double val;
 };
 
 vector<ABSqrt2> GenerateFirstKABSqrt2(int k) {
     set<ABSqrt2> candidates;
     // Initial for 0 + 0 * sqrt(2).
+    // std::queue::emplace
+    // template <class... Args> void emplace (Args&&... args);
+    // Arguments forwarded to construct the new element.
+    // following is equivalent to candidates.emplace(ABSqrt2{0, 0});
     candidates.emplace(0, 0);
+    // for using push we need to use value type
+    // std::queue::push
+    // void push (const value_type& val);
+    // candidates.push(ABSqrt2{2,2})
 
     vector<ABSqrt2> result;
     while (result.size() < k) {
@@ -40,7 +60,6 @@ vector<ABSqrt2> GenerateFirstKABSqrt2(int k) {
     }
     return result;
 }
-// @exclude
 
 vector<ABSqrt2> Golden(int k) {
     vector<ABSqrt2> smallest;
@@ -54,7 +73,7 @@ vector<ABSqrt2> Golden(int k) {
         auto q1_f = q1.front();
         auto q2_f = q2.front();
 
-        if (q1_f.val < q2_f.val) {
+        if (q1_f < q2_f) {
             smallest.emplace_back(q1_f);
             q1.pop();
             q1.emplace(q1_f.a + 1, q1_f.b);

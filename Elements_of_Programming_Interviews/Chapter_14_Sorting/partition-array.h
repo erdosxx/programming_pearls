@@ -3,21 +3,15 @@
 // 14.7 Partitioning and sorting an array with many repeated entries
 
 #include <algorithm>
-#include <functional>
 #include <string>
 #include <unordered_map>
-#include <unordered_set>
 #include <vector>
 
-using std::hash;
-using std::max;
 using std::swap;
 using std::string;
 using std::unordered_map;
-using std::unordered_set;
 using std::vector;
 
-// @include
 struct Person {
     int age;
     string name;
@@ -36,8 +30,6 @@ void GroupByAge(vector<Person>* person_array) {
         offset += p.second;
     }
 
-    // Algorithm is very complex.
-    // See Aladin Note page: 13 Friday May
     while (age_to_offset.size()) {
         auto from = age_to_offset.begin();
         auto to = age_to_offset.find((*person_array)[from->second].age);
@@ -52,6 +44,5 @@ void GroupByAge(vector<Person>* person_array) {
         }
     }
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_PARTITION_ARRAY_H

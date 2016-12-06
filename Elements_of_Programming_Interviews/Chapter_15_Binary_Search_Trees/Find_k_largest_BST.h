@@ -7,7 +7,6 @@
 
 #include "BST_prototype.h"
 
-using std::make_unique;
 using std::unique_ptr;
 using std::vector;
 

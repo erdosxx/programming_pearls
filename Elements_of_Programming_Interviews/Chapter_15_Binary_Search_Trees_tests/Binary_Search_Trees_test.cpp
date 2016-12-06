@@ -563,19 +563,19 @@ TEST_F(Ch15_BST_Fixture, min_distance_3_sorted_Function) {
 
 TEST_F(Ch15_BST_Fixture, generating_a_b_sqrt_2_Function) {
     vector<ABSqrt2> ans = GenerateFirstKABSqrt2(8);
-    ASSERT_EQ(0.0, ans[0].val);
-    ASSERT_EQ(1.0, ans[1].val);
-    ASSERT_EQ(sqrt(2.0), ans[2].val);
-    ASSERT_EQ(2.0, ans[3].val);
-    ASSERT_EQ(1.0 + sqrt(2.0), ans[4].val);
-    ASSERT_EQ(2.0 * sqrt(2.0), ans[5].val);
-    ASSERT_EQ(3.0, ans[6].val);
-    ASSERT_EQ(2.0 + sqrt(2.0), ans[7].val);
+    ASSERT_EQ(ABSqrt2(0,0), ans[0]);
+    ASSERT_EQ(ABSqrt2(1,0), ans[1]);
+    ASSERT_EQ(ABSqrt2(0,1), ans[2]);
+    ASSERT_EQ(ABSqrt2(2,0), ans[3]);
+    ASSERT_EQ(ABSqrt2(1,1), ans[4]);
+    ASSERT_EQ(ABSqrt2(0,2), ans[5]);
+    ASSERT_EQ(ABSqrt2(3,0), ans[6]);
+    ASSERT_EQ(ABSqrt2(2,1), ans[7]);
 
     random_device rd;
     default_random_engine gen(rd());
     //default_random_engine gen((random_device())());
-    for (int times = 0; times < 10; ++times) {
+    for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 10000);
         int k = dis(gen);
 
@@ -583,31 +583,31 @@ TEST_F(Ch15_BST_Fixture, generating_a_b_sqrt_2_Function) {
         for (size_t i = 0; i < ans.size(); ++i) {
         //    cout << ans[i].a << ' ' << ans[i].b << ' ' << ans[i].val << endl;
             if (i > 0) {
-                ASSERT_GE(ans[i].val, ans[i - 1].val);
+                ASSERT_GE(ans[i], ans[i - 1]);
             }
         }
         auto gold_res = Golden(k);
         for (size_t i = 0; i < k; ++i) {
-            ASSERT_EQ(ans[i].val, gold_res[i].val);
+            ASSERT_EQ(ans[i], gold_res[i]);
         }
     }
 }
 
 TEST_F(Ch15_BST_Fixture, generating_a_b_sqrt_2_improved_Function) {
     vector<improved::ABSqrt2> ans = improved::GenerateFirstKABSqrt2(8);
-    ASSERT_EQ(0.0, ans[0].val);
-    ASSERT_EQ(1.0, ans[1].val);
-    ASSERT_EQ(sqrt(2.0), ans[2].val);
-    ASSERT_EQ(2.0, ans[3].val);
-    ASSERT_EQ(1.0 + sqrt(2.0), ans[4].val);
-    ASSERT_EQ(2.0 * sqrt(2.0), ans[5].val);
-    ASSERT_EQ(3.0, ans[6].val);
-    ASSERT_EQ(2.0 + sqrt(2.0), ans[7].val);
+    ASSERT_EQ(improved::ABSqrt2(0,0), ans[0]);
+    ASSERT_EQ(improved::ABSqrt2(1,0), ans[1]);
+    ASSERT_EQ(improved::ABSqrt2(0,1), ans[2]);
+    ASSERT_EQ(improved::ABSqrt2(2,0), ans[3]);
+    ASSERT_EQ(improved::ABSqrt2(1,1), ans[4]);
+    ASSERT_EQ(improved::ABSqrt2(0,2), ans[5]);
+    ASSERT_EQ(improved::ABSqrt2(3,0), ans[6]);
+    ASSERT_EQ(improved::ABSqrt2(2,1), ans[7]);
 
     random_device rd;
     default_random_engine gen(rd());
     //default_random_engine gen((random_device())());
-    for (int times = 0; times < 10; ++times) {
+    for (int times = 0; times < 100; ++times) {
         uniform_int_distribution<int> dis(1, 10000);
         int k = dis(gen);
 
@@ -616,13 +616,13 @@ TEST_F(Ch15_BST_Fixture, generating_a_b_sqrt_2_improved_Function) {
         for (size_t i = 0; i < ans.size(); ++i) {
             // cout << ans[i].a << ' ' << ans[i].b << ' ' << ans[i].val << endl;
             if (i > 0) {
-                ASSERT_GE(ans[i].val, ans[i - 1].val);
+                ASSERT_GE(ans[i], ans[i - 1]);
             }
         }
         auto gold_res = improved::Golden(k);
 
         for (size_t i = 0; i < k; ++i) {
-            ASSERT_EQ(ans[i].val, gold_res[i].val);
+            ASSERT_EQ(ans[i], gold_res[i]);
         }
         // Following code are replaced by above code. This code does not compiled.
         // ASSERT_TRUE(equal(ans.begin(), ans.end(), gold_res.begin(), gold_res.end(),

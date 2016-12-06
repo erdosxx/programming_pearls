@@ -11,15 +11,28 @@ using std::set;
 using std::vector;
 
 namespace improved {
-// @include
-    struct ABSqrt2 {
-        ABSqrt2(int a, int b) : a(a), b(b), val(a + b * sqrt(2)) { }
 
-        bool operator<(const ABSqrt2 &that) const { return val < that.val; }
-        bool operator==(const ABSqrt2 &that) const { return val == that.val; }
+    struct ABSqrt2 {
+        ABSqrt2(int a, int b) : a(a), b(b){ }
+
+        bool operator<(const ABSqrt2 &that) const {
+            return a + b * sqrt(2) < that.a + that.b * sqrt(2);
+        }
+
+        bool operator>(const ABSqrt2 &that) const {
+            return a + b * sqrt(2) > that.a + that.b * sqrt(2);
+        }
+
+        bool operator>=(const ABSqrt2 &that) const {
+            return a + b * sqrt(2) > that.a + that.b * sqrt(2) ||
+                    operator==(that);
+        }
+
+        bool operator==(const ABSqrt2 &that) const {
+            return a == that.a && b == that.b;
+        }
 
         int a, b;
-        double val;
     };
 
     vector<ABSqrt2> GenerateFirstKABSqrt2(int k) {
@@ -33,17 +46,16 @@ namespace improved {
             ABSqrt2 result_j_plus_sqrt2(result[j].a, result[j].b + 1);
 
             result.emplace_back(min(result_i_plus_1, result_j_plus_sqrt2));
-            if (result_i_plus_1.val == result.back().val) {
+            if (result_i_plus_1 == result.back()) {
                 ++i;
             }
 
-            if (result_j_plus_sqrt2.val == result.back().val) {
+            if (result_j_plus_sqrt2 == result.back()) {
                 ++j;
             }
         }
         return result;
     }
-// @exclude
 
     vector<ABSqrt2> Golden(int k) {
         // std::set

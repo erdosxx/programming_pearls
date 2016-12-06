@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.3)
 
 project(Ch5_Primitive_Types C CXX)
 
-add_definitions(-std=c++11)
+add_definitions(-std=c++14)
 
 set(HEADER_FILES
         count_bits.h

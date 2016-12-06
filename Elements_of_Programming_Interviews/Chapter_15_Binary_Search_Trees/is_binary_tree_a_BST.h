@@ -7,7 +7,6 @@
 
 #include "Binary_tree_prototype.h"
 
-using std::make_unique;
 using std::numeric_limits;
 using std::unique_ptr;
 
