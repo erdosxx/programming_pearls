@@ -353,6 +353,9 @@ TEST_F(Strings_Fixture, stl_library) {
     s1="abcdefg";           //  abcdefg
     string sbstr {s1, 1, 3}; //   ^ ^
     ASSERT_EQ("bcd", sbstr);
+    ASSERT_EQ("bcdefg", s1.substr(1));
+    ASSERT_EQ("cdefg", s1.substr(2));
+    ASSERT_EQ("fg", s1.substr(5));
 
     // substring copy
     // s2 = s.substr(pos, n)  s2=basic_string(&s[pos],m) where m=min(s.size()-pos, n);

@@ -8,11 +8,29 @@
 using std::array;
 using std::stack;
 
-void ComputeTowerHanoiSteps(int, array<stack<int>, 3>&, int&, int, int, int);
-
-
 enum {kNumPegs = 3};
-// @include
+
+void ComputeTowerHanoiSteps(const int& num_rings_to_move,
+                            array<stack<int>, kNumPegs>* pegs_ptr, int* num_steps_ptr, const int& from_peg,
+                            const int& to_peg, const int& use_peg) {
+    array<stack<int>, kNumPegs>& pegs = *pegs_ptr;
+    int& num_steps = *num_steps_ptr;
+
+    if (num_rings_to_move > 0) {
+        ComputeTowerHanoiSteps(num_rings_to_move - 1, pegs_ptr, num_steps_ptr, from_peg, use_peg,
+                               to_peg);
+        //     |       |       |
+        //     |       |       |
+        //    ---     ---     ---
+        //  from_peg to_peg  use_peg
+        pegs[to_peg].push(pegs[from_peg].top());
+        pegs[from_peg].pop();
+        // cout << "Move from peg " << from_peg << " to peg " << to_peg << endl;
+        num_steps++;
+        ComputeTowerHanoiSteps(num_rings_to_move - 1, pegs_ptr, num_steps_ptr, use_peg, to_peg,
+                               from_peg);
+    }
+}
 
 int ComputeTowerHanoi(int num_rings) {
     int num_steps = 0;
@@ -23,26 +41,8 @@ int ComputeTowerHanoi(int num_rings) {
         pegs[0].push(i);
     }
 
-    ComputeTowerHanoiSteps(num_rings, pegs, num_steps, 0, 1, 2);
+    ComputeTowerHanoiSteps(num_rings, &pegs, &num_steps, 0, 1, 2);
     return num_steps;
 }
-
-void ComputeTowerHanoiSteps(int num_rings_to_move,
-                            array<stack<int>, kNumPegs>& pegs, int& num_steps, int from_peg,
-                            int to_peg, int use_peg) {
-    if (num_rings_to_move > 0) {
-        ComputeTowerHanoiSteps(num_rings_to_move - 1, pegs, num_steps, from_peg, use_peg,
-                               to_peg);
-        pegs[to_peg].push(pegs[from_peg].top());
-        pegs[from_peg].pop();
-        // cout << "Move from peg " << from_peg << " to peg " << to_peg << endl;
-        // @exclude
-        num_steps++;
-        // @include
-        ComputeTowerHanoiSteps(num_rings_to_move - 1, pegs, num_steps, use_peg, to_peg,
-                               from_peg);
-    }
-}
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_TOWER_HANOI_H

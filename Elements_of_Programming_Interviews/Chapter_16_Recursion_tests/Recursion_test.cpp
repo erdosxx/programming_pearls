@@ -99,14 +99,16 @@ string Ch16_Recursion_Fixture::p_16_7_RandString(size_t len) {
 }
 
 TEST_F(Ch16_Recursion_Fixture, tower_hanoi_Function) {
+    /*
     random_device rd;
     default_random_engine gen(rd());
-    //default_random_engine gen((random_device())());
+
     uniform_int_distribution<int> dis(1, 10);
     int n = dis(gen);
 
     //cout << "n = " << n << endl;
     ComputeTowerHanoi(n);
+     */
 
     int num_steps = ComputeTowerHanoi(4);
     ASSERT_EQ(15, num_steps);

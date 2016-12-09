@@ -1,9 +1,13 @@
 #include <gtest/gtest.h>
+#include <vector>
 #include "SplayTree.h"
 #include "RedBlackTree.h"
 #include "Treap.h"
 #include "PairingHeap.h"
 #include "Vector.h"
+#include "SuffixArray.h"
+
+using std::vector;
 
 class Adv_Tree_Algorithm_Fixture : public ::testing::Test {
 protected:
@@ -150,5 +154,28 @@ TEST_F(Adv_Tree_Algorithm_Fixture, Pairing_Heap_Function) {
         ph2.deleteMin( x );
         ASSERT_EQ(x, ++i);
     }
+}
 
+TEST_F(Adv_Tree_Algorithm_Fixture, suffix_array) {
+    pair<int, int> a(1,1);
+    pair<int, int> b(1,1);
+    pair<int, int> c(1,2);
+    ASSERT_EQ(a, b);
+    ASSERT_NE(a, c);
+
+    string str = "banana";
+    vector<int> sufary(str.size());
+    vector<int> lcp(str.size());
+
+    createSuffixArraySlow(str, &sufary, &lcp);
+    vector<int> golden_sufary = {5,3,1,0,4,2};
+    vector<int> golden_lcp = {0,1,3,0,0,2};
+
+    ASSERT_TRUE(equal(sufary.cbegin(), sufary.cend(), golden_sufary.cbegin(), golden_sufary.cend()));
+    ASSERT_TRUE(equal(lcp.begin(), lcp.end(), golden_lcp.cbegin(), golden_lcp.cend()));
+
+    vector<pair<int, int>> result = move(createSuffixArray_erdos(str));
+
+    vector<pair<int, int>> golden_result = {{5,0}, {3,1}, {1,3}, {0,0}, {4,0}, {2,2}};
+    ASSERT_TRUE(equal(result.cbegin(), result.cend(), golden_result.cbegin(), golden_result.cend()));
 }

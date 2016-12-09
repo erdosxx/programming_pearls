@@ -19,25 +19,30 @@ using std::default_random_engine;
 using std::random_device;
 using std::uniform_int_distribution;
 
+// Partition A[left : right] around pivot_idx, returns the new index of the
+// pivot, new_pivot_idx, after partition. After partitioning,
+// A[left : new_pivot_idx - 1] contains elements that are greater than the
+// pivot, and A[new_pivot_idx + 1 : right] contains elements that are less
+// than the pivot.
+//
+// Note: "less than" is defined by the Compare object.
+//
+// Returns the new index of the pivot element after partition.
 template <typename Compare>
-int FindKth(int, Compare, vector<int>*);
+int PartitionAroundPivot(int left, int right, int pivot_idx, Compare comp,
+                         vector<int>* A_ptr) {
+    vector<int>& A = *A_ptr;
+    int pivot_value = A[pivot_idx];
+    int new_pivot_idx = left;
 
-template <typename Compare>
-int PartitionAroundPivot(int, int, int, Compare, vector<int>*);
-
-// The numbering starts from one, i.e., if A = [3,1,-1,2] then
-// FindKthLargest(1, A) returns 3, FindKthLargest(2, A) returns 2,
-// FindKthLargest(3, A) returns 1, and FindKthLargest(4, A) returns -1.
-int FindKthLargest(int k, vector<int>* A_ptr) {
-    return FindKth(k, greater<int>(), A_ptr);
-}
-
-
-// The numbering starts from one, i.e., if A = [3,1,-1,2] then
-// FindKthSmallest(1, A) returns -1, FindKthSmallest(2, A) returns 1,
-// FindKthSmallest(3, A) returns 2, and FindKthSmallest(4, A) returns 3.
-int FindKthSmallest(int k, vector<int>* A_ptr) {
-    return FindKth(k, less<int>(), A_ptr);
+    swap(A[pivot_idx], A[right]);
+    for (int i = left; i < right; ++i) {
+        if (comp(A[i], pivot_value)) {
+            swap(A[i], A[new_pivot_idx++]);
+        }
+    }
+    swap(A[right], A[new_pivot_idx]);
+    return new_pivot_idx;
 }
 
 template <typename Compare>
@@ -68,31 +73,18 @@ int FindKth(int k, Compare comp, vector<int>* A_ptr) {
     throw length_error("no k-th node in array A");
 }
 
-// Partition A[left : right] around pivot_idx, returns the new index of the
-// pivot, new_pivot_idx, after partition. After partitioning,
-// A[left : new_pivot_idx - 1] contains elements that are greater than the
-// pivot, and A[new_pivot_idx + 1 : right] contains elements that are less
-// than the pivot.
-//
-// Note: "less than" is defined by the Compare object.
-//
-// Returns the new index of the pivot element after partition.
-template <typename Compare>
-int PartitionAroundPivot(int left, int right, int pivot_idx, Compare comp,
-                         vector<int>* A_ptr) {
-    vector<int>& A = *A_ptr;
-    int pivot_value = A[pivot_idx];
-    int new_pivot_idx = left;
-
-    swap(A[pivot_idx], A[right]);
-    for (int i = left; i < right; ++i) {
-        if (comp(A[i], pivot_value)) {
-            swap(A[i], A[new_pivot_idx++]);
-        }
-    }
-    swap(A[right], A[new_pivot_idx]);
-    return new_pivot_idx;
+// The numbering starts from one, i.e., if A = [3,1,-1,2] then
+// FindKthLargest(1, A) returns 3, FindKthLargest(2, A) returns 2,
+// FindKthLargest(3, A) returns 1, and FindKthLargest(4, A) returns -1.
+int FindKthLargest(int k, vector<int>* A_ptr) {
+    return FindKth(k, greater<int>(), A_ptr);
 }
-// @exclude
+
+// The numbering starts from one, i.e., if A = [3,1,-1,2] then
+// FindKthSmallest(1, A) returns -1, FindKthSmallest(2, A) returns 1,
+// FindKthSmallest(3, A) returns 2, and FindKthSmallest(4, A) returns 3.
+int FindKthSmallest(int k, vector<int>* A_ptr) {
+    return FindKth(k, less<int>(), A_ptr);
+}
 
 #endif //ALGORITHM_ANALYSIS_ORDER_STATISTIC_H
