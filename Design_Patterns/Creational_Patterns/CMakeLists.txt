@@ -1,0 +1,21 @@
+cmake_minimum_required(VERSION 3.3)
+project(Design_Patterns C CXX)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+
+include_directories(Abstract_Factory)
+include_directories(Builder)
+include_directories(Factory_Method)
+include_directories(Prototype)
+include_directories(Singleton)
+
+add_subdirectory(Abstract_Factory)
+add_subdirectory(Abstract_Factory_tests)
+add_subdirectory(Builder)
+add_subdirectory(Builder_tests)
+add_subdirectory(Factory_Method)
+add_subdirectory(Factory_Method_tests)
+add_subdirectory(Prototype)
+add_subdirectory(Prototype_tests)
+add_subdirectory(Singleton)
+add_subdirectory(Singleton_tests)

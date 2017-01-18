@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <random>
 #include <limits>
+#include <functional>
 #include <unordered_set>
 #include <cmath>
 #include <string>
@@ -16,6 +17,7 @@
 #include "lock_ordering_bug.h"
 #include "lock_ordering_works.h"
 #include "collatz.h"
+#include "object_closure.h"
 
 using std::istringstream;
 using std::stringstream;
@@ -38,6 +40,7 @@ using std::deque;
 using std::string;
 using std::thread;
 using std::this_thread::sleep_for;
+using std::bind;
 
 class Ch20_Parallel_Computing_Fixture : public ::testing::Test {
 private:
@@ -112,6 +115,7 @@ TEST_F(Ch20_Parallel_Computing_Fixture, simple_web_server_Function) {
     }
 }
 
+/* TODO: Need to fix for compile.
 TEST_F(Ch20_Parallel_Computing_Fixture, thread_per_task_webserver_Function) {
     const unsigned short SERVERPORT = 8080;
 
@@ -126,7 +130,9 @@ TEST_F(Ch20_Parallel_Computing_Fixture, thread_per_task_webserver_Function) {
         thread(ProcessReq, sock).detach();
     }
 }
+ */
 
+/* TODO: Need to fix for compiling.
 TEST_F(Ch20_Parallel_Computing_Fixture, task_execution_web_server_Function) {
     const unsigned short kServerPort = 8080;
     const int kNThreads = 2;
@@ -143,6 +149,7 @@ TEST_F(Ch20_Parallel_Computing_Fixture, task_execution_web_server_Function) {
         q << move(sock);
     }
 }
+ */
 
 TEST_F(Ch20_Parallel_Computing_Fixture, lock_ordering_bug_Function) {
     bug::Account from(200);
@@ -169,6 +176,8 @@ TEST_F(Ch20_Parallel_Computing_Fixture, lock_ordering_works_Function) {
     cout << "New balances = " << from.get_balance() << ' ' << to.get_balance()
          << endl;
 }
+
+/* TODO: need to fix for compiling
 TEST_F(Ch20_Parallel_Computing_Fixture, Collatz_Function) {
     CollatzInt N = 10000000;
     CollatzInt RANGESIZE = 1000000;
@@ -185,6 +194,7 @@ TEST_F(Ch20_Parallel_Computing_Fixture, Collatz_Function) {
     QueueType1 q(NTHREADS);
     thread_group threads;
     for (int i = 0; i < NTHREADS; ++i) {
+        // for bind exmaple, see Programming Language Pragmatics P.514
         threads.create_thread(bind(ThreadFunc, ref(q)));
     }
     for (CollatzInt i = 0; i < N / RANGESIZE; ++i) {
@@ -200,3 +210,6 @@ TEST_F(Ch20_Parallel_Computing_Fixture, Collatz_Function) {
     cout << "time in milliseconds for checking to " << N << " is "
          << running_time << '(' << N / running_time << " per ms)";
 }
+ */
+
+

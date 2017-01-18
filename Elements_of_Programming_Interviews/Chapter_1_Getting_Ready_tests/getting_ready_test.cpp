@@ -4,6 +4,11 @@
 #include <utility>
 #include <tuple>
 #include <string>
+#include <functional>
+#include <iostream>
+#include "object_closure.h"
+#include "encapsulating_arguments.h"
+#include "booking_com_interview.h"
 
 using std::vector;
 using std::deque;
@@ -13,7 +18,10 @@ using std::string;
 using std::piecewise_construct;
 using std::make_pair;
 using std::get;
-
+using std::bind;
+using std::function;
+using std::cin;
+using std::cout;
 
 class Getting_Ready_Fixture : public ::testing::Test {
 protected:
@@ -92,4 +100,26 @@ TEST_F(Getting_Ready_Fixture, std_pair_tuple) {
     ASSERT_EQ(9, get<0>(t4));
     ASSERT_EQ(3, get<1>(t4));
     ASSERT_EQ(7, get<2>(t4));
+}
+
+TEST_F(Getting_Ready_Fixture, object_closure) {
+    vector<int> A = {0,1,2,3,4,5,6,7,8,9};
+    vector<int>* A_ptr = &A;
+
+    vector<int> ans = {10,11,12,13,14,15,16,17,18,19};
+    apply_to_A(plus_x(10), A_ptr);
+    ASSERT_TRUE(equal(A.cbegin(), A.cend(), ans.cbegin(), ans.cend()));
+}
+
+TEST_F(Getting_Ready_Fixture, encapsulating_arguments) {
+    call_foo cf(3, 3.14, 'x');
+    schedule_at(cf, 1);
+
+    function<void()> cf2 = bind(foo, 3, 3.14, 'x');
+    schedule_at(cf2, 3);
+}
+
+TEST_F(Getting_Ready_Fixture, booking_com) {
+    int input = 1;
+    cout << input << endl;
 }

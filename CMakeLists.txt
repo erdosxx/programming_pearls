@@ -4,6 +4,7 @@ project(programming_pearls)
 set(CMAKE_CXX_STANDARD 14)
 
 add_subdirectory(Data_Structures_and_Algorithm_Analysis_in_Cpp)
+add_subdirectory(Design_Patterns)
 add_subdirectory(Elements_of_Programming_Interviews)
 add_subdirectory(lib/googletest)
 add_subdirectory(Programming_Pearls)

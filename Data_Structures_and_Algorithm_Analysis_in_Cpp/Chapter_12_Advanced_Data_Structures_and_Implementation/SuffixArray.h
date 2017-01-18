@@ -403,6 +403,7 @@ void createSuffixArraySlow( const string& str, vector<int>* SA_ptr, vector<int>*
 
     LCP[0] = 0;
     for( int i = 1; i < str.size(); ++i )
+        //LCP[i] = computeLCP( string(suffixes[i - 1]), string(suffixes[i]) );
         LCP[i] = computeLCP( suffixes[i - 1], suffixes[i] );
 }
 
@@ -423,7 +424,8 @@ vector<pair<int, int>> createSuffixArray_erdos (const string& str) {
     get<LCP>(result[0]) = 0;
     for( int i = 1; i < str.size(); ++i ) {
         get<LCP>(result[i]) =
-                computeLCP(str.substr(get<index>(result[i - 1])), str.substr(get<index>(result[i])));
+                //computeLCP(str.substr(get<index>(result[i - 1])), str.substr(get<index>(result[i])));
+                computeLCP(str.c_str() + get<index>(result[i - 1]), str.c_str() + get<index>(result[i]));
     }
 
     return result;

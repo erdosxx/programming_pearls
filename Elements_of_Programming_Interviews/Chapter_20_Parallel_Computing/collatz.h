@@ -12,7 +12,6 @@
 #include <boost/thread/sync_bounded_queue.hpp>
 
 using std::stoi;
-using std::bind;
 using std::ref;
 using std::pair;
 using std::make_pair;
