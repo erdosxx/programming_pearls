@@ -6,7 +6,6 @@
 
 using std::unique_ptr;
 
-
 namespace inorder {
     bool IsBinaryTreeBST_Helper (const unique_ptr<BinaryTreeNode<int>>& tree, int* prev_data, bool* is_true_before) {
         if(! *is_true_before ) {

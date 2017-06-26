@@ -105,6 +105,12 @@ TEST_F(Ch11Heaps_Fixture, stl_library) {
     ASSERT_EQ(2, min_heap3.top());
     min_heap3.pop();
     ASSERT_EQ(3, min_heap3.top());
+
+    vector<int> ary = {1, 2, 3, 4, 5};
+    ASSERT_EQ(5, ary.size());
+    vector<int>::const_iterator c_iter;
+    c_iter = ary.cbegin();
+    ASSERT_EQ(1, *c_iter);
 }
 
 TEST_F(Ch11Heaps_Fixture, merge_sorted_arrays_Function) {

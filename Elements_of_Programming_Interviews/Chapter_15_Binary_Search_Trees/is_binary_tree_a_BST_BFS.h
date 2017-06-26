@@ -13,7 +13,6 @@ using std::queue;
 using std::unique_ptr;
 
 namespace bfs {
-// @include
     struct QueueEntry {
         const unique_ptr<BinaryTreeNode<int>>& tree_node;
         int lower_bound, upper_bound;
@@ -44,7 +43,6 @@ namespace bfs {
         }
         return true;
     }
-// @exclude
 }
 
 #endif //ALGORITHM_ANALYSIS_IS_BINARY_TREE_A_BST_BFS_H

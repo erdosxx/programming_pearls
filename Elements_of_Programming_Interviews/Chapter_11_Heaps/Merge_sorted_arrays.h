@@ -14,7 +14,6 @@ using std::vector;
 using std::greater;
 using std::less;
 
-// @include
 struct IteratorCurrentAndEnd {
     bool operator>(const IteratorCurrentAndEnd& that) const {
         return *current > *that.current;
@@ -38,6 +37,7 @@ vector<int> MergeSortedArrays(const vector<vector<int>>& sorted_arrays) {
     while (!min_heap.empty()) {
         auto smallest_array = min_heap.top();
         min_heap.pop();
+
         if (smallest_array.current != smallest_array.end) {
             result.emplace_back(*smallest_array.current);
             min_heap.emplace(IteratorCurrentAndEnd{next(smallest_array.current),
@@ -46,6 +46,5 @@ vector<int> MergeSortedArrays(const vector<vector<int>>& sorted_arrays) {
     }
     return result;
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_MERGE_SORTED_ARRAYS_H

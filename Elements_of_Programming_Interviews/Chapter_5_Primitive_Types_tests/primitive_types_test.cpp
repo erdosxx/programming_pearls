@@ -64,7 +64,6 @@ TEST_F(Primitive_Types_Fixture, primitive_types_boot_camp) {
     bitset<32> b3 = 0xaaaa;  // 00000000000000001010101010101010
 
     bitset<10> b4 {"1010101010"};  // 1010101010
-    bitset<10> b5 {"10110111011110", 4}; // 0111011110
 
     // [] operator
     bitset<10> bs1;
@@ -78,11 +77,14 @@ TEST_F(Primitive_Types_Fixture, primitive_types_boot_camp) {
     bs2[4] = 1;
     ASSERT_EQ(bs2, bitset<5>{"10000"});
 
-    //                  ^
+    bitset<10> b5 {"10110111011110", 4}; // 1011
     ASSERT_EQ(b5, bitset<10>{"1011"});
+
     bitset<10> b6 {string{"1010101010"}};   // 1010101010
+
     bitset<10> b7 {string{"10110111011110"}, 4}; //0111011110
     ASSERT_EQ(b7, bitset<10>{"0111011110"});
+
     bitset<10> b8 {string{"10110111011110"}, 2, 8}; //11011101
     ASSERT_EQ(b8, bitset<10>{"11011101"});
     // bitset -> string
@@ -109,9 +111,9 @@ TEST_F(Primitive_Types_Fixture, primitive_types_boot_camp) {
     ASSERT_EQ(b10, b9 | b10);
     // bitwise xor
     ASSERT_EQ(bitset<10>{"0101010101"}, b9 ^ b10);
-    // lofical left shift (fill with zeros)
+    // logical left shift (fill with zeros)
     ASSERT_EQ(bitset<10>{"0101010000"}, b9 << 3);
-    // lofical right shift (fill with zeros)
+    // logical right shift (fill with zeros)
     ASSERT_EQ(bitset<10>{"0001010101"}, b9 >> 3);
     // make compliment
     ASSERT_EQ(bitset<10>{"0101010101"}, ~b9);
@@ -171,8 +173,8 @@ TEST_F(Primitive_Types_Fixture, count_bits) {
     for (int times = 0; times < 1000; ++times) {
         uniform_int_distribution<int> dis(0, numeric_limits<int>::max());
         int x = dis(gen);
-        //cout << "x = " << x << ",  = " << CountBits(x) << endl;
-        bitset<32> checker(x);
+
+        bitset<32> checker(x); // Initialize bitset with integer x
         ASSERT_EQ(CountBits(x), checker.count());
         ASSERT_EQ(CountBits(x), CountBits_imp(x));
     }

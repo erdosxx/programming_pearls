@@ -8,6 +8,7 @@ using std::vector;
 using std::swap;
 
 bool is_odd(int num) {
+    //return num > 0 ? num & 1 : num ^ 1;
     return num % 2;
 }
 

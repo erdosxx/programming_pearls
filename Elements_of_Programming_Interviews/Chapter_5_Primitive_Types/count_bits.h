@@ -2,7 +2,6 @@
 #define ALGORITHM_ANALYSIS_COUNT_BITS_H
 // 5. Primitive Types boot camp
 
-// @include
 short CountBits(unsigned int x) {
     short num_bits = 0;
 
@@ -13,7 +12,6 @@ short CountBits(unsigned int x) {
 
     return num_bits;
 }
-// @exclude
 
 short CountBits_imp(unsigned int x) {
     short num_bits = 0;

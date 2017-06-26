@@ -4,7 +4,6 @@
 
 namespace Parity4 {
 
-// @include
     short Parity(unsigned long x) {
         x ^= x >> 32;
         x ^= x >> 16;
@@ -12,10 +11,9 @@ namespace Parity4 {
         x ^= x >> 4;
         x ^= x >> 2;
         x ^= x >> 1;
-        return x & 0x1; // mask upto 16 bit (last 1 bit).
+        return x & 0x1; // mask last 1 bit.
     }
-// @exclude
 
-}  // namespace Parity4
+}
 
 #endif //ALGORITHM_ANALYSIS_PARITY4_H

@@ -9,7 +9,6 @@
 using std::stack;
 using std::string;
 
-// @include
 bool IsWellFormed(const string& s) {
     stack<char> left_chars;
 
@@ -31,6 +30,5 @@ bool IsWellFormed(const string& s) {
     }
     return left_chars.empty();
 }
-// @exclude
 
 #endif //ALGORITHM_ANALYSIS_VALID_PARENTHESES_H

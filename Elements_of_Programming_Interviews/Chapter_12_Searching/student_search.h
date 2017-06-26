@@ -13,13 +13,12 @@ using std::sort;
 using std::string;
 using std::vector;
 
-// @include
 struct Student {
     string name;
     double grade_point_average;
 };
 
-// Sorted by descending GPA, with tiess broken on name.
+// Sorted by descending GPA, with ties broken on name.
 const static function<bool(const Student&, const Student&)> CompGPA = [](
         const Student& a, const Student& b) {
     if (a.grade_point_average != b.grade_point_average) {

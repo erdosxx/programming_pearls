@@ -41,6 +41,7 @@ int SearchFirstOfK(const vector<int>& A, int left, int right, const int& k) {
     // [left : right] is the candidate set.
     while (left <= right) {
         int mid = left + ((right - left) / 2);
+
         if (A[mid] > k) {
             right = mid - 1;
         } else if (A[mid] == k) {

@@ -1,7 +1,7 @@
 #ifndef ALGORITHM_ANALYSIS_ANAGRAMS_NEEDLE_HAYSTACK_H
 #define ALGORITHM_ANALYSIS_ANAGRAMS_NEEDLE_HAYSTACK_H
 // Source: Amazon test
-// input:  haystack: abdaghbaabcdij
+// input:  haystack: abdcghbaabcdij
 //                   ^       ^
 //         needle:   bcda
 // output: [0, 8]

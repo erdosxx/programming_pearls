@@ -1,6 +1,51 @@
 #ifndef ALGORITHM_ANALYSIS_LOWEST_COMMON_ANCESTOR_EMPLOYEE_H
 #define ALGORITHM_ANALYSIS_LOWEST_COMMON_ANCESTOR_EMPLOYEE_H
 // Amazon
+/*
+[LCA employee]
+
+The employee hierarchy at Initech is represented in the form of a tree. 
+The CEO of the company stands at the top of the hierarchy. 
+Employees can have other employees reporting to them.
+An employee with at least one reportee is called a manager. 
+All the employees eventually report up to the CEO.
+
+Write an algorithm to find the closest common manager for the two given employees 
+i.e. the manager who is farthest from the CEO, but to whom both the employees report. 
+One of the two given employee may be the closest common manager if one reports to the other.
+
+Input
+    The input to the function/method consists of three arguments 
+    - ceo, representing the CEO of the company;
+    employee1, representing the first employee and 
+    employee2, representing the second employee.
+
+Output
+    Return the closest common manager of the two given employees.
+
+Constraints
+    The names of all employees are unique.
+    Excluding CEO, all the employees have exactly one reporting manager.
+
+Help description
+class Employee {
+private:
+    int id;
+    std::string name;
+    std::vector reports;
+
+public:
+    Employee(int id, std::string name);
+    int getId();
+    std::string getName();
+}
+
+Function snippet
+    Employee* closestCommonManager(Employee* ceo, Employee* employee1, Employee* employee2)
+{
+}
+*/
+
 
 #include <string>
 #include <vector>
