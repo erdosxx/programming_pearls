@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.3)
 project(Ch6_Arrays C CXX)
 
 #for supporting equal(first1, last1, first2, last2) c++14 is required.
-add_definitions(-std=c++14)
+add_definitions(-std=c++17)
 
 set(HEADER_FILES
         array_boot_camp.h
@@ -36,6 +36,8 @@ set(HEADER_FILES
         pascal-triangle-1.h
         k-th_permutation.h
         inverse_permutation.h
+        permute_the_elements_of_an_array_6_9.h
+        introduction_to_google_test.h
         )
 
 set(SOURCE_FILES

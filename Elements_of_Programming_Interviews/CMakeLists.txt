@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.3)
 project(Elements_of_Programming_Interviews C CXX)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
 include_directories(
         Chapter_1_Getting_Ready
