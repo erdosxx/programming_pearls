@@ -15,5 +15,5 @@ add_executable(permute_the_elements_of_an_array_6_9_test
 add_executable(introduction_to_google_test introduction_to_google_test.cpp)
 
 target_link_libraries(runArraysTests gtest gtest_main)
-target_link_libraries(permute_the_elements_of_an_array_6_9_test gtest gtest_main)
-target_link_libraries(introduction_to_google_test gtest gtest_main)
+target_link_libraries(permute_the_elements_of_an_array_6_9_test gtest gmock gtest_main)
+target_link_libraries(introduction_to_google_test gtest gmock gtest_main)

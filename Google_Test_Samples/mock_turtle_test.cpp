@@ -1,13 +1,15 @@
 #include "mock_turtle.h"
 #include "painter.h"
 
-#include "gtest/gtest.h"
-
 using ::testing::AtLeast;
+using ::testing::_;
+using ::testing::Ge;
 
 TEST(PainterTest, CanDrawSomething) {
     MockTurtle turtle;
     EXPECT_CALL(turtle, PenDown()).Times(AtLeast(1));
+    EXPECT_CALL(turtle, Forward(_));
+    EXPECT_CALL(turtle, Forward(Ge(100)));
     Painter painter(&turtle);
 
     EXPECT_TRUE(painter.DrawCircle(0, 0, 10));

@@ -12,6 +12,13 @@
 #include <limits.h>
 #include "sample1.h"
 #include "gtest/gtest.h"
+#include "gmock/gmock.h"
+
+using ::testing::Eq;
+using ::testing::Le;
+using ::testing::Lt;
+using ::testing::Gt;
+using ::testing::Ge;
 
 namespace {
 
@@ -47,8 +54,11 @@ namespace {
         // This test is named "Negative", and belongs to the "FactorialTest"
         // test case.
         EXPECT_EQ(1, Factorial(-5));
+        EXPECT_THAT(1, Eq(Factorial(-5)));
         EXPECT_EQ(1, Factorial(-1));
+        EXPECT_THAT(1, Eq(Factorial(-1)));
         EXPECT_GT(Factorial(-10), 0);
+        EXPECT_THAT(0, Lt(Factorial(-10)));
 
         // <TechnicalDetails>
         //

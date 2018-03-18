@@ -5,8 +5,11 @@ using std::vector;
 using std::string;
 
 namespace permute_the_elements {
-    vector<string> permute(vector<int> p, vector <string> a) {
-        return {};
+    vector<string> apply(const vector<int> *p_permutation, vector<string> *p_array) {
+        if (p_permutation->size() == 0)
+            return {};
+        else
+            return *p_array;
     }
 }
 

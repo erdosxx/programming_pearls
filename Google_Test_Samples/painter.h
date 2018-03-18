@@ -10,6 +10,8 @@ public:
 
     bool DrawCircle(int, int, int) {
         turtle->PenDown();
+        turtle->Forward(100);
+        turtle->Forward(50);
         return true;
     }
 };

@@ -20,7 +20,6 @@ TEST(StringComparision, stringObject) {
     string aStr = "same string object";
     string bStr = "same string object";
     ASSERT_EQ(aStr, bStr);
-
 }
 
 TEST(StringComparision, CString) {
